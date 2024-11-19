@@ -1,0 +1,2545 @@
+# Translation of Plugins - YITH WooCommerce Subscription - Stable (latest release) in Spanish (Spain)
+# This file is distributed under the same license as the Plugins - YITH WooCommerce Subscription - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-09-04 12:52:02+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: es\n"
+"Project-Id-Version: Plugins - YITH WooCommerce Subscription - Stable (latest release)\n"
+
+#: includes/class-yith-wc-subscription-admin.php:245
+msgid "Our plugin is the only one out there that lets your customers subscribe to a box and customize it by picking exactly what and how many products they want. You can easily create a step-by-step process to guide them through their choices, set a fixed price or base it on the value of what they select, and even set limits on the minimum value or the number of products in the box."
+msgstr "Nuestro plugin es el único que permite a tus clientes suscribirse a un box y personalizarlo eligiendo exactamente qué y cuántos productos quieren. Puedes crear fácilmente un proceso paso a paso para guiarles en sus elecciones, establecer un precio fijo o basarlo en el valor de lo que seleccionen, e incluso establecer límites sobre el valor mínimo o el número de productos del box."
+
+#: includes/class-yith-wc-subscription-admin.php:244
+msgid "Sell Subscription Boxes"
+msgstr "Vender box de suscripción"
+
+#: includes/functions-yith-wc-subscription.php:839
+msgid "Subscription cancelled for max failed attempts."
+msgstr "Suscripción cancelada por máximo de intentos fallidos."
+
+#. translators: $1 gateway name $2 error message.
+#: includes/functions-yith-wc-subscription.php:813
+msgid "%1$s payment failed: %2$s"
+msgstr "%1$s pago fallido: %2$s"
+
+#: plugin-fw/includes/class-yith-external-services.php:72
+msgctxt "External Services error message"
+msgid "Error: Unable to process the External Services API Request."
+msgstr "Error: no se ha podido procesar la petición a la API de servicios externos."
+
+#: plugin-fw/includes/class-yith-system-status.php:195
+msgid "Database"
+msgstr "Base de datos"
+
+#. translators: %s stand for the order ID.
+#: includes/gateways/woocommerce-paypal-payments/module/src/class-ywsbs-wc-paypal-payments-renewal-handler.php:244
+msgid "Payment for order #%s already captured"
+msgstr "Pago del pedido #%s ya capturado"
+
+#: plugin-fw/includes/class-yith-post-type-admin.php:470
+msgid "Reset filters"
+msgstr "Restablecer filtros"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:255
+msgctxt "Button label"
+msgid "Reset filters"
+msgstr "Restablecer filtros"
+
+#: views/product/single-product-options.php:49
+msgid "Set the length of each recurring subscription period to daily or monthly."
+msgstr "Establece la duración de cada período de suscripción periódica como diaria o mensual."
+
+#: plugin-options/general-options.php:44
+msgid "Enable to generate a list of plugin actions. Note: This is a useful option to develop improvements and to provide support."
+msgstr "Activa para generar una lista de acciones del plugin. Nota: esta es una opción útil para desarrollar mejoras y proporcionar soporte."
+
+#: plugin-options/general-options.php:43
+msgid "Enable log"
+msgstr "Activa el registro"
+
+#: plugin-options/customization-options.php:45
+msgid "Cart and Checkout"
+msgstr "Carrito y pago"
+
+#: plugin-options/customization-options.php:31
+msgid "Replace the \"Add to cart\" button label in subscription products."
+msgstr "Reemplaza la etiqueta del botón «añade al carrito» en productos de suscripción."
+
+#. translators: Hidden accessibility text.
+#: plugin-fw/includes/class-yith-post-type-admin.php:414
+msgid "Show more details"
+msgstr "Muestra más detalles"
+
+#: includes/gateways/woocommerce-paypal-payments/module/src/class-ywsbs-wc-paypal-payments-renewal-handler.php:306
+msgid "Payment provider declined the payment, please use a different payment method."
+msgstr "El proveedor de pagos rechazó el pago, por favor, utiliza un método de pago distinto."
+
+#: includes/gateways/woocommerce-paypal-payments/module/src/class-ywsbs-wc-paypal-payments-renewal-handler.php:304
+msgid "Could not get the payment authorization."
+msgstr "No se ha podido obtener la autorización del pago."
+
+#: includes/gateways/woocommerce-paypal-payments/module/src/class-ywsbs-wc-paypal-payments-renewal-handler.php:298
+msgid "Awaiting payment."
+msgstr "Esperando el pago."
+
+#. translators: %s stand for the order ID.
+#: includes/gateways/woocommerce-paypal-payments/module/src/class-ywsbs-wc-paypal-payments-renewal-handler.php:249
+msgid "Capture payment for order #%s failed"
+msgstr "Fallo en la captura del pago del pedido #%s"
+
+#. translators: %1$s is the payment token Id, %2$s is the error message.
+#: includes/gateways/woocommerce-paypal-payments/module/src/class-ywsbs-wc-paypal-payments-module.php:174
+msgid "Could not add token Id to subscription %1$s: %2$s"
+msgstr "No se ha podido añadir el identificador token a la suscripción %1$s: %2$s"
+
+#. translators: placeholder subscription id.
+#: includes/class-ywsbs-subscription-order.php:657
+msgid "This order has been created to renew subscription <a href=\"%1$s\" target=\"_blank\">#%2$s</a>"
+msgstr "Este pedido se ha creado para renovar la suscripción <a href=\"%1$s\" target=\"_blank\">#%2$s</a>"
+
+#: includes/class-ywsbs-subscription-order.php:440
+msgctxt "Placeholders: url of subscription, ID subscription"
+msgid "A new subscription <a href=\"%1$s\">%2$s</a> has been created from this order"
+msgstr "Una nueva suscripción <a href=\"%1$s\">#%2$s</a> ha sido creada para este pedido"
+
+#: includes/class-yith-wc-subscription-frontend.php:72
+msgid "Place order"
+msgstr "Realizar pedido"
+
+#: includes/class-yith-wc-subscription-admin.php:249
+msgid "With the premium version of Subscription and Membership, you can create subscription plans and allow subscribers to access exclusive content (video courses, digital resources, e-books and audiobooks, podcasts, etc.) on restricted sections of your site. Users who have not subscribed will not have access to such content."
+msgstr "Con la versión premium de Subscription y Membership, puedes crear planes de suscripción y permitir a los suscriptores acceder a contenidos exclusivos (videocursos, recursos digitales, libros electrónicos y audiolibros, podcasts, etc.) en secciones restringidas de tu sitio. Los usuarios que no se hayan suscrito no tendrán acceso a dichos contenidos."
+
+#: includes/class-yith-wc-subscription-admin.php:248
+msgid "Use Subscription in combination with \"Membership\" to manage access to digital content and products"
+msgstr "Utiliza Subscription en combinación con «Membership» para gestionar el acceso a contenidos y productos digitales"
+
+#: includes/class-yith-wc-subscription-admin.php:241
+msgid "In the free version, your customers have to pay for the subscription with PayPal. With the premium version, you can offer additional payment methods and use one of our plugins (e.g. Stripe) to charge their credit cards automatically."
+msgstr "En la versión gratuita, tus clientes tienen que pagar la suscripción con PayPal. Con la versión premium, puedes ofrecer métodos de pago adicionales y utilizar uno de nuestros plugins (por ejemplo, Stripe) para cargar sus tarjetas de crédito automáticamente."
+
+#: includes/class-yith-wc-subscription-admin.php:240
+msgid "Extra options to pay for the subscriptions"
+msgstr "Opciones adicionales para pagar las suscripciones"
+
+#: includes/class-yith-wc-subscription-admin.php:237
+msgid "Has one of your customers decided to subscribe and you want to manage the subscription manually? In the premium version, you can create subscriptions manually to manage cash payments and not lose customers who would find it difficult to subscribe on your site (due to age, lack of time, unfamiliarity with using an e-commerce, etc.)."
+msgstr "¿Alguno de tus clientes ha decidido suscribirse y quieres gestionar la suscripción manualmente? En la versión Premium, puedes crear suscripciones manualmente para gestionar los pagos en efectivo y no perder clientes a los que les resultaría difícil suscribirse en tu sitio (por edad, falta de tiempo, desconocimiento del uso de un comercio electrónico, etc.)."
+
+#: includes/class-yith-wc-subscription-admin.php:236
+msgid "Create and manage subscriptions manually"
+msgstr "Crea y gestiona suscripciones manualmente"
+
+#: includes/class-yith-wc-subscription-admin.php:233
+msgid "If subscriptions include shipping a product (e.g. a box of products, a print magazine, etc.) use the dedicated option to schedule the shipping and decide whether or not to synchronize all the shipments to the usual day (e.g. the box will be sent every 5th day of the month, the magazine every Monday, etc.)."
+msgstr "Si las suscripciones incluyen el envío de un producto (por ejemplo, una caja de productos, una revista impresa, etc.) utiliza la opción dedicada para programar el envío y decidir si sincronizar o no todos los envíos al día habitual (por ejemplo, la caja se enviará cada 5 días del mes, la revista cada lunes, etc.)."
+
+#: includes/class-yith-wc-subscription-admin.php:232
+msgid "Schedule the shipping of the subscription products"
+msgstr "Programa el envío de los productos de suscripción"
+
+#: includes/class-yith-wc-subscription-admin.php:229
+msgid "Simplify subscription management by synchronizing all recurring payments to a specific day (every Monday, the 1st of each month, etc.) and choose how to handle the first payment at the time of subscription: you can ask users to pay a prorated amount or postpone the payment of the total amount to the day set in the synchronization."
+msgstr "Simplifica la gestión de las suscripciones sincronizando todos los pagos periódicos a un día concreto (cada lunes, el día 1 de cada mes, etc.) y elige cómo gestionar el primer pago en el momento de la suscripción: puedes pedir a los usuarios que paguen una cantidad prorrateada o posponer el pago del importe total al día establecido en la sincronización."
+
+#: includes/class-yith-wc-subscription-admin.php:225
+msgid "In the premium version, you can generate coupons to offer discounts on the first payment (when users sign up for the subscription) or on subsequent recurring payments (e.g. a 50% discount on the first three months, a strategy also implemented by Amazon!)"
+msgstr "En la versión premium, puedes generar cupones para ofrecer descuentos en el primer pago (cuando los usuarios se suscriben) o en los pagos periódicos posteriores (por ejemplo, un descuento del 50% en los tres primeros meses, ¡una estrategia que también aplica Amazon!)"
+
+#: includes/class-yith-wc-subscription-admin.php:224
+msgid "Create advanced discount coupons to push users to subscribe"
+msgstr "Crea cupones de descuento avanzados para empujar a los usuarios a suscribirse"
+
+#: includes/class-yith-wc-subscription-admin.php:221
+msgid "Choose whether to charge an extra fee (subscription fee, insurance, etc.) to your customers when they subscribe, define the amount, and choose the label to display it in your shop."
+msgstr "Elige si quieres cobrar una cuota adicional (cuota de suscripción, seguro, etc.) a tus clientes cuando se suscriban, define el importe y elige la etiqueta para mostrarlo en tu tienda."
+
+#: includes/class-yith-wc-subscription-admin.php:220
+msgid "Set a subscription fee for subscriptions   "
+msgstr "Establece una cuota para las suscripciones   "
+
+#: includes/class-yith-wc-subscription-admin.php:217
+msgid "A free trial period can be the most effective tool to push users to sign up and try your products or services for free and without a commitment: when the trial period expires, it will be easier to push them to subscribe and increase conversions."
+msgstr "Un periodo de prueba gratuito puede ser la herramienta más eficaz para empujar a los usuarios a suscribirse y probar tus productos o servicios gratis y sin compromiso: cuando caduque el periodo de prueba, será más fácil empujarles a suscribirse y aumentar las conversiones."
+
+#: includes/class-yith-wc-subscription-admin.php:216
+msgid "Offer a free trial period and push users to subscribe"
+msgstr "Ofrece un periodo de prueba gratuito y empuja a los usuarios a suscribirse"
+
+#: includes/class-yith-wc-subscription-admin.php:213
+msgid "In the premium version, you can set up weekly and annual subscriptions and use product variations to set up different subscription plans for the same product. "
+msgstr "En la versión premium, puedes establecer suscripciones semanales y anuales y utilizar variaciones de producto para establecer diferentes planes de suscripción para el mismo producto. "
+
+#: includes/class-yith-wc-subscription-admin.php:212
+msgid "Extra options to set up subscription plans"
+msgstr "Opciones adicionales para establecer planes de suscripción"
+
+#: includes/class-yith-wc-subscription-admin.php:144
+msgid "Set custom labels to create your own style."
+msgstr "Establece etiquetas personalizadas para crear tu propio estilo."
+
+#: includes/class-yith-wc-subscription-admin.php:139
+msgid "Set the general behaviour of the plugin."
+msgstr "Establece el comportamiento general del plugin."
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:431
+msgctxt "Subscription table filter status"
+msgid "All"
+msgstr "Todo"
+
+#: includes/admin/class-ywsbs-product-post-type-admin.php:85
+msgid "Subscription settings"
+msgstr "Ajustes de suscripción"
+
+#: plugin-fw/includes/class-yit-plugin-panel-woocommerce.php:501
+#: plugin-fw/includes/class-yit-plugin-panel.php:1562
+msgid "Options saved!"
+msgstr "¡Opciones guardadas!"
+
+#: plugin-fw/templates/panel/v2/premium-tab.php:24
+msgctxt "Premium Tab"
+msgid "Check out the advanced features you can get by upgrading to premium!"
+msgstr "¡Echa un vistazo a las características avanzadas que puedes obtener si actualizas a premium!"
+
+#: plugin-fw/templates/panel/v2/premium-tab.php:22
+msgctxt "Premium Tab"
+msgid "Upgrade to unlock premium features"
+msgstr "Actualiza para desbloquear características premium"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:124
+msgctxt "Premium Tab"
+msgid "Verified Customer"
+msgstr "Cliente verificado"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:98
+msgctxt "Premium Tab"
+msgid "100% Money-back guarantee"
+msgstr "Garantía de devolución del 100% del dinero"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:97
+msgctxt "Premium Tab"
+msgid "Technical support"
+msgstr "Soporte técnico"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:96
+msgctxt "Premium Tab"
+msgid "Regular updates"
+msgstr "Actualizaciones periódicas"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:95
+msgctxt "Premium Tab"
+msgid "Advanced features"
+msgstr "Características avanzadas"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:83
+msgctxt "Premium Tab"
+msgid "Upgrade now to unlock premium features"
+msgstr "Actualiza ahora para desbloquear características premium"
+
+#. translators: %s is the discount percentage.
+#: plugin-fw/templates/panel/premium-tab-content.php:79
+msgctxt "Premium Tab"
+msgid "Upgrade now to get a %s%% off"
+msgstr "Actualiza ahora para obtener un %s%% de descuento"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1305
+msgid ""
+"At first, I was hesitant to buy the premium version so I started with the free option.\n"
+"After a while, seeing the quality of the plugin and the results I was getting, I decided to give it a shot and switch to premium. No regrets!\n"
+"They have an amazing support team that is always there no matter how big or small your problem is. Do yourself a favor and stop using free plugins that kind of work and just buy whatever plugin you need from YITH."
+msgstr ""
+"Al principio, dudaba si comprar la versión premium, así que empecé con la opción gratuita.\n"
+"Después de un tiempo, viendo la calidad del plugin y los resultados que estaba obteniendo, decidí darle una oportunidad y cambiarme a premium. ¡No me arrepiento!\n"
+"Tienen un equipo de soporte increíble que siempre está ahí por grande o pequeño que sea tu problema. Hazte un favor y deja de usar plugins gratuitos que no funcionan y compra cualquier plugin que necesites de YITH."
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:51
+msgctxt "Plugin in \"Your Store Tools\" tab"
+msgid "Get it"
+msgstr "Consíguelo"
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:46
+msgctxt "Plugin in \"Your Store Tools\" tab"
+msgid "Active"
+msgstr "Activo"
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:35
+msgctxt "Plugin in \"Your Store Tools\" tab"
+msgid "Best choice"
+msgstr "Mejor opción"
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:21
+msgid "Additional tools to improve UX, increase conversions, and loyalize customers."
+msgstr "Herramientas adicionales para mejorar la experiencia de usuario, aumentar las conversiones y fidelizar a tus clientes."
+
+#: plugin-fw/templates/panel/v2/your-store-tools-tab.php:17
+msgid "#1 Independent Seller of <mark>WooCommerce plugins</mark>"
+msgstr "Vendedor independiente #1 de <mark>plugins para WooCommerce</mark>"
+
+#: plugin-fw/templates/fields/ajax-orders.php:16
+msgid "Search for an order..."
+msgstr "Buscar un pedido..."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:992
+msgctxt "Panel tab name"
+msgid "Your Store Tools"
+msgstr "Herramientas de tu tienda"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:45
+#: plugin-fw/templates/panel/v2/panel-option-label-tags.php:16
+msgctxt "Panel option tag"
+msgid "PREMIUM"
+msgstr "PREMIUM"
+
+#: plugin-fw/templates/panel/v2/panel-nav.php:36
+#: plugin-fw/templates/sysinfo/system-information-panel.php:46
+msgid "Collapse"
+msgstr "Cerrar"
+
+#. translators: %s is the alternative action "Upload a file".
+#: plugin-fw/templates/fields/media.php:72
+msgid "Upload a file"
+msgstr "Subir un archivo"
+
+#. translators: %s is the alternative action "Upload a file".
+#: plugin-fw/templates/fields/media.php:71
+msgid "Drag or %s"
+msgstr "Arrastrar o %s"
+
+#: plugin-fw/templates/fields/media.php:53
+msgid "Enter URL"
+msgstr "Introducir URL"
+
+#: plugin-fw/templates/fields/media.php:47
+msgid "Upload file"
+msgstr "Subir archivo"
+
+#: plugin-fw/templates/fields/file.php:14
+msgid "Drag or upload a file."
+msgstr "Arrastrar o subir un archivo."
+
+#: plugin-fw/includes/class-yit-plugin-panel-woocommerce.php:555
+msgid "Options reset correctly!"
+msgstr "¡Opciones restablecidas correctamente!"
+
+#: plugin-fw/includes/class-yit-assets.php:214
+msgid "You cannot drop files here."
+msgstr "Aquí no se pueden soltar archivos."
+
+#: plugin-fw/includes/class-yit-assets.php:213
+msgid "No file provided."
+msgstr "No se proporcionó ningún archivo."
+
+#: plugin-fw/includes/class-yit-assets.php:212
+msgctxt "Title"
+msgid "Error"
+msgstr "Error"
+
+#. translators: %s is the number of characters.
+#: plugin-fw/includes/class-yit-assets.php:200
+msgctxt "Enhanced select"
+msgid "Searching&hellip;"
+msgstr "Buscando&hellip;"
+
+#. translators: %s is the number of characters.
+#: plugin-fw/includes/class-yit-assets.php:199
+msgctxt "Enhanced select"
+msgid "Please enter %s or more characters"
+msgstr "Por favor, introduce %s o más caracteres"
+
+#: plugin-fw/includes/class-yit-assets.php:197
+msgctxt "Enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr "Por favor, introduce 1 o más caracteres"
+
+#: plugin-fw/includes/class-yit-assets.php:196
+msgctxt "Enhanced select"
+msgid "No matches found"
+msgstr "No se han encontrado coincidencias"
+
+#. translators: %s is the number of steps.
+#: plugin-fw/templates/panel/welcome-modals/welcome.php:45
+msgid "Start with these %s steps:"
+msgstr "Comienza con estos %s pasos:"
+
+#: plugin-fw/templates/panel/welcome-modals/welcome.php:30
+msgid "Thank you for using our plugin"
+msgstr "Gracias por usar nuestro plugin"
+
+#: plugin-fw/templates/panel/welcome-modals/update.php:64
+#: plugin-fw/templates/panel/welcome-modals/welcome.php:60
+msgid "Got it, close this window"
+msgstr "Entendido, cierra esta ventana"
+
+#: plugin-fw/templates/panel/welcome-modals/update.php:49
+msgid "Check the changelog >"
+msgstr "Comprueba el registro de cambios >"
+
+#. translators: %s is the plugin version.
+#: plugin-fw/templates/panel/welcome-modals/update.php:44
+msgid "What's new in version %s"
+msgstr "Novedades en la versión %s"
+
+#. translators: %s is the plugin version.
+#: plugin-fw/templates/panel/welcome-modals/update.php:34
+msgid "is successfully updated to version %s."
+msgstr "se actualizó correctamente a la versión %s."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1185
+msgid "See how it works before you start using it"
+msgstr "Mira cómo funciona antes de comenzar a utilizarlo"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1184
+msgid "Watch our <mark>\"First Steps\" video</mark>"
+msgstr "Mira nuestro <mark>vídeo «Primeros pasos»</mark> "
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1174
+msgid "Learn what you can really do with this powerful tool"
+msgstr "Aprende lo que realmente puedes hacer con esta potente herramienta"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1173
+msgid "Read the <mark>plugin documentation</mark>"
+msgstr "Lee la <mark>documentación del plugin</mark>"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:66
+msgctxt "Premium Tab"
+msgid "Check the premium features >"
+msgstr "Comprueba las características premium >"
+
+#: plugin-fw/templates/panel/help-tab.php:241
+msgctxt "Help tab support"
+msgid "Yes, I need help"
+msgstr "Sí, necesito ayuda"
+
+#: plugin-fw/templates/panel/help-tab.php:238
+msgctxt "Help tab support"
+msgid "Call or chat 24/7 with our support agents, or let our experts build your site."
+msgstr "Llama o chatea las 24 horas del día con nuestros agentes de soporte, o deja que nuestros expertos construyan tu sitio."
+
+#: plugin-fw/templates/panel/help-tab.php:235
+msgctxt "Help tab support"
+msgid "From DIY to full-service help"
+msgstr "Ayuda desde «hazlo tu mismo» hasta un servicio completo"
+
+#: plugin-fw/templates/panel/help-tab.php:231
+#: plugin-fw/templates/panel/help-tab.php:233
+msgctxt "Help tab support"
+msgid "Need some help?"
+msgstr "¿Necesitas ayuda?"
+
+#: plugin-fw/templates/panel/help-tab.php:220
+msgctxt "Help tab documentation"
+msgid "to learn how it works from the basics."
+msgstr "para aprender cómo funciona desde lo más básico."
+
+#: plugin-fw/templates/panel/help-tab.php:216
+#: plugin-fw/templates/panel/help-tab.php:218
+#: plugin-fw/templates/panel/help-tab.php:223
+msgctxt "Help tab documentation"
+msgid "Read the plugin documentation"
+msgstr "Lee la documentación del plugin"
+
+#: plugin-fw/templates/bh-onboarding/onboarding-tabs.php:60
+msgid "Save"
+msgstr "Guardar"
+
+#: plugin-fw/includes/class-yith-bh-onboarding.php:85
+msgid "It is not possible save the options"
+msgstr "No es posible guardar las opciones"
+
+#. translators: 1. Plugin name.
+#: plugin-fw/includes/class-yit-plugin-panel.php:920
+msgctxt "Help tab default title"
+msgid "Thank you for using %s!"
+msgstr "¡Gracias por usar %s!"
+
+#. translators: 1. Plugin(s) name(s).
+#: plugin-fw/yit-plugin.php:282
+msgid "%s was deactivated as you're running an higher tier version of the same plugin."
+msgid_plural "%s were deactivated as you're running higher tier versions of the same plugins."
+msgstr[0] "%s ha sido desactivado, ya que estás ejecutando una versión superior del mismo plugin."
+msgstr[1] "%s han sido desactivados, ya que estás ejecutando versiones superiores de los mismos plugins."
+
+#: plugin-fw/templates/panel/help-tab.php:142
+msgctxt "Help tab Watch video tutorials link"
+msgid "to see some helpful use cases."
+msgstr "para ver algunos casos de uso útiles."
+
+#: plugin-fw/templates/panel/help-tab.php:129
+msgctxt "Help tab Read Documentation link"
+msgid "to learn how the plugin works from the basics."
+msgstr "para aprender cómo funciona el plugin desde lo más básico."
+
+#: plugin-fw/templates/fields/ajax-terms.php:41
+msgid "Search for a category..."
+msgstr "Buscar una categoría..."
+
+#: plugin-fw/templates/fields/ajax-posts.php:41
+msgid "Search for a post..."
+msgstr "Buscar una entrada..."
+
+#: plugin-fw/templates/fields/ajax-customers.php:41
+msgid "Search for a customer..."
+msgstr "Buscar un cliente..."
+
+#: plugin-fw/templates/panel/premium-tab-content.php:102
+msgctxt "Premium Tab"
+msgid "Get the premium version"
+msgstr "Obtén la versión premium"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:62
+msgctxt "Premium Tab"
+msgid "Check the free vs premium features >"
+msgstr "Comprueba las características gratuitas frente a las premium >"
+
+#: plugin-fw/templates/panel/premium-tab-content.php:59
+msgctxt "Premium Tab"
+msgid "...and so much more!"
+msgstr "... ¡y mucho más!"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:977
+msgctxt "Premium tab name"
+msgid "Get premium"
+msgstr "Hazte premium"
+
+#. Translators: %1$f: Table size, %2$f: Index size, %3$f: Free size, %4$s
+#. Engine.
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:57
+msgid "Data: %1$.2fMB | Index: %2$.2fMB | Free: %3$.2fMB | Engine: %4$s"
+msgstr "Datos: %1$.2f MB | Índice: %2$.2f MB | Libre: %3$.2f MB | Motor: %4$s"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:46
+msgid "Database Free Size"
+msgstr "Tamaño libre de la base de datos"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:42
+msgid "Database Index Size"
+msgstr "Tamaño del índice de la base de datos"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:38
+msgid "Database Data Size"
+msgstr "Tamaño de los datos de la base de datos"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:34
+msgid "Total Database Size"
+msgstr "Tamaño total de la base de datos"
+
+#. Translators: %s: Codex link.
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:19
+msgid "WordPress requirements"
+msgstr "Requisitos de WordPress"
+
+#. Translators: %s: Codex link.
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:19
+msgid "WordPress recommends a minimum MySQL version of 5.6. See: %s"
+msgstr "WordPress recomienda, como mínimo, la versión 5.6 de MySQL. Ver: %s"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:28
+msgid "MySQL version"
+msgstr "Versión de MySQL"
+
+#: plugin-fw/templates/sysinfo/tabs/db-info.php:24
+msgid "Database Info"
+msgstr "Información de la base de datos"
+
+#. translators: %s is the name of the plugin that is loading the framework.
+#: plugin-fw/templates/sysinfo/tabs/main.php:66
+msgid "loaded by %s"
+msgstr "cargado por %s"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:61
+msgid "YITH Plugin Framework Version"
+msgstr "Versión del framework del plugin de YITH"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:92
+msgid "Payment method"
+msgstr "Método de pago"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:86
+msgid "Customer"
+msgstr "Cliente"
+
+#: views/product/single-product-options.php:107
+msgid "Limit user to allow only one subscription of any status, either active or not"
+msgstr "Limitar al usuario permitiendo solo una suscripción en cualquier estado, activa o no"
+
+#: views/product/single-product-options.php:106
+msgid "Limit user to allow only one active subscription"
+msgstr "Limita al usuario permitiendo solo una suscripción activa"
+
+#: views/product/single-product-options.php:101
+msgid "Set optional limits for this product subscription."
+msgstr "Establecer límites opcionales para la suscripción de este producto."
+
+#: views/product/single-product-options.php:100
+msgid "Limit subscription"
+msgstr "Limitar suscripción"
+
+#: views/product/single-product-options.php:94
+msgid "Enable to apply limits to the customer purchasing this subscription."
+msgstr "Habilitar para aplicar límites al cliente que adquiera esta suscripción."
+
+#: views/product/single-product-options.php:84
+msgid "Apply subscription limits"
+msgstr "Aplicar límites de suscripción"
+
+#: views/product/single-product-options.php:80
+msgid "Choose if the subscription has an end time or not."
+msgstr "Elige si la suscripción tiene una fecha de finalización o no."
+
+#: views/product/single-product-options.php:73
+msgid "Subscription will end after"
+msgstr "La suscripción terminará tras"
+
+#: views/product/single-product-options.php:64
+msgid "Set an end time"
+msgstr "Establece una fecha de finalización"
+
+#: views/product/single-product-options.php:57
+msgid "Subscription ends"
+msgstr "La suscripción finaliza"
+
+#: views/product/single-product-options.php:38
+msgid "Users will pay every"
+msgstr "Los usuarios pagarán cada"
+
+#: templates/myaccount/view-subscription.php:321
+msgid "No shipping found for this subscription."
+msgstr "No se han encontrado envíos para esta suscripción."
+
+#: templates/myaccount/view-subscription.php:315
+msgid "Shipping Information"
+msgstr "Información de envío"
+
+#: templates/myaccount/view-subscription.php:304
+msgid "Phone:"
+msgstr "Teléfono:"
+
+#: templates/myaccount/view-subscription.php:296
+msgid "Billing Information"
+msgstr "Información de Facturación"
+
+#: templates/myaccount/view-subscription.php:250
+msgid "Pay"
+msgstr "Pago"
+
+#: templates/myaccount/view-subscription.php:235
+msgid "item"
+msgid_plural "items"
+msgstr[0] "artículo"
+msgstr[1] "artículos"
+
+#: templates/myaccount/view-subscription.php:204
+msgid "Deleted"
+msgstr "Eliminada"
+
+#: templates/myaccount/view-subscription.php:189
+#: templates/myaccount/view-subscription.php:220
+msgctxt "hash before order number"
+msgid "#"
+msgstr "#"
+
+#: templates/myaccount/view-subscription.php:188
+#: templates/myaccount/view-subscription.php:218
+msgid "Order Number"
+msgstr "Número de pedido"
+
+#: templates/myaccount/view-subscription.php:175
+#: templates/myaccount/view-subscription.php:199
+#: templates/myaccount/view-subscription.php:234
+msgid "Items"
+msgstr "Artículos"
+
+#: templates/myaccount/view-subscription.php:173
+#: templates/myaccount/view-subscription.php:192
+#: templates/myaccount/view-subscription.php:224
+msgid "Date"
+msgstr "Fecha"
+
+#: templates/myaccount/view-subscription.php:168
+msgid "Related Orders"
+msgstr "Pedidos Relacionados"
+
+#: templates/myaccount/view-subscription.php:145
+msgid "Shipping Tax:"
+msgstr "Tasa de envío:"
+
+#. translators:placeholder: 1. shipping name 2 and 3 html tags.
+#: templates/myaccount/view-subscription.php:137
+msgctxt "placeholder: 1. shipping name 2 and 3 html tags"
+msgid "%2$s via %1$s%3$s"
+msgstr "%2$s vía %1$s%3$s"
+
+#: templates/myaccount/view-subscription.php:133
+msgid "Shipping:"
+msgstr "Envío:"
+
+#: templates/myaccount/view-subscription.php:124
+msgid "Subtotal:"
+msgstr "Subtotal:"
+
+#: templates/myaccount/view-subscription.php:117
+msgid "Item Tax:"
+msgstr "Tasa de artículo:"
+
+#: templates/myaccount/view-subscription.php:97
+msgid "Subscription total"
+msgstr "Total de la suscripción"
+
+#: templates/myaccount/view-subscription.php:70
+msgid "Expiring on:"
+msgstr "Expira el:"
+
+#: templates/myaccount/view-subscription.php:63
+msgid "Next billing:"
+msgstr "Próxima facturación:"
+
+#: templates/myaccount/view-subscription.php:57
+msgid "Last billing:"
+msgstr "Última facturación:"
+
+#: templates/myaccount/view-subscription.php:51
+msgid "Started on:"
+msgstr "Comenzada el:"
+
+#: templates/myaccount/view-subscription.php:43
+msgid "Plan:"
+msgstr "Plan:"
+
+#: templates/myaccount/view-subscription.php:40
+msgid "Subscription info"
+msgstr "Información de suscripción"
+
+#: templates/myaccount/view-subscription.php:34
+msgid "< Back to all subscriptions"
+msgstr "< Volver a todas las suscripciones"
+
+#: templates/myaccount/view-subscription.php:19
+msgid "You do not have permissions necessary to access to this page"
+msgstr "No tienes la autorización necesaria para acceder a esta página"
+
+#: templates/myaccount/my-subscriptions-view.php:103
+msgid "Next"
+msgstr "Siguiente"
+
+#: templates/myaccount/my-subscriptions-view.php:99
+msgid "Previous"
+msgstr "Anterior"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:89
+#: templates/myaccount/my-subscriptions-view.php:79
+msgid "Ended on"
+msgstr "Finalizada el"
+
+#: templates/myaccount/my-subscriptions-view.php:32
+msgid "Ends on"
+msgstr "Finaliza el"
+
+#: templates/myaccount/my-subscriptions-view.php:31
+#: templates/myaccount/my-subscriptions-view.php:74
+msgid "Next Billing"
+msgstr "Próxima facturación"
+
+#: templates/myaccount/my-subscriptions-view.php:23
+msgid "There is no active subscription for your account."
+msgstr "No hay suscripciones activas en tu cuenta."
+
+#: templates/cart/ywsbs-recurring-totals.php:50
+msgid "(ex. shipping)"
+msgstr "(ej. envío)"
+
+#: templates/cart/ywsbs-recurring-totals.php:20
+msgid "Recurring totals"
+msgstr "Totales de pagos periódicos"
+
+#: templates/admin/metabox/metabox_subscription_product.php:302
+msgid "This subscription is not editable."
+msgstr "Esta suscripción no se puede editar."
+
+#: templates/admin/metabox/metabox_subscription_product.php:214
+msgid "Coupon(s)"
+msgstr "Cupón(es)"
+
+#: templates/admin/metabox/metabox_subscription_product.php:159
+msgid "Shipping name"
+msgstr "Nombre del envío"
+
+#: templates/admin/metabox/metabox_subscription_product.php:140
+msgid "Edit item"
+msgstr "Editar elemento"
+
+#: templates/admin/metabox/metabox_subscription_product.php:126
+msgid "Total Tax:"
+msgstr "Total de impuestos:"
+
+#: templates/admin/metabox/metabox_subscription_product.php:109
+#: templates/myaccount/view-subscription.php:153
+msgid "Total:"
+msgstr "Total:"
+
+#. translators: %s: variation id
+#: templates/admin/metabox/metabox_subscription_product.php:73
+msgctxt "Placeholder: variation id"
+msgid "%s (No longer exists)"
+msgstr "%s (Ya no existe)"
+
+#: templates/admin/metabox/metabox_subscription_product.php:67
+msgid "Variation ID:"
+msgstr "ID de la variación:"
+
+#: templates/admin/metabox/metabox_subscription_product.php:63
+msgid "SKU:"
+msgstr "SKU:"
+
+#: templates/admin/metabox/metabox_subscription_product.php:36
+#: templates/admin/metabox/metabox_subscription_product.php:273
+msgid "Tax"
+msgstr "Tasa"
+
+#: templates/admin/metabox/metabox_subscription_product.php:35
+#: templates/admin/metabox/metabox_subscription_product.php:285
+#: templates/myaccount/view-subscription.php:174
+#: templates/myaccount/view-subscription.php:196
+#: templates/myaccount/view-subscription.php:230
+msgid "Total"
+msgstr "Total"
+
+#: templates/admin/metabox/metabox_subscription_product.php:34
+msgid "Qty"
+msgstr "Qty"
+
+#: templates/admin/metabox/metabox_subscription_product.php:33
+msgid "Cost"
+msgstr "Coste"
+
+#: templates/admin/metabox/metabox_subscription_product.php:32
+msgid "Item"
+msgstr "Elemento"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:156
+msgid "No shipping address set."
+msgstr "No se ha establecido ninguna dirección de envío."
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:146
+#: templates/admin/metabox/metabox_subscription_product.php:259
+msgid "Shipping"
+msgstr "Envío"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:115
+msgid "No billing address set."
+msgstr "No se ha establecido ninguna dirección de facturación."
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:115
+#: templates/admin/metabox/metabox_subscription_info_content.php:156
+#: templates/myaccount/view-subscription.php:308
+#: templates/myaccount/view-subscription.php:318
+msgid "Address:"
+msgstr "Dirección:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:105
+msgid "Billing"
+msgstr "Facturación"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:83
+msgid "Transaction ID:"
+msgstr "ID de variación:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:78
+msgid "Payment Method:"
+msgstr "Método de pago:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:72
+#: templates/myaccount/view-subscription.php:76
+msgid "End date:"
+msgstr "Fecha de fin:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:66
+msgid "Cancelled date:"
+msgstr "Fecha de cancelación:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:60
+msgid "Payment due date:"
+msgstr "Fecha de adeudo:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:54
+msgid "Expired date:"
+msgstr "Fecha de expiración:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:48
+msgid "Started date:"
+msgstr "Fecha de inicio:"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:43
+msgid "General Details"
+msgstr "Detalles generales"
+
+#. translators: Placeholder: subscription id.
+#: templates/admin/metabox/metabox_subscription_info_content.php:33
+msgctxt "Placeholder: subscription id"
+msgid "Subscription %s details"
+msgstr "Detalles de suscripción %s"
+
+#: templates/admin/metabox/metabox_subscription_history.php:56
+msgid "M j, Y"
+msgstr "M j, A"
+
+#: templates/admin/metabox/metabox_subscription_history.php:31
+msgid "Amount"
+msgstr "Cantidad"
+
+#: templates/admin/metabox/metabox_subscription_history.php:30
+msgid "Paid on:"
+msgstr "Pagado el:"
+
+#: templates/admin/metabox/metabox_subscription_history.php:28
+msgid "Date:"
+msgstr "Fecha:"
+
+#: templates/admin/metabox/metabox_subscription_history.php:26
+msgid "List of related order:"
+msgstr "Lista de pedido relacionado:"
+
+#: templates/admin/metabox/metabox_subscription_history.php:20
+msgid "No orders found for this subscription."
+msgstr "No se han encontrado pedidos para esta suscripción."
+
+#: templates/admin/metabox/metabox_subscription_action_content.php:33
+#: templates/admin/metabox/metabox_subscription_action_content.php:34
+msgid "Process"
+msgstr "Proceso"
+
+#: templates/admin/metabox/metabox_subscription_action_content.php:23
+msgid "Activate Subscription"
+msgstr "Activar suscripción"
+
+#: templates/admin/metabox/metabox_subscription_action_content.php:20
+msgid "Actions"
+msgstr "Acciones"
+
+#: plugin-options/general-options.php:136
+msgid "Choose when to delete cancelled subscriptions."
+msgstr "Elige cuando eliminar las suscripciones canceladas."
+
+#: plugin-options/general-options.php:135
+msgid "Delete cancelled subscriptions after"
+msgstr "Elimina las suscripciones canceladas tras"
+
+#: plugin-options/general-options.php:124
+#: plugin-options/general-options.php:153
+msgid "years"
+msgstr "años"
+
+#: plugin-options/general-options.php:122
+#: plugin-options/general-options.php:151
+msgid "weeks"
+msgstr "semanas"
+
+#: plugin-options/general-options.php:106
+msgid "Choose when to delete pending subscriptions."
+msgstr "Elige cuando eliminar las suscripciones pendientes."
+
+#: plugin-options/general-options.php:105
+msgid "Delete pending subscriptions after"
+msgstr "Elimina las suscripciones pendientes tras"
+
+#: plugin-options/general-options.php:97
+msgid "Choose if pending and/or cancelled subscriptions can be trashed after the specified duration."
+msgstr "Elige si las suscripciones pendientes y/o canceladas pueden enviarse a la papelera después de la duración especificada."
+
+#: plugin-options/general-options.php:96
+msgid "Delete pending and cancelled subscriptions"
+msgstr "Elimina las suscripciones pendientes y canceladas"
+
+#: plugin-options/general-options.php:88
+msgid "Note: all affected subscription status' will be changed to 'cancelled'."
+msgstr "Nota: el estado de todas las suscripciones afectadas será cambiado a 'cancelada'"
+
+#: plugin-options/general-options.php:88
+msgid "Enable to erase the personal information of a subscription if an account erasure request is made."
+msgstr "Activar para borrar la información personal de una suscripción si se hace una solicitud de borrado de una cuenta."
+
+#: plugin-options/general-options.php:87
+msgid "Delete personal info after an account erasure requests"
+msgstr "Eliminar información personal tras solicitudes de eliminación de cuenta"
+
+#: plugin-options/general-options.php:81
+msgid "GPDR & Privacy"
+msgstr "RGPD y Privacidad"
+
+#: plugin-options/general-options.php:65
+msgid "Enable to allow the shop manager to access and edit the plugin options."
+msgstr "Activa para permitir al gerente de la tienda que acceda a las opciones del plugin y editarlas."
+
+#: plugin-options/general-options.php:64
+msgid "Shop manager can manage subscription settings"
+msgstr "El gestor de la tienda puede gestionar los ajustes de la suscripción"
+
+#: plugin-options/general-options.php:58
+msgid "Extra settings"
+msgstr "Ajustes extra"
+
+#: plugin-options/general-options.php:35
+msgid "Enable if you want to delete a subscription when the main order is cancelled."
+msgstr "Activa si quieres eliminar una suscripción cuando el pedido principal es cancelado."
+
+#: plugin-options/general-options.php:34
+msgid "Delete subscription if the main order is cancelled"
+msgstr "Borra la suscripción si el pedido principal se cancela"
+
+#: plugin-options/general-options.php:28
+msgid "Do not reduce stock of subscription products"
+msgstr "No reduce el inventario de productos de suscripción"
+
+#: plugin-options/general-options.php:27
+msgid "Reduce stock of subscription products"
+msgstr "Reduce el inventario de productos de suscripción"
+
+#: plugin-options/general-options.php:22
+msgid "Choose if the recurring payments will reduce the stock count of a subscription product."
+msgstr "Elige si los pagos periódicos reducirán el inventario de un producto de suscripción."
+
+#: plugin-options/general-options.php:21
+msgid "Stock management with recurring payments"
+msgstr "Gestión de inventario con pagos periódicos"
+
+#: plugin-options/customization-options.php:56
+msgid "Signup now"
+msgstr "Regístrate ahora"
+
+#: plugin-options/customization-options.php:52
+msgid "This text replaces the \"Place order\" button label if there is at least one subscription product added to the cart."
+msgstr "Este texto sustituye la etiqueta del botón «realizar pedido» si hay al menos un producto de suscripción añadido al carrito."
+
+#: plugin-options/customization-options.php:51
+msgid "\"Place Order\" label in checkout page"
+msgstr "Etiqueta de «realizar pedido» en la página de pago"
+
+#: plugin-options/customization-options.php:35
+msgid "Subscribe"
+msgstr "Suscríbete"
+
+#: plugin-options/customization-options.php:30
+msgid "\"Add to cart\" label in subscription products"
+msgstr "Etiqueta de «añade al carrito» en los productos de suscripción"
+
+#: plugin-fw/templates/panel/help-tab.php:204
+msgctxt "Help tab submit ticket button"
+msgid "Submit a ticket"
+msgstr "Enviar un tique"
+
+#: plugin-fw/templates/panel/help-tab.php:196
+msgctxt "Help tab submit ticket description"
+msgid "If you are experiencing any technical issues, ask for help from our developers. Submit a ticket through our support desk and we will help you as soon as possible."
+msgstr "Si estás experimentando algún problema técnico, pide ayuda a nuestros desarrolladores. Envía un tique en nuestra plataforma de soporte y te ayudaremos lo más pronto posible."
+
+#: plugin-fw/templates/panel/help-tab.php:193
+msgctxt "Help tab submit ticket title"
+msgid "Need help?"
+msgstr "¿Necesitas ayuda?"
+
+#: plugin-fw/templates/panel/help-tab.php:184
+msgctxt "Help tab FAQ link"
+msgid "View all FAQs >"
+msgstr "Ver todas las FAQs >"
+
+#: plugin-fw/templates/panel/help-tab.php:170
+msgctxt "Help tab FAQ title"
+msgid "Last FAQs in our Help Center"
+msgstr "Últimas FAQs en nuestro centro de ayuda"
+
+#: plugin-fw/templates/panel/help-tab.php:155
+msgctxt "Help tab view FAQs link"
+msgid "to find answers to your doubts."
+msgstr "para encontrar respuestas a tus dudas."
+
+#: plugin-fw/templates/panel/help-tab.php:152
+msgctxt "Help tab view FAQs link"
+msgid "Check the FAQs"
+msgstr "Consulta las FAQs"
+
+#: plugin-fw/templates/panel/help-tab.php:139
+msgctxt "Help tab Watch video tutorials link"
+msgid "Watch our video tutorials"
+msgstr "Mira nuestros tutoriales en vídeo"
+
+#: plugin-fw/templates/panel/help-tab.php:126
+msgctxt "Help tab Read Documentation link"
+msgid "Read the documentation"
+msgstr "Lee la documentación"
+
+#: plugin-fw/templates/panel/help-tab.php:96
+msgctxt "Help tab Watch Videotutorials link"
+msgid "Videos are also available in:"
+msgstr "Los vídeos también están disponibles en:"
+
+#. translators: 1. Url to EN playlist.
+#: plugin-fw/templates/panel/help-tab.php:89
+msgctxt "Help tab view all video link"
+msgid "Check the full <a href=\"%s\" target=\"_blank\">Playlist on Youtube</a> to learn more >"
+msgstr "Consulta la <a href=\"%s\" target=\"_blank\">lista de reproducción completa en YouTube</a> para saber más >"
+
+#: plugin-fw/templates/fields/image-dimensions.php:23
+msgctxt "Image height field label"
+msgid "Height"
+msgstr "Altura"
+
+#: plugin-fw/templates/fields/image-dimensions.php:18
+msgctxt "Image width field label"
+msgid "Width"
+msgstr "Anchura"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:929
+msgctxt "Help tab default description"
+msgid "We want to help you enjoy a wonderful experience with all of our products."
+msgstr "Queremos ayudarte a disfrutar de una experiencia maravillosa con todos nuestros productos."
+
+#. translators: 1. Plugin name.
+#: plugin-fw/includes/class-yit-plugin-panel.php:920
+msgctxt "Help tab default title"
+msgid "Thank you for purchasing %s!"
+msgstr "¡Gracias por comprar %s!"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1007
+msgctxt "Help tab name"
+msgid "Help"
+msgstr "Ayuda"
+
+#: plugin-fw/includes/class-yit-help-desk.php:148
+msgid "There was an error with your request; please try again later."
+msgstr "Se ha producido un error en tu solicitud; inténtalo de nuevo más tarde."
+
+#: plugin-fw/includes/class-yit-assets.php:241
+msgid "Are you sure you want to delete the selected items?"
+msgstr "¿Estás seguro de que quieres borrar los elementos seleccionados?"
+
+#: plugin-fw/includes/class-yit-assets.php:238 plugin-fw/yit-functions.php:1996
+msgctxt "Trash confirmation action"
+msgid "Yes, move to trash"
+msgstr "Sí, mover a la papelera"
+
+#: plugin-fw/includes/class-yit-assets.php:237
+msgid "Are you sure you want to trash the selected items?"
+msgstr "¿Estás seguro de que quieres mover a la papelera los elementos seleccionados?"
+
+#: includes/functions-yith-wc-subscription.php:768
+msgid "gateway"
+msgstr "pasarela"
+
+#: includes/functions-yith-wc-subscription.php:767
+msgid "administrator"
+msgstr "administrador"
+
+#: includes/functions-yith-wc-subscription.php:766
+msgid "customer"
+msgstr "cliente"
+
+#: includes/functions-yith-wc-subscription.php:749
+msgid "Renew Order"
+msgstr "Pedido de renovación"
+
+#: includes/functions-yith-wc-subscription.php:745
+msgid "Parent Order"
+msgstr "Pedido superior"
+
+#: includes/functions-yith-wc-subscription.php:630
+msgctxt "Subscription filter status"
+msgid "Suspended"
+msgstr "Suspendida"
+
+#: includes/functions-yith-wc-subscription.php:629
+msgctxt "Subscription filter status"
+msgid "Expired"
+msgstr "Caducado"
+
+#: includes/functions-yith-wc-subscription.php:628
+msgctxt "Subscription filter status"
+msgid "Cancelled"
+msgstr "Cancelada"
+
+#: includes/functions-yith-wc-subscription.php:627
+msgctxt "Subscription filter status"
+msgid "Trial"
+msgstr "Prueba"
+
+#: includes/functions-yith-wc-subscription.php:626
+msgctxt "Subscription filter status"
+msgid "Overdue"
+msgstr "Atrasada"
+
+#: includes/functions-yith-wc-subscription.php:625
+msgctxt "Subscription filter status"
+msgid "Pending"
+msgstr "Pendiente"
+
+#: includes/functions-yith-wc-subscription.php:624
+msgctxt "Subscription filter status"
+msgid "Paused"
+msgstr "Pausado"
+
+#: includes/functions-yith-wc-subscription.php:623
+msgctxt "Subscription filter status"
+msgid "Active"
+msgstr "Activo"
+
+#: includes/functions-yith-wc-subscription.php:537
+msgid "Phone"
+msgstr "Teléfono"
+
+#: includes/functions-yith-wc-subscription.php:529
+#: includes/functions-yith-wc-subscription.php:582
+msgid "State / County"
+msgstr "Provincia"
+
+#: includes/functions-yith-wc-subscription.php:526
+#: includes/functions-yith-wc-subscription.php:579
+msgid "Select a country&hellip;"
+msgstr "Elige un país$hellip;"
+
+#: includes/functions-yith-wc-subscription.php:522
+#: includes/functions-yith-wc-subscription.php:575
+msgid "Country"
+msgstr "País"
+
+#: includes/functions-yith-wc-subscription.php:518
+#: includes/functions-yith-wc-subscription.php:571
+msgid "Postcode / ZIP"
+msgstr "Código postal"
+
+#: includes/functions-yith-wc-subscription.php:514
+#: includes/functions-yith-wc-subscription.php:567
+msgid "City"
+msgstr "Ciudad"
+
+#: includes/functions-yith-wc-subscription.php:510
+#: includes/functions-yith-wc-subscription.php:563
+msgid "Address line 2"
+msgstr "Dirección (línea 2)"
+
+#: includes/functions-yith-wc-subscription.php:506
+#: includes/functions-yith-wc-subscription.php:559
+msgid "Address line 1"
+msgstr "Dirección"
+
+#: includes/functions-yith-wc-subscription.php:502
+#: includes/functions-yith-wc-subscription.php:555
+msgid "Company"
+msgstr "Empresa"
+
+#: includes/functions-yith-wc-subscription.php:498
+#: includes/functions-yith-wc-subscription.php:551
+msgid "Last name"
+msgstr "Apellidos"
+
+#: includes/functions-yith-wc-subscription.php:494
+#: includes/functions-yith-wc-subscription.php:547
+msgid "First name"
+msgstr "Nombre"
+
+#. translators: placeholder subscription number.
+#: includes/class-ywsbs-subscription.php:1164
+msgid "This order has been cancelled because subscription %s has been cancelled"
+msgstr "Este pedido se ha cancelado porque la suscripción %s se ha cancelado"
+
+#: includes/class-yith-wc-subscription-install.php:64
+msgid "Search by subscription ID"
+msgstr "Busca por ID de suscripción"
+
+#: includes/class-ywsbs-subscription-user.php:153
+msgid "Guest"
+msgstr "Usuario no registrado"
+
+#. translators: 1: first name 2: last name
+#: includes/class-ywsbs-subscription-user.php:151
+msgctxt "full name"
+msgid "%1$s %2$s"
+msgstr "%1$s %2$s"
+
+#: includes/class-ywsbs-subscription-my-account.php:250
+#: templates/myaccount/view-subscription.php:257
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: includes/class-ywsbs-subscription-my-account.php:105
+msgid "Your Subscriptions"
+msgstr "Tus suscripciones"
+
+#: includes/class-yith-wc-subscription.php:150
+msgid "This subscription is now cancelled"
+msgstr "Esta suscripción ahora está cancelada"
+
+#: includes/class-yith-wc-subscription.php:140
+#: includes/class-yith-wc-subscription.php:144
+msgid "This subscription cannot be cancelled"
+msgstr "Esta suscripción no puede cancelarse"
+
+#: includes/class-yith-wc-subscription.php:135
+msgid "This subscription is now active"
+msgstr "Esta suscripción ahora está activa"
+
+#: includes/class-yith-wc-subscription.php:132
+msgid "This subscription cannot be activated"
+msgstr "Esta suscripción no se puede activar"
+
+#: includes/class-ywsbs-subscription-cart.php:583
+msgid "A subscription has been removed from your cart. You cannot purchase different subscriptions at the same time."
+msgstr "Se ha eliminado una suscripción de tu carrito. No puedes comprar diferentes suscripciones al mismo tiempo."
+
+#: includes/class-yith-wc-subscription-limit.php:51
+#: includes/class-yith-wc-subscription-limit.php:120
+#: includes/class-ywsbs-subscription-cart.php:567
+msgid "You have already an active subscription with this product."
+msgstr "Ya tienes una suscripción activa con este producto."
+
+#: includes/class-ywsbs-subscription-cart.php:436
+msgid " for "
+msgstr " durante "
+
+#. translators: 1.. html price, 2. date, 3. recurring price.
+#: includes/class-ywsbs-subscription-cart.php:433
+msgid "%1$s until %2$s then %3$s"
+msgstr "%1$s hasta %2$s entonces %3$s"
+
+#: includes/class-ywsbs-subscription-cart.php:346
+msgctxt "do not translate the text inside the brackets"
+msgid "Subscription total for {{sub-time}}: {{sub-total}}"
+msgstr "Total de suscripción para {{sub-time}}: {{sub-total}}"
+
+#: includes/class-yith-wc-subscription-admin.php:143
+msgid "Customization"
+msgstr "Personalización"
+
+#: includes/class-yith-wc-subscription-admin.php:116
+msgid "back to all subscriptions"
+msgstr "volver a todas las suscripciones"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:243
+msgid "Next attempt date"
+msgstr "Fecha de próximo intento"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:242
+msgid "Expired date"
+msgstr "Fecha de caducidad"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:241
+msgid "Payment Due Date"
+msgstr "Fecha de vencimiento del pago"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:240
+msgid "Start Date"
+msgstr "Fecha de inicio"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:167
+msgid "Subscription's History"
+msgstr "Historial de suscripción"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:134
+msgid "Subscription Product"
+msgstr "Producto de suscripción"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:106
+msgid "Subscription Action"
+msgstr "Acción de suscripción"
+
+#: includes/admin/class-ywsbs-subscription-post-type-admin.php:80
+msgid "Subscription Info"
+msgstr "Info de la suscripción"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:563
+msgid "Trash"
+msgstr "Papelera"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:546
+msgctxt "Button showed when the list of email is empty."
+msgid "Add a new subscription"
+msgstr "Añadir una nueva suscripción"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:542
+msgctxt "Text showed when the list of email is empty."
+msgid "But don't worry, your first subscription will appear here soon!"
+msgstr "Pero no te preocupes: ¡tu primera suscripción aparecerá aquí pronto!"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:540
+msgctxt "Text showed when the list of email is empty."
+msgid "You don't have any active subscriptions yet."
+msgstr "No tienes ninguna suscripción activa aún."
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:315
+msgid "All payment methods"
+msgstr "Todos los métodos de pago"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:280
+msgid "Show all customers"
+msgstr "Mostrar todos los clientes"
+
+#: templates/admin/metabox/metabox_subscription_history.php:29
+#: templates/myaccount/view-subscription.php:87
+msgid "Status:"
+msgstr "Estado: "
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:93
+msgid "Failed attempts"
+msgstr "Intentos fallidos"
+
+#: templates/myaccount/view-subscription.php:83
+msgid "Payment method:"
+msgstr "Método de pago:"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:91
+msgid "Renewals"
+msgstr "Renovaciones"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:90
+msgid "Expiry date"
+msgstr "Fecha de caducidad"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:88
+msgid "Payment due"
+msgstr "Fecha de pago"
+
+#: templates/admin/metabox/metabox_subscription_info_content.php:88
+msgid "Customer:"
+msgstr "Cliente:"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:85
+#: templates/myaccount/my-subscriptions-view.php:29
+#: templates/myaccount/my-subscriptions-view.php:64
+msgid "Started on"
+msgstr "Comenzada el"
+
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:31
+msgid "Options Saved"
+msgstr "Opciones guardadas"
+
+#: plugin-fw/templates/panel/v2/panel-content-page.php:57
+#: plugin-fw/templates/panel/v2/woocommerce/woocommerce-form.php:69
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:27
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:31
+msgid "Save Options"
+msgstr "Guardar opciones"
+
+#: plugin-fw/yit-functions.php:2131
+msgctxt "Term action"
+msgid "Delete"
+msgstr "Borrar"
+
+#: plugin-fw/yit-functions.php:2118
+msgctxt "Term action"
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: plugin-fw/yit-functions.php:2110
+msgctxt "Term action"
+msgid "Edit"
+msgstr "Editar"
+
+#: plugin-fw/yit-functions.php:2100
+msgctxt "Term action"
+msgid "View"
+msgstr "Ver"
+
+#: plugin-fw/yit-functions.php:2025 plugin-fw/yit-functions.php:2033
+#: plugin-fw/yit-functions.php:2149
+msgid "Further actions"
+msgstr "Otras acciones"
+
+#: plugin-fw/includes/class-yit-assets.php:242 plugin-fw/yit-functions.php:2014
+#: plugin-fw/yit-functions.php:2140
+msgctxt "Delete confirmation action"
+msgid "Yes, delete"
+msgstr "Sí, borrar"
+
+#: plugin-fw/includes/class-yit-assets.php:240 plugin-fw/yit-functions.php:2011
+#: plugin-fw/yit-functions.php:2138
+msgid "Confirm delete"
+msgstr "Confirmar el borrado"
+
+#: plugin-fw/yit-functions.php:2004
+msgctxt "Post action"
+msgid "Delete Permanently"
+msgstr "Borrar permanentemente"
+
+#: plugin-fw/includes/class-yit-assets.php:236 plugin-fw/yit-functions.php:1993
+msgid "Confirm trash"
+msgstr "Confirmar el traslado a la papelera"
+
+#: plugin-fw/yit-functions.php:1987
+msgctxt "Post action"
+msgid "Trash"
+msgstr "Enviar a la Papelera"
+
+#: plugin-fw/yit-functions.php:1979
+msgctxt "Post action"
+msgid "Restore"
+msgstr "Restaurar"
+
+#: plugin-fw/yit-functions.php:1967
+msgctxt "Post action"
+msgid "Duplicate"
+msgstr "Duplicar"
+
+#: plugin-fw/yit-functions.php:1959
+msgctxt "Post action"
+msgid "Edit"
+msgstr "Editar"
+
+#: plugin-fw/yit-functions.php:1948
+msgctxt "Post action"
+msgid "View"
+msgstr "Ver"
+
+#: plugin-fw/yit-functions.php:1939
+msgctxt "Post action"
+msgid "Preview"
+msgstr "Previsualizar"
+
+#. translators: %s is the title of the post object.
+#: plugin-fw/includes/class-yit-assets.php:241 plugin-fw/yit-functions.php:1927
+#: plugin-fw/yit-functions.php:2086
+msgid "This action cannot be undone and you will not be able to recover this data."
+msgstr "Esta acción no se puede revertir y no podrá recuperar estos datos."
+
+#. translators: %s is the title of the post object.
+#: plugin-fw/yit-functions.php:1927 plugin-fw/yit-functions.php:2086
+msgid "Are you sure you want to delete \"%s\"?"
+msgstr "¿Estás seguro de que quieres eliminar \"%s\"?"
+
+#. translators: %s is the title of the post object.
+#: plugin-fw/yit-functions.php:1925
+msgid "Are you sure you want to move \"%s\" to trash?"
+msgstr "¿Estás seguro de que quieres mover a la papelera «%s»?"
+
+#. translators: %s is the name of the post type (example Back to "Membership
+#. Plans").
+#: plugin-fw/includes/class-yith-post-type-admin.php:294
+msgid "Back to the list"
+msgstr "Volver a la lista"
+
+#. translators: %s is the name of the post type (example Back to "Membership
+#. Plans").
+#: plugin-fw/includes/class-yith-post-type-admin.php:294
+msgid "Back to \"%s\""
+msgstr "Volver a «%s»"
+
+#: plugin-fw/includes/class-yit-assets.php:225
+msgctxt "Button text"
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: plugin-fw/includes/class-yit-assets.php:224
+msgctxt "Button text"
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: includes/class-ywsbs-subscription-order.php:575
+msgid "Error 402: unable to create the order. Please try again."
+msgstr "Error 402: no ha sido posible crear el pedido. Inténtalo de nuevo, por favor."
+
+#. Translators: %s Subscription number.
+#: includes/class-ywsbs-subscription-privacy.php:129
+msgctxt "placeholder subscription number"
+msgid "Personal data within subscription %s has been retained."
+msgstr "Los datos personales de la suscripción %s han sido retenidos."
+
+#. Translators: %s Subscription number.
+#: includes/class-ywsbs-subscription-privacy.php:125
+msgctxt "placeholder subscription number"
+msgid "Removed personal data from subscription %s."
+msgstr "Información personal eliminada de la suscripción %s."
+
+#: plugin-fw/templates/panel/panel-header.php:26
+#: plugin-fw/templates/panel/v2/panel-header.php:21
+msgid "help us by leaving a good review"
+msgstr "ayúdanos dejando una buena valoración"
+
+#: plugin-fw/templates/fields/copy-to-clipboard.php:45
+msgctxt "Copy-to-clipboard button text"
+msgid "Copy"
+msgstr "Copiar"
+
+#: plugin-fw/templates/fields/copy-to-clipboard.php:41
+msgctxt "Copy-to-clipboard message"
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#. translators: %s it the Elementor Widget title.
+#: plugin-fw/includes/builders/elementor/class-yith-elementor-widget.php:252
+msgctxt "Elementor Widget - section title"
+msgid "%s - Options"
+msgstr "%s - Opciones"
+
+#: plugin-fw/templates/fields/date-format.php:70
+msgid "Preview:"
+msgstr "Vista previa:"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:72
+msgid "Plugins Requirements"
+msgstr "Requerimientos de los plugins"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:41
+msgid "Site Info"
+msgstr "Información del sitio"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:95
+msgid "Copy Code"
+msgstr "Copiar código"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:95
+msgid "Copied!"
+msgstr "¡Copiado!"
+
+#. translators: %s file name.
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:86
+msgid "No Log file available. Enable the WordPress debug by adding this in the %s file of your installation"
+msgstr "No hay disponible ningún archivo de registro. Activa la depuración de WordPress añadiendo esto en el archivo «%s» de tu instalación"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:59
+msgid "The file size exceeds 8 megabytes so it must be downloaded"
+msgstr "El tamaño del archivo supera los 8 megabytes, por lo que debe ser descargado"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:48
+msgid "Download"
+msgstr "Descargar"
+
+#: plugin-fw/includes/class-yit-pointers.php:97
+msgid "From now on, you can find the option panel of YITH plugins in YITH menu. Every time one of our plugins is added, a new entry will be added to this menu. For example, after the update, plugin options (such as for YITH WooCommerce Wishlist, YITH WooCommerce Ajax Search, etc.) will be moved from previous location to YITH menu."
+msgstr "A partir de ahora, puedes encontrar el panel de opciones de los plugins de YITH en el menú de plugins de YITH. Cada vez que se añade uno de nuestros plugins, se añadirá una nueva entrada a este menú. Por ejemplo, después de la actualización, las opciones del plugin (como para YITH WooCommerce Wishlist, YITH WooCommerce Ajax Search, etc.) se moverán de la ubicación anterior a la pestaña de plugins de YITH."
+
+#. translators: 1. YITH site link; 2. WordPress site link.
+#: plugin-fw/includes/class-yit-pointers.php:84
+#: plugin-fw/includes/class-yit-pointers.php:100
+msgid "Discover all our plugins available on: %1$s and %2$s"
+msgstr "Descubre todos nuestros plugins disponibles en: %1$s y %2$s"
+
+#: plugin-fw/includes/class-yit-pointers.php:81
+msgid "From now on, you can find all plugin options in YITH menu. Plugin customization settings will be available as a new entry in YITH menu."
+msgstr "Desde ahora, puedes encontrar todas las opciones de los plugins en el menú YITH plugins. La personalización de los ajustes del plugins estará disponible como una nueva entrada en el menú YITH plugins."
+
+#: plugin-fw/includes/class-yith-system-status.php:199
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:108
+msgid "Log Files"
+msgstr "Archivos de registro"
+
+#: plugin-fw/includes/class-yith-system-status.php:191
+msgid "PHPInfo"
+msgstr "Información PHP"
+
+#: includes/class-yith-wc-subscription-admin.php:228
+msgid "Synchronize all recurring payments to a specific day (of the week, month, etc.)"
+msgstr "Sincroniza todos los pagos periódicos a un día específico (de la semana, del mes, etc.)"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:57
+msgid "External object cache"
+msgstr "Caché de objeto externo"
+
+#: plugin-fw/includes/class-yit-assets.php:278
+msgid "Color value"
+msgstr "Valor del color"
+
+#: plugin-fw/includes/class-yit-assets.php:277
+msgid "Select Color"
+msgstr "Seleccionar color"
+
+#: plugin-fw/includes/class-yit-assets.php:276
+msgid "Select default color"
+msgstr "Seleccionar el color por defecto"
+
+#: plugin-fw/includes/class-yit-assets.php:275
+msgid "Default"
+msgstr "Por defecto"
+
+#: plugin-fw/includes/class-yit-assets.php:274
+msgid "Clear color"
+msgstr "Vaciar el color"
+
+#: plugin-fw/includes/class-yit-assets.php:273
+msgid "Clear"
+msgstr "Vaciar"
+
+#. translators: %1$s TLS label
+#: plugin-fw/includes/class-yith-system-status.php:624
+msgid "The system check cannot determine which %1$s version is installed due to a connection issue between your site and our server."
+msgstr "La comprobación del sistema no ha podido determinar qué versión de %1$s está instalada debido a un error entre tu sitio y nuestro servidor."
+
+#. translators: %1$s TLS label, %2$s cURL label
+#: plugin-fw/includes/class-yith-system-status.php:621
+msgid "The system check cannot determine which %1$s version is installed because %2$s module is disabled. Ask your hosting company to enable it."
+msgstr "La comprobación del sistema no ha podido determinar qué versión %1$s está instalada, ya que está desactivado el módulo %2$s. Pídele a tu empresa de alojamiento que lo active."
+
+#: plugin-fw/includes/class-yith-system-status.php:563
+msgid "Contact your hosting company in order to install it."
+msgstr "Contacta con tu empresa de alojamiento para instalarlo."
+
+#: plugin-fw/includes/class-yit-assets.php:239
+#: plugin-fw/includes/class-yit-assets.php:243
+#: plugin-fw/templates/sysinfo/tabs/main.php:54
+#: plugin-fw/templates/sysinfo/tabs/main.php:58
+#: plugin-fw/yit-functions.php:1995 plugin-fw/yit-functions.php:2013
+msgid "No"
+msgstr "No"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:54
+#: plugin-fw/templates/sysinfo/tabs/main.php:58
+msgid "Yes"
+msgstr "Sí"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:53
+msgid "Defined WP_CACHE"
+msgstr "WP_CACHE definido"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:18
+msgid "PHP error_log file"
+msgstr "Archivo PHP error_log"
+
+#: plugin-fw/templates/sysinfo/tabs/error-log.php:13
+msgid "WP debug.log file"
+msgstr "Archivo WP debug.log"
+
+#: plugin-fw/templates/fields/dimensions.php:94
+msgctxt "Tooltip in the \"Dimensions\" field"
+msgid "Link values together"
+msgstr "Enlazar valores juntos"
+
+#: plugin-fw/templates/fields/dimensions.php:16
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Left"
+msgstr "Izquierda"
+
+#: plugin-fw/templates/fields/dimensions.php:15
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Bottom"
+msgstr "Parte inferior"
+
+#: plugin-fw/templates/fields/dimensions.php:14
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Right"
+msgstr "Derecha"
+
+#: plugin-fw/templates/fields/dimensions.php:13
+msgctxt "Position in the \"Dimensions\" field"
+msgid "Top"
+msgstr "Parte superior"
+
+#: plugin-fw/templates/panel/panel-header.php:27
+#: plugin-fw/templates/panel/v2/panel-header.php:22
+msgid ":) Thanks!"
+msgstr ":) ¡Gracias!"
+
+#: plugin-fw/templates/panel/panel-header.php:24
+#: plugin-fw/templates/panel/v2/panel-header.php:19
+msgid "to keep updating and improving the plugin. Please,"
+msgstr "para que podamos seguir actualizando y mejorando el plugin. Por favor,"
+
+#: plugin-fw/templates/panel/panel-header.php:23
+#: plugin-fw/templates/panel/v2/panel-header.php:18
+msgid "We need your support"
+msgstr "Necesitamos tu apoyo"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:49
+msgid "Output IP Address"
+msgstr "Dirección IP de salida"
+
+#: plugin-fw/templates/sysinfo/tabs/main.php:45
+msgid "Site URL"
+msgstr "URL del sitio"
+
+#: plugin-fw/includes/class-yith-system-status.php:144
+msgid "Iconv Module"
+msgstr "Módulo Iconv"
+
+#. translators: %1$s open link tag, %2$s open link tag
+#: plugin-fw/includes/class-yith-system-status.php:372
+msgid "The system check has detected some compatibility issues on your installation.%1$sClick here%2$s to know more"
+msgstr "La comprobación del sistema ha detectado algunos problemas de compatibilidad en tu instalación. Haz %1$sclic aquí%2$s para saber más"
+
+#: plugin-fw/includes/class-yith-system-status.php:368
+msgid "Warning!"
+msgstr "¡Advertencia!"
+
+#: plugin-fw/includes/class-yith-system-status.php:225
+msgid "WooCommerce"
+msgstr "WooCommerce"
+
+#: plugin-fw/includes/class-yith-system-status.php:146
+msgid "URL FOpen"
+msgstr "URL de FOpen"
+
+#: plugin-fw/includes/class-yith-system-status.php:145
+msgid "OPCache Save Comments"
+msgstr "Guardar comentarios OPCache"
+
+#: plugin-fw/includes/class-yith-system-status.php:143
+msgid "GD Library"
+msgstr "Biblioteca GD"
+
+#: plugin-fw/includes/class-yith-system-status.php:142
+msgid "ImageMagick Version"
+msgstr "Versión de ImageMagick"
+
+#: plugin-fw/includes/class-yith-system-status.php:141
+msgid "MultiByte String"
+msgstr "Cadena MultiByte"
+
+#: plugin-fw/includes/class-yith-system-status.php:140
+msgid "SimpleXML"
+msgstr "SimpleXML"
+
+#: plugin-fw/includes/class-yith-system-status.php:139
+msgid "WordPress Cron"
+msgstr "Cron de WordPress"
+
+#: plugin-fw/includes/class-yith-system-status.php:138
+msgid "TLS Version"
+msgstr "Versión de TLS"
+
+#: plugin-fw/includes/class-yith-system-status.php:137
+msgid "PHP Version"
+msgstr "Versión de PHP"
+
+#: plugin-fw/includes/class-yith-system-status.php:136
+msgid "Available Memory"
+msgstr "Memoria disponible"
+
+#: plugin-fw/includes/class-yith-system-status.php:135
+msgid "WooCommerce Version"
+msgstr "Versión de WooCommerce"
+
+#: plugin-fw/includes/class-yith-system-status.php:134
+msgid "WordPress Version"
+msgstr "Versión de WordPress"
+
+#: plugin-fw/includes/class-yith-system-status.php:161
+#: plugin-fw/includes/class-yith-system-status.php:162
+#: plugin-fw/includes/class-yith-system-status.php:187
+msgid "System Status"
+msgstr "Estado del sistema"
+
+#. translators: 1. user display name; 2. user ID; 3. user email.
+#: plugin-fw/templates/fields/ajax-customers.php:68
+#: plugin-fw/templates/fields/ajax-customers.php:79
+msgid "%1$s (#%2$s &ndash; %3$s)"
+msgstr "%1$s (#%2$s &ndash; %3$s)"
+
+#. translators: %1$s opening link tag, %2$s closing link tag
+#: plugin-fw/includes/class-yith-system-status.php:582
+#: plugin-fw/includes/class-yith-system-status.php:616
+msgid "Read more %1$shere%2$s or contact your hosting company in order to increase it."
+msgstr "Lee más %1$saquí%2$s o contacta con tu empresa de alojamiento para aumentarlo."
+
+#: plugin-fw/includes/class-yith-system-status.php:578
+msgid "Contact your hosting company in order to enable it."
+msgstr "Contacta con tu compañía de hosting para activarlo."
+
+#. translators: %1$s code, %2$s file name
+#: plugin-fw/includes/class-yith-system-status.php:570
+msgid "Remove %1$s from %2$s file"
+msgstr "Eliminar %1$s desde el archivo %2$s "
+
+#: plugin-fw/includes/class-yith-system-status.php:559
+#: plugin-fw/includes/class-yith-system-status.php:565
+msgid "Contact your hosting company in order to update it."
+msgstr "Contacta con tu compañía de hosting para actualizarlo."
+
+#: plugin-fw/includes/class-yith-system-status.php:555
+msgid "Update it to the latest version in order to benefit of all new features and security updates."
+msgstr "Actualízalo a la última versión para beneficiarte de todas las características y actualizaciones de seguridad."
+
+#. translators: %1$s plugin name, %2$s version number
+#: plugin-fw/includes/class-yith-system-status.php:549
+msgid "%1$s needs at least %2$s version"
+msgstr "%1$s necesita al menos la versión %2$s"
+
+#. translators: %s recommended memory amount
+#: plugin-fw/includes/class-yith-system-status.php:613
+msgid "For optimal functioning of our plugins, we suggest setting at least %s of available memory"
+msgstr "Para el óptimo funcionamiento de nuestros plugins, sugerimos al menos %s de memoria disponible"
+
+#. translators: %1$s plugin name, %2$s required memory amount
+#: plugin-fw/includes/class-yith-system-status.php:546
+msgid "%1$s needs at least %2$s of available memory"
+msgstr "%1$s necesita al menos %2$s de memoria disponible"
+
+#. translators: %1$s plugin name, %2$s requirement name
+#: plugin-fw/includes/class-yith-system-status.php:543
+msgid "%1$s needs %2$s enabled"
+msgstr "%1$s necesita %2$s activado"
+
+#: plugin-fw/includes/class-yith-system-status.php:518
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: plugin-fw/includes/class-yith-system-status.php:518
+msgid "Enabled"
+msgstr "Activado"
+
+#: plugin-fw/templates/sysinfo/system-information-panel.php:27
+msgid "YITH System Information"
+msgstr "Información de Sistema de YITH"
+
+#: plugin-fw/templates/fields/select-buttons.php:20
+msgid "Remove All"
+msgstr "Eliminar todo"
+
+#: plugin-fw/templates/fields/select-buttons.php:19
+msgid "Add All"
+msgstr "Añadir todo"
+
+#: plugin-fw/templates/fields/date-format.php:65
+msgid "Custom:"
+msgstr "Personalizado:"
+
+#: plugin-fw/includes/class-yith-dashboard.php:137
+msgctxt "Button label"
+msgid "Close"
+msgstr "Cerrar"
+
+#: plugin-fw/includes/class-yith-dashboard.php:97
+msgctxt "Plugin FW"
+msgid "Latest update released on"
+msgstr "Última actualización publicada el"
+
+#: plugin-fw/includes/class-yith-dashboard.php:96
+msgctxt "Plugin FW"
+msgid "View Changelog"
+msgstr "Ver registro de cambios"
+
+#: plugin-fw/includes/class-yith-dashboard.php:63
+msgid "An error has occurred, which probably means the feed is down. Try again later."
+msgstr "Ha ocurrido un error, lo que puede que signifique que el feed ha caído. Inténtalo de nuevo más tarde."
+
+#: plugin-fw/includes/class-yith-dashboard.php:56
+msgid "RSS Error:"
+msgstr "Error RSS:"
+
+#: plugin-fw/includes/class-yith-dashboard.php:36
+msgid "Latest news from YITH Blog"
+msgstr "Últimas novedades del Blog de YITH"
+
+#: plugin-fw/includes/class-yith-dashboard.php:35
+msgid "YITH Latest Updates"
+msgstr "Últimas actualizaciones de YITH"
+
+#: plugin-fw/includes/builders/gutenberg/class-yith-gutenberg.php:156
+msgctxt "[gutenberg]: Category Name"
+msgid "YITH"
+msgstr "YITH"
+
+#: includes/functions-yith-wc-subscription.php:534
+msgid "Email address"
+msgstr "Dirección de correo electrónico"
+
+#. Description of the plugin
+#: init.php
+msgid "<code><strong>YITH WooCommerce Subscription</strong></code> allows enabling automatic recurring payments on your products. Once you buy a subscription-based product, the plugin will renew the payment automatically based on your own settings. Perfect for any kind of subscriptions, like magazines, software and so on. <a href=\"https://yithemes.com/\" target=\"_blank\">Get more plugins for your e-commerce shop on <strong>YITH</strong></a>."
+msgstr "<code><strong>YITH WooCommerce Subscription</strong></code> te permite activar pagos recurrents para tus productos. Una vez que compres un producto de tipo suscripción, el plugin renovará el pago automáticamente en base a tus ajustes. Perfecto para cualquier tipo de suscripción, como revistas, software y mucho más. <a href=\"https://yithemes.com/\" target=\"_blank\">Obtén más plugins para tu comercio electrónico en <strong>YITH</strong></a>."
+
+#. Author of the plugin
+#: init.php
+msgid "YITH"
+msgstr "YITH"
+
+#. Plugin URI of the plugin
+#: init.php
+msgid "https://yithemes.com/themes/plugins/yith-woocommerce-subscription/"
+msgstr "https://yithemes.com/themes/plugins/yith-woocommerce-subscription/"
+
+#: plugin-fw/includes/class-yith-system-status.php:522
+msgid "N/A"
+msgstr "N/D"
+
+#: plugin-fw/yit-plugin.php:243
+msgid "License"
+msgstr "Licencia"
+
+#: plugin-fw/yit-plugin.php:239
+msgctxt "Action links"
+msgid "Settings"
+msgstr "Ajustes"
+
+#: plugin-fw/yit-plugin.php:98
+msgctxt "Plugin Row Meta"
+msgid "Premium version"
+msgstr "Versión premium"
+
+#: plugin-fw/yit-plugin.php:94
+msgctxt "Plugin Row Meta"
+msgid "Support"
+msgstr "Soporte"
+
+#: plugin-fw/yit-plugin.php:90
+msgctxt "Plugin Row Meta"
+msgid "Documentation"
+msgstr "Documentación"
+
+#: plugin-fw/yit-plugin.php:86
+msgctxt "Plugin Row Meta"
+msgid "Live Demo"
+msgstr "Demostración en vivo"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:106
+msgctxt "Privacy Policy Content"
+msgid "Payments"
+msgstr "Pagos"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:103
+msgctxt "Privacy Policy Content"
+msgid "What we share with others"
+msgstr "Qué compartimos con otros"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:100
+msgctxt "Privacy Policy Content"
+msgid "Who on our team has access"
+msgstr "Quién en nuestro equipo tiene acceso"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:97
+msgctxt "Privacy Policy Content"
+msgid "What we collect and store"
+msgstr "Qué recopilamos y almacenamos"
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:93
+msgctxt "Privacy Policy Content"
+msgid "This sample language includes the basics around what personal data your store may be collecting, storing and sharing, as well as who may have access to that data. Depending on what settings are enabled and which additional plugins are used, the specific information shared by your store will vary. We recommend consulting with a lawyer when deciding what information to disclose on your privacy policy."
+msgstr "Este idioma de prueba incluye la información principal sobre qué tipo de información puede estar recopilando, almacenando y compartiendo tu tienda, así como quién tiene acceso a esa información. Dependiendo de los ajustes configurados y qué plugins adicionales sean usados, la información específica compartida por tu sitio variará. Recomendamos consultar con un abogado cuando decidas qué información mostrar en tu política de privacidad."
+
+#: plugin-fw/includes/privacy/class-yith-privacy.php:61
+msgctxt "Privacy Policy Guide Title"
+msgid "YITH Plugins"
+msgstr "Plugins de YITH"
+
+#. translators: %1$s: order ID, %2$s: reason code.
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:897
+msgid "Order #%1$s has been marked as refunded - PayPal reason code: %2$s"
+msgstr "El pedido #%1$s se ha marcado como reembolsado - Código del motivo de PayPal: %2$s"
+
+#. translators: %s: order link.
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:895
+msgid "Payment for order %s refunded"
+msgstr "El pago del pedido %s se ha reembolsado"
+
+#. translators: %s: payment status.
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:891
+msgid "Payment %s via IPN."
+msgstr "Pago %s a través de IPN."
+
+#. translators:Placeholder amount value.
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:839
+msgid "Validation error: PayPal amounts do not match (gross %s)."
+msgstr "Error de validación: Las cantidades de PayPal no coinciden (bruto %s)."
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:729
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:731
+msgid "YSBS - IPN message: recurring_payment_suspended_due_to_max_failed_payment"
+msgstr "YSBS - mensaje IPN: recurring_payment_suspended_due_to_max_failed_payment"
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:719
+msgid "YSBS - Subscription cancelled max failed attemps: recurring_payment_suspended_due_to_max_failed_payment"
+msgstr "YSBS - Suscripción cancelada debido a máximo de intentos fallidos alcanzado: recurring_payment_suspended_due_to_max_failed_payment"
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:501
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:510
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:524
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:581
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:590
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:605
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:648
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:657
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:672
+msgid "YSBS - IPN Failed payment"
+msgstr "Pago YSBS - IPN fallido"
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:443
+msgid "YSBS - Subscription has been suspended because in pending payment for echeck payment type"
+msgstr "YSBS - La suscripción ha sido suspendida debido a que se encuentra con el pago pendiente por el tipo de pago de cheque electrónico"
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:440
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:453
+msgid "YSBS - IPN Pending payment for echeck payment type"
+msgstr "YSBS - IPN pago pendiente de pago de tipo echeck"
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:431
+msgid "Paypal echeck payment"
+msgstr "Pago de PayPal echeck"
+
+#: includes/gateways/paypal/class-yith-wc-subscription-paypal.php:380
+msgid "Subscription %1$s at %2$s"
+msgstr "Suscripción %1$s en %2$s"
+
+#: includes/functions-yith-wc-subscription.php:294
+msgid "suspended"
+msgstr "interrumpida"
+
+#: includes/functions-yith-wc-subscription.php:293
+msgid "expired"
+msgstr "caducada"
+
+#: includes/functions-yith-wc-subscription.php:292
+msgid "cancelled"
+msgstr "cancelado"
+
+#: includes/functions-yith-wc-subscription.php:291
+msgid "trial"
+msgstr "prueba"
+
+#: includes/functions-yith-wc-subscription.php:290
+msgid "overdue"
+msgstr "atrasada"
+
+#: includes/functions-yith-wc-subscription.php:289
+msgid "pending"
+msgstr "pendiente"
+
+#: includes/functions-yith-wc-subscription.php:288
+msgid "paused"
+msgstr "pausada"
+
+#: includes/functions-yith-wc-subscription.php:287
+msgid "active"
+msgstr "activa"
+
+#: includes/class-ywsbs-subscription-privacy.php:219
+msgid "Email Address"
+msgstr "Dirección de correo electrónico"
+
+#: includes/class-ywsbs-subscription-privacy.php:218
+msgid "Phone Number"
+msgstr "Número de télefono"
+
+#: includes/class-ywsbs-subscription-privacy.php:217
+msgid "Shipping Address"
+msgstr "Dirección de envío"
+
+#: includes/class-ywsbs-subscription-privacy.php:216
+msgid "Billing Address"
+msgstr "Dirección de facturación"
+
+#: includes/class-ywsbs-subscription-privacy.php:215
+msgid "Browser User Agent"
+msgstr "Agente de usuario de navegador"
+
+#: includes/class-ywsbs-subscription-privacy.php:214
+msgid "IP Address"
+msgstr "Dirección IP"
+
+#: includes/class-ywsbs-subscription-privacy.php:213
+msgid "Items Purchased"
+msgstr "Productos comprados"
+
+#: includes/class-ywsbs-subscription-privacy.php:212
+msgid "Subscription Total"
+msgstr "Total de suscripción"
+
+#: includes/class-ywsbs-subscription-privacy.php:211
+msgid "Subscription Creation Date"
+msgstr "Fecha de creación de la suscripción"
+
+#: includes/class-ywsbs-subscription-privacy.php:210
+msgid "Subscription Status"
+msgstr "Estado de la suscripción"
+
+#: includes/class-ywsbs-subscription-privacy.php:209
+msgid "Subscription Number"
+msgstr "Número de suscripción"
+
+#: includes/class-ywsbs-subscription-privacy.php:40
+#: includes/class-ywsbs-subscription-privacy.php:55
+msgid "Customer Subscriptions"
+msgstr "Suscripciones del cliente"
+
+#: views/product/single-product-options.php:63
+msgid "Never"
+msgstr "Nunca"
+
+#: plugin-fw/templates/fields/icons.php:78
+msgid "Set Default"
+msgstr "Establecer por defecto"
+
+#: includes/functions-yith-wc-subscription.php:43
+msgid "year"
+msgid_plural "years"
+msgstr[0] "año"
+msgstr[1] "años"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:559
+#: plugin-fw/includes/class-yit-plugin-panel.php:562
+msgid "How to install premium version"
+msgstr "Cómo instalar la versión premium"
+
+#: templates/admin/metabox/metabox_subscription_action_content.php:27
+msgid "Cancel Subscription"
+msgstr "Cancelar suscripción"
+
+#. Author URI of the plugin
+#: init.php
+msgid "https://yithemes.com/"
+msgstr "https://yithemes.com/"
+
+#. Plugin Name of the plugin
+#: init.php
+msgid "YITH WooCommerce Subscription"
+msgstr "YITH WooCommerce Subscription"
+
+#: includes/class-yith-wc-subscription-admin.php:138
+#: plugin-options/general-options.php:15
+msgid "General settings"
+msgstr "Ajustes generales"
+
+#: plugin-fw/templates/panel/v2/panel-content-page.php:58
+#: plugin-fw/templates/panel/v2/woocommerce/woocommerce-form.php:70
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:41
+msgid "Reset Defaults"
+msgstr "Restablecer valores predeterminados"
+
+#: plugin-fw/templates/fields/upload.php:39
+msgid "Reset"
+msgstr "Restablecer"
+
+#: plugin-fw/templates/fields/sidebars.php:54
+msgid "Right Sidebar"
+msgstr "Barra lateral derecha"
+
+#: plugin-fw/templates/fields/sidebars.php:39
+msgid "Left Sidebar"
+msgstr "Barra lateral izquierda"
+
+#: plugin-fw/templates/fields/sidebars.php:41
+#: plugin-fw/templates/fields/sidebars.php:56
+msgid "Choose a sidebar"
+msgstr "Elige una barra lateral"
+
+#: plugin-fw/templates/fields/sidebars.php:23
+msgid "Right sidebar"
+msgstr "Barra lateral derecha"
+
+#: plugin-fw/templates/fields/sidebars.php:26
+#: plugin-fw/templates/fields/sidebars.php:29
+msgid "No sidebar"
+msgstr "Sin barra lateral"
+
+#: plugin-fw/templates/fields/sidebars.php:20
+msgid "Left sidebar"
+msgstr "Barra lateral izquierda"
+
+#: plugin-fw/templates/fields/image-gallery.php:35
+msgid "Add images"
+msgstr "Añadir imágenes"
+
+#: plugin-fw/templates/fields/image-gallery.php:34
+msgid "Add to gallery"
+msgstr "Añadir a la galería"
+
+#: plugin-fw/templates/fields/image-gallery.php:33
+msgid "Add Images to Gallery"
+msgstr "Añadir imágenes a la galería"
+
+#: plugin-fw/templates/fields/image-gallery.php:36
+msgid "Delete image"
+msgstr "Eliminar imagen"
+
+#: plugin-fw/templates/fields/customtabs.php:93
+msgid "Do you want to remove the custom tab?"
+msgstr "¿Quieres eliminar la pestaña personalizada?"
+
+#: plugin-fw/templates/fields/customtabs.php:52
+msgid "Add custom product tab"
+msgstr "Añadir pestaña de producto personalizada"
+
+#: plugin-fw/templates/fields/customtabs.php:41
+#: plugin-fw/templates/fields/customtabs.php:82
+msgid "Content of the tab. (HTML is supported)"
+msgstr "Contenido de la pestaña. (Compatible con HTML)"
+
+#: plugin-fw/templates/fields/customtabs.php:40
+#: plugin-fw/templates/fields/customtabs.php:81
+msgid "Value"
+msgstr "Valor"
+
+#: plugin-fw/templates/fields/customtabs.php:17
+msgid "Expand all"
+msgstr "Expandir todo"
+
+#: plugin-fw/templates/fields/customtabs.php:17
+msgid "Close all"
+msgstr "Cerrar todo"
+
+#: plugin-fw/templates/fields/upload.php:34
+#: plugin-fw/templates/panel/woocommerce/woocommerce-upload.php:37
+msgid "Upload"
+msgstr "Subir"
+
+#: plugin-fw/templates/fields/customtabs.php:25
+#: plugin-fw/templates/fields/customtabs.php:68
+msgid "Remove"
+msgstr "Eliminar"
+
+#: plugin-fw/templates/fields/ajax-products.php:16
+msgid "Search for a product..."
+msgstr "Buscar un producto…"
+
+#: plugin-options/customization-options.php:24
+msgid "Product page"
+msgstr "Página de producto"
+
+#: templates/myaccount/view-subscription.php:299
+msgid "Email:"
+msgstr "Correo electrónico:"
+
+#: plugin-fw/includes/class-yit-pointers.php:96
+msgid "Plugins Upgraded"
+msgstr "Plugins mejorados"
+
+#: plugin-fw/includes/class-yit-pointers.php:80
+msgid "Plugins Activated"
+msgstr "Plugins activados"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1567
+msgid "Sorting successful."
+msgstr "Clasificación realizada con éxito."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1566
+msgid "Sorry, import is disabled."
+msgstr "Lo siento, la importación está desactivada."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1565
+msgid "The added file is not valid."
+msgstr "El archivo añadido no es válido."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1564
+msgid "An error has occurred during import. Please try again."
+msgstr "Ha ocurrido un error durante la importación. Por favor, inténtalo de nuevo."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1563
+msgid "Database imported correctly."
+msgstr "Base de datos importada correctamente."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1561
+msgid "Element updated correctly."
+msgstr "Elemento actualizado correctamente."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1560
+msgid "Element deleted correctly."
+msgstr "Elemento eliminado correctamente."
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1559
+msgid "Settings reset"
+msgstr "Restablecer ajustes"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1558
+msgid "Settings saved"
+msgstr "Ajustes guardados"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:1557
+msgid "The element you have entered already exists. Please, enter another name."
+msgstr "El elemento que has introducido ya existe. Por favor, introduce otro nombre."
+
+#: plugin-fw/includes/class-yit-assets.php:261
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:134
+#: plugin-fw/templates/panel/panel-content-page.php:14
+msgid "Are you sure?"
+msgstr "¿Estás seguro?"
+
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:137
+#: plugin-fw/templates/panel/panel-content-page.php:38
+msgid "Reset to default"
+msgstr "Restablecer valores predeterminados"
+
+#: plugin-fw/includes/class-yit-assets.php:262
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:134
+#: plugin-fw/templates/panel/panel-content-page.php:14
+msgid "If you continue with this action, you will reset all options in this page."
+msgstr "Si continúas con esta acción, restablecerás todas las opciones en esta página."
+
+#: plugin-fw/includes/class-yit-plugin-subpanel.php:127
+#: plugin-fw/templates/panel/panel-content-page.php:29
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: plugin-fw/includes/class-yith-system-status.php:217
+msgid "YITH Plugins"
+msgstr "YITH Plugins"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:89
+msgid "Plugin Settings"
+msgstr "Ajustes del plugin"
+
+#: plugin-fw/includes/class-yit-plugin-panel-woocommerce.php:605
+msgid "The changes you have made will be lost if you leave this page."
+msgstr "Los cambios que has hecho se perderán si abandonas esta página."
+
+#: plugin-fw/templates/fields/customtabs.php:34
+#: plugin-fw/templates/fields/customtabs.php:76
+msgid "Name"
+msgstr "Nombre"
+
+#: init.php:64 init.php:104
+msgid "YITH WooCommerce Subscription is enabled but not effective. It requires WooCommerce in order to work."
+msgstr "YITH WooCommerce Subscription está activado pero no es efectivo. Necesita WooCommerce para funcionar."
+
+#: init.php:40
+msgid "You can't activate the free version of YITH WooCommerce Subscription while you are using the premium one."
+msgstr "No puedes activar la versión gratuita de YITH WooCommerce Subcription mientras estás usando la premium."
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:767
+msgid "YSBS - IPN subscription cancelled for the order."
+msgstr "Suscripción YSBS - IPN cancelada para el pedido."
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:341
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:360
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:391
+msgid "IPN subscription payment completed."
+msgstr "Pago IPN de la suscripción completado."
+
+#: includes/gateways/paypal/includes/class-ywsbs-paypal-ipn-handler.php:256
+msgid "IPN subscription started"
+msgstr "La suscripción IPN ha comenzado"
+
+#. translators: placeholder order number.
+#: includes/gateways/paypal/class-yith-wc-subscription-paypal.php:267
+msgid "Order %s"
+msgstr "Pedido %s"
+
+#: includes/functions-yith-wc-subscription.php:40
+msgid "month"
+msgid_plural "months"
+msgstr[0] "mes"
+msgstr[1] "meses"
+
+#: includes/functions-yith-wc-subscription.php:37
+msgid "week"
+msgid_plural "weeks"
+msgstr[0] "semana"
+msgstr[1] "semanas"
+
+#: includes/functions-yith-wc-subscription.php:34
+msgid "day"
+msgid_plural "days"
+msgstr[0] "día"
+msgstr[1] "días"
+
+#: includes/functions-yith-wc-subscription.php:63
+#: plugin-options/general-options.php:123
+#: plugin-options/general-options.php:152
+msgid "months"
+msgstr "meses"
+
+#: includes/functions-yith-wc-subscription.php:62
+#: plugin-options/general-options.php:121
+#: plugin-options/general-options.php:150
+msgid "days"
+msgstr "días"
+
+#: includes/class-yith-wc-subscription-install.php:52
+msgid "ywsbs_subscription"
+msgstr "ywsbs_subscription"
+
+#: includes/class-yith-wc-subscription-install.php:66
+msgid "Not found in trash"
+msgstr "No se encuentra en la papelera"
+
+#: includes/class-yith-wc-subscription-install.php:65
+msgid "Not found"
+msgstr "No encontrado"
+
+#: includes/class-yith-wc-subscription-install.php:63
+msgid "Update subscription"
+msgstr "Actualiza la suscripción"
+
+#: includes/class-yith-wc-subscription-install.php:62
+msgid "Edit subscription"
+msgstr "Edita la suscripción"
+
+#: includes/class-yith-wc-subscription-install.php:60
+#: includes/class-yith-wc-subscription-install.php:61
+msgid "Add new subscription"
+msgstr "Añade nueva suscripción"
+
+#: includes/class-yith-wc-subscription-install.php:59
+msgid "View subscriptions"
+msgstr "Ver suscripciones"
+
+#: includes/class-yith-wc-subscription-install.php:58
+msgid "All subscriptions"
+msgstr "Todas las suscripciones"
+
+#: includes/class-yith-wc-subscription-install.php:57
+msgid "Parent item:"
+msgstr "Artículo principal:"
+
+#: includes/class-yith-wc-subscription-install.php:55
+msgctxt "Post Type Singular Name"
+msgid "Subscription"
+msgstr "Suscripción"
+
+#: includes/class-yith-wc-subscription-install.php:54
+msgctxt "Post Type General Name"
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#: includes/class-yith-wc-subscription.php:311
+msgid "A subscription has been removed from your cart. You cannot purchases different subscriptions at the same time."
+msgstr "Se ha eliminado una suscripción de tu carrito. No puedes comprar diferentes suscripciones al mismo tiempo."
+
+#. translators: placeholder is the subscription id.
+#: includes/legacy/abstract-ywsbs-subscription-order-legacy.php:202
+msgid "This order has been created to renew the subscription #%d"
+msgstr "Se ha creado este pedido para renovar la suscripción #%d"
+
+#: includes/legacy/abstract-ywsbs-subscription-order-legacy.php:169
+msgid "Error 404: unable to create the order. Please try again."
+msgstr "Error 404: No se ha podido crear el pedido. Por favor, inténtalo de nuevo."
+
+#: includes/class-yith-wc-subscription-admin.php:134
+#: includes/class-ywsbs-subscription-my-account.php:291
+#: includes/class-ywsbs-subscription-privacy.php:82
+msgid "Subscriptions"
+msgstr "Suscripciones"
+
+#: plugin-fw/includes/class-yit-plugin-panel.php:90
+msgid "Settings"
+msgstr "Ajustes"
+
+#: views/product/single-product-options.php:33
+msgid "Subscription Settings"
+msgstr "Ajustes de suscripción"
+
+#: includes/admin/class-ywsbs-product-post-type-admin.php:65
+#: includes/class-yith-wc-subscription-admin.php:71
+msgid "Create a subscription for this product"
+msgstr "Crea una suscripción para este producto"
+
+#: includes/admin/class-ywsbs-product-post-type-admin.php:64
+#: includes/admin/class-ywsbs-subscription-list-table.php:84
+#: includes/class-yith-wc-subscription-admin.php:70
+#: includes/class-yith-wc-subscription-install.php:56
+#: templates/myaccount/my-subscriptions-view.php:28
+#: templates/myaccount/my-subscriptions-view.php:53
+#: templates/myaccount/view-subscription.php:28
+msgid "Subscription"
+msgstr "Suscripción"
+
+#: plugin-fw/templates/fields/image-gallery.php:26
+#: plugin-fw/templates/fields/image-gallery.php:37
+msgid "Delete"
+msgstr "Eliminar"
+
+#: templates/myaccount/view-subscription.php:172
+msgid "Order"
+msgstr "Pedido"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:87
+#: templates/myaccount/my-subscriptions-view.php:30
+#: templates/myaccount/my-subscriptions-view.php:69
+msgid "Recurring"
+msgstr "Periódico"
+
+#: includes/admin/class-ywsbs-subscription-list-table.php:94
+#: templates/myaccount/my-subscriptions-view.php:33
+#: templates/myaccount/my-subscriptions-view.php:84
+#: templates/myaccount/view-subscription.php:176
+#: templates/myaccount/view-subscription.php:202
+#: templates/myaccount/view-subscription.php:239
+msgid "Status"
+msgstr "Estado"

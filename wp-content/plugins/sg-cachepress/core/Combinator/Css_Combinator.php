@@ -208,7 +208,7 @@ class Css_Combinator extends Abstract_Combinator {
 		}
 
 		// Get the host from src..
-		$host = parse_url( $style[2], PHP_URL_HOST );
+		$host = wp_parse_url( $style[2], PHP_URL_HOST );
 
 		// Bail if it's an external style.
 		if (

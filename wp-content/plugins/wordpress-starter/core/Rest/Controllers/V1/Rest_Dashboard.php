@@ -283,19 +283,15 @@ class Rest_Dashboard extends Rest {
 	public function get_wp_events_data() {
 		// Prepare the data array.
 		$data = array(
-			'section_title'            => __( 'WordPress Events and News', 'siteground-wizard' ),
+			'section_title'            => __( 'WordPress Events', 'siteground-wizard' ),
 			'events'                   => (object) array(),
 			'events_location'          => (object) array(),
 			'events_footer'            => (object) array(),
-			'latest_news'              => (object) array(),
-			'latest_news_footer_links' => (object) array(),
 		);
 
 		$data['events'] = $this->get_user_events();
 		$data['events_location'] = $this->get_events_location();
 		$data['events_footer'] = $this->get_events_footer( $this->get_events_list() );
-		$data['latest_news'] = $this->get_latest_news();
-		$data['latest_news_footer_links'] = $this->get_news_footer();
 
 		// Return the data.
 		return $data;
@@ -448,84 +444,5 @@ class Rest_Dashboard extends Rest {
 			);
 		}
 
-	}
-
-	/**
-	 * Get the latest news from the WP RSS feed.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array Returns an array with the latest news from the WP RSS feed.
-	 */
-	public function get_latest_news() {
-		// Require the file including the dashboard function, if not existing already.
-		if ( ! function_exists( 'wp_dashboard_primary_output' ) ) {
-			require_once( ABSPATH . '/wp-admin/includes/dashboard.php' );
-		}
-		$feeds = array(
-			'news'   => array(
-				'link'         => apply_filters( 'dashboard_primary_link', __( 'https://wordpress.org/news/' ) ),
-				'url'          => apply_filters( 'dashboard_primary_feed', __( 'https://wordpress.org/news/feed/' ) ),
-				'title'        => apply_filters( 'dashboard_primary_title', __( 'WordPress Blog' ) ),
-				'items'        => 2,
-				'show_summary' => 0,
-				'show_author'  => 0,
-				'show_date'    => 0,
-			),
-			'planet' => array(
-				'link'         => apply_filters( 'dashboard_secondary_link', __( 'https://planet.wordpress.org/' ) ),
-				'url'          => apply_filters( 'dashboard_secondary_feed', __( 'https://planet.wordpress.org/feed/' ) ),
-				'title'        => apply_filters( 'dashboard_secondary_title', __( 'Other WordPress News' ) ),
-				'items'        => apply_filters( 'dashboard_secondary_items', 3 ),
-				'show_summary' => 0,
-				'show_author'  => 0,
-				'show_date'    => 0,
-			),
-		);
-
-		// Retreive HTML from dashboard widget.
-		ob_start();
-		\wp_dashboard_primary_output('dashboard_primary', $feeds );
-		$content = ob_get_clean();
-
-		// Parse HTML from dashboard widget and get all link tags.
-		$result = array();
-		$html_document = new DOMDocument();
-		$html_document->loadHTML( $content );
-		$links = $html_document->getElementsByTagName( 'a' );
-
-		// Iterate all found links and assign a new item for them with the respective text and url.
-		for ( $i = 0; $i < $links->length; $i++ ) {
-			$result[] = array(
-				'text' => utf8_decode( $links->item( $i )->textContent ),
-				'url'  => $links->item( $i )->attributes->item(1)->value,
-			);
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Get the news footer.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @return array The links and text for the footer of the news widget.
-	 */
-	public function get_news_footer() {
-		return array(
-			array(
-				'link' => 'https://make.wordpress.org/community/meetups-landing-page',
-				'text' => __( 'Meetups', 'siteground-wizard' ),
-			),
-			array(
-				'link' => 'https://central.wordcamp.org/schedule/',
-				'text' => __( 'WordCamps', 'siteground-wizard' ),
-			),
-			array(
-				'link' => esc_url( _x( 'https://wordpress.org/news/', 'Events and News dashboard widget' ) ),
-				'text' => __( 'News', 'siteground-wizard' ),
-			),
-		);
 	}
 }

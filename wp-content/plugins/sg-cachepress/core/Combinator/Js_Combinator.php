@@ -752,7 +752,7 @@ class Js_Combinator extends Abstract_Combinator {
 		$is_external = false;
 
 		if (
-			@strpos( Helper_Service::get_home_url(), parse_url( $src, PHP_URL_HOST ) ) === false &&
+			@strpos( Helper_Service::get_home_url(), wp_parse_url( $src, PHP_URL_HOST ) ) === false &&
 			! @strpos( $src, 'wp-includes' )
 		) {
 			$is_external = true;

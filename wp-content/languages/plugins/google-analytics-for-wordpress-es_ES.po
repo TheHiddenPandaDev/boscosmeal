@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - MonsterInsights &#8211; Google Analytics Dashboard for WordPress (Website Stats Made Easy) - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-09-24 05:56:59+0000\n"
+"PO-Revision-Date: 2024-11-13 18:25:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,27 +11,57 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: Plugins - MonsterInsights &#8211; Google Analytics Dashboard for WordPress (Website Stats Made Easy) - Stable (latest release)\n"
 
+#. Translators: Placeholders add a link to the settings page.
+#: includes/admin/api-auth.php:827
+msgid "We detected your Google Analytics property is set to a different timezone than your website. This may slightly impact your stats, especially when comparing day over day performance. You may want to adjust your website's time zone %1$shere%2$s."
+msgstr "Hemos detectado quer tu propiedad de Google Analytics está configurada para. una zona horaria distinta a la de tu web. Esto podría impactar en cierta medida en tus estadísticas, especialmente al comparar el rendimiento día a día. Puedes que quieras ajustar la zona horaria de tu web %1$saquí%2$s."
+
+#: includes/admin/api-auth.php:824
+msgid "Website & Google Analytics Timezone Mismatch"
+msgstr "Las zonas horarias de la web y de Google Analytics no coinciden"
+
+#: includes/admin/site-notes/Controller.php:281
+msgid "You don't have permission to update categories."
+msgstr "No tienes permiso para actualizar categorías."
+
+#: includes/admin/site-notes/Controller.php:231
+#: includes/admin/site-notes/Controller.php:348
+#: includes/admin/site-notes/Controller.php:386
+#: includes/admin/site-notes/Controller.php:424
+#: includes/admin/site-notes/Controller.php:462
+msgid "You don't have permission to update notes."
+msgstr "No tienes permiso para actualizar notas."
+
+#: includes/admin/site-notes/Controller.php:186
+msgid "You don't have permission to view notes categories."
+msgstr "No tienes permiso para ver las categorías de notas."
+
+#: includes/admin/site-notes/Controller.php:112
+#: includes/admin/site-notes/Controller.php:156
+msgid "You don't have permission to view notes."
+msgstr "No tienes permiso para ver las notas."
+
 #: includes/admin/reports/site-summary.php:34
 msgid "Site Summary"
 msgstr "Resumen del sitio"
 
-#. translators: Placeholder adds an svg icon
-#: includes/admin/admin.php:90
+#. translators: Placeholder adds a svg icon
+#: includes/admin/admin.php:100
 msgid "%s Conversations AI"
 msgstr "%s Conversaciones IA"
 
-#. translators: Placeholder adds an svg icon
-#: includes/admin/admin.php:90
+#. translators: Placeholder adds a svg icon
+#: includes/admin/admin.php:100
 msgid "Conversations AI:"
 msgstr "Conversaciones IA:"
 
 #. translators: Icon
-#: includes/admin/admin.php:83
+#: includes/admin/admin.php:92
 msgid "%s AI Insights"
 msgstr "%s AI Insights"
 
 #. translators: Icon
-#: includes/admin/admin.php:83
+#: includes/admin/admin.php:92
 msgid "AI Insights:"
 msgstr "AI Insights:"
 
@@ -100,7 +130,7 @@ msgstr "Desglose por género"
 msgid "Age Breakdown"
 msgstr "Desglose por edad"
 
-#: includes/admin/routes.php:512
+#: includes/admin/routes.php:515
 msgid "Stripe Payment Gateway for WooCommerce is an integrated solution that lets you accept payments on your online store for web and mobile."
 msgstr "Stripe Payment Gateway for WooCommerce es una solución integrada que te permite aceptar pagos en tu tienda online para web y móvil."
 
@@ -124,83 +154,83 @@ msgstr "Comprueba el cumplimiento del EEE con MonsterInsights"
 msgid "MonsterInsights EEA Compliance Check"
 msgstr "Comprobación de Cumplimiento EEE de MonsterInsights"
 
-#: includes/admin/admin.php:735
+#: includes/admin/admin.php:748
 msgid "Start making better data-driven decisions today!"
 msgstr "¡Empieza hoy mismo a tomar mejores decisiones basadas en datos!"
 
-#: includes/admin/admin.php:734
+#: includes/admin/admin.php:747
 msgid "And by upgrading, Pro users also get enhanced tracking for Forms, User Journeys, PPC Pixels, Custom UserID tracking, SEO Reports, and much more."
 msgstr "Y al actualizarse, los usuarios Pro también obtienen un seguimiento mejorado para Formularios, Trayectorias de usuario, Píxeles PPC, Seguimiento personalizado de UserID, Informes SEO y mucho más."
 
-#: includes/admin/admin.php:733
+#: includes/admin/admin.php:746
 msgid "MonsterInsights Pro users instantly gain access to valuable insights such as average order value, conversion rates, as well as marketing performance with UTM tracking."
 msgstr "Los usuarios de MonsterInsights Pro obtienen acceso instantáneo a información valiosa, como el valor medio de los pedidos, las tasas de conversión y el rendimiento del marketing con el seguimiento UTM."
 
-#: includes/admin/admin.php:732
+#: includes/admin/admin.php:745
 msgid "Unlock all of our advanced eCommerce features specifically designed to help your store make more money.."
 msgstr "Desbloquea todas nuestras funciones avanzadas de comercio electrónico diseñadas específicamente para ayudar a tu tienda a ganar más dinero.."
 
-#: includes/admin/admin.php:731
+#: includes/admin/admin.php:744
 msgid "Add eCommerce Analytics to your WooCommerce Store"
 msgstr "Añade análisis de comercio electrónico a tu tienda de WooCommerce"
 
-#: includes/admin/admin.php:721
+#: includes/admin/admin.php:734
 msgid "Save <span>50%</span> Off MonsterInsights Pro"
 msgstr "Ahorra <span>50%</span> en MonsterInsights Pro"
 
-#: includes/admin/admin.php:144
+#: includes/admin/admin.php:157
 msgid "Payments"
 msgstr "Pagos"
 
-#: includes/admin/admin.php:143
+#: includes/admin/admin.php:156
 msgid "Payments:"
 msgstr "Pagos:"
 
-#: includes/admin/routes.php:664
+#: includes/admin/routes.php:667
 msgid "Automate everything with the #1 no-code Automation tool for WordPress."
 msgstr "Automatiza todo con la herramienta de automatización sin código número uno para WordPress."
 
-#: includes/admin/routes.php:638
+#: includes/admin/routes.php:641
 msgid "Easily display Twitter content in WordPress without writing any code. Comes with multiple layouts, ability to combine multiple Twitter feeds, Twitter card support, tweet moderation, and more."
 msgstr "Muestra fácilmente contenido de Twitter en WordPress sin escribir ningún código. Viene con múltiples diseños, capacidad para combinar múltiples feeds de Twitter, soporte para tarjetas de Twitter, moderación de tweets y más."
 
-#: includes/admin/routes.php:623
+#: includes/admin/routes.php:626
 msgid "Easily display YouTube videos on your WordPress site without writing any code. Comes with multiple layouts, ability to embed live streams, video filtering, ability to combine multiple channel videos, and more."
 msgstr "Muestra fácilmente videos de YouTube en tu sitio de WordPress sin escribir ningún código. Viene con múltiples diseños, capacidad para incrustar transmisiones en vivo, filtrado de video, capacidad para combinar videos de múltiples canales y más."
 
-#: includes/admin/routes.php:609
+#: includes/admin/routes.php:612
 msgid "Easily display Facebook content on your WordPress site without writing any code. Comes with multiple templates, ability to embed albums, group content, reviews, live videos, comments, and reactions."
 msgstr "Muestra fácilmente contenido de Facebook en tu sitio de WordPress sin escribir ningún código. Viene con múltiples plantillas, capacidad para incrustar álbumes, contenido grupal, reseñas, videos en vivo, comentarios y reacciones."
 
-#: includes/admin/routes.php:583 includes/admin/routes.php:689
+#: includes/admin/routes.php:586 includes/admin/routes.php:692
 msgid "The most advanced WordPress search plugin. Customize your WordPress search algorithm, reorder search results, track search metrics, and everything you need to leverage search to grow your business."
 msgstr "El plugin de búsqueda de WordPress más avanzado. Personaliza tu algoritmo de búsqueda de WordPress, reordena los resultados de búsqueda, realiza un seguimiento de las métricas de búsqueda y todo lo que necesitas para aprovechar la búsqueda para hacer crecer tu negocio."
 
-#: includes/admin/routes.php:464 includes/admin/routes.php:700
+#: includes/admin/routes.php:467 includes/admin/routes.php:703
 msgid "A simple & powerful event calendar plugin for WordPress that comes with all the event management features including payments, scheduling, timezones, ticketing, recurring events, and more."
 msgstr "Un plugin de calendario de eventos simple y potente para WordPress que viene con todas las características de gestión de eventos, incluidos pagos, programación, zonas horarias, emisión de entradas, eventos periódicos y más."
 
-#: includes/admin/routes.php:452
+#: includes/admin/routes.php:455
 msgid "The #1 Stripe payments plugin for WordPress. Start accepting one-time and recurring payments on your WordPress site without setting up a shopping cart. No code required."
 msgstr "El plugin de pagos Stripe número uno para WordPress. Empieza a aceptar pagos únicos y periódicos en tu sitio de WordPress sin ajustar un carrito de compras. No se requiere código."
 
-#: includes/admin/routes.php:439
+#: includes/admin/routes.php:442
 msgid "The #1 affiliate management plugin for WordPress. Easily create an affiliate program for your eCommerce store or membership site within minutes and start growing your sales with the power of referral marketing."
 msgstr "El plugin de gestión de afiliados número uno para WordPress. Crea fácilmente un programa de afiliados para tu tienda de comercio electrónico o sitio de membresía en cuestión de minutos y comienza a aumentar tus ventas con el poder del marketing de referencia."
 
-#: includes/admin/routes.php:390 includes/admin/routes.php:733
+#: includes/admin/routes.php:393 includes/admin/routes.php:736
 msgid "Leading WordPress backup & site migration plugin. Over 1,500,000+ smart website owners use Duplicator to make reliable and secure WordPress backups to protect their websites. It also makes website migration really easy."
 msgstr "Plugin líder de copia de seguridad y migración de sitios de WordPress. Más de 1.500.000 propietarios de webs inteligentes usan Duplicator para realizar copias de seguridad de WordPress confiables y seguras para proteger sus webs. También hace que la migración de webs sea realmente fácil."
 
-#: includes/admin/routes.php:378 includes/admin/routes.php:722
+#: includes/admin/routes.php:381 includes/admin/routes.php:725
 msgid "Future proof your WordPress customizations with the most popular code snippet management plugin for WordPress. Trusted by over 1,500,000+ websites for easily adding code to WordPress right from the admin area."
 msgstr "Prepara tus personalizaciones de WordPress para el futuro con el plugin de gestión de fragmentos de código más popular para WordPress. Con la confianza de más de 1.500.000 webs para añadir código fácilmente a WordPress directamente desde el área de administrador."
 
-#: includes/admin/routes.php:366 includes/admin/routes.php:711
+#: includes/admin/routes.php:369 includes/admin/routes.php:714
 msgid "Top-rated WordPress donation and fundraising plugin. Over 10,000+ non-profit organizations and website owners use Charitable to create fundraising campaigns and raise more money online."
 msgstr "Plugin de donación y recaudación de fondos de WordPress de primer nivel. Más de 10.000 organizaciones sin fines de lucro y propietarios de webs utilizan Charitable para crear campañas de recaudación de fondos y recaudar más dinero en línea."
 
-#: includes/admin/routes.php:332
+#: includes/admin/routes.php:335
 msgid "The best WordPress eCommerce plugin for selling digital downloads. Start selling eBooks, software, music, digital art, and more within minutes. Accept payments, manage subscriptions, advanced access control, and more."
 msgstr "El mejor plugin de comercio electrónico de WordPress para vender descargas digitales. Comienza a vender libros electrónicos, software, música, arte digital y más en cuestión de minutos. Acepta pagos, gestiona suscripciones, control de acceso avanzado y más."
 
@@ -411,7 +441,7 @@ msgstr "La compatibilidad con Google Optimize y Optimize 360 ​​finalizó en 
 msgid "Facebook Instant Article support ended in April 2023. You may deactivate and delete the MonsterInsights addon at your earliest convenience."
 msgstr "La compatibilidad con artículos instantáneos de Facebook finalizó en abril de 2023. Puedes desactivar y borrar el plugin MonsterInsights cuando lo desees."
 
-#: includes/admin/admin.php:52
+#: includes/admin/admin.php:58
 msgid "Setup Checklist"
 msgstr "Lista de verificación"
 
@@ -419,27 +449,27 @@ msgstr "Lista de verificación"
 msgid "You are using Manual GA4 Measurement ID output"
 msgstr "Estás usando la salida manual de ID de medición GA4"
 
-#: includes/admin/admin.php:501
+#: includes/admin/admin.php:514
 msgid "Connect a Property"
 msgstr "Conectar una propiedad"
 
-#: includes/admin/admin.php:498
+#: includes/admin/admin.php:511
 msgid "Learn How to Create a GA4 Property"
 msgstr "Aprender a crear una propiedad GA4"
 
-#: includes/admin/admin.php:488
+#: includes/admin/admin.php:501
 msgid "Google Analytics 3 (UA) and support was sunset on July 1, 2023. Your website is currently NOT tracking any analytics. </br>Create or connect a new Google Analytics 4 property immediately to start tracking."
 msgstr "Google Analytics 3 (UA) y el soporte finalizaron el 1 de julio de 2023. Actualmente, tu web NO realiza un seguimiento de ningún análisis. </br>Crea o conecta una nueva propiedad de Google Analytics 4 inmediatamente para iniciar el seguimiento."
 
-#: includes/admin/admin.php:487
+#: includes/admin/admin.php:500
 msgid "Urgent: Your Website is Not Tracking Any Google Analytics Data!"
 msgstr "Urgente: ¡Tu web no rastrea ningún dato de Google Analytics!"
 
-#: includes/admin/admin.php:520
+#: includes/admin/admin.php:533
 msgid "MonsterInsights, the #1 WordPress Analytics Plugin, helps you easily connect your website to Google Analytics, so that you can see how people find and use your website. Over 3 million website owners use MonsterInsights to see the stats that matter and grow their business."
 msgstr "MonsterInsights, el plugin de analítica nº 1 para WordPress, te ayuda a conectar fácilmente tu web con Google Analytics, para que puedas ver cómo la gente encuentra y usa tu web. Más de 3 millones de propietarios de webs usan MonsterInsights para ver las estadísticas que importan y hacer crecer sus negocios."
 
-#: includes/admin/admin.php:97
+#: includes/admin/admin.php:109
 msgid "User Journey:"
 msgstr "Recorrido del usuario:"
 
@@ -463,58 +493,58 @@ msgstr "Entrada de blog"
 msgid "Website Updates"
 msgstr "Actualizaciones de la web"
 
-#: includes/admin/site-notes/Controller.php:675
+#: includes/admin/site-notes/Controller.php:757
 #: assets/gutenberg/js/editor.js:3054
 msgid "Add a Site Note"
 msgstr "Añadir una nota al sitio"
 
-#: includes/admin/site-notes/Controller.php:442
+#: includes/admin/site-notes/Controller.php:533
 msgid "NA"
 msgstr "ND"
 
-#: includes/admin/site-notes/Controller.php:432
+#: includes/admin/site-notes/Controller.php:523
 msgid "Important"
 msgstr "Importante"
 
-#: includes/admin/site-notes/Controller.php:431
-#: includes/admin/site-notes/Controller.php:686
+#: includes/admin/site-notes/Controller.php:522
+#: includes/admin/site-notes/Controller.php:768
 #: assets/gutenberg/js/editor.js:3057
 msgid "Category"
 msgstr "Categoría"
 
-#: includes/admin/site-notes/Controller.php:430
+#: includes/admin/site-notes/Controller.php:521
 msgid "Site Note"
 msgstr "Nota del sitio"
 
-#: includes/admin/site-notes/Controller.php:429
+#: includes/admin/site-notes/Controller.php:520
 msgid "Date"
 msgstr "Fecha"
 
-#: includes/admin/site-notes/Controller.php:381
+#: includes/admin/site-notes/Controller.php:473
 msgid "Please choose a category to delete!"
 msgstr "¡Por favor, elige una categoría para borrar!"
 
-#: includes/admin/site-notes/Controller.php:354
+#: includes/admin/site-notes/Controller.php:435
 msgid "Please choose a site note(s) to delete!"
 msgstr "¡Por favor, elige una o varias notas del sitio para borrarlas!"
 
-#: includes/admin/site-notes/Controller.php:327
+#: includes/admin/site-notes/Controller.php:397
 msgid "Please choose a site note(s) to restore!"
 msgstr "¡Por favor, elige una o varias notas del sitio para restaurarlas!"
 
-#: includes/admin/site-notes/Controller.php:300
+#: includes/admin/site-notes/Controller.php:359
 msgid "Please choose a site note to trash!"
 msgstr "¡Por favor, elige una nota del sitio para enviar a la papelera!"
 
-#: includes/admin/site-notes/Controller.php:252
+#: includes/admin/site-notes/Controller.php:301
 msgid "You can't exceed the 200 characters length for each site note."
 msgstr "No puede superar la longitud de 200 caracteres para cada nota del sitio."
 
-#: includes/admin/site-notes/Controller.php:243
+#: includes/admin/site-notes/Controller.php:292
 msgid "Please add a category name"
 msgstr "Por favor, añade un nombre de categoría"
 
-#: includes/admin/routes.php:488
+#: includes/admin/routes.php:491
 msgid "Ask visitors questions about how they use your website or what features can make you more money."
 msgstr "Haz preguntas a los visitantes acerca de cómo utilizan tu web o qué características pueden hacerte ganar más dinero."
 
@@ -537,39 +567,39 @@ msgstr "MonsterInsights te dice qué están haciendo los visitantes de tu web, p
 msgid "What Are Your Users Really Thinking?"
 msgstr "¿Qué piensan realmente tus usuarios?"
 
-#: includes/admin/admin.php:79
+#: includes/admin/admin.php:86
 msgid "Site Notes"
 msgstr "Notas del sitio"
 
-#: includes/admin/admin.php:79
+#: includes/admin/admin.php:86
 msgid "Site Notes:"
 msgstr "Notas del sitio:"
 
-#: includes/admin/admin.php:516
+#: includes/admin/admin.php:529
 msgid "Please Connect Your Website to MonsterInsights"
 msgstr "Por favor, conecta tu web a MonsterInsights"
 
-#: includes/admin/admin.php:200
+#: includes/admin/admin.php:213
 msgid "Halloween Sale"
 msgstr "Rebajas de Halloween"
 
-#: includes/admin/admin.php:192
+#: includes/admin/admin.php:205
 msgid "Fortune Cookie Day"
 msgstr "Día de la galleta de la fortuna"
 
-#: includes/admin/admin.php:184
+#: includes/admin/admin.php:197
 msgid "Summer Sale"
 msgstr "Rebajas de verano"
 
-#: includes/admin/admin.php:176
+#: includes/admin/admin.php:189
 msgid "Upgrade to GA4"
 msgstr "Actualiza a GA4"
 
-#: includes/admin/admin.php:168
+#: includes/admin/admin.php:181
 msgid "Cinco De Mayo!"
 msgstr "¡Cinco de Mayo!"
 
-#: includes/admin/admin.php:160
+#: includes/admin/admin.php:173
 msgid "Earth Day"
 msgstr "Día de la Tierra"
 
@@ -578,7 +608,7 @@ msgstr "Día de la Tierra"
 msgid "%1$sPlus%2$s, upgrading to pro will unlock %3$sall%4$s of advanced reports, tracking, and integrations. %5$sLearn more about Pro%6$s"
 msgstr "%1$sAdemás%2$s, la actualización a pro desbloqueará %3$stodos%4$s los informes avanzados, el seguimiento y las integraciones. %5$sAprende más sobre la versión Pro%6$s"
 
-#: includes/admin/routes.php:769
+#: includes/admin/routes.php:772
 msgid "See what your analytics software isn’t telling you with powerful UserFeedback surveys."
 msgstr "Descubre lo que tu software de analítica no te está diciendo con potentes encuestas de UserFeedback."
 
@@ -586,11 +616,11 @@ msgstr "Descubre lo que tu software de analítica no te está diciendo con poten
 msgid "Invalid site key."
 msgstr "Clave del sitio no válida."
 
-#: includes/admin/admin.php:119
+#: includes/admin/admin.php:132
 msgid "UserFeedback"
 msgstr "Comentarios de los usuarios"
 
-#: includes/admin/admin.php:118
+#: includes/admin/admin.php:131
 msgid "UserFeedback:"
 msgstr "UserFeedback:"
 
@@ -606,78 +636,78 @@ msgstr "¡Vaya! No se ha encontrado nada en ese intervalo de fechas"
 msgid "Verified by MonsterInsights"
 msgstr "Verificado por MonsterInsights"
 
-#: lite/includes/admin/onboarding-wizard.php:244
+#: lite/includes/admin/onboarding-wizard.php:247
 msgid "Oops! You are not allowed to install plugins. Please contact your site administrator for assistance."
 msgstr "¡Vaya! No tienes permisos para instalar plugins. Por favor, contacta con el administrador de tu sitio para obtener ayuda."
 
 #. Translators: Wizard page link tag starts with url and Wizard page link tag
 #. ends.
-#: includes/admin/routes.php:1483
+#: includes/admin/routes.php:1486
 msgid "You need to authenticate into MonsterInsights before viewing reports. Please complete the setup by going through our %1$ssetup wizard%2$s."
 msgstr "Debes identificarte en MonsterInsights antes de ver los informes. Completa la configuración utilizando nuestro %1$sasistente de configuración%2$s."
 
 #. Translators: Account page link tag starts with url and Account page link tag
 #. ends.
-#: includes/admin/routes.php:1463
+#: includes/admin/routes.php:1466
 msgid "Oops! We could not find a valid license key. Please enter a valid license key to view this report. You can find your license by logging into your %1$sMonsterInsights account%2$s."
 msgstr "¡Vaya! No pudimos encontrar una clave de licencia válida. Por favor, introduce una clave de licencia válida para ver este informe. Puedes encontrar tu licencia iniciando sesión en tu %1$scuenta de MonsterInsights%2$s."
 
 #. Translators: Setting page link tag starts with url and Setting page link tag
 #. ends.
-#: includes/admin/routes.php:1448
+#: includes/admin/routes.php:1451
 msgid "Oops! We could not find a valid license key for MonsterInsights. Please %1$senter a valid license key%2$s to view this report."
 msgstr "¡Vaya! No hemos podido encontrar una clave de licencia válida para MonsterInsights. Por favor, %1$sintroduce una clave de licencia válida%2$s para ver este informe."
 
 #. Translators: Link tag starts with url and link tag ends.
-#: includes/admin/routes.php:1425
+#: includes/admin/routes.php:1428
 msgid "Oops! You don not have permissions to view or access Popular Posts. Please check with your site administrator that your role is included in the MonsterInsights permissions settings. %1$sClick here for more information%2$s."
 msgstr "¡Vaya! No tienes permisos para ver o acceder a las entradas populares. Por favor, comprueba con el administrador de tu sitio que tu perfil está incluido en la configuración de permisos de MonsterInsights. %1$sHaz clic aquí para más información%2$s."
 
-#: includes/admin/routes.php:1166
+#: includes/admin/routes.php:1169
 msgid "Oops! You are not allowed to install plugins. Please contact your website administrator for further assistance."
 msgstr "¡Vaya! No tienes permisos para instalar extensiones. Ponte en contacto con el administrador de tu web para obtener más ayuda."
 
 #. Translators: Support link tag starts with url and Support link tag ends.
-#: includes/admin/routes.php:1151 includes/admin/routes.php:1495
-#: includes/admin/routes.php:1549
+#: includes/admin/routes.php:1154 includes/admin/routes.php:1498
+#: includes/admin/routes.php:1552
 msgid "Oops! We encountered an error while generating your reports. Please wait a few minutes and try again. If the issue persists, please %1$scontact our support%2$s team."
 msgstr "¡Vaya! Hemos tenido un problema al generar tus informes. Por favor, espera unos minutos e inténtalo de nuevo. Si el problema persiste, por favor %1$scontacta con nuestro equipo de soporte%2$s."
 
 #. Translators: Support link tag starts with url and Support link tag ends.
-#: includes/admin/routes.php:1086
+#: includes/admin/routes.php:1089
 msgid "Oops! We ran into a problem displaying this report. Please %1$scontact our support%2$s team if this issue persists."
 msgstr "¡Vaya! Nos encontramos con un problema al mostrar este informe. Por favor, %1$scontacta con nuestro equipo de soporte%2$s si el problema persiste."
 
 #. Translators: Wizard link tag starts with url and Wizard link tag ends.
-#: includes/admin/routes.php:1074
+#: includes/admin/routes.php:1077
 msgid "You need to authenticate into MonsterInsights before viewing reports. Please run our %1$ssetup wizard%2$s."
 msgstr "Debes identificarte en MonsterInsights antes de ver los informes. Por favor, ejecuta nuestro %1$sasistente de configuración%2$s."
 
 #. Translators: Support link tag starts with url and Support link tag ends.
-#: includes/admin/routes.php:1054
+#: includes/admin/routes.php:1057
 msgid "Oops! We had a problem due to a license key error. Please try again in a few minutes. If the problem persists, please %1$scontact our support%2$s team."
 msgstr "¡Vaya! Tuvimos un problema debido a un error de clave de licencia. Vuelve a intentarlo en unos minutos. Si el problema persiste, %1$scontacta con nuestro equipo de soporte%2$s."
 
 #. Translators: Support link tag starts with url and Support link tag ends.
-#: includes/admin/routes.php:1039
+#: includes/admin/routes.php:1042
 msgid "Oops! You cannot view MonsterInsights reports because you are not licensed. Please try again in a few minutes. If the issue continues, please %1$scontact our support%2$s team."
 msgstr "¡Vaya! No puedes ver los informes de MonsterInsigths poque no tienes la licencia. Por favor, inténtalo de nuevo en unos minutos. Si el problema persiste, %1$scontacta con nuestro equipo de soporte%2$s, por favor."
 
 #. Translators: link tag starts with url, link tag ends.
-#: includes/admin/routes.php:1020
+#: includes/admin/routes.php:1023
 msgid "Oops! You don not have permissions to view MonsterInsights reporting. Please check with your site administrator that your role is included in the MonsterInsights permissions settings. %1$sClick here for more information%2$s."
 msgstr "¡Vaya! No tienes permisos para ver los informes de MonsterInsights. Por favor, comprueba con el administrador de tu sitio que tu perfil está incluido en la configuración de permisos de MonsterInsights. %1$sHaz clic aquí para más información%2$s."
 
-#: includes/admin/routes.php:970
+#: includes/admin/routes.php:973
 msgid "Please select a valid file to upload."
 msgstr "Por favor, selecciona un archivo válido para subir."
 
 #. Translators: link tag starts with url, link tag ends.
-#: includes/admin/routes.php:886
+#: includes/admin/routes.php:889
 msgid "Oops! Please enter a valid Google Analytics 4 Measurement ID. %1$sLearn how to find your Measurement ID%2$s."
 msgstr "¡Vaya! Introduce un ID de medición válido de Google Analytics 4. %1$sAprende a encontrar tu ID de medición%2$s."
 
-#: includes/admin/routes.php:744
+#: includes/admin/routes.php:747
 msgid "Start accepting one-time and recurring payments on your WordPress site without setting up a shopping cart. No code required."
 msgstr "Comienza a aceptar pagos únicos y periódicos en tu sitio de WordPress sin necesidad de configurar un carrito de compras. No se requiere ningún código."
 
@@ -784,51 +814,51 @@ msgid "There was an error installing the addon. Please try again. If you are sti
 msgstr "Se ha producido un error al instalar la extensión. Por favor, inténtalo de nuevo. Si sigues teniendo problemas, por favor %1$scontacta con nuestro equipo de soporte%2$s."
 
 #. Translators: Support link tag starts with url and support link tag ends.
-#: includes/admin/api-auth.php:597
+#: includes/admin/api-auth.php:609
 msgid "Oops! There has been an error while trying to deauthenticate. Please try again. If the issue persists, please %1$scontact our support%2$s team."
 msgstr "¡Vaya! Se ha producido un error al intentar desidentificarte. Por favor, inténtalo de nuevo. Si el problema persiste, ponte en %1$scontacto con nuestro equipo de soporte%2$s."
 
 #. Translators: Setup Wizard link tag starts, Setup Wizard link tag end,
 #. Support link tag starts with url and support link tag ends.
-#: includes/admin/api-auth.php:576
+#: includes/admin/api-auth.php:588
 msgid "Could not disconnect your account, as you are not currently authenticated properly. Please try to authenticate again with our %1$sMonsterInsights setup wizard%2$s.  If you are still having problems, please %3$scontact our support%4$s team."
 msgstr "No se pudo desconectar tu cuenta porque actualmente no estás autenticado correctamente. Intenta autenticarte nuevamente con nuestro %1$sasistente de ajustes de MonsterInsights%2$s. Si aún tienes problemas, %3$scomunícate con nuestro equipo de soporte%4$s."
 
 #. Translators: Setup Wizard link tag starts, Setup Wizard link tag end,
 #. Support link tag starts with url and support link tag ends.
-#: includes/admin/api-auth.php:552 includes/admin/api-auth.php:562
+#: includes/admin/api-auth.php:564 includes/admin/api-auth.php:574
 msgid "Could not disconnect as you are not currently authenticated properly. Please try to authenticate again with our MonsterInsights %1$ssetup wizard%2$s.  If you are still having problems, please %3$scontact our support%4$s team."
 msgstr "No se pudo desconectar porque actualmente no estás autenticado correctamente. Intenta autenticarte nuevamente con nuestro asistente de ajusres %1$s%2$s de MonsterInsights. Si aún tienes problemas, %3$scomunícate con nuestro equipo de soporte%4$s."
 
 #. Translators: Link tag starts with url and link tag ends.
-#: includes/admin/api-auth.php:537
+#: includes/admin/api-auth.php:549
 msgid "You don't have the correct WordPress user permissions to deauthenticate into MonsterInsights. Please check with your site administrator that your role is included in the MonsterInsights permissions settings. %1$sClick here for more information%2$s."
 msgstr "No tienes los permisos de usuario de WordPress correctos para anular la autenticación en MonsterInsights. Comprueba con el administrador de tu sitio que tu perfil esté incluido en los ajustes de permisos de MonsterInsights. %1$sHaz clic aquí para obtener más información%2$s."
 
 #. Translators: Support Link tag starts with url and Support link tag ends.
-#: includes/admin/api-auth.php:486 includes/admin/api-auth.php:500
+#: includes/admin/api-auth.php:498 includes/admin/api-auth.php:512
 msgid "Oops! There has been an error while trying to verify your license. Please try again or contact our support team by %1$sclicking here%2$s."
 msgstr "¡Vaya! Se ha producido un error al intentar verificar tu licencia. Por favor, inténtalo de nuevo o comunícate con nuestro equipo de soporte %1$shaciendo clic aquí%2$s."
 
 #. Translators: Support Link tag starts with url and Support link tag ends.
-#: includes/admin/api-auth.php:452 includes/admin/api-auth.php:460
-#: includes/admin/api-auth.php:472
+#: includes/admin/api-auth.php:464 includes/admin/api-auth.php:472
+#: includes/admin/api-auth.php:484
 msgid "Please enter a valid license within the MonsterInsights settings panel. You can check your license by logging into your MonsterInsights account by %1$sclicking here%2$s."
 msgstr "Por favor, introduce una licencia válida en el panel de ajustes de MonsterInsights. Puedes comprobar tu licencia accediendo a tu cuenta de MonsterInsights haciendo %1$sclic aquí%2$s."
 
 #. Translators: Link tag starts with url and link tag ends.
-#: includes/admin/api-auth.php:437
+#: includes/admin/api-auth.php:449
 msgid "You don't have the correct user permissions to verify the MonsterInsights license you are trying to use. Please check with your site administrator that your role is included in the MonsterInsights permissions settings. %1$sClick here for more information%2$s."
 msgstr "No tienes los permisos de usuario correctos para verificar la licencia de MonsterInsights que estás intentando utilizar. Por favor, compruébalo con el administrador de tu sitio que tu perfil esté incluido en los ajustes de permisos de MonsterInsights. %1$sHaz clic aquí para obtener más información%2$s."
 
 #. Translators: Wizard Link tag starts with url, Wizard link tag ends, Support
 #. link tag starts, Support link tag ends.
-#: includes/admin/api-auth.php:307 includes/admin/api-auth.php:317
+#: includes/admin/api-auth.php:313 includes/admin/api-auth.php:323
 msgid "Oops! There was a problem while re-authenticating. Please try to complete the MonsterInsights %1$ssetup wizard%2$s again. If the problem persists, please %3$scontact our support%4$s team."
 msgstr "¡Vaya! Hubo un problema al volver a identificarse. Por favor, intenta completar el %1$sasistente de instalación %2$s de MonsterInsights de nuevo. Si el problema persiste, por favor %3$scontacta a nuestro equipo de soporte%4$s."
 
 #. Translators: Link tag starts with url and link tag ends.
-#: includes/admin/api-auth.php:284
+#: includes/admin/api-auth.php:290
 msgid "You don't have the correct WordPress user permissions to re-authenticate into MonsterInsights. Please check with your site administrator that your role is included in the MonsterInsights permissions settings. %1$sClick here for more information%2$s."
 msgstr "No tienes los permisos de usuario de WordPress correctos para volver a autenticarte en MonsterInsights. Por favor, compruébalo con el administrador de tu sitio que tu perfil esté incluido en los ajustes de permisos de MonsterInsights. %1$sHaz clic aquí para obtener más información%2$s."
 
@@ -843,7 +873,7 @@ msgid "You don't have the correct WordPress user permissions to authenticate int
 msgstr "No tienes los permisos de usuario de WordPress correctos para autenticarte en MonsterInsights. Por favor, compruébalo con el administrador de tu sitio que tu perfil esté incluido en los ajustes de permisos de MonsterInsights. %1$sHaz clic aquí para obtener más información%2$s."
 
 #. translators: Placeholders add a link to an article.
-#: includes/admin/admin.php:857
+#: includes/admin/admin.php:870
 msgid "Your Measurement Protocol API Secret is currently left blank. To see more advanced analytics please enter a Measurement API Secret. %1$sLearn how to find your API Secret%2$s."
 msgstr "El código secreto de la API Measurement Protocol está actualmente en blanco. Para ver análisis más avanzados, introduzce un código secreto de API Measurement Protocol. %1$sAprende a encontrar tu  código secreto API%2$s."
 
@@ -851,7 +881,7 @@ msgstr "El código secreto de la API Measurement Protocol está actualmente en b
 msgid "See each step your visitor took before purchasing from your site"
 msgstr "Mira cada paso que dio tu visitante antes de comprar en tu sitio"
 
-#: includes/admin/admin.php:97
+#: includes/admin/admin.php:109
 #: lite/includes/admin/user-journey/providers/class-abstract-lite-metabox.php:101
 msgid "User Journey"
 msgstr "Viaje del usuario"
@@ -1078,12 +1108,12 @@ msgid "This is a PRO feature."
 msgstr "Esta es una característica PRO."
 
 #: includes/admin/exclude-page-metabox.php:124
-#: assets/gutenberg/js/editor.js:3237
+#: assets/gutenberg/js/editor.js:3238
 msgid "Toggle to prevent Google Analytics from tracking this page."
 msgstr "Cámbialo para evitar que Google Analytics rastree esta página."
 
 #: includes/admin/exclude-page-metabox.php:120
-#: assets/gutenberg/js/editor.js:3238
+#: assets/gutenberg/js/editor.js:3239
 msgid "Exclude page from Google Analytics Tracking"
 msgstr "Excluye páginas del seguimiento de Google Analytics"
 
@@ -1095,43 +1125,43 @@ msgstr "Actualizar y desbloquear"
 msgid "Categories"
 msgstr "Categorías"
 
-#: includes/admin/site-notes/Controller.php:433
+#: includes/admin/site-notes/Controller.php:524
 msgid "Media"
 msgstr "Medios"
 
-#: includes/admin/routes.php:756
+#: includes/admin/routes.php:759
 msgid "Advanced Coupons for WooCommerce (Free Version) gives WooCommerce store owners extra coupon features so they can market their stores better."
 msgstr "Advanced Coupons for WooCommerce (versión gratis) ofrece a los propietarios de tiendas WooCommerce características de cupones adicionales para que puedan comercializar mejor sus tiendas."
 
-#: includes/admin/admin.php:132
+#: includes/admin/admin.php:145
 msgid "Growth Tools"
 msgstr "Herramientas de crecimiento"
 
-#: includes/admin/admin.php:132
+#: includes/admin/admin.php:145
 msgid "Growth Tools:"
 msgstr "Herramientas de crecimiento:"
 
 #. Translators: Placeholders add the PHP version, a link to the MonsterInsights
 #. blog and a line break.
-#: includes/admin/admin.php:584
+#: includes/admin/admin.php:597
 msgid "Your site is running an outdated, insecure version of PHP (%1$s), which could be putting your site at risk for being hacked.%4$sWordPress is working towards discontinuing support for your PHP version.%4$sUpdating PHP only takes a few minutes and will make your website significantly faster and more secure.%4$s%2$sLearn more about updating PHP%3$s"
 msgstr "Tu sitio está ejecutando una versión obsoleta e insegura de PHP (%1$s), lo que podría poner a tu sitio en riesgo de ser hackeado.%4$sWordPress está trabajando para dejar de ser compatible con tu versión de PHP.%4$sActualizar PHP solo tarda unos minutos y hará que tu web sea significativamente más rápida y más segura.%4$s%2$sAprende más sobre la actualización de PHP%3$s"
 
 #. Translators: Placeholders add the PHP version, a link to the MonsterInsights
 #. blog and a line break.
-#: includes/admin/admin.php:581
+#: includes/admin/admin.php:594
 msgid "Your site is running an outdated, insecure version of PHP (%1$s), which could be putting your site at risk for being hacked.%4$sWordPress stopped supporting your PHP version in November, 2019.%4$sUpdating PHP only takes a few minutes and will make your website significantly faster and more secure.%4$s%2$sLearn more about updating PHP%3$s"
 msgstr "Tu sitio está ejecutando una versión obsoleta e insegura de PHP (%1$s), lo que podría poner a tu sitio en riesgo de ser hackeado.%4$sEn noviembre de 2019, WordPress dejó de ser compatible con tu versión de PHP.%4$sActualizar PHP solo tarda unos minutos y hará que tu web sea significativamente más rápida y más segura.%4$s%2$sAprende más sobre la actualización de PHP%3$s"
 
-#: includes/admin/admin.php:281
+#: includes/admin/admin.php:294
 msgid "SEO:"
 msgstr "SEO:"
 
-#: includes/admin/admin.php:136
+#: includes/admin/admin.php:149
 msgid "Upgrade to Pro:"
 msgstr "Actualizar a Pro:"
 
-#: includes/admin/admin.php:105 includes/admin/admin.php:281
+#: includes/admin/admin.php:118 includes/admin/admin.php:294
 msgid "SEO"
 msgstr "SEO"
 
@@ -1139,39 +1169,39 @@ msgstr "SEO"
 msgid "Samoa"
 msgstr "Samoa"
 
-#: includes/admin/routes.php:653
+#: includes/admin/routes.php:656
 msgid "Connect with your visitors after they leave your website with the leading web push notification software. Over 10,000+ businesses worldwide use PushEngage to send 15 billion notifications each month."
 msgstr "Conéctate con tus visitantes después de que abandonen tu web con el software líder de avisos web push. Más de 10.000 empresas en todo el mundo usan PushEngage para enviar 15.000 millones de avisos cada mes."
 
-#: includes/admin/routes.php:595
+#: includes/admin/routes.php:598
 msgid "Easily display Instagram content on your WordPress site without writing any code. Comes with multiple templates, ability to show content from multiple accounts, hashtags, and more. Trusted by 1 million websites."
 msgstr "Muestra fácilmente contenido de Instagram en tu sitio WordPress sin escribir nada de código. Viene con varias plantillas, posibilidad de mostrar contenido de varias cuentas, hashtags y más. Con la confianza de 1 millón de webs."
 
-#: includes/admin/routes.php:570
+#: includes/admin/routes.php:573
 msgid "Boost your sales and conversions by up to 15% with real-time social proof notifications. TrustPulse helps you show live user activity and purchases to help convince other users to purchase."
 msgstr "Aumenta tus ventas y conversiones hasta un 15 % con avisos de prueba social en tiempo real. TrustPulse te ayuda a mostrar en vivo la actividad y las compras de los usuarios para ayudar a convencer a otros usuarios para que compren."
 
-#: includes/admin/routes.php:559
+#: includes/admin/routes.php:562
 msgid "Turn your website visitors into brand ambassadors! Easily grow your email list, website traffic, and social media followers with the most powerful giveaways & contests plugin for WordPress."
 msgstr "¡Convierte a tus visitantes en embajadores de tu marca! Haz crecer fácilmente tu lista de correo electrónico, el tráfico de la web y los seguidores de medios sociales con el plugin más potente de regalos y concursos para WordPress."
 
-#: includes/admin/routes.php:548
+#: includes/admin/routes.php:551
 msgid "The fastest drag & drop landing page builder for WordPress. Create custom landing pages without writing code, connect them with your CRM, collect subscribers, and grow your audience. Trusted by 1 million sites."
 msgstr "El maquetador de arrastrar y soltar para páginas de destino más rápido para WordPress. Crea páginas de destino personalizadas sin escribir código, conéctalas con tu CRM, recopila suscriptores y haz crecer tu audiencia. Con la confianza de 1 millón de sitios."
 
-#: includes/admin/routes.php:538
+#: includes/admin/routes.php:541
 msgid "Improve your WordPress email deliverability and make sure that your website emails reach user’s inbox with the #1 SMTP plugin for WordPress. Over 3 million websites use it to fix WordPress email issues."
 msgstr "Mejora la capacidad de entrega de tu correo electrónico de WordPress y asegúrate de que los correos electrónicos de tu web lleguen a la bandeja de entrada del usuario con el plugin SMTP número uno para WordPress. Más de 3 millones de webs lo usan para corregir problemas de correo electrónico de WordPress."
 
-#: includes/admin/routes.php:527
+#: includes/admin/routes.php:530
 msgid "Instantly get more subscribers, leads, and sales with the #1 conversion optimization toolkit. Create high converting popups, announcement bars, spin a wheel, and more with smart targeting and personalization."
 msgstr "Obtén instantáneamente más suscriptores, clientes potenciales y ventas con el paquete de herramientas número 1 de optimización de conversión. Crea ventanas emergentes de alta conversión, barras de anuncios, ruletas y más con orientación inteligente y personalización."
 
-#: includes/admin/routes.php:500
+#: includes/admin/routes.php:503
 msgid "The original WordPress SEO plugin and toolkit that improves your website’s search rankings. Comes with all the SEO features like Local SEO, WooCommerce SEO, sitemaps, SEO optimizer, schema, and more."
 msgstr "El plugin original de SEO para WordPress y el paquete de herramientas que mejora el posicionamiento de búsqueda de tu web. Viene con todas las características SEO, como SEO local, SEO para WooCommerce, mapas del sitio, optimizador SEO, Schema y más."
 
-#: includes/admin/routes.php:476
+#: includes/admin/routes.php:479
 msgid "The best drag & drop WordPress form builder. Easily create beautiful contact forms, surveys, payment forms, and more with our 1000+ form templates. Trusted by over 6 million websites as the best forms plugin."
 msgstr "El mejor maquetador de formularios de WordPress de arrastrar y soltar. Crea fácilmente hermosos formularios de contacto, encuestas, formularios de pago y más con nuestras más de 1000 plantillas de formulario. Más de 6 millones de webs lo confían como el mejor plugin de formularios."
 
@@ -1236,7 +1266,7 @@ msgstr "No tienes permiso para desactivar plugins"
 msgid "You are not allowed to activate plugins"
 msgstr "No tienes permisos para activar plugins"
 
-#: includes/admin/routes.php:1335
+#: includes/admin/routes.php:1338
 msgid "Homepage"
 msgstr "Página de inicio"
 
@@ -1333,7 +1363,7 @@ msgstr "Tu web ha sido visitado por %s personas en los últimos 30 días. Haz cl
 msgid "%1$s ago"
 msgstr "Hace %1$s"
 
-#: includes/admin/admin.php:94
+#: includes/admin/admin.php:104
 msgid "Popular Posts:"
 msgstr "Entradas populares:"
 
@@ -1436,7 +1466,7 @@ msgstr "Mostrar entradas populares."
 msgid "Theme Preview"
 msgstr "Vista previa del tema"
 
-#: includes/admin/admin.php:94 assets/gutenberg/js/editor.js:1763
+#: includes/admin/admin.php:104 assets/gutenberg/js/editor.js:1763
 msgid "Popular Posts"
 msgstr "Entradas populares"
 
@@ -3832,12 +3862,12 @@ msgstr "No puedes enviar correos electrónicos con MI_WP_Emails() hasta que se h
 msgid "Unknown Country"
 msgstr "País desconocido"
 
-#: includes/admin/routes.php:678
+#: includes/admin/routes.php:681
 msgid "Pretty Links helps you shrink, beautify, track, manage and share any URL on or off of your WordPress website. Create links that look how you want using your own domain name!"
 msgstr "Pretty Links ayuda a reducir, embellecer, rastrear, administrar y compartir cualquier URL dentro o fuera de tu sitio web de WordPress. ¡Crea enlaces a tu gusto utilizando tu propio nombre de dominio!"
 
 #. Translators: Placeholders add links to the settings panel.
-#: includes/admin/admin.php:667
+#: includes/admin/admin.php:680
 msgid "Click %1$shere%2$s to reauthenticate to be able to access reports. For more information why this is required, see our %3$sblog post%4$s."
 msgstr "Haz clic %1$saquí%2$s para volver a autentificarse y poder acceder a los informes. Para obtener más información sobre por qué se requiere esto, consulta la %3$sentrada de nuestro blog%4$s."
 
@@ -3858,8 +3888,8 @@ msgid "Tracking code disabled: coming soon/maintenance mode plugin present"
 msgstr "Código de seguimiento desactivado: plugin de próximamente / modo de mantenimiento presente"
 
 #: includes/admin/common.php:699
-msgid "View 2023 Year in Review report!"
-msgstr "¡Ve el informe de valoración del año 2023!"
+msgid "View 2024 Year in Review report!"
+msgstr "¡Ve el informe de resumen del año 2024!"
 
 #: includes/gutenberg/site-insights/templates/scorecard/class-scorecard-gender.php:59
 msgid "Gender"
@@ -3893,7 +3923,7 @@ msgstr "Para mantener las estadísticas precisas, no cargamos los scripts de Goo
 msgid "Tracking is Disabled for Administrators"
 msgstr "El seguimiento está desactivado para los administradores"
 
-#: includes/admin/admin.php:515
+#: includes/admin/admin.php:528
 msgid "Please Setup Website Analytics to See Audience Insights"
 msgstr "Por favor, configura el análisis de la web para ver las perspectivas de audiencia"
 
@@ -4189,7 +4219,7 @@ msgstr "Categoría: %s"
 msgid "Archives"
 msgstr "Archivos"
 
-#: includes/admin/admin.php:125 includes/admin/admin.php:289
+#: includes/admin/admin.php:138 includes/admin/admin.php:302
 msgid "About Us:"
 msgstr "Acerca de nosotros:"
 
@@ -4202,20 +4232,20 @@ msgstr "Plugin instalado y activado."
 msgid "You are not licensed."
 msgstr "No tienes una licencia."
 
-#: lite/includes/admin/onboarding-wizard.php:178
+#: lite/includes/admin/onboarding-wizard.php:181
 msgid "Return to Dashboard"
 msgstr "Volver al escritorio"
 
-#: includes/admin/routes.php:1174
+#: includes/admin/routes.php:1177
 msgid "Missing plugin name."
 msgstr "Falta el nombre del plugin."
 
-#: includes/admin/routes.php:1045 includes/admin/routes.php:1454
+#: includes/admin/routes.php:1048 includes/admin/routes.php:1457
 msgid "Add your license"
 msgstr "Añade tu licencia"
 
 #. Translators: Adds a link to the settings panel.
-#: includes/admin/admin.php:780
+#: includes/admin/admin.php:793
 msgid "Warning: MonsterInsights found cross-domain settings in the custom code field and converted them to the new settings structure.  %1$sPlease click here to review and remove the code no longer needed.%2$s"
 msgstr "Advertencia: MonsterInsights ha encontrado ajustes de dominios cruzados en el campo de código personalizado y ha convertido el mismo a la nueva estructura de ajustes. %1$sPor favor, haz clic aquí para revisar y quitar el código que no sea ya necesario.%2$s"
 
@@ -4223,7 +4253,7 @@ msgstr "Advertencia: MonsterInsights ha encontrado ajustes de dominios cruzados 
 msgid "Please ask your webmaster to enable this addon."
 msgstr "Por favor, pídele a tu webmaster que active esta extensión."
 
-#: includes/admin/admin.php:125 includes/admin/admin.php:289
+#: includes/admin/admin.php:138 includes/admin/admin.php:302
 msgid "About Us"
 msgstr "Acerca de nosotros"
 
@@ -4274,7 +4304,7 @@ msgstr "¡Vaya! Parece que JavaScript no se ha cargado"
 
 #. Translators: Placeholders add the PHP version, a link to the MonsterInsights
 #. blog and a line break.
-#: includes/admin/admin.php:578
+#: includes/admin/admin.php:591
 msgid "Your site is running an outdated, insecure version of PHP (%1$s), which could be putting your site at risk for being hacked.%4$sWordPress stopped supporting your PHP version in April, 2019.%4$sUpdating PHP only takes a few minutes and will make your website significantly faster and more secure.%4$s%2$sLearn more about updating PHP%3$s"
 msgstr "Tu sitio está ejecutando una versión obsoleta e insegura de PHP (%1$s), que podría poner tu sitio en riesgo de ser hackeado.%4$sWordPress ha dejado de ser compatible con tu versión PHP en abril de 2019.%4$sLa actualización de PHP solo tarda unos minutos y hará que tu web sea significativamente más rápida y segura.%4$s%2$sAprende más sobre la actualización de PHP%3$s"
 
@@ -4294,11 +4324,11 @@ msgstr "%1$sNos hemos dado cuenta de que estás usando un plugin de caché o la 
 msgid "You are not allowed to install plugins"
 msgstr "No tienes permiso para instalar plugins"
 
-#: lite/includes/admin/onboarding-wizard.php:163
+#: lite/includes/admin/onboarding-wizard.php:166
 msgid "MonsterInsights &rsaquo; Onboarding Wizard"
 msgstr "MonsterInsights &rsaquo; Asistente de inicio"
 
-#: includes/admin/admin.php:136
+#: includes/admin/admin.php:149
 #: includes/admin/notifications/notification-upgrade-to-pro-high-traffic.php:41
 #: includes/admin/notifications/notification-upgrade-to-pro.php:33
 #: lite/includes/emails/templates/body-summaries.php:384
@@ -4306,7 +4336,7 @@ msgstr "MonsterInsights &rsaquo; Asistente de inicio"
 msgid "Upgrade to Pro"
 msgstr "Mejora a Pro"
 
-#: includes/admin/admin.php:518 includes/admin/common.php:646
+#: includes/admin/admin.php:531 includes/admin/common.php:646
 #: includes/admin/common.php:672 includes/admin/common.php:704
 #: includes/admin/notifications/notification-audience.php:55
 #: includes/admin/notifications/notification-bounce-rate.php:52
@@ -4379,7 +4409,7 @@ msgstr "Vale, te lo mereces"
 msgid "Hey - we noticed you've been using %1$s for a while - that's great! Could you do us a BIG favor and give it a 5-star review on WordPress to help us spread the word and boost our motivation?"
 msgstr "Eh, nos hemos dado cuenta de que llevas un tiempo utilizando %1$s - ¡eso es genial! ¿Podrías, por favor, hacernos un GRAN favor y darnos una valoración de 5 estrellas en WordPress para ayudarnos a divulgar la palabra e impulsar nuestra motivación?"
 
-#: googleanalytics.php:605
+#: googleanalytics.php:600
 msgid "Please uninstall and remove MonsterInsights Pro before activating Google Analytics for WordPress by MonsterInsights. The Lite version has not been activated. %1$sClick here to return to the Dashboard%2$s."
 msgstr "Por favor desinstala y elimina MonsterInsights Pro antes de activar Google Analytics for WordPress by MonsterInsights. La versión Lite no ha sido activada. %1$sHaz clic aquí para volver al escritorio%2$s."
 
@@ -4394,7 +4424,7 @@ msgid "Sessions"
 msgstr "Sesiones"
 
 #. Translators: Placeholders add links to the settings panel.
-#: includes/admin/admin.php:662
+#: includes/admin/admin.php:675
 msgid "Important: You are currently using manual GA4 Measurement ID output. We highly recommend %1$sauthenticating with MonsterInsights%2$s so that you can access our new reporting area and take advantage of new MonsterInsights features."
 msgstr "Importante: Actualmente estás usando la salida manual de ID de medición GA4. Recomendamos encarecidamente %1$sautenticarte con MonsterInsights%2$s para que puedas acceder a nuestra nueva área de informes y aprovechar las nuevas características de MonsterInsights."
 
@@ -4521,15 +4551,15 @@ msgstr "No se encontraron datos"
 msgid "You don't have permission to view MonsterInsights reports."
 msgstr "No tienes permiso para ver los informes de MonsterInsights."
 
-#: includes/admin/api-auth.php:593
+#: includes/admin/api-auth.php:605
 msgid "Successfully force deauthenticated."
 msgstr "Desautorización forzada con éxito."
 
-#: includes/admin/api-auth.php:590
+#: includes/admin/api-auth.php:602
 msgid "Successfully deauthenticated."
 msgstr "Desautorizado con éxito."
 
-#: includes/admin/api-auth.php:482
+#: includes/admin/api-auth.php:494
 msgid "Successfully verified."
 msgstr "Verificado con éxito."
 
@@ -4538,57 +4568,53 @@ msgid "Cannot authenticate. Please enter a valid, active license key for Monster
 msgstr "No se puede identificar. Por favor, introduzce una clave de licencia válida y activa para MonsterInsights Pro en la página de ajustes."
 
 #. Translators: Placeholders add a link to the MonsterInsights website.
-#: includes/admin/admin.php:714 includes/admin/admin.php:764
+#: includes/admin/admin.php:727 includes/admin/admin.php:777
 msgid "%1$sGet MonsterInsights Pro%2$s"
 msgstr "%1$sConsigue MonsterInsights Pro%2$s"
 
-#: includes/admin/admin.php:556
+#: includes/admin/admin.php:569
 msgid "Your network license key for MonsterInsights is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key."
 msgstr "Tu clave de licencia de red para MonsterInsights no es válida. La clave ya no existe o el usuario asociado con la clave ha sido eliminado. Por favor usa una clave diferente."
 
-#: includes/admin/admin.php:554
+#: includes/admin/admin.php:567
 msgid "Your network license key for MonsterInsights has been disabled. Please use a different key."
 msgstr "Tu clave de licencia de red para MonsterInsights ha sido desactivada. Por favor usa una clave diferente."
 
 #. Translators: Adds a link to renew license.
-#: includes/admin/admin.php:552
+#: includes/admin/admin.php:565
 msgid "Your network license key for MonsterInsights has expired. %1$sPlease click here to renew your license key.%2$s"
 msgstr "Tu clave de licencia de red para MonsterInsights ha caducado. %1$sPor favor, haz clic aquí para renovar tu clave de licencia.%2$s"
 
-#: includes/admin/admin.php:547 includes/admin/api-auth.php:299
+#: includes/admin/admin.php:560 includes/admin/api-auth.php:305
 msgid "Your license key for MonsterInsights is invalid. The key no longer exists or the user associated with the key has been deleted. Please use a different key."
 msgstr "Tu clave de licencia para MonsterInsights es inválida. La clave ya no existe o el usuario asociado con la clave ha sido eliminado. Por favor usa una clave diferente."
 
-#: includes/admin/admin.php:545
+#: includes/admin/admin.php:558
 msgid "Your license key for MonsterInsights has been disabled. Please use a different key."
 msgstr "Tu clave de licencia para MonsterInsights ha sido desactivada. Por favor usa una clave diferente."
 
 #. Translators: Adds a link to the license renewal.
-#: includes/admin/admin.php:543
+#: includes/admin/admin.php:556
 msgid "Your license key for MonsterInsights has expired. %1$sPlease click here to renew your license key.%2$s"
 msgstr "Tu clave de licencia de MonsterInsights ha caducado. %1$sPor favor, haz clic aquí para renovar tu clave de licencia.%2$s"
 
 #. Translators: Adds a link to retrieve the license.
-#: includes/admin/admin.php:531
+#: includes/admin/admin.php:544
 msgid "Warning: No valid license key has been entered for MonsterInsights. You are currently not getting updates, and are not able to view reports. %1$sPlease click here to enter your license key and begin receiving updates and reports.%2$s"
 msgstr "Advertencia: No se ha introducido una licencia para MonsterInsights válida. Actualmente no estás recibiendo ninguna actualización y no puedes ver informes. %1$sPor favor haz clic aquí para introducir tu clave de licencia y empezar a recibir actualizaciones e informes.%2$s"
 
-#: includes/admin/admin.php:361
+#: includes/admin/admin.php:374
 msgid "MonsterInsights Knowledge Base"
 msgstr "Base de conocimiento de MonsterInsights"
 
-#: includes/admin/admin.php:269 includes/admin/admin.php:271
+#: includes/admin/admin.php:282 includes/admin/admin.php:284
 msgid "Network Settings:"
 msgstr "Ajustes de red:"
 
-#: includes/admin/admin.php:55 includes/admin/admin.php:61
-#: includes/admin/admin.php:273
+#: includes/admin/admin.php:62 includes/admin/admin.php:69
+#: includes/admin/admin.php:286
 msgid "General Reports:"
 msgstr "Informes generales:"
-
-#: includes/admin/admin.php:49
-msgid "General:"
-msgstr "General:"
 
 #. Translators: Adds an ampersand.
 #: assets/lib/pandora/class-am-deactivation-survey.php:337
@@ -4657,15 +4683,15 @@ msgstr "Haz clic aquí para actualizar"
 msgid "Czechia"
 msgstr "República Checa"
 
-#: includes/admin/routes.php:962
+#: includes/admin/routes.php:965
 msgid "Please upload a valid .json file"
 msgstr "Por favor, carga un archivo .json válido"
 
-#: includes/admin/admin.php:108
+#: includes/admin/admin.php:121
 msgid "Tools"
 msgstr "Herramientas"
 
-#: includes/admin/admin.php:108
+#: includes/admin/admin.php:121
 msgid "Tools:"
 msgstr "Herramientas:"
 
@@ -5742,15 +5768,15 @@ msgid "Dismiss this notice"
 msgstr "Descartar este aviso"
 
 #. Translators: Placeholders add a link to the wordpress.org repository.
-#: includes/admin/admin.php:456
+#: includes/admin/admin.php:469
 msgid "Please rate %1$sMonsterInsights%2$s on %3$s %4$sWordPress.org%5$s to help us spread the word. Thank you from the MonsterInsights team!"
 msgstr "Por favor, valora %1$sMonsterInsights%2$s en %3$s %4$sWordPress.org%5$s para ayudarnos a hacer correr la voz. ¡Gracias desde el equipo de MonsterInsights!"
 
-#: includes/admin/admin.php:366 includes/admin/admin.php:369
+#: includes/admin/admin.php:379 includes/admin/admin.php:382
 msgid "Support"
 msgstr "Soporte"
 
-#: includes/admin/admin.php:383
+#: includes/admin/admin.php:396
 #: includes/admin/notifications/notification-upgrade-eu-traffic.php:86
 #: includes/admin/notifications/notification-upgrade-for-custom-dimensions.php:31
 #: includes/admin/notifications/notification-upgrade-for-email-summaries.php:36
@@ -5760,23 +5786,23 @@ msgstr "Soporte"
 msgid "Get MonsterInsights Pro"
 msgstr "Obtener MonsterInsights Pro"
 
-#: includes/admin/admin.php:361
+#: includes/admin/admin.php:374
 msgid "Documentation"
 msgstr "Documentación"
 
-#: includes/admin/admin.php:271 includes/admin/admin.php:374
+#: includes/admin/admin.php:284 includes/admin/admin.php:387
 msgid "Network Settings"
 msgstr "Ajustes de red"
 
-#: includes/admin/admin.php:113 includes/admin/admin.php:284
+#: includes/admin/admin.php:126 includes/admin/admin.php:297
 msgid "Addons"
 msgstr "Extensiones"
 
-#: includes/admin/admin.php:113 includes/admin/admin.php:284
+#: includes/admin/admin.php:126 includes/admin/admin.php:297
 msgid "Addons:"
 msgstr "Complementos:"
 
-#: googleanalytics.php:435
+#: googleanalytics.php:430
 msgid "Please %1$suninstall%2$s the MonsterInsights Lite Plugin. Your Pro version of MonsterInsights may not work as expected until the Lite version is uninstalled."
 msgstr "Por favor, %1$sdesinstala%2$s el plugin MonsterInsights Lite. Tu versión Pro de MonsterInsights no podrá funcionar adecuadamente hasta que no se haya desinstalado la versión Lite."
 
@@ -5785,9 +5811,9 @@ msgid "Cheatin&#8217; huh?"
 msgstr "Haciendo trampa, ¿eh?"
 
 #. Author of the plugin
-#: googleanalytics.php includes/admin/admin.php:43 includes/admin/admin.php:46
-#: includes/admin/admin.php:58 includes/admin/eea-compliance.php:208
-#: includes/admin/wp-site-health.php:35 includes/emails/class-emails.php:255
+#: googleanalytics.php includes/admin/admin.php:55 includes/admin/admin.php:66
+#: includes/admin/eea-compliance.php:208 includes/admin/wp-site-health.php:35
+#: includes/emails/class-emails.php:255
 #: lite/includes/admin/dashboard-widget.php:99
 #: lite/includes/admin/wp-site-health.php:231
 #: lite/includes/admin/wp-site-health.php:283
@@ -5799,9 +5825,9 @@ msgstr "Haciendo trampa, ¿eh?"
 msgid "MonsterInsights"
 msgstr "MonsterInsights"
 
-#: includes/admin/admin.php:43 includes/admin/admin.php:49
-#: includes/admin/admin.php:61 includes/admin/admin.php:225
-#: includes/admin/admin.php:228 includes/admin/admin.php:269
+#: includes/admin/admin.php:55 includes/admin/admin.php:69
+#: includes/admin/admin.php:238 includes/admin/admin.php:241
+#: includes/admin/admin.php:282
 msgid "Insights"
 msgstr "Insights"
 
@@ -5818,7 +5844,7 @@ msgstr "Resumen"
 msgid "Bounce Rate"
 msgstr "Tasa de rebote"
 
-#: includes/admin/admin.php:55 includes/admin/admin.php:273
+#: includes/admin/admin.php:62 includes/admin/admin.php:286
 msgid "Reports"
 msgstr "Informes"
 
@@ -5826,7 +5852,6 @@ msgstr "Informes"
 msgid "first"
 msgstr "primera"
 
-#: includes/admin/admin.php:46 includes/admin/admin.php:58
-#: includes/admin/admin.php:376
+#: includes/admin/admin.php:66 includes/admin/admin.php:389
 msgid "Settings"
 msgstr "Ajustes"

@@ -3,7 +3,7 @@
         'name' => 'siteground/wordpress-starter',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'cef6d66e41db3b666b00525d746819a2f2da23c8',
+        'reference' => '4d2a4008c091e4db5aef0bc4470b3d214d64cd9f',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -65,7 +65,7 @@
         'siteground/wordpress-starter' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'cef6d66e41db3b666b00525d746819a2f2da23c8',
+            'reference' => '4d2a4008c091e4db5aef0bc4470b3d214d64cd9f',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

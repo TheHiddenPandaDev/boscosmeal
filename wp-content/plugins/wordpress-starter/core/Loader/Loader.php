@@ -109,18 +109,18 @@ class Loader {
 		}
 
 		// Themes page actions and filters.
-		add_action( 'admin_menu', array( $this->themes, 'admin_menu' ) );
-		add_filter( 'admin_url', array( $this->themes, 'replace_submenu_button_link' ), 10, 2 );
-		add_filter( 'custom_menu_order', '__return_true' );
-		add_filter( 'menu_order', array( $this->themes, 'reorder_submenu_pages' ) );
-		add_action( 'submenu_file', array( $this->themes, 'highlight_submenu_menu_item' ) );
+		// add_action( 'admin_menu', array( $this->themes, 'admin_menu' ) );
+		// add_filter( 'admin_url', array( $this->themes, 'replace_submenu_button_link' ), 10, 2 );
+		// add_filter( 'custom_menu_order', '__return_true' );
+		// add_filter( 'menu_order', array( $this->themes, 'reorder_submenu_pages' ) );
+		// add_action( 'submenu_file', array( $this->themes, 'highlight_submenu_menu_item' ) );
 
 		// Plugins page actions and filters.
-		add_action( 'admin_menu', array( $this->plugins, 'admin_menu' ) );
-		add_filter( 'custom_menu_order', '__return_true' );
-		add_filter( 'menu_order', array( $this->plugins, 'reorder_submenu_pages' ) );
-		add_action( 'admin_menu', array( $this->plugins, 'remove_original_page' ), 999 );
-		add_action( 'admin_body_class', array( $this->plugins, 'change_plugin_info_modal' ) );
+		// add_action( 'admin_menu', array( $this->plugins, 'admin_menu' ) );
+		// add_filter( 'custom_menu_order', '__return_true' );
+		// add_filter( 'menu_order', array( $this->plugins, 'reorder_submenu_pages' ) );
+		// add_action( 'admin_menu', array( $this->plugins, 'remove_original_page' ), 999 );
+		// add_action( 'admin_body_class', array( $this->plugins, 'change_plugin_info_modal' ) );
 
 		// Dashboard filters
 		add_action( 'wp_dashboard_setup', array( $this->dashboard, 'add_dashboard_widget' ), 9999 );
