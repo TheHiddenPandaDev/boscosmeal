@@ -1,0 +1,31 @@
+[03/Jul/2023:21:45:40] (I): WordPress Instance Info:
+[03/Jul/2023:21:45:40] (I): Home URL : https://boscosmeal.com
+[03/Jul/2023:21:45:40] (I): Site URL : https://boscosmeal.com
+[03/Jul/2023:21:45:40] (I): WordPress Version : 6.2.2
+[03/Jul/2023:21:45:40] (I): Onboarding Version : 1.1.38
+[03/Jul/2023:21:45:40] (I): Multisite : No
+[03/Jul/2023:21:45:40] (I): Server Info : Apache
+[03/Jul/2023:21:45:40] (I): PHP Version : 7.4.33
+[03/Jul/2023:21:45:40] (I): HTTPS : Yes
+[03/Jul/2023:21:45:40] (I): PHP Max Execution Time : 120
+[03/Jul/2023:21:45:40] (I): PHP Max Input Vars : 3000
+[03/Jul/2023:21:45:40] (I): Max Upload Size : 268435456
+[03/Jul/2023:21:45:40] (I): Plugins:
+[03/Jul/2023:21:45:40] (I): [PLUGIN] All in One SEO : v4.3.9 (All in One SEO Team)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Envira Gallery Lite : v1.8.6.1 (Equipo de Envira Gallery)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Google Analytics para WordPress por MonsterInsights : v8.15 (MonsterInsights)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Google Listings and Ads : v2.4.10 (WooCommerce)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Jetpack : v12.2.1 (Automattic)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] HubSpot All-In-One Marketing - Forms, Popups, Live Chat : v10.1.24 (HubSpot)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] MailPoet : v4.18.1 (MailPoet)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] OptinMonster : v2.13.4 (OptinMonster Popup Builder Team)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Otter – Page Builder Blocks &amp; Extensions for Gutenberg : v2.3.0 (ThemeIsle)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Pinterest for WooCommerce : v1.3.3 (WooCommerce)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] SiteGround Optimizer : v7.3.3 (SiteGround)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] SiteGround Security : v1.4.5 (SiteGround)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] Templates Patterns Collection : v1.1.38 (ThemeIsle)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] WooCommerce Payments : v6.0.0 (Automattic)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] WooCommerce : v7.8.0 (Automattic)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] WordPress Importer : v0.8.1 (wordpressdotorg)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] SiteGround Central : v3.0.1 (SiteGround)
+[03/Jul/2023:21:45:40] (I): [PLUGIN] WPForms Lite : v1.8.2.1 (WPForms)

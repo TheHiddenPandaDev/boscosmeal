@@ -1,0 +1,19 @@
+<div id="div-redirect-message">
+    Gracias por confiar en nosotros. En breves segundos será redirigido a la plataforma de pago.<br/>
+    Si su navegador no le redirecciona automáticamente pulse <a href='javascript:void(0)' onclick='sendForm();'>aquí</a> para llevar a cabo el pago
+</div>
+
+<form action="{env}" method="post" id="redsys_payment_form" name="redsys_payment_form">
+    <input type="hidden" name="Ds_SignatureVersion" value="{Ds_SignatureVersion}" />
+    <input type="hidden" name="Ds_MerchantParameters" value="{Ds_MerchantParameters}" />
+    <input type="hidden" name="Ds_Signature" value="{Ds_Signature}" />
+</form>
+
+<script type="text/javascript">
+
+    function sendForm(){
+        document.getElementById("redsys_payment_form").submit();
+    }
+
+    sendForm();
+</script>

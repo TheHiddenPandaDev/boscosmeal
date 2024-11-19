@@ -1,0 +1,86 @@
+<div id="div-redirect-message">
+    Gracias por confiar en nosotros. En breves segundos será redirigido a la plataforma de pago.<br/>
+    Si su navegador no le redirecciona automáticamente pulse <a href='javascript:void(0)' onclick='sendForm();'>aquí</a> para llevar a cabo el pago
+</div>
+
+<form action="{env}" method="post" id="redsys_payment_form" name="redsys_payment_form">
+    {redsys_args_array}
+
+    <div id="div-options">
+        <div>
+            <input type="radio" id="ref" name="redsys_payment" value="ref" onchange="onChangeWithRef()" />
+            <label for="ref">Usar la tarjeta guardada {maskedCard}</label>
+        </div>
+        <div>
+            <input type="radio" id="new" name="redsys_payment" value="new" checked onchange="onChangeWithRef()" />
+            <label for="new">Usar otra tarjeta</label>
+        </div>
+    </div>
+
+    <div id="div-save-card">
+        <input type="checkbox" id="check_guardar" name="check_guardar" onchange="onChangeSaveRef()"/>
+        <label for="" class="reference">Guardar tarjeta para futuras compras</label> <br>
+    </div>
+
+    <div id="div-actions">
+        <button class="button alt wp-element-button" type="submit" id="submit_redsys_payment_form">Pagar con Tarjeta</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    rAllowReference = {allowReference};
+    rHasReference = {hasReference};
+
+    Ds_MerchantParameters_New = "{Ds_MerchantParameters_New}";
+    Ds_Signature_New = "{Ds_Signature_New}";
+    Ds_MerchantParameters_SaveRef = "{Ds_MerchantParameters_SaveRef}";
+    Ds_Signature_SaveRef = "{Ds_Signature_SaveRef}";
+    Ds_MerchantParameters_WithRef = "{Ds_MerchantParameters_WithRef}";
+    Ds_Signature_WithRef = "{Ds_Signature_WithRef}";
+
+    withRef = false;
+    saveRef = false;
+
+    onChangeParameters();
+
+    function onChangeWithRef(){
+        withRef = document.redsys_payment_form.redsys_payment.value == "ref";
+        onChangeParameters();
+    }
+
+    function onChangeSaveRef(){
+        saveRef = document.redsys_payment_form.check_guardar.checked;
+        onChangeParameters();
+    }
+    
+    function onChangeParameters(){
+        if(withRef){
+            document.redsys_payment_form.Ds_MerchantParameters.value = Ds_MerchantParameters_WithRef;
+            document.redsys_payment_form.Ds_Signature.value = Ds_Signature_WithRef;
+        }else{
+            if(saveRef){
+                document.redsys_payment_form.Ds_MerchantParameters.value = Ds_MerchantParameters_SaveRef;
+                document.redsys_payment_form.Ds_Signature.value = Ds_Signature_SaveRef;
+            }else{
+                document.redsys_payment_form.Ds_MerchantParameters.value = Ds_MerchantParameters_New;
+                document.redsys_payment_form.Ds_Signature.value = Ds_Signature_New;
+            }
+        }
+    }
+
+    function sendForm(){
+        document.getElementById("redsys_payment_form").submit();
+    }
+
+    if(rAllowReference){
+        document.getElementById('div-redirect-message').remove();
+        if(!rHasReference){
+            document.getElementById('div-options').remove();
+        }
+    }else{
+        sendForm();
+        document.getElementById('div-options').remove();
+        document.getElementById('div-save-card').remove();
+        document.getElementById('div-actions').remove();
+    }
+</script>

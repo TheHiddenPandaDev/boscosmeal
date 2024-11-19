@@ -1,0 +1,25 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 2,
+  "name": "taiowcp/taiowcp",
+  "version": "0.1.0",
+  "title": "All In One Woo Cart Pro",
+  "category": "taiowcp",
+  "description": "",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "taiowcp",
+  "attributes": {
+    "id": {
+      "type": "string"
+    },
+    "uniqueID": {
+      "type": "string"
+    },
+    "cartStyle": {
+      "type": "string",
+      "default": "[taiowcp]"
+    }
+  }
+}

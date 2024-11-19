@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ai-builder">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/wp-content/plugins/astra-pro-sites/inc/lib/ai-builder/ai-builder.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

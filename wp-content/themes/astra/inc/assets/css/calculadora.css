@@ -1,0 +1,796 @@
+body.page-template-calculator #content {
+    background-color: #F6F6F1;
+}
+
+body.page-template-calculator #primary {
+    position: relative;
+}
+
+body.page-template-calculator #ast-scroll-top,
+body.page-template-calculator .cart_fixed_1 {
+    display: none !important;
+}
+
+body.page-template-calculator .ast-single-entry-banner {
+    display: none;
+}
+
+body.page-template-calculator input {
+    width: 100%;
+}
+
+/********* SUMMARY BTN *********/
+
+body.page-template-calculator #summary-calculator-btn {
+    position: fixed;
+    z-index: 9959;
+    right: 36px;
+    bottom: 36px;
+    left: auto;
+    border-radius: 3px;
+    padding: 1rem;
+    background: #fff;
+    -moz-box-shadow: rgba(0, 0, 0, .15) 0 0 20px;
+    -webkit-box-shadow: rgb(0 0 0 / 15%) 0 0 20px;
+    box-shadow: rgb(0 0 0 / 15%) 0 0 20px;
+    color: #000;
+    border: .25rem solid #274731;
+    cursor: pointer;
+    display: none;
+}
+
+body.page-template-calculator #summary-calculator-btn:hover {
+    background-color: #274731;
+    color: #fff;
+}
+
+/********* SUMMARY SIDEBAR *********/
+
+.taiowcp-cart-close {
+    cursor: pointer;
+}
+
+body.page-template-calculator #summary-calculator-sidebar {
+    position: fixed;
+    background-color: #fff;
+    z-index: 9999999999;
+    display: flex;
+    flex-direction: column;
+    transition: .5s;
+    top: 0;
+    bottom: 0;
+    max-width: 400px;
+    width: 100%;
+    right: -400px;
+    overflow-y: auto;
+    -webkit-border-radius: 4px;
+    -moz-box-shadow: rgba(0, 0, 0, .15) 0 0 20px;
+    -webkit-box-shadow: rgb(0 0 0 / 15%) 0 0 20px;
+    box-shadow: rgb(0 0 0 / 15%) 0 0 20px;
+}
+
+body.page-template-calculator.logged-in #summary-calculator-sidebar {
+    top: 32px;
+}
+
+body.page-template-calculator #summary-calculator-sidebar.model-summary-active {
+    right: 0 !important;
+}
+
+.summary-calculator-model-header {
+    background-color: #f7f7f8;
+    position: relative;
+}
+
+.summary-calculator-model-header .cart-heading {
+    display: flex;
+    flex: none;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    padding: .9rem .7rem;
+    text-align: center;
+    background: #fff;
+}
+
+.summary-calculator-model-header .cart-heading .taiowcp-cart-close {
+    opacity: 1;
+    visibility: visible;
+}
+
+.summary-calculator-model-body {
+    background-color: #f3f3f3;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-bottom: 1px solid rgba(125, 87, 177, .1);
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.summary-calculator-list {
+    padding: 0;
+    list-style: none;
+    text-align: left;
+    margin: 0 .7rem;
+}
+
+.summary_calculator_item {
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid rgba(125, 87, 177, .1);
+    padding: .7rem !important;
+    background: #fff;
+    margin-bottom: .7rem !important;
+    margin-top: .7rem !important;
+    border-bottom: 0;
+}
+
+.summary_calculator_item .remove-icon {
+    float: right;
+    height: 1.2em;
+    width: 1.2em;
+    line-height: 1rem;
+    text-align: center;
+    border-radius: 0;
+    text-decoration: none;
+    border: 0;
+    z-index: 9999;
+    display: block;
+    font-size: .79rem !important;
+    font-weight: 500 !important;
+    padding: 0 !important;
+    color: #ef6238;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.summary_calculator_item .remove-icon:hover {
+    color: #ff0b0b !important;
+}
+
+.summary_calculator_item .item-product-wrap {
+    border-top: 1px solid;
+    border-color: rgba(129, 129, 129, .2);
+}
+
+.summary_calculator_item .product-details {
+    display: flex;
+    align-items: center;
+}
+
+.item-product-quantity .quantity {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    margin-top: .5rem;
+    justify-content: space-between;
+}
+
+.item-product-quantity .product-amount {
+    font-size: .68rem;
+}
+
+.item-product-quantity .quantity,
+.item-product-quantity .product-quantity-weight {
+    font-size: .68rem;
+    margin-right: .5rem;
+}
+
+.item-product-quantity .product-amount {
+    color: #111;
+    font-size: .78rem;
+    font-weight: 700;
+}
+
+.summary-calculator-model-footer {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.summary-calculator-model-footer .cart-total {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+}
+
+.summary-calculator-model-footer .cart-total .summary-calculator-payment-title {
+    display: block;
+    font-size: .89rem;
+    font-weight: 500;
+    padding: .7rem;
+    text-align: center;
+    cursor: pointer;
+    background: #f3f3f3;
+    color: #111;
+}
+
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap {
+    color: #111;
+    padding: .7rem;
+    font-size: .79rem;
+}
+
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap .summary-calculator-total-weight,
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap .summary-calculator-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .7rem;
+}
+
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap .summary-calculator-total-weight .summary-calculator-label,
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap  .summary-calculator-total .summary-calculator-label {
+    font-weight: 600;
+    line-height: normal;
+}
+
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap .summary-calculator-total-weight .summary-calculator-value,
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap  .summary-calculator-total .woocommerce-Price-amount {
+    font-weight: 700;
+}
+
+.summary-calculator-model-footer .cart-total .summary-calculator-total-wrap  .summary-calculator-total {
+    border-top: 1px solid;
+    border-color: rgba(129, 129, 129, .2);
+    margin-top: .7rem;
+    padding-top: .7rem;
+}
+
+/********* CALCULATOR FORM *********/
+
+body.page-template-calculator .form-check-label {
+    color: #4c423a;
+}
+
+body.page-template-calculator .section {
+    margin-top: 50px;
+}
+
+body.page-template-calculator .steps {
+    width: 100%;
+}
+
+body.page-template-calculator .step2,
+body.page-template-calculator .step3,
+body.page-template-calculator .step4,
+body.page-template-calculator .step5,
+body.page-template-calculator .step6 {
+    display: none;
+}
+
+body.page-template-calculator .header-title {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+body.page-template-calculator .animal-selector {
+    text-align: center;
+    margin-top: 30px;
+}
+
+body.page-template-calculator .num-steps {
+    text-align: left;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+body.page-template-calculator input[list] {
+    cursor: pointer;
+}
+
+body.page-template-calculator .animal {
+    background-color: #FFFFFF;
+    color: #274731;
+    width: 15rem;
+    height: 15rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 100%;
+    cursor: pointer;
+    text-align: center;
+    border: .25rem solid #274731;
+    aspect-ratio: 1;
+    display: inline-flex;
+}
+
+body.page-template-calculator .animal:first-of-type {
+    margin-right: 50px;
+}
+
+body.page-template-calculator .animal.selected {
+    background-color: #274731;
+    color: #FFFFFF;
+}
+
+body.page-template-calculator .animal.selected svg  {
+    fill: #FFFFFF;
+}
+
+@media screen and (min-width: 475px) {
+    .calculator__input-cirle {
+        width: 13rem;
+        height: 13rem;
+    }
+}
+
+body.page-template-calculator .calculator {
+    box-shadow: 0 0 #00000070;
+    padding-top: 0;
+    padding-bottom: 100px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0;
+    margin-right: 0;
+    overflow: visible;
+    border-color: inherit;
+    background-repeat: no-repeat;
+    background-position: 0 62%;
+    background-size: cover;
+    background-attachment: scroll;
+    background-clip: padding-box;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    row-gap: 20px;
+    column-gap: 0;
+    background-color: #F6F6F1;
+}
+
+body.page-template-calculator .animal-name,
+body.page-template-calculator .animal-race {
+    margin-top: 50px;
+}
+
+body.page-template-calculator .uagb-heading-text {
+    text-align: left;
+}
+
+body.page-template-calculator #race_cat_animal_list {
+    display: none;
+}
+
+body.page-template-calculator .btn-calculadora {
+    margin-top: 50px;
+    border-style: solid;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-bottom-width: 1px;
+    border-color: var(--ast-global-color-2);
+    background-color: transparent;
+    color: var(--ast-global-color-2);
+    font-family: inherit;
+    font-weight: 700;
+    line-height: 1em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-size: 0.875rem;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    display: inline-flex;
+    width: initial;
+
+}
+
+body.page-template-calculator .btn-calculadora:hover {
+    border-color: #333;
+    box-shadow: 0 0 #00000026;
+    color: #ffffff;
+    background-color: #4c423a;
+    cursor: pointer;
+}
+
+body.page-template-calculator .backBtn {
+    display: none;
+}
+
+body.page-template-calculator .btn-calculadora.disabled {
+    color: gainsboro;
+    border-color: gainsboro;
+    cursor: default;
+}
+
+body.page-template-calculator .btn-calculadora.disabled:hover {
+    border-color: gainsboro;
+    box-shadow: 0 0 0;
+    color: gainsboro;
+    background-color: transparent;
+    cursor: default;
+}
+
+body.page-template-calculator .backBtn {
+    margin-right: 40px;
+}
+
+/********* AGE *********/
+
+body.page-template-calculator #age_dog_animal_list,
+body.page-template-calculator #age_cat_animal_list {
+    display: none;
+}
+
+body.page-template-calculator .gender-selector,
+body.page-template-calculator .castrado-selector,
+body.page-template-calculator .alergias-selector {
+    text-align: left;
+}
+
+body.page-template-calculator .entry-content h1 {
+    font-family: 'Great Vibes', handwriting;
+}
+
+body.page-template-calculator .progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
+
+body.page-template-calculator .step {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #e9e6e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #000;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+body.page-template-calculator .step:first-of-type {
+    margin-left: 1px;
+}
+
+body.page-template-calculator .step.active {
+    background-color: #274731;
+    color: #fff;
+}
+
+body.page-template-calculator .progress-line {
+    height: 2px;
+    background-color: #000;
+    flex-grow: 1;
+    margin: 0 10px;
+    flex-shrink: 0;
+}
+
+body.page-template-calculator .buttons-wizard {
+    margin-bottom: 50px;
+    width: 100%;
+    text-align: center;
+}
+
+body.page-template-calculator .animal-physical-state,
+body.page-template-calculator .animal-gender {
+    justify-content: space-around;
+    display: flex;
+    margin-bottom: 50px;
+    margin-top: 30px;
+}
+
+body.page-template-calculator .animal-physical-state .animal,
+body.page-template-calculator .animal-gender .animal {
+    width: 12rem;
+    height: 12rem;
+    margin-right: 0;
+}
+
+body.page-template-calculator .physical-state-selector,
+body.page-template-calculator .animal-gender {
+    text-align: center;
+}
+
+body.page-template-calculator .physical-state-selector span,
+body.page-template-calculator .animal-gender span {
+    margin-top: 20px;
+    display: block;
+    color: #111827;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+body.page-template-calculator .animal-gender .animal img {
+    width: 50%;
+}
+
+body.page-template-calculator.woocommerce-js select {
+    padding: 6px 10px !important;
+    width: 100%;
+}
+
+body.page-template-calculator.woocommerce-js .checkbox-neutered input {
+    width: initial;
+}
+
+@media (max-width: 600px) {
+    body.page-template-calculator .progress-container {
+        margin: 20px;
+    }
+
+    body.page-template-calculator .step {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+
+    body.page-template-calculator .progress-line {
+        margin: 0 5px;
+    }
+
+    body.page-template-calculator .animal:first-of-type {
+        margin-bottom: 20px;
+        margin-right: 0;
+    }
+
+    body.page-template-calculator .animal {
+        display: inline-block;
+        vertical-align: baseline;
+    }
+}
+.hidden {
+    display: none;
+}
+
+/********* PRODUCT LIST *********/
+.grid-products {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: .8rem;
+    gap: .8rem;
+    margin-top: 20px;
+}
+
+.grid-products .single-product {
+    background-color: #fff;
+    border-radius: 3rem;
+    display: flex;
+    height: 100%;
+    overflow: visible;
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.grid-products .single-product:hover,
+.grid-products .single-product.selected {
+    border: 3px solid #274731;
+}
+
+.grid-products .single-product  .product-information {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    text-align: center;
+}
+
+.grid-products .single-product .product-img {
+    border-radius: 3rem;
+    flex-shrink: 0;
+    height: 24.3rem;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.grid-products .single-product .product-img img {
+    height: 100%;
+    object-fit: cover;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: opacity .5s ease-in-out;
+    width: 100%;
+}
+
+.grid-products .single-product div.product-name {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 1.6rem 1.4rem 1.2rem;
+}
+
+.grid-products .single-product div.product-name span.product-name {
+    font-weight: bold;
+}
+
+.grid-products .single-product div.product-name p.product-description {
+    margin-top: 20px;
+}
+
+.grid-products .single-product .product-quantity {
+    border-radius: 0 0 3rem 3rem;
+    padding: 1.2rem 1.6rem 1.6rem;
+    transition: .4s;
+}
+
+.grid-products .single-product .add-quantity-btn {
+    padding: .55rem;
+    border: .25rem solid #274731;
+    border-radius: 100%;
+    align-items: center;
+    cursor: pointer;
+    display: inline-flex;
+    flex-direction: row;
+    gap: .8rem;
+    justify-content: center;
+    max-width: 100%;
+    background-color: #fff;
+    line-height: 2.2rem;
+    height: 50px;
+    width: 50px;
+    float: right;
+}
+
+.grid-products .single-product .add-quantity-btn:hover {
+    background-color: #274731;
+}
+
+.grid-products .single-product .add-quantity-btn:hover:before {
+    background-image: url('../images/calculadora/icons/plus_icon_white.svg');
+}
+.grid-products .single-product .add-quantity-btn:before {
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 100%;
+    width: 100%;
+    order: 2;
+    background-image: url('../images/calculadora/icons/plus_icon_coloured.svg');
+}
+
+body.page-template-calculator.woocommerce-js .grid-products .single-product select {
+    padding-right: 30px !important;
+    background-position: right 7px center;
+    height: 100%;
+    border: .25rem solid #274731;
+    cursor: pointer;
+}
+
+.grid-products .single-product .product-weight-selector {
+    float: left;
+    max-width: calc(100% - 70px);
+    height: 50px;
+}
+
+@media (min-width: 1020px) {
+    .grid-products {
+        justify-content: center;
+        justify-items: center;
+        -webkit-column-gap: 2.4rem;
+        column-gap: 2.4rem;
+        row-gap: 4rem;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (max-width: 1020px) {
+    .product {
+        border-radius: 2rem;
+        display: flex;
+        min-height: 17.3rem;
+        min-width: 100%;
+        position: relative;
+    }
+}
+
+/********* STEP 4 *********/
+
+.step4-header {
+    width: 100%;
+    text-align: center;
+}
+
+.step4-header .animal-name,
+.step4-header .quantity,
+.step4-header .recommended-package {
+    font-weight: bold;
+    color: #274731;
+}
+
+.step4-header h4 {
+    margin: 40px 0;
+}
+
+/********* STEP 5 - Warning Boxes *********/
+
+.warning-box {
+    background-color: #fff4e5;
+    border: 1px solid #ffd9b3;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+.warning-box p {
+    margin: 5px 0;
+}
+
+.warning-box a {
+    color: #274731;
+    text-decoration: underline;
+}
+
+.warning-box a:hover {
+    color: #274731;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.warning-message-content {
+    margin-left: 20px;
+}
+
+.warning-message-content p:first-of-type {
+    margin-top: 0;
+}
+
+/********* STEP 5 - Date Picker *********/
+
+#datepicker .ui-datepicker-inline {
+    width: 100%;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
+    font-size: 32px;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #274731 !important;
+    background: #274731 !important;
+}
+
+/********* CONTAINERS *********/
+
+@media (min-width: 1250px) {
+    body.page-template-calculator .site-content .ast-container {
+        max-width: 50% !important;
+    }
+}
+
+@media (max-width: 1250px) {
+    body.page-template-calculator .site-content .ast-container {
+        max-width: 70% !important;
+    }
+}
+
+@media (max-width: 760px) {
+    body.page-template-calculator .site-content .ast-container {
+        max-width: 100% !important;
+    }
+}
+
+.calculator-error-msg {
+    color: red;
+    margin-top: 5px;
+    font-size: 12px;
+    display: none;
+}
+
+.input-calculator-error-msg {
+    border-color: red !important;
+}

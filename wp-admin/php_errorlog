@@ -1,0 +1,79 @@
+[17-Jun-2023 17:57:29 UTC] WordPress database error Duplicate entry '328-15' for key 'PRIMARY' for query INSERT INTO nvz_term_relationships (object_id, term_taxonomy_id)
+					SELECT DISTINCT posts.ID, '15' FROM nvz_posts posts
+					LEFT JOIN
+						(
+							SELECT object_id FROM nvz_term_relationships term_relationships
+							LEFT JOIN nvz_term_taxonomy term_taxonomy ON term_relationships.term_taxonomy_id = term_taxonomy.term_taxonomy_id
+							WHERE term_taxonomy.taxonomy = 'product_cat'
+						) AS tax_query
+					ON posts.ID = tax_query.object_id
+					WHERE posts.post_type = 'product'
+					AND tax_query.object_id IS NULL made by do_action('wp_ajax_as_async_request_queue_runner'), WP_Hook->do_action, WP_Hook->apply_filters, WP_Async_Request->maybe_handle, ActionScheduler_AsyncRequest_QueueRunner->handle, do_action('action_scheduler_run_queue'), WP_Hook->do_action, WP_Hook->apply_filters, ActionScheduler_QueueRunner->run, ActionScheduler_QueueRunner->do_batch, ActionScheduler_Abstract_QueueRunner->process_action, ActionScheduler_Action->execute, do_action_ref_array('wc_schedule_update_product_default_cat'), WP_Hook->do_action, WP_Hook->apply_filters, Automattic\WooCommerce\Internal\AssignDefaultCategory->maybe_assign_default_product_cat
+[17-Jun-2023 17:57:35 UTC] WordPress database error Duplicate entry '328-15' for key 'PRIMARY' for query INSERT INTO nvz_term_relationships (object_id, term_taxonomy_id)
+					SELECT DISTINCT posts.ID, '15' FROM nvz_posts posts
+					LEFT JOIN
+						(
+							SELECT object_id FROM nvz_term_relationships term_relationships
+							LEFT JOIN nvz_term_taxonomy term_taxonomy ON term_relationships.term_taxonomy_id = term_taxonomy.term_taxonomy_id
+							WHERE term_taxonomy.taxonomy = 'product_cat'
+						) AS tax_query
+					ON posts.ID = tax_query.object_id
+					WHERE posts.post_type = 'product'
+					AND tax_query.object_id IS NULL made by do_action('wp_ajax_as_async_request_queue_runner'), WP_Hook->do_action, WP_Hook->apply_filters, WP_Async_Request->maybe_handle, ActionScheduler_AsyncRequest_QueueRunner->handle, do_action('action_scheduler_run_queue'), WP_Hook->do_action, WP_Hook->apply_filters, ActionScheduler_QueueRunner->run, ActionScheduler_QueueRunner->do_batch, ActionScheduler_Abstract_QueueRunner->process_action, ActionScheduler_Action->execute, do_action_ref_array('wc_schedule_update_product_default_cat'), WP_Hook->do_action, WP_Hook->apply_filters, Automattic\WooCommerce\Internal\AssignDefaultCategory->maybe_assign_default_product_cat
+[17-Jun-2023 17:57:41 UTC] WordPress database error Duplicate entry '328-15' for key 'PRIMARY' for query INSERT INTO nvz_term_relationships (object_id, term_taxonomy_id)
+					SELECT DISTINCT posts.ID, '15' FROM nvz_posts posts
+					LEFT JOIN
+						(
+							SELECT object_id FROM nvz_term_relationships term_relationships
+							LEFT JOIN nvz_term_taxonomy term_taxonomy ON term_relationships.term_taxonomy_id = term_taxonomy.term_taxonomy_id
+							WHERE term_taxonomy.taxonomy = 'product_cat'
+						) AS tax_query
+					ON posts.ID = tax_query.object_id
+					WHERE posts.post_type = 'product'
+					AND tax_query.object_id IS NULL made by do_action('wp_ajax_as_async_request_queue_runner'), WP_Hook->do_action, WP_Hook->apply_filters, WP_Async_Request->maybe_handle, ActionScheduler_AsyncRequest_QueueRunner->handle, do_action('action_scheduler_run_queue'), WP_Hook->do_action, WP_Hook->apply_filters, ActionScheduler_QueueRunner->run, ActionScheduler_QueueRunner->do_batch, ActionScheduler_Abstract_QueueRunner->process_action, ActionScheduler_Action->execute, do_action_ref_array('wc_schedule_update_product_default_cat'), WP_Hook->do_action, WP_Hook->apply_filters, Automattic\WooCommerce\Internal\AssignDefaultCategory->maybe_assign_default_product_cat
+[13-Feb-2024 22:20:43 UTC] WordPress database error Column 'object_id' cannot be null for query INSERT INTO `nvz_sgs_log_events` (`visitor_id`, `ts`, `activity`, `description`, `ip`, `hostname`, `code`, `object_id`, `type`, `action`, `visitor_type`) VALUES (10, 1707862843, 'Tema instalado', 'Tema instalado - ', '37.223.175.71', '37.223.175.71', 200, NULL, 'theme', 'install', 'user') made by Theme_Upgrader->install, WP_Upgrader->run, do_action('upgrader_process_complete'), WP_Hook->do_action, WP_Hook->apply_filters, SG_Security\Activity_Log\Activity_Log_Themes->log_theme_install, SG_Security\Activity_Log\Activity_Log_Helper->log_event, SG_Security\Activity_Log\Activity_Log_Helper->insert
+[13-Feb-2024 22:22:11 UTC] WordPress database error Column 'object_id' cannot be null for query INSERT INTO `nvz_sgs_log_events` (`visitor_id`, `ts`, `activity`, `description`, `ip`, `hostname`, `code`, `object_id`, `type`, `action`, `visitor_type`) VALUES (10, 1707862931, 'Tema instalado', 'Tema instalado - ', '37.223.175.71', '37.223.175.71', 200, NULL, 'theme', 'install', 'user') made by Theme_Upgrader->install, WP_Upgrader->run, do_action('upgrader_process_complete'), WP_Hook->do_action, WP_Hook->apply_filters, SG_Security\Activity_Log\Activity_Log_Themes->log_theme_install, SG_Security\Activity_Log\Activity_Log_Helper->log_event, SG_Security\Activity_Log\Activity_Log_Helper->insert
+[29-Mar-2024 19:18:35 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Automattic\Jetpack\Backup\V0001\REST_Controller' not found in /home/customer/www/boscosmeal.com/public_html/wp-includes/class-wp-hook.php on line 324
+[29-Mar-2024 19:21:40 UTC] PHP Fatal error:  Uncaught Error: Class 'WC_REST_WCCOM_Site_Controller' not found in /home/customer/www/boscosmeal.com/public_html/wp-content/plugins/woocommerce/includes/wccom-site/rest-api/endpoints/class-wc-rest-wccom-site-installer-controller.php:20
+Stack trace:
+#0 /home/customer/www/boscosmeal.com/public_html/wp-content/plugins/woocommerce/includes/wccom-site/class-wc-wccom-site.php(224): require_once()
+#1 /home/customer/www/boscosmeal.com/public_html/wp-includes/class-wp-hook.php(324): WC_WCCOM_Site::register_rest_namespace(Array)
+#2 /home/customer/www/boscosmeal.com/public_html/wp-includes/plugin.php(205): WP_Hook->apply_filters(Array, Array)
+#3 /home/customer/www/boscosmeal.com/public_html/wp-content/plugins/woocommerce/includes/rest-api/Server.php(60): apply_filters('woocommerce_res...', Array)
+#4 /home/customer/www/boscosmeal.com/public_html/wp-content/plugins/woocommerce/includes/rest-api/Server.php(40): Automattic\WooCommerce\RestApi\Server->get_rest_namespaces()
+#5 /home/customer/www/boscosmeal.com/public_html/wp- in /home/customer/www/boscosmeal.com/public_html/wp-content/plugins/woocommerce/includes/wccom-site/rest-api/endpoints/class-wc-rest-wccom-site-installer-controller.php on line 20
+[29-Mar-2024 19:54:14 UTC] BLOCK: Getting Spectra Common CSS
+[29-Mar-2024 19:54:14 UTC] BLOCK: https://websitedemos.net/wp-json/astra-blocks/v2/spectra-common-styles
+[29-Mar-2024 19:54:14 UTC] BLOCK: Getting Spectra Common CSS
+[29-Mar-2024 19:54:15 UTC] BLOCK: Getting Spectra Common CSS
+[29-Mar-2024 19:58:17 UTC] BLOCK: Getting Spectra Common CSS
+[29-Mar-2024 20:02:21 UTC] BLOCK: Getting Spectra Common CSS
+[29-Mar-2024 20:02:35 UTC] BLOCK: Getting Spectra Common CSS
+[29-Mar-2024 20:02:45 UTC] BLOCK: Getting Spectra Common CSS
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-categories.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-1.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-2.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-3.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-4.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-5.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-6.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-blocks-7.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-block-requests.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-1.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-2.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-3.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-4.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-5.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-6.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-sites-7.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-site-requests.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-last-export-checksums.json Created Successfully!
+[10-Apr-2024 19:44:02 UTC] File: ast-block-templates-customizer-css.json Created Successfully!
+[25-Apr-2024 15:57:47 UTC] BLOCK: Getting Spectra Common CSS
+[26-Apr-2024 15:49:36 UTC] BLOCK: Getting Spectra Common CSS
+[26-Apr-2024 15:50:29 UTC] BLOCK: Getting Spectra Common CSS
+[08-May-2024 05:39:19 UTC] Astra Addon: DB version updated!
+[08-May-2024 05:39:19 UTC] Astra Addon: Batch Process Completed!
+[18-May-2024 10:13:18 UTC] Astra Addon: DB version updated!
+[05-Jun-2024 21:04:13 UTC] Astra Addon: DB version updated!
+[05-Jun-2024 21:04:13 UTC] Astra Addon: Batch Process Completed!
