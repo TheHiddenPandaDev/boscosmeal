@@ -1,31 +1,31 @@
 #!/bin/bash
 
-# Cargar variables desde el archivo .env
+# Load variables from .env file
 if [ -f .env ]; then
     source .env
 else
-    echo "Archivo .env no encontrado. Por favor, cree el archivo .env en este directorio." >&2
+    echo "Error: .env file not found. Please create it in this directory." >&2
     exit 1
 fi
 
-# Verificar que el script se ejecuta en la raíz del proyecto
+# Ensure the script is executed in the project root
 if [ ! -d "wp-content" ]; then
-    echo "Este script debe ejecutarse en la raíz del proyecto de WordPress, donde existe la carpeta wp-content." >&2
+    echo "Error: This script must be run from the root of the WordPress project, where wp-content exists." >&2
     exit 1
 fi
 
-# Exportar la base de datos
-echo "Exportando base de datos..."
+# Export the database
+echo "Exporting database..."
 mysqldump -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" > "./dump.sql"
 if [ $? -eq 0 ]; then
-    echo "Base de datos exportada a ./dump.sql"
+    echo "Database exported to ./dump.sql"
 else
-    echo "Error al exportar la base de datos" >&2
+    echo "Error exporting the database" >&2
     exit 1
 fi
 
-# Descargar únicamente la carpeta wp-content y sobrescribir archivos
-echo "Descargando la carpeta wp-content..."
+# Download only the wp-content folder and overwrite files
+echo "Downloading wp-content folder..."
 lftp -c "
 open ftp://$FTP_USER:$FTP_PASS@$FTP_HOST;
 cd $FTP_REMOTE_DIR/wp-content;
@@ -33,40 +33,40 @@ lcd ./wp-content;
 mget -c *;
 "
 if [ $? -eq 0 ]; then
-    echo "Carpeta wp-content descargada en ./wp-content"
+    echo "wp-content folder downloaded to ./wp-content"
 else
-    echo "Error al descargar la carpeta wp-content" >&2
+    echo "Error downloading wp-content folder" >&2
     exit 1
 fi
 
-# Verificar que wp-config.php no se haya descargado accidentalmente
+# Ensure wp-config.php is not downloaded accidentally
 if [ -f "./wp-config.php" ]; then
-    echo "Error: wp-config.php se descargó accidentalmente. Borrándolo..."
+    echo "Error: wp-config.php was accidentally downloaded. Deleting it..."
     rm -f ./wp-config.php
 fi
 
-# Reemplazar el dominio en la base de datos usando SQL
-echo "Reemplazando el dominio en la base de datos..."
+# Replace domain in the database using SQL, considering the prefix
+echo "Replacing domain in the database..."
 mysql -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASS" "$DB_NAME" <<SQL
-UPDATE nvz_options
+UPDATE ${WP_DB_PREFIX}options
 SET option_value = REPLACE(option_value, '$OLD_DOMAIN', '$NEW_DOMAIN')
 WHERE option_name = 'home' OR option_name = 'siteurl';
 
-UPDATE nvz_posts
+UPDATE ${WP_DB_PREFIX}posts
 SET guid = REPLACE(guid, '$OLD_DOMAIN', '$NEW_DOMAIN');
 
-UPDATE nvz_posts
+UPDATE ${WP_DB_PREFIX}posts
 SET post_content = REPLACE(post_content, '$OLD_DOMAIN', '$NEW_DOMAIN');
 
-UPDATE nvz_postmeta
+UPDATE ${WP_DB_PREFIX}postmeta
 SET meta_value = REPLACE(meta_value, '$OLD_DOMAIN', '$NEW_DOMAIN');
 SQL
 
 if [ $? -eq 0 ]; then
-    echo "Reemplazo del dominio en la base de datos completado."
+    echo "Domain replacement in the database completed."
 else
-    echo "Error al reemplazar el dominio en la base de datos." >&2
+    echo "Error replacing the domain in the database." >&2
     exit 1
 fi
 
-echo "Proceso completado con éxito."
+echo "Process completed successfully."
