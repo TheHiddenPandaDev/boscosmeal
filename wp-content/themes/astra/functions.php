@@ -395,6 +395,58 @@ function update_subscription_meta() {
     }
 }
 
+add_action('wp_ajax_get_variation_by_package_size', 'get_variation_by_package_size');
+add_action('wp_ajax_nopriv_get_variation_by_package_size', 'get_variation_by_package_size');
+
+function get_variation_by_package_size() {
+    $package_size = isset($_POST['package_size']) ? intval($_POST['package_size']) : null;
+    $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : null;
+
+    if (!$package_size || !$product_id) {
+        wp_send_json_error(['message' => 'Datos incompletos.']);
+    }
+
+    $product = wc_get_product($product_id);
+
+    if (!$product || !$product->is_type('variable')) {
+        wp_send_json_error(['message' => 'Producto no válido']);
+    }
+
+    $name = $product->get_name();
+    $image_id = $product->get_image_id();
+    $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
+
+    foreach ($product->get_available_variations() as $variation) {
+        $variation_id = $variation['variation_id'];
+        $product_variation = new WC_Product_Variation($variation_id);
+
+        $title = $product_variation->get_attribute('Formato');
+
+        if (empty($title)) {
+            continue;
+        }
+
+        $packageSizeVariation = str_replace('g', '', strtolower($title));
+        $packageSizeVariation = str_replace('gr', '', strtolower($packageSizeVariation));
+        $packageSizeVariation = str_replace('kg', '', strtolower($packageSizeVariation));
+
+        if ((int) $packageSizeVariation === (int) $package_size) {
+            wp_send_json_success([
+                'variation_id' => $variation_id,
+                'name' => $name,
+                'image' => $image_url,
+                'title' => $title,
+                'weight' => $package_size,
+                'price' => wc_get_price_including_tax($product_variation),
+            ]);
+        }
+    }
+
+    wp_send_json_error(['message' => 'Variación no encontrada']);
+}
+
+
+
 /****
  EDIT SUSCRIPTION
  ****/

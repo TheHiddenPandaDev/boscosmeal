@@ -18,6 +18,57 @@ get_header(); ?>
 
 <div id="primary" <?php astra_primary_class(); ?> >
 
+    <div id="summary-calculator-btn">
+        <span>Ver resumen de la calculadora 📝 </span>
+    </div>
+
+    <div id="summary-calculator-sidebar">
+        <div class="summary-calculator-model-wrap" style="opacity: 1;">
+
+            <div class="summary-calculator-model-header">
+                <div class="cart-heading">
+                    <h4>📝 Resumen</h4>
+                    <span class="taiowcp-cart-close"></span>
+                </div>
+            </div>
+
+            <div class="summary-calculator-model-body">
+                <div class="summary-calculator-list">
+                    <div class="summary_calculator_item">
+
+                        <div class="no-items">
+                            Sin platos
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="summary-calculator-model-footer">
+                <div class="cart-total">
+                <span class="summary-calculator-payment-title">Detalles</span>
+
+                    <div class="summary-calculator-total-wrap">
+
+                        <div class="summary-calculator-month-weight">
+                            <span class="summary-calculator-label-month">Cantidad a comer al mes</span>
+                            <span class="summary-calculator-month-value">0gr</span>
+                        </div>
+
+                        <div class="summary-calculator-total-weight">
+                            <span class="summary-calculator-label">Total cantidad</span>
+                            <span class="summary-calculator-value">0gr</span>
+                        </div>
+
+                        <div class="summary-calculator-total">
+                            <span class="summary-calculator-label">Importe total</span>
+                            <span class="woocommerce-Price-amount amount">0€</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <div class="uagb-container-inner-blocks-wrap ast-container">
         <div class="header-title">
@@ -38,6 +89,8 @@ get_header(); ?>
                 <div class="step numStep4">4</div>
                 <div class="progress-line"></div>
                 <div class="step numStep5">5</div>
+                <div class="progress-line"></div>
+                <div class="step numStep6">6</div>
             </div>
         </div>
     </div>
@@ -379,7 +432,7 @@ get_header(); ?>
                     <p class="form-row animal-name form-row-wide" id="animal-name-field" data-priority="50">
                         <label for="race_cat" class="">Escoge su raza</label><br />
                         <span class="woocommerce-input-wrapper">
-                            <input id="race_cat" type="text" list="race_cat" class="input-text" autocomplete="off">
+                            <input type="text" list="race_cat" class="input-text" autocomplete="off">
                             <datalist class="form-control" data-show-subtext="true" data-live-search="true" id="race_cat" name="race_cat">
                                 <option value='Abisinio'></option>
                                 <option value='Americano de pelo corto'></option>
@@ -760,7 +813,7 @@ get_header(); ?>
         <div class="products ast-container-fluid">
             <div class="grid-products">
 
-                <div class="single-product" data-package-size="250">
+                <div class="single-package" data-package-size="250">
                     <div class="product-information">
                         <div class="product-name">
                             <span class="product-name">250gr</span>
@@ -769,7 +822,7 @@ get_header(); ?>
                     </div>
                 </div>
 
-                <div class="single-product selected" data-package-size="500">
+                <div class="single-package selected" data-package-size="500">
                     <div class="product-information">
                         <div class="product-name">
                             <span class="product-name">500gr</span>
@@ -778,7 +831,7 @@ get_header(); ?>
                     </div>
                 </div>
 
-                <div class="single-product" data-package-size="1000">
+                <div class="single-package" data-package-size="1000">
                     <div class="product-information">
                         <div class="product-name">
                             <span class="product-name">1kg</span>
@@ -792,17 +845,259 @@ get_header(); ?>
     </div>
 
     <!-- Step 5 -->
+    <div class="steps step5">
+        <div class="uagb-container-inner-blocks-wrap ast-container">
+            <div class="step4-header">
+                <h4>ESCOGE TUS PLATOS</h4>
+                <div class="food-type-selector">
+                    <div class="food selected" data-food="Crudo">
+                        <img src="<?php echo get_template_directory_uri(); ?>/inc/assets/images/calculadora/barf.png">
+                        <br>
+                        <span>Barf</span>
+                    </div>
+                    <div class="food" data-food="Cocinado">
+                        <img src="<?php echo get_template_directory_uri(); ?>/inc/assets/images/calculadora/cocinado.png">
+                        <br>
+                        <span>Cocinado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="products ast-container-fluid">
+            <div id="dog-products-crudo">
+                <div class="grid-products">
+                    <?php
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => -1,
+                        'tax_query' => array(
+                            'relation' => 'AND', // Asegura que ambos filtros se cumplan
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'bmeal_dog',
+                            ),
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'menus-barf-perro',
+                            ),
+                        ),
+                    );
+                    $query = new WP_Query($args);
+
+                    if ( $query->have_posts() ) {
+                        while ( $query->have_posts() ) {
+                            $query->the_post();
+                            $productName = get_the_title();
+                            $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
+                           $productDescription = wc_get_product(get_the_ID())->get_description();
+
+                            $product = wc_get_product(get_the_ID());
+
+                            ?>
+                            <div class="single-product">
+                                <div class="product-information">
+                                    <div class="product-img">
+                                        <?php echo $productImage; ?>
+                                    </div>
+                                    <div class="product-name">
+                                        <span class="product-name"><?php echo $productName ?></span>
+                                        <div class="product-description"><?php echo $productDescription; ?></div>
+                                    </div>
+                                </div>
+                                <div class="product-quantity">
+                                    <div class="product-quantity">
+                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+            </div class="hidden">
+            <div id="cat-products-crudo" class="hidden">
+                <div class="grid-products">
+                    <?php
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => -1,
+                        'tax_query' => array(
+                            'relation' => 'AND', // Asegura que ambos filtros se cumplan
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'bmeal_gato',
+                            ),
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'menus-barf-gato',
+                            ),
+                        ),
+                    );
+                    $query = new WP_Query($args);
+
+                    if ( $query->have_posts() ) {
+                        while ( $query->have_posts() ) {
+                            $query->the_post();
+                            $productName = get_the_title();
+                            $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
+                           $productDescription = wc_get_product(get_the_ID())->get_description();
+
+                            $product = wc_get_product(get_the_ID());
+
+                            ?>
+                            <div class="single-product">
+                                <div class="product-information">
+                                    <div class="product-img">
+                                        <?php echo $productImage; ?>
+                                    </div>
+                                    <div class="product-name">
+                                        <span class="product-name"><?php echo $productName ?></span>
+                                        <p class="product-description"><?php echo $productDescription; ?> </p>
+                                    </div>
+                                </div>
+                                <div class="product-quantity">
+                                    <div class="product-quantity">
+                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+            <div id="dog-products-cocinado" class="hidden">
+                <div class="grid-products">
+                    <?php
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => -1,
+                        'tax_query' => array(
+                            'relation' => 'AND', // Asegura que ambos filtros se cumplan
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'bmeal_dog',
+                            ),
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'menus-cocinados-perro',
+                            ),
+                        ),
+                    );
+                    $query = new WP_Query($args);
+
+                    if ( $query->have_posts() ) {
+                        while ( $query->have_posts() ) {
+                            $query->the_post();
+                            $productName = get_the_title();
+                            $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
+                           $productDescription = wc_get_product(get_the_ID())->get_description();
+
+                            $product = wc_get_product(get_the_ID());
+
+                            ?>
+                            <div class="single-product">
+                                <div class="product-information">
+                                    <div class="product-img">
+                                        <?php echo $productImage; ?>
+                                    </div>
+                                    <div class="product-name">
+                                        <span class="product-name"><?php echo $productName ?></span>
+                                        <p class="product-description"><?php echo $productDescription; ?> </p>
+                                    </div>
+                                </div>
+                                <div class="product-quantity">
+                                    <div class="product-quantity">
+                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+            <div id="cat-products-cocinado" class="hidden">
+                <div class="grid-products">
+                    <?php
+                    $args = array(
+                        'post_type' => 'product',
+                        'posts_per_page' => -1,
+                        'tax_query' => array(
+                            'relation' => 'AND', // Asegura que ambos filtros se cumplan
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'bmeal_gato',
+                            ),
+                            array(
+                                'taxonomy' => 'product_cat',
+                                'field'    => 'slug',
+                                'terms'    => 'menus-cocinados-gato',
+                            ),
+                        ),
+                    );
+                    $query = new WP_Query($args);
+
+                    if ( $query->have_posts() ) {
+                        while ( $query->have_posts() ) {
+                            $query->the_post();
+                            $productName = get_the_title();
+                            $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
+                           $productDescription = wc_get_product(get_the_ID())->get_description();
+
+                            $product = wc_get_product(get_the_ID());
+
+                            ?>
+                            <div class="single-product">
+                                <div class="product-information">
+                                    <div class="product-img">
+                                        <?php echo $productImage; ?>
+                                    </div>
+                                    <div class="product-name">
+                                        <span class="product-name"><?php echo $productName ?></span>
+                                        <p class="product-description"><?php echo $productDescription; ?> </p>
+                                    </div>
+                                </div>
+                                <div class="product-quantity">
+                                    <div class="product-quantity">
+                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Step 6 -->
     <div class="uagb-container-inner-blocks-wrap ast-container">
-        <div class="steps step5">
+        <div class="steps step6">
             <h2>Elige la fecha de entrega en la que quieres recibir tu pedido</h2>
             <div class="warning-box">
                 <div class="warning-icon">⚠️</div>
                 <div class="warning-message-content">
-                    <p><strong>🧊 PRODUCTO CONGELADO</strong></p>
-                    <p><strong>📅 NO ELIJAS UN DÍA FESTIVO:</strong> no se podrá entregar y se puede romper la cadena de frío.</p>
-                    <p><strong>🕒 HORARIO DE ENTREGA:</strong> 9:00 a 15:00. No podemos acotar el horario a una franja determinada.</p>
-                    <p>🤝 El cliente se compromete a recoger el envío en la fecha seleccionada en su domicilio o delegación.</p>
-                    <p>🚚 <a href="#">Ver condiciones de envío.</a></p>
+                    <p><strong>SI ESCOGES LA OPCIÓN DE ENVÍO A DOMICILIO TEN EN</strong></p>
+                    <p><strong>⚠️ NUESTRO PRODUCTO ES CONGELADO.</p>
+                    <p><strong>⌚ EL HORARIO DE ENTREGA ES DE 9 A 14h, NO MODIFICABLE.</p>
+                    <p><strong>📅 NO ESCOJAS UN DIA FESTIVO EN TU LOCALIDAD.</strong></p>
+                    <p><strong>📅 NO ESCOJAS UN DIA FESTIVO EN TU LOCALIDAD.</strong></p>
+                    <p><strong>🚚 ASEGURATE DE PODER RECOGER EL ENVÍO EN LA FECHA Y LUGAR INDICADO.</strong>
+                        <br/>Para más información consulta nuestras condiciones de envío <a href="<?php echo esc_url(get_permalink(669)); ?>" target="_blank">aquí</a>
+                    </p>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -810,9 +1105,9 @@ get_header(); ?>
         </div>
     </div>
 
-    <!-- Step 5 -->
+    <!-- Step 6 -->
     <div class="uagb-container-inner-blocks-wrap ast-container">
-        <div class="steps step6">
+        <div class="steps step7">
             <h2>Un momento... Te estamos redirigiendo al carrito...</h2>
         </div>
     </div>
