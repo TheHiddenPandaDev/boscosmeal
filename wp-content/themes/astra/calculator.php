@@ -55,7 +55,7 @@ get_header(); ?>
                         </div>
 
                         <div class="summary-calculator-total-weight">
-                            <span class="summary-calculator-label">Total cantidad</span>
+                            <span class="summary-calculator-label">Total cantidad seleccionada</span>
                             <span class="summary-calculator-value">0gr</span>
                         </div>
 
@@ -811,7 +811,7 @@ get_header(); ?>
             </div>
         </div>
         <div class="products ast-container-fluid">
-            <div class="grid-products">
+            <div class="grid-products grid-packages">
 
                 <div class="single-package" data-package-size="250">
                     <div class="product-information">
@@ -891,12 +891,12 @@ get_header(); ?>
                             $query->the_post();
                             $productName = get_the_title();
                             $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
-                           $productDescription = wc_get_product(get_the_ID())->get_description();
-
+                            $productDescription = wc_get_product(get_the_ID())->get_description();
                             $product = wc_get_product(get_the_ID());
-
+                            $custom_price = get_post_meta(get_the_ID(), '_custom_price', true);
+                            $productPrice = $custom_price ? custom_floatval($custom_price) : 0;
                             ?>
-                            <div class="single-product">
+                            <div class="single-product" data-single-product-id="<?php echo get_the_ID(); ?>">
                                 <div class="product-information">
                                     <div class="product-img">
                                         <?php echo $productImage; ?>
@@ -904,12 +904,26 @@ get_header(); ?>
                                     <div class="product-name">
                                         <span class="product-name"><?php echo $productName ?></span>
                                         <div class="product-description"><?php echo $productDescription; ?></div>
+                                        <?php
+                                        $variations = $product->get_available_variations();
+                                        foreach ($variations as $variation) {
+                                            $variation_id = $variation['variation_id'];
+                                            $custom_price = get_post_meta($variation_id, '_custom_price', true);
+                                            $productPrice = $custom_price ? custom_floatval($custom_price) : '0,00';
+                                            $product_variation = new WC_Product_Variation($variation_id);
+                                            $variationName = $product_variation->get_attribute('Formato');
+                                            ?>
+                                            <div data-product-variation-name="<?php echo $variationName; ?>" data-product-variation-id-price="<?php echo $variation_id; ?>" class="variation-pricing" style="display: none;">
+                                                <div class="pricing"><?php echo $productPrice; ?>€</div>
+                                            </div>
+                                            <?php
+                                        } ?>
                                     </div>
                                 </div>
                                 <div class="product-quantity">
-                                    <div class="product-quantity">
-                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
-                                    </div>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="remove-quantity-btn"></button>
+                                    <span class="current-quantity"></span>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
                                 </div>
                             </div>
                             <?php
@@ -945,12 +959,12 @@ get_header(); ?>
                             $query->the_post();
                             $productName = get_the_title();
                             $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
-                           $productDescription = wc_get_product(get_the_ID())->get_description();
-
+                            $productDescription = wc_get_product(get_the_ID())->get_description();
                             $product = wc_get_product(get_the_ID());
-
+                            $custom_price = get_post_meta(get_the_ID(), '_custom_price', true);
+                            $productPrice = $custom_price ? custom_floatval($custom_price) : 0;
                             ?>
-                            <div class="single-product">
+                            <div class="single-product" data-single-product-id="<?php echo get_the_ID(); ?>">
                                 <div class="product-information">
                                     <div class="product-img">
                                         <?php echo $productImage; ?>
@@ -958,12 +972,26 @@ get_header(); ?>
                                     <div class="product-name">
                                         <span class="product-name"><?php echo $productName ?></span>
                                         <p class="product-description"><?php echo $productDescription; ?> </p>
+                                        <?php
+                                        $variations = $product->get_available_variations();
+                                        foreach ($variations as $variation) {
+                                            $variation_id = $variation['variation_id'];
+                                            $custom_price = get_post_meta($variation_id, '_custom_price', true);
+                                            $productPrice = $custom_price ? custom_floatval($custom_price) : '0,00';
+                                            $product_variation = new WC_Product_Variation($variation_id);
+                                            $variationName = $product_variation->get_attribute('Formato');
+                                            ?>
+                                            <div data-product-variation-name="<?php echo $variationName; ?>" data-product-variation-id-price="<?php echo $variation_id; ?>" class="variation-pricing" style="display: none;">
+                                                <div class="pricing"><?php echo $productPrice; ?>€</div>
+                                            </div>
+                                            <?php
+                                        } ?>
                                     </div>
                                 </div>
                                 <div class="product-quantity">
-                                    <div class="product-quantity">
-                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
-                                    </div>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="remove-quantity-btn"></button>
+                                    <span class="current-quantity"></span>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
                                 </div>
                             </div>
                             <?php
@@ -999,12 +1027,12 @@ get_header(); ?>
                             $query->the_post();
                             $productName = get_the_title();
                             $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
-                           $productDescription = wc_get_product(get_the_ID())->get_description();
-
+                            $productDescription = wc_get_product(get_the_ID())->get_description();
                             $product = wc_get_product(get_the_ID());
-
+                            $custom_price = get_post_meta(get_the_ID(), '_custom_price', true);
+                            $productPrice = $custom_price ? custom_floatval($custom_price) : 0;
                             ?>
-                            <div class="single-product">
+                            <div class="single-product" data-single-product-id="<?php echo get_the_ID(); ?>">
                                 <div class="product-information">
                                     <div class="product-img">
                                         <?php echo $productImage; ?>
@@ -1012,12 +1040,26 @@ get_header(); ?>
                                     <div class="product-name">
                                         <span class="product-name"><?php echo $productName ?></span>
                                         <p class="product-description"><?php echo $productDescription; ?> </p>
+                                        <?php
+                                        $variations = $product->get_available_variations();
+                                        foreach ($variations as $variation) {
+                                            $variation_id = $variation['variation_id'];
+                                            $custom_price = get_post_meta($variation_id, '_custom_price', true);
+                                            $productPrice = $custom_price ? custom_floatval($custom_price) : '0,00';
+                                            $product_variation = new WC_Product_Variation($variation_id);
+                                            $variationName = $product_variation->get_attribute('Formato');
+                                            ?>
+                                            <div data-product-variation-name="<?php echo $variationName; ?>" data-product-variation-id-price="<?php echo $variation_id; ?>" class="variation-pricing" style="display: none;">
+                                                <div class="pricing"><?php echo $productPrice; ?>€</div>
+                                            </div>
+                                            <?php
+                                        } ?>
                                     </div>
                                 </div>
                                 <div class="product-quantity">
-                                    <div class="product-quantity">
-                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
-                                    </div>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="remove-quantity-btn"></button>
+                                    <span class="current-quantity"></span>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
                                 </div>
                             </div>
                             <?php
@@ -1053,12 +1095,12 @@ get_header(); ?>
                             $query->the_post();
                             $productName = get_the_title();
                             $productImage = get_the_post_thumbnail(get_the_ID(), 'large');
-                           $productDescription = wc_get_product(get_the_ID())->get_description();
-
+                            $productDescription = wc_get_product(get_the_ID())->get_description();
                             $product = wc_get_product(get_the_ID());
-
+                            $custom_price = get_post_meta(get_the_ID(), '_custom_price', true);
+                            $productPrice = $custom_price ? custom_floatval($custom_price) : 0;
                             ?>
-                            <div class="single-product">
+                            <div class="single-product" data-single-product-id="<?php echo get_the_ID(); ?>">
                                 <div class="product-information">
                                     <div class="product-img">
                                         <?php echo $productImage; ?>
@@ -1066,12 +1108,28 @@ get_header(); ?>
                                     <div class="product-name">
                                         <span class="product-name"><?php echo $productName ?></span>
                                         <p class="product-description"><?php echo $productDescription; ?> </p>
+                                        <div style="display: inline-block;text-align: right;">
+                                            <?php
+                                            $variations = $product->get_available_variations();
+                                            foreach ($variations as $variation) {
+                                                $variation_id = $variation['variation_id'];
+                                                $custom_price = get_post_meta($variation_id, '_custom_price', true);
+                                                $productPrice = $custom_price ? custom_floatval($custom_price) : '0,00';
+                                                $product_variation = new WC_Product_Variation($variation_id);
+                                                $variationName = $product_variation->get_attribute('Formato');
+                                                ?>
+                                                <div data-product-variation-name="<?php echo $variationName; ?>" data-product-variation-id-price="<?php echo $variation_id; ?>" class="variation-pricing" style="display: none;">
+                                                    <div class="pricing"><?php echo $productPrice; ?>€</div>
+                                                </div>
+                                                <?php
+                                            } ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="product-quantity">
-                                    <div class="product-quantity">
-                                        <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
-                                    </div>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="remove-quantity-btn"></button>
+                                    <span class="current-quantity"></span>
+                                    <button data-product-id="<?php echo get_the_ID(); ?>" class="add-quantity-btn"></button>
                                 </div>
                             </div>
                             <?php

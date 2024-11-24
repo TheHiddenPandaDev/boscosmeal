@@ -117,7 +117,8 @@ class Calculadora {
     }
 
     addProduct(
-        id,
+        product_id,
+        variant_id,
         name,
         weight,
         price,
@@ -129,35 +130,95 @@ class Calculadora {
             return false;
         }
 
-        this.productsSelected.push({
-            'id': id,
-            'name': name,
-            'weight': weight,
-            'price': price,
-            'image': src,
-        })
+        let index = -1;
+
+        for(let i = 0; i< this.productsSelected.length; i++){
+            if(this.productsSelected[i].product_id === product_id){
+                index = i;
+                this.productsSelected[i].quantity++;
+            }
+        }
+
+        if(index === -1) {
+            this.productsSelected.push({
+                'product_id': product_id,
+                'variant_id': variant_id,
+                'name': name,
+                'weight': weight,
+                'price': price,
+                'image': src,
+                'quantity': 1,
+            })
+        }
         return true;
     }
 
-    removeProduct(id){
+    decreaseQuantityProduct(product_id){
+
+        console.log('decreasing product');
 
         let index = -1;
 
         for(let i = 0; i< this.productsSelected.length; i++){
-            if(this.productsSelected[i].id === id){
+            console.log('Checking... Id array: '+this.productsSelected[i].product_id+" Id to add: "+product_id);
+            if(parseInt(this.productsSelected[i].product_id) === parseInt(product_id)){
+                console.log('Index assigned');
                 index = i;
             }
         }
 
         if (index > -1) {
-            this.productsSelected.splice(index, 1);
+
+            console.log('Has found product, index: '+index);
+            if(this.productsSelected[index].quantity > 1) {
+                console.log('Decreasing quantity...');
+                this.productsSelected[index].quantity--;
+            } else {
+                console.log('Deleting product...');
+                this.productsSelected.splice(index, 1);
+                jQuery(`.single-product[data-single-product-id="${product_id}"]`).removeClass("has-quantity");
+            }
         }
+    }
+
+    removeProduct(product_id){
+
+        console.log('Remove product: '+product_id);
+        console.log('Products: ')
+        console.log(this.productsSelected);
+
+        let index = -1;
+
+        for(let i = 0; i< this.productsSelected.length; i++){
+            console.log('Checking... Id array: '+this.productsSelected[i].product_id+" Id to add: "+product_id);
+            if(parseInt(this.productsSelected[i].product_id) === parseInt(product_id)){
+                console.log('Index assigned');
+                index = i;
+            }
+        }
+
+        if (index > -1) {
+            console.log('Has found product, index: '+index);
+            this.productsSelected.splice(index, 1);
+            jQuery(`.single-product[data-single-product-id="${product_id}"]`).removeClass("has-quantity");
+        }
+    }
+
+    getProductQuantity(product_id){
+
+        for(let i = 0; i< this.productsSelected.length; i++){
+            if(this.productsSelected[i].product_id === product_id){
+                return this.productsSelected[i].quantity;
+            }
+        }
+
+        return 0;
     }
 
     getCurrentWeightInGrams(){
         let currentWeightInGrams = 0;
         for(let i = 0; i < this.productsSelected.length; i++){
-            currentWeightInGrams = parseInt(this.productsSelected[i].weight) + currentWeightInGrams;
+            currentWeightInGrams = (parseInt(this.productsSelected[i].weight) * parseInt(this.productsSelected[i].quantity)) + currentWeightInGrams;
         }
 
         return currentWeightInGrams;
@@ -166,7 +227,7 @@ class Calculadora {
     getCurrentAmount(){
         let totalAmount = 0;
         for(let i = 0; i < this.productsSelected.length; i++){
-            totalAmount = parseFloat(this.productsSelected[i].price) + totalAmount;
+            totalAmount = (this.productsSelected[i].price * this.productsSelected[i].quantity) + totalAmount;
         }
 
         return totalAmount;
@@ -237,34 +298,34 @@ jQuery(document).ready(function($) {
 
 jQuery(function(){
 
-    jQuery( ".taiowcp-cart-close").on( "click", function(){
+    jQuery( ".page-template-calculator .taiowcp-cart-close").on( "click", function(){
         const button = jQuery(".add-quantity-btn");
         button.removeClass("loading");
         button.find(".loader").hide();
         jQuery('#summary-calculator-sidebar').removeClass('model-summary-active');
     });
 
-    jQuery( ".backBtn").on( "click", function(){
+    jQuery( ".page-template-calculator .backBtn").on( "click", function(){
         backStep();
     });
 
-    jQuery( ".continueBtn").on( "click", function(){
+    jQuery( ".page-template-calculator .continueBtn").on( "click", function(){
         goToNextStep();
     });
 
-    jQuery( ".step").on( "click", function(){
+    jQuery( ".page-template-calculator .step").on( "click", function(){
         // goToStep(jQuery(this).html());
     });
 
 
     // STEP 1 - NAME
-    jQuery( "input[name='name']").on( "keyup", function(){
+    jQuery( ".page-template-calculator input[name='name']").on( "keyup", function(){
         calculadora.animal.name = jQuery(this).val();
         canGoToStep2();
     });
 
     // STEP 1 - RACE
-    jQuery( "input[list='race_dog']").on( "change", function(){
+    jQuery( ".page-template-calculator input[list='race_dog']").on( "change", function(){
         if(calculadora.animal.type === 'dog') {
             calculadora.animal.race = jQuery(this).val();
             jQuery("select[name='race_cat'] option:first").prop('selected',true).trigger( "change" );
@@ -272,7 +333,7 @@ jQuery(function(){
         }
     });
 
-    jQuery( "input[list='race_cat']").on( "change", function(){
+    jQuery( ".page-template-calculator input[list='race_cat']").on( "change", function(){
         if(calculadora.animal.type === 'cat') {
             calculadora.animal.race = jQuery(this).val();
             jQuery("select[name='race_dog'] option:first").prop('selected',true).trigger( "change" );
@@ -281,7 +342,7 @@ jQuery(function(){
     });
 
     // STEP 1 - TYPE
-    jQuery( ".step1 .animal").on( "click", function(){
+    jQuery( ".page-template-calculator .step1 .animal").on( "click", function(){
         jQuery( ".step1 .animal").removeClass('selected');
         jQuery(this).addClass('selected');
         calculadora.animal.type = jQuery(this).attr('data-animal');
@@ -297,8 +358,10 @@ jQuery(function(){
         recalculateCalculatorSummary();
 
         if(calculadora.animal.type === 'cat'){
+            jQuery('.single-package[data-package-size="1000"]').hide();
             jQuery('#race_cat_animal_list').show();
             jQuery('#race_dog_animal_list').hide();
+            jQuery('.grid-packages').addClass('cat');
             for(let i = 0; i<images.length; i++){
                 images[i].src = images[i].src.replace('gato', 'gato');
                 images[i].src = images[i].src.replace('perro', 'gato');
@@ -310,8 +373,10 @@ jQuery(function(){
             jQuery('#dog-products').hide();
 
         } else {
+            jQuery('.single-package[data-package-size="1000"]').show();
             jQuery('#race_dog_animal_list').show();
             jQuery('#race_cat_animal_list').hide();
+            jQuery('.grid-packages').removeClass('cat');
             for(let i = 0; i<images.length; i++){
                 images[i].src = images[i].src.replace('gato', 'perro');
                 images[i].src = images[i].src.replace('perro', 'perro');
@@ -329,25 +394,25 @@ jQuery(function(){
 
 
     // STEP 2 - AGE
-    jQuery( "select[name='age']").on( "change", function(){
+    jQuery( ".page-template-calculator select[name='age']").on( "change", function(){
         calculadora.animal.ageInMonth = parseInt(jQuery( "select[name='age'] option:selected").val());
         canGoToStep3();
     });
 
     // STEP 2 - WEIGHT
-    jQuery( "select[name='weight']").on( "change", function(){
+    jQuery( ".page-template-calculator select[name='weight']").on( "change", function(){
         calculadora.animal.weightInGrams = parseInt(jQuery( "select[name='weight'] option:selected").val());
         canGoToStep3();
     });
 
     // STEP 2 - NEUTERED
-    jQuery( "input[name='neutered']").on( "click", function(){
+    jQuery( ".page-template-calculator input[name='neutered']").on( "click", function(){
         calculadora.animal.isNeutered = jQuery( "input[name='neutered']").is(":checked");
         canGoToStep3();
     });
 
     // STEP 2 - GENDER
-    jQuery( ".step2 .animal").on( "click", function(){
+    jQuery( ".page-template-calculator .step2 .animal").on( "click", function(){
         jQuery( ".step2 .animal").removeClass('selected');
         jQuery(this).addClass('selected');
         calculadora.animal.gender = jQuery(this).attr('data-animal-gender');
@@ -380,13 +445,13 @@ jQuery(function(){
     });
 
     // STEP 2 - CASTRADO
-    jQuery( "input[name='castrado']").on( "click", function(){
+    jQuery( ".page-template-calculator input[name='castrado']").on( "click", function(){
         calculadora.animal.isNeutered = jQuery(this).is(":checked")
         canGoToStep3();
     });
 
     // STEP 3 - ESTADO FISICO
-    jQuery( ".step3 .animal").on( "click", function(){
+    jQuery( ".page-template-calculator .step3 .animal").on( "click", function(){
         jQuery( ".step3 .animal").removeClass('selected');
         jQuery(this).addClass('selected');
         calculadora.animal.physicalState = jQuery(this).attr('data-physical-state');
@@ -394,32 +459,46 @@ jQuery(function(){
     });
 
     // STEP 3 - ACTIVIDAD FISICA - PERRO
-    jQuery( "select[name='activity_dog']").on( "change", function(){
+    jQuery( ".page-template-calculator select[name='activity_dog']").on( "change", function(){
         calculadora.animal.physicalActivity = jQuery( "select[name='activity_dog'] option:selected").val();
         canGoToStep4();
     });
 
-    jQuery( "select[name='activity_cat']").on( "change", function(){
+    jQuery( ".page-template-calculator select[name='activity_cat']").on( "change", function(){
         calculadora.animal.physicalActivity = jQuery( "select[name='activity_cat'] option:selected").val();
         canGoToStep4();
     });
 
     // STEP 3 - ACTIVIDAD FISICA - GATO
-    jQuery( "select[name='activity_cat']").on( "change", function(){
+    jQuery( ".page-template-calculator select[name='activity_cat']").on( "change", function(){
         calculadora.animal.physicalActivity = jQuery( "select[name='activity_cat'] option:selected").val();
         canGoToStep4();
     });
 
     // STEP 3 - ALERGIAS / INTOLERANCIAS
-    jQuery( "select[name='animal_diseases']").on( "change", function(){
+    jQuery( ".page-template-calculator select[name='animal_diseases']").on( "change", function(){
         calculadora.animal.diseases = jQuery( "select[name='animal_diseases'] option:selected").val();
         canGoToStep4();
     });
 
 
     // STEP 4 - PACKAGE
-    jQuery( ".single-package").on( "click", function(){
+    jQuery( ".page-template-calculator .single-package").on( "click", function(){
+
         calculadora.packageSelected = parseInt(jQuery(this).attr('data-package-size'));
+
+        jQuery('.variation-pricing').hide();
+        jQuery('.variation-pricing').each(function () {
+            let variationName = jQuery(this).data('product-variation-name');
+            if (variationName === '250g' && calculadora.packageSelected === 250) {
+                jQuery(this).show();
+            } else if (variationName === '500g' && calculadora.packageSelected === 500) {
+                jQuery(this).show();
+            } else if(variationName === '1kg' && calculadora.packageSelected === 1000){
+                jQuery(this).show();
+            }
+        });
+
         calculadora.selectedPackage = true;
         jQuery('.single-package').removeClass('selected');
         jQuery(this).addClass('selected');
@@ -427,19 +506,20 @@ jQuery(function(){
     });
 
     // STEP 5 - CHOOSE PRODUCT
-    jQuery( ".single-product").on( "click", function(e){
-        e.stopPropagation();
+    jQuery(".page-template-calculator .add-quantity-btn").on("click", function (e) {
 
-        const button = jQuery(this).find(".add-quantity-btn");
+        const button = jQuery(this);
         button.addClass("loading");
-        const productId = jQuery(this).find(".add-quantity-btn").data("product-id");
+        const productId = button.data("product-id");
 
-        button.addClass("loading");
         button.find(".loader").show();
 
         updateAddToCartButton(calculadora.packageSelected, productId)
             .then(() => {
                 button.removeClass("loading");
+                const productContainer = button.closest(".single-product");
+                productContainer.addClass("has-quantity");
+                productContainer.find("span.current-quantity").text(calculadora.getProductQuantity(productId));
                 canGoToStep6();
             })
             .catch(() => {
@@ -447,6 +527,12 @@ jQuery(function(){
                 showToast("Error al añadir el producto", 5000);
                 canGoToStep6();
             });
+    });
+
+    jQuery( ".page-template-calculator .remove-quantity-btn").on( "click", function(e){
+        console.log('decreasing product....');
+        calculadora.decreaseQuantityProduct(jQuery(this).attr('data-product-id'));
+        recalculateCalculatorSummary();
     });
 
     jQuery( "#summary-calculator-btn").on( "click", function(){
@@ -512,11 +598,15 @@ function updateAddToCartButton(packageSize, productId) {
                 if (response.success) {
                     const variation = response.data;
 
+                    console.log('API RESPONSE');
+                    console.log(response.data);
+
                     let result = calculadora.addProduct(
+                        productId,
                         variation.variation_id,
                         variation.name,
                         variation.weight,
-                        variation.price,
+                        parseFloat(variation.price.toString().replace(',', '.')),
                         variation.image,
                     );
 
@@ -576,7 +666,7 @@ function recalculateCalculatorSummary(){
                 <div class="product-details">
                     <div class="product-image"><img src="`+calculadora.productsSelected[i].image+`" alt="`+calculadora.productsSelected[i].name+`"/></div>
                     <div class="product-name">`+calculadora.productsSelected[i].name+`</div>
-                    <span class="remove-icon" aria-label="Remove this item" data-product-id="`+calculadora.productsSelected[i].id+`">
+                    <span class="remove-icon" aria-label="Remove this item" data-product-id="`+calculadora.productsSelected[i].product_id+`">
                         <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" alt="" title=""
                              class="snipcart__icon">
                             <path fill-rule="evenodd" clip-rule="evenodd"
@@ -587,12 +677,20 @@ function recalculateCalculatorSummary(){
                 </div>
                 <div class="item-product-quantity">
                     <span class="quantity">
-                        <span class="quantity-text">Cantidad: 
+                        <span class="quantity-text">Tamaño del paquete: 
                             <span class="product-quantity-weight">`+calculadora.productsSelected[i].weight+`g</span>
                         </span>
-                        <span class="product-amount">`+calculadora.productsSelected[i].price+`€</span>
                     </span>
                 </div>
+                <div class="item-product-quantity">
+                    <span class="quantity">
+                        <span class="quantity-text">Cantidad: 
+                            <span class="product-quantity-">`+calculadora.productsSelected[i].quantity+`</span>
+                        </span>
+                        <span class="product-amount">`+(calculadora.productsSelected[i].price * calculadora.productsSelected[i].quantity).toFixed(2).toString().replace('.', ',')+`€</span>
+                    </span>
+                </div>
+                
             </div>
             `;
         jQuery('.summary_calculator_item').append(productHtml);
@@ -603,7 +701,7 @@ function recalculateCalculatorSummary(){
     calculadora.getCurrentAmount();
 
     jQuery('div.summary-calculator-model-footer span.summary-calculator-value').text(calculadora.getCurrentWeightInGrams() + 'gr');
-    jQuery('div.summary-calculator-model-footer span.woocommerce-Price-amount.amount').text(calculadora.getCurrentAmount() + '€');
+    jQuery('div.summary-calculator-model-footer span.woocommerce-Price-amount.amount').text(calculadora.getCurrentAmount().toFixed(2).toString().replace(',', '.') + '€');
 }
 
 function goToNextStep(){
@@ -642,6 +740,9 @@ function goToNextStep(){
             }
 
             calculateWeight();
+
+              jQuery('.step').removeClass('active');
+              jQuery('.numStep' + calculadora.currentStep).addClass('active');
         }
     }
 }
@@ -683,6 +784,9 @@ function backStep(){
         if(calculadora.currentStep === calculadora.minSteps){
             jQuery('.backBtn').css('display', 'none');
         }
+
+        jQuery('.step').removeClass('active');
+        jQuery('.numStep' + calculadora.currentStep).addClass('active');
     }
 }
 
@@ -863,8 +967,6 @@ function goToStep(numStep){
         if(calculadora.currentStep === 6) canGoToStep7();
 
         jQuery('.steps').hide();
-        jQuery('.step').removeClass('active');
-        jQuery('.numStep' + numStep).addClass('active');
         jQuery('.step' + numStep).fadeIn();
 
         if(numStep === '1'){
@@ -964,6 +1066,18 @@ function calculateRecommendedPackage(){
     if(calculadora.currentStep === 4 && !calculadora.selectedPackage){
         let recommendedSize = calculadora.getRecommendedPackageSize();
         calculadora.packageSelected = recommendedSize;
+
+        jQuery('.variation-pricing').hide();
+        jQuery('.variation-pricing').each(function () {
+            let variationName = jQuery(this).data('product-variation-name');
+            if (variationName === '250g' && calculadora.packageSelected === 250) {
+                jQuery(this).show();
+            } else if (variationName === '500g' && calculadora.packageSelected === 500) {
+                jQuery(this).show();
+            } else if(variationName === '1kg' && calculadora.packageSelected === 1000){
+                jQuery(this).show();
+            }
+        });
 
         jQuery('.single-package').removeClass('selected');
 

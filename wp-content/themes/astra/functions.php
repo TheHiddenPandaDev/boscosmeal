@@ -431,13 +431,17 @@ function get_variation_by_package_size() {
         $packageSizeVariation = str_replace('kg', '', strtolower($packageSizeVariation));
 
         if ((int) $packageSizeVariation === (int) $package_size) {
+            $custom_price = get_post_meta($variation_id, '_custom_price', true);
+
+            $price = $custom_price ? custom_floatval($custom_price) : 0;
+
             wp_send_json_success([
                 'variation_id' => $variation_id,
                 'name' => $name,
                 'image' => $image_url,
                 'title' => $title,
                 'weight' => $package_size,
-                'price' => wc_get_price_including_tax($product_variation),
+                'price' => $price,
             ]);
         }
     }
@@ -445,6 +449,11 @@ function get_variation_by_package_size() {
     wp_send_json_error(['message' => 'Variación no encontrada']);
 }
 
+function custom_floatval($value) {
+    $value = str_replace(',', '.', $value);
+    $float_value = floatval($value);
+    return number_format($float_value, 2, ',', '');
+}
 
 
 /****
