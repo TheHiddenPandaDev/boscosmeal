@@ -2004,6 +2004,10 @@ function get_admin_page_parent( $parent_page = '' ) {
 				$parent_page = $_wp_real_parent_file[ $parent_page ];
 			}
 
+            if (!isset($submenu_array[2])) {
+                error_log('Índice 2 no está definido en $submenu_array: ' . print_r($submenu_array, true));
+            }
+
 			if ( ! empty( $typenow ) && "$pagenow?post_type=$typenow" === $submenu_array[2] ) {
 				$parent_file = $parent_page;
 				return $parent_page;

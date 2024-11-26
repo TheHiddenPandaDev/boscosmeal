@@ -199,6 +199,8 @@ add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
 
 
 add_action('wp_ajax_process_subscription', 'process_subscription');
+add_action('wp_ajax_nopriv_process_subscription', 'process_subscription');
+
 wp_enqueue_style( 'calculadora', get_template_directory_uri() . '/inc/assets/css/calculadora.css', false, '1.1', 'all');
 wp_enqueue_script( 'calculadora_script', get_template_directory_uri() . '/inc/assets/js/calculadora.js', array( 'jquery' ), 1.1, true);
 wp_localize_script('calculadora_script', 'ajax_object', array(
@@ -207,62 +209,156 @@ wp_localize_script('calculadora_script', 'ajax_object', array(
 ));
 
 function process_subscription() {
-    if ($_POST['calculadora']) {
-        $calculator = $_POST['calculadora'];
-        $packageSelected = sanitize_text_field($calculator['packageSelected']);
+    if (!isset($_POST['calculadora']) || empty($_POST['calculadora'])) {
+        wp_send_json_error(['message' => 'Datos de la calculadora no válidos.']);
+    }
 
-        $parent_product_id = 3800;
+    $calculator = $_POST['calculadora'];
+    $products = $calculator['productsSelected'];
 
-        if($packageSelected == 250){
-            $packageSelectedValue = '250gr';
-            $product_id = 3805;
-        } else if($packageSelected == 500){
-            $packageSelectedValue = '500gr';
-            $product_id = 3806;
-        } else {
-            $packageSelectedValue = '1kg';
-            $product_id = 3804;
-        }
+    if (empty($products)) {
+        wp_send_json_error(['message' => 'No se seleccionaron productos.']);
+    }
 
-        $product = wc_get_product($parent_product_id);
+    $product_id = 3988; // ID PRODUCT SUBSCRIPTION
+    $base_price = 0;
+    $selected_products = [];
 
-        $variation_attributes = array(
-            'tamano-del-paquete' => $packageSelectedValue,
+    foreach ($products as $product) {
+        $variation_id = intval($product['variant_id']);
+        $quantity = intval($product['quantity']);
+
+        $custom_price = get_post_meta($variation_id, '_custom_price', true);
+        $custom_price = str_replace(',', '.', $custom_price);
+        $product_price = $custom_price ? floatval($custom_price) : 0;
+
+        $base_price += $product_price * $quantity;
+
+        // Obtener el nombre del producto principal
+        $main_product = wc_get_product(intval($product['product_id']));
+        $product_name = $main_product ? $main_product->get_name() : 'Producto desconocido';
+
+        // Añadir los detalles del producto al array
+        $selected_products[] = sprintf(
+            '%s, precio: %.2f€, cantidad: %d, total: %.2f€',
+            $product_name,
+            $product_price,
+            $quantity,
+            $product_price * $quantity
         );
+    }
 
-        if ($product && $product->is_type('variable-subscription')) {
-            $cart_item_data = array(
-                'Nombre' => ucfirst(sanitize_text_field($calculator['animal']['name'])),
-                'Tipo de animal' => sanitize_text_field($calculator['animal']['type']) == 'dog' ? 'Perro' : 'Gato',
-                'Genero' => sanitize_text_field($calculator['animal']['gender']) == 'male' ? 'Macho' : 'Hembra',
-                'Raza' => sanitize_text_field($calculator['animal']['race']),
-                'Edad en meses' => sanitize_text_field($calculator['animal']['ageInMonth']),
-                'Peso en gramos' => sanitize_text_field($calculator['animal']['weightInGrams']),
-                '¿Esta castrad@?' => sanitize_text_field($calculator['animal']['isNeutered']) ? 'Si' : 'No',
-                'Estado físico' => ucfirst(sanitize_text_field($calculator['animal']['physicalState'])),
-                'Actividad física' => ucfirst(sanitize_text_field($calculator['animal']['physicalActivity'])),
-                'Enfermedades' => ucfirst(sanitize_text_field($calculator['animal']['diseases'])),
-                'Paquete de comida seleccionado' => $packageSelected,
-                'Fecha de entrega' => sanitize_text_field($calculator['selectedDay']."/".$calculator['selectedMonth']."/".$calculator['selectedYear']),
-                'Cantidad de comida al mes' => (float) (sanitize_text_field($calculator['monthlyQuantity']) / 1000) . 'kg',
-                'Cantidad de comida diaria' => sanitize_text_field($calculator['dailyQuantity']).'gr',
-            );
+    $cart_item_data = [
+        'custom_price' => $base_price,
+        'Nombre' => ucfirst(sanitize_text_field($calculator['animal']['name'])),
+        'Tipo de animal' => sanitize_text_field($calculator['animal']['type']) == 'dog' ? 'Perro' : 'Gato',
+        'Genero' => sanitize_text_field($calculator['animal']['gender']) == 'male' ? 'Macho' : 'Hembra',
+        'Raza' => sanitize_text_field($calculator['animal']['race']),
+        'Edad en meses' => sanitize_text_field($calculator['animal']['ageInMonth']),
+        'Peso en gramos' => sanitize_text_field($calculator['animal']['weightInGrams']),
+        '¿Está castrad@?' => sanitize_text_field($calculator['animal']['isNeutered']) ? 'Sí' : 'No',
+        'Estado físico' => ucfirst(sanitize_text_field($calculator['animal']['physicalState'])),
+        'Actividad física' => ucfirst(sanitize_text_field($calculator['animal']['physicalActivity'])),
+        'Enfermedades' => ucfirst(sanitize_text_field($calculator['animal']['diseases'])),
+        'Fecha de entrega' => sanitize_text_field($calculator['selectedDay']."/".$calculator['selectedMonth']."/".$calculator['selectedYear']),
+        'Cantidad de comida al mes' => (float) (sanitize_text_field($calculator['monthlyQuantity']) / 1000) . 'kg',
+        'Cantidad de comida diaria' => sanitize_text_field($calculator['dailyQuantity']).'gr',
+        'Productos seleccionados' => "\n".implode("\n", $selected_products), // Lista de productos seleccionados como un string
+    ];
 
-            $added_to_cart = WC()->cart->add_to_cart($parent_product_id, 1, $product_id, $variation_attributes, $cart_item_data);
+    $cart_item_key = WC()->cart->add_to_cart($product_id, 1, 0, [], $cart_item_data);
 
-            if ($added_to_cart) {
-                wp_send_json_success(array('redirect_url' => wc_get_checkout_url()));
-            } else {
-                wp_send_json_error('Error al añadir el producto al carrito');
-            }
-        } else {
-            wp_send_json_error('El producto no es una suscripción válida');
+    if (!$cart_item_key) {
+        wp_send_json_error(['message' => 'No se pudo agregar la suscripción al carrito.']);
+    }
+
+    foreach (WC()->cart->get_cart() as $key => $item) {
+        if ($key === $cart_item_key) {
+            $item['data']->set_price($base_price);
         }
-    } else {
-        wp_send_json_error('No se recibieron productos');
+    }
+
+    wp_send_json_success(['redirect_url' => wc_get_checkout_url()]);
+}
+
+add_action('woocommerce_before_calculate_totals', 'update_pricing_cart', 10, 1);
+
+function update_pricing_cart($cart) {
+    if (is_admin() && !defined('DOING_AJAX')) {
+        return;
+    }
+
+    foreach ($cart->get_cart() as $cart_item) {
+        if (isset($cart_item['custom_price'])) {
+            $cart_item['data']->set_price($cart_item['custom_price']);
+        }
     }
 }
 
+add_filter('woocommerce_get_item_data', 'show_metadata_cart', 10, 2);
+
+function show_metadata_cart($item_data, $cart_item) {
+    if (isset($cart_item['Nombre'])) {
+        $item_data[] = [
+            'name' => 'Nombre',
+            'value' => sanitize_text_field($cart_item['Nombre']),
+        ];
+    }
+
+    if (isset($cart_item['Tipo de animal'])) {
+        $item_data[] = [
+            'name' => 'Tipo de Animal',
+            'value' => sanitize_text_field($cart_item['Tipo de animal']),
+        ];
+    }
+
+    if (isset($cart_item['Raza'])) {
+        $item_data[] = [
+            'name' => 'Raza',
+            'value' => sanitize_text_field($cart_item['Raza']),
+        ];
+    }
+
+    return $item_data;
+}
+
+add_filter('woocommerce_cart_item_price', 'display_dynamic_price', 10, 3);
+
+function display_dynamic_price($price, $cart_item, $cart_item_key) {
+    if (isset($cart_item['custom_price'])) {
+        $custom_price = wc_price($cart_item['custom_price']);
+        return $custom_price . ' / month';
+    }
+    return $price;
+}
+
+add_action('woocommerce_checkout_create_order_line_item', 'ensure_dynamic_price_in_order', 10, 4);
+
+function ensure_dynamic_price_in_order($item, $cart_item_key, $values, $order) {
+    if (isset($values['custom_price']) && $values['custom_price'] > 0) {
+        $item->set_subtotal($values['custom_price']);
+        $item->set_total($values['custom_price']);
+    }
+
+    foreach ($values as $key => $value) {
+        if (!in_array($key, ['custom_price', 'data'])) {
+            $item->add_meta_data($key, $value, true);
+        }
+    }
+}
+
+add_action('woocommerce_subscription_cart_before_calculate_totals', 'set_subscription_price', 10, 1);
+
+function set_subscription_price($cart) {
+    foreach ($cart->get_cart() as $cart_item_key => $cart_item) {
+        if (isset($cart_item['custom_price'])) {
+            $cart_item['data']->set_price($cart_item['custom_price']);
+        }
+    }
+}
+
+
+// Guardar los metadatos de la suscripción en el pedido
 add_action('woocommerce_checkout_create_order_line_item', 'save_subscription_meta_data_to_order', 10, 4);
 function save_subscription_meta_data_to_order($item, $cart_item_key, $values, $order) {
     if (isset($values['Nombre'])) {
@@ -283,8 +379,8 @@ function save_subscription_meta_data_to_order($item, $cart_item_key, $values, $o
     if (isset($values['Peso en gramos'])) {
         $item->add_meta_data('Peso en gramos', $values['Peso en gramos'], true);
     }
-    if (isset($values['¿Esta castrad@?'])) {
-        $item->add_meta_data('¿Esta castrad@?', $values['¿Esta castrad@?'], true);
+    if (isset($values['¿Está castrad@?'])) {
+        $item->add_meta_data('¿Está castrad@?', $values['¿Está castrad@?'], true);
     }
     if (isset($values['Estado físico'])) {
         $item->add_meta_data('Estado físico', $values['Estado físico'], true);
@@ -307,8 +403,13 @@ function save_subscription_meta_data_to_order($item, $cart_item_key, $values, $o
     if (isset($values['Cantidad de comida diaria'])) {
         $item->add_meta_data('Cantidad de comida diaria', $values['Cantidad de comida diaria'], true);
     }
+    // Añadir los productos seleccionados al pedido
+    if (isset($values['Productos seleccionados'])) {
+        $item->add_meta_data('Productos seleccionados', $values['Productos seleccionados'], true);
+    }
 }
 
+// Copiar los metadatos del pedido a la suscripción
 add_action('woocommerce_subscription_created', 'copy_order_meta_to_subscription', 10, 3);
 function copy_order_meta_to_subscription($subscription, $order, $order_items) {
     foreach ($order->get_items() as $item_id => $item) {
@@ -330,8 +431,8 @@ function copy_order_meta_to_subscription($subscription, $order, $order_items) {
         if ($item->get_meta('Peso en gramos')) {
             $subscription->update_meta_data('Peso en gramos', $item->get_meta('Peso en gramos'));
         }
-        if ($item->get_meta('¿Esta castrad@?')) {
-            $subscription->update_meta_data('¿Esta castrad@?', $item->get_meta('¿Esta castrad@?'));
+        if ($item->get_meta('¿Está castrad@?')) {
+            $subscription->update_meta_data('¿Está castrad@?', $item->get_meta('¿Está castrad@?'));
         }
         if ($item->get_meta('Estado físico')) {
             $subscription->update_meta_data('Estado físico', $item->get_meta('Estado físico'));
@@ -348,16 +449,17 @@ function copy_order_meta_to_subscription($subscription, $order, $order_items) {
         if ($item->get_meta('Fecha de entrega')) {
             $subscription->update_meta_data('Fecha de entrega', $item->get_meta('Fecha de entrega'));
         }
-
         if ($item->get_meta('Cantidad de comida al mes')) {
             $subscription->update_meta_data('Cantidad de comida al mes', $item->get_meta('Cantidad de comida al mes'));
         }
-
         if ($item->get_meta('Cantidad de comida diaria')) {
             $subscription->update_meta_data('Cantidad de comida diaria', $item->get_meta('Cantidad de comida diaria'));
         }
+        // Copiar los productos seleccionados a la suscripción
+        if ($item->get_meta('Productos seleccionados')) {
+            $subscription->update_meta_data('Productos seleccionados', $item->get_meta('Productos seleccionados'));
+        }
     }
-
     $subscription->save();
 }
 
@@ -416,6 +518,10 @@ function get_variation_by_package_size() {
     $image_id = $product->get_image_id();
     $image_url = wp_get_attachment_image_url($image_id, 'thumbnail');
 
+    if($package_size === 1000){
+        $package_size = 1;
+    }
+
     foreach ($product->get_available_variations() as $variation) {
         $variation_id = $variation['variation_id'];
         $product_variation = new WC_Product_Variation($variation_id);
@@ -456,6 +562,90 @@ function custom_floatval($value) {
 }
 
 
-/****
- EDIT SUSCRIPTION
- ****/
+// Esconde metadatos irrelevantes en los correos electrónicos de WooCommerce
+add_filter('woocommerce_email_order_meta', function ($order, $sent_to_admin, $plain_text, $email) {
+    foreach ($order->get_items() as $item_id => $item) {
+        if ($item->get_product_id() == 3988) { // Solo para el producto con ID 3988
+            $meta_data = $item->get_meta_data();
+            $filtered_meta = [];
+            foreach ($meta_data as $meta) {
+                $key = $meta->key;
+                // Incluir solo los metadatos relevantes
+                if (in_array($key, [
+                    'Nombre', 'Tipo de animal', 'Genero', 'Raza',
+                    'Edad en meses', 'Peso en gramos', 'Estado físico',
+                    'Actividad física', 'Enfermedades', 'Fecha de entrega',
+                    'Cantidad de comida al mes', 'Cantidad de comida diaria',
+                    'Platos seleccionados', 'Cantidad'
+                ])) {
+                    $filtered_meta[$key] = $meta->value;
+                }
+            }
+            // Mostrar solo los datos relevantes
+            echo '<h3>Detalles de la Suscripción</h3>';
+            echo '<ul>';
+            foreach ($filtered_meta as $key => $value) {
+                echo '<li><strong>' . esc_html($key) . ':</strong> ' . esc_html($value) . '</li>';
+            }
+            echo '</ul>';
+        }
+    }
+}, 10, 4);
+
+add_filter('woocommerce_hidden_order_itemmeta', function ($hidden_meta) {
+    $hidden_meta = array_merge($hidden_meta, [
+        'key', 'product_id', 'variation_id', 'quantity', 'data_hash',
+        'line_subtotal', 'line_subtotal_tax', 'line_total', 'line_tax'
+    ]);
+    return $hidden_meta;
+});
+
+add_filter('woocommerce_order_item_get_formatted_meta_data', function ($formatted_meta, $item) {
+    if ($item->get_product_id() == 3988) { // Solo para el producto con ID 3988
+        foreach ($formatted_meta as $key => $meta) {
+            if (in_array($meta->key, [
+                'key', 'product_id', 'variation_id', 'quantity',
+                'data_hash', 'line_subtotal', 'line_subtotal_tax',
+                'line_total', 'line_tax'
+            ])) {
+                unset($formatted_meta[$key]);
+            }
+        }
+    }
+    return $formatted_meta;
+}, 10, 2);
+
+add_filter('wcs_view_subscription_item_meta', function ($formatted_meta, $item) {
+    if ($item->get_product_id() == 3988) { // Solo para el producto con ID 3988
+        foreach ($formatted_meta as $key => $meta) {
+            if (in_array($meta->key, [
+                'key', 'product_id', 'variation_id', 'quantity',
+                'data_hash', 'line_subtotal', 'line_subtotal_tax',
+                'line_total', 'line_tax'
+            ])) {
+                unset($formatted_meta[$key]);
+            }
+        }
+    }
+    return $formatted_meta;
+}, 10, 2);
+
+add_filter('wcs_renewal_order_meta_query', function ($meta_query, $original_order_id, $renewal_order_id, $subscription) {
+    foreach ($meta_query as $key => $meta) {
+        if (in_array($meta['meta_key'], [
+            'key', 'product_id', 'variation_id', 'quantity',
+            'data_hash', 'line_subtotal', 'line_subtotal_tax',
+            'line_total', 'line_tax'
+        ])) {
+            unset($meta_query[$key]);
+        }
+    }
+    return $meta_query;
+}, 10, 4);
+
+add_filter('woocommerce_order_item_get_tax_class', function ($tax_class, $item) {
+    if ($item->get_product_id() == 3988) { // ID del producto de suscripción
+        return '';
+    }
+    return $tax_class;
+}, 10, 2);

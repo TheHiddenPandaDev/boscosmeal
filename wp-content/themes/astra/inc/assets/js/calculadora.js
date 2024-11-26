@@ -31,7 +31,7 @@ class Calculadora {
 
     constructor() {
         this.minSteps = 1;
-        this.maxSteps = 6;
+        this.maxSteps = 7;
         this.currentStep = 1;
         this.animal = new Animal(
             '',
@@ -124,9 +124,7 @@ class Calculadora {
         price,
         src,
     ){
-        const margin = this.getMonthlyQuantity() * 0.20;
-
-        if (weight + this.getCurrentWeightInGrams() > this.getMonthlyQuantity() + margin) {
+        if (weight + this.getCurrentWeightInGrams() > this.getMonthlyQuantity() + weight) {
             return false;
         }
 
@@ -278,7 +276,7 @@ jQuery(document).ready(function($) {
         language: 'es',
         beforeShowDay: function(d) {
             let day = d.getDay();
-            return [day !== 0 && day !== 1];
+            return [day !== 0 && day !== 1 && day !== 6];
         },
         onSelect: function(dateText, inst) {
             console.log('dateText: '+dateText);
@@ -288,7 +286,7 @@ jQuery(document).ready(function($) {
             calculadora.selectedDay = inst.selectedDay;
             calculadora.selectedMonth = inst.selectedMonth + 1;
             calculadora.selectedYear = inst.selectedYear;
-            canGoToStep6();
+            canGoToStep7();
         }
     });
 
@@ -499,6 +497,8 @@ jQuery(function(){
             }
         });
 
+        jQuery('.single-product').removeClass("has-quantity");
+        calculadora.productsSelected = [];
         calculadora.selectedPackage = true;
         jQuery('.single-package').removeClass('selected');
         jQuery(this).addClass('selected');
@@ -522,7 +522,9 @@ jQuery(function(){
                 productContainer.find("span.current-quantity").text(calculadora.getProductQuantity(productId));
                 canGoToStep6();
             })
-            .catch(() => {
+            .catch((reason) => {
+                console.log('Reason: ');
+                console.log(reason);
                 button.removeClass("loading");
                 showToast("Error al añadir el producto", 5000);
                 canGoToStep6();
@@ -571,8 +573,6 @@ jQuery(function(){
         jQuery("#cat-products-crudo").addClass('hidden');
         jQuery("#cat-products-cocinado").addClass('hidden');
         jQuery("#"+calculadora.animal.type+"-products-"+calculadora.foodType.toLowerCase()).removeClass('hidden');
-        calculadora.productsSelected = [];
-        recalculateCalculatorSummary();
 
         canGoToStep6();
     });
@@ -605,13 +605,13 @@ function updateAddToCartButton(packageSize, productId) {
                         productId,
                         variation.variation_id,
                         variation.name,
-                        variation.weight,
+                        calculadora.packageSelected,
                         parseFloat(variation.price.toString().replace(',', '.')),
                         variation.image,
                     );
 
                     if(!result){
-                        reject();
+                        reject('Can\'t add product, max weight reached');
                         return;
                     }
 
@@ -625,12 +625,12 @@ function updateAddToCartButton(packageSize, productId) {
                 } else {
                     console.log(response);
                     console.log("No se encontró la variación.");
-                    reject();
+                    reject('No se encontró la variación');
                 }
             },
             error: function (error) {
                 console.log("Error en la solicitud AJAX:", error);
-                reject();
+                reject('Error en la solicitud AJAX');
             },
         });
     });
@@ -711,7 +711,8 @@ function goToNextStep(){
         calculadora.currentStep === 2 && canGoToStep3() ||
         calculadora.currentStep === 3 && canGoToStep4() ||
         calculadora.currentStep === 4 && canGoToStep5() ||
-        calculadora.currentStep === 5 && canGoToStep6()
+        calculadora.currentStep === 5 && canGoToStep6() ||
+        calculadora.currentStep === 6 && canGoToStep7()
     ){
           if(calculadora.currentStep <= calculadora.maxSteps){
 
@@ -741,8 +742,8 @@ function goToNextStep(){
 
             calculateWeight();
 
-              jQuery('.step').removeClass('active');
-              jQuery('.numStep' + calculadora.currentStep).addClass('active');
+            jQuery('.step').removeClass('active');
+            jQuery('.numStep' + calculadora.currentStep).addClass('active');
         }
     }
 }
@@ -774,6 +775,7 @@ function backStep(){
         if(calculadora.currentStep === 3) canGoToStep4();
         if(calculadora.currentStep === 4) canGoToStep5();
         if(calculadora.currentStep === 5) canGoToStep6();
+        if(calculadora.currentStep === 6) canGoToStep6();
 
         if( calculadora.currentStep === 5){
             jQuery('#summary-calculator-btn').show();
@@ -847,11 +849,14 @@ function canGoToStep5(){
         calculadora.packageSelected === 500 ||
         calculadora.packageSelected === 1000
     ){
+        console.log('enabled btn from canGoToStep5');
         jQuery('div.summary-calculator-model-footer span.summary-calculator-month-value').text(calculadora.getMonthlyQuantity() + 'gr');
         enableMoveForwardBtn();
         return true;
     }
 
+    console.log(calculadora.packageSelected);
+    console.log('disabled btn from canGoToStep5');
     disableMoveFordwardBtn();
     return false;
 }
@@ -866,10 +871,15 @@ function canGoToStep6() {
         currentWeight + margin >= calculadora.getMonthlyQuantity() &&
         currentWeight <= maxAllowedWeight
     ) {
+        console.log('enabled btn from canGoToStep6');
         enableMoveForwardBtn();
         return true;
     }
 
+    console.log('calculadora.productsSelected.length: '+calculadora.productsSelected.length);
+    console.log('currentWeight: '+currentWeight);
+
+    console.log('disabled btn from canGoToStep6');
     disableMoveFordwardBtn();
     return false;
 }
@@ -877,9 +887,12 @@ function canGoToStep6() {
 
 function canGoToStep7(){
     if(calculadora.selectedDay !== '' && calculadora.selectedMonth !== '' && calculadora.selectedYear !== ''){
+        console.log('enabled btn from canGoToStep7');
         enableMoveForwardBtn();
         return true;
     }
+
+    console.log('disabled btn from canGoToStep7');
     disableMoveFordwardBtn();
     return false;
 }
@@ -973,8 +986,10 @@ function goToStep(numStep){
             jQuery('.backBtn').hide();
         }
 
-        calculateWeight();
-        calculateRecommendedPackage();
+        if(numStep === '4') {
+            calculateWeight();
+            calculateRecommendedPackage();
+        }
 
         if(numStep === '7'){
             console.log(calculadora);
