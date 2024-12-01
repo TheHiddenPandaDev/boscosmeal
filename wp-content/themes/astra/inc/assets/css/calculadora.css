@@ -70,7 +70,7 @@ body.page-template-calculator #summary-calculator-sidebar {
 }
 
 body.page-template-calculator.logged-in #summary-calculator-sidebar {
-    top: 32px;
+    top: 0px;
 }
 
 body.page-template-calculator #summary-calculator-sidebar.model-summary-active {
@@ -558,12 +558,38 @@ body.page-template-calculator.woocommerce-js .checkbox-neutered input {
 
     body.page-template-calculator .animal:first-of-type {
         margin-bottom: 20px;
-        margin-right: 0;
+        margin-right: 20px;
     }
 
-    body.page-template-calculator .animal {
+    body.page-template-calculator .animal,
+    body.page-template-calculator div.food-type-selector .food {
         display: inline-block;
         vertical-align: baseline;
+        width: 10em !important;
+        height: 10em !important;
+    }
+
+    body.page-template-calculator .animal-gender .animal img {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    body.page-template-calculator div.animal-physical-state .animal {
+        margin-right: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    body.page-template-calculator .animal-physical-state {
+        display: block;
+    }
+
+    body.page-template-calculator .physical-state-selector {
+        margin-bottom: 20px;
+    }
+
+    body.page-template-calculator .food:first-of-type {
+        margin-right: 20px !important;
     }
 }
 .hidden {

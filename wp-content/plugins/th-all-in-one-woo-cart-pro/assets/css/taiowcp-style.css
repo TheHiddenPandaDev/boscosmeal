@@ -249,7 +249,7 @@ font-size: 2rem;
 }
 .taiowcp-cart-close:after {
     font-family: dashicons;
-    content: "\f335";
+    content: "";
     font-size: 1.5rem;
     color: #111;
 }

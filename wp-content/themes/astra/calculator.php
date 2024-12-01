@@ -28,7 +28,10 @@ get_header(); ?>
             <div class="summary-calculator-model-header">
                 <div class="cart-heading">
                     <h4>📝 Resumen</h4>
-                    <span class="taiowcp-cart-close"></span>
+                    <span class="taiowcp-cart-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" style="
+    color: black;
+    width: 20px;
+"><rect x="0" fill="none" width="20" height="20"></rect><g><path d="M14.95 6.46L11.41 10l3.54 3.54-1.41 1.41L10 11.42l-3.53 3.53-1.42-1.42L8.58 10 5.05 6.47l1.42-1.42L10 8.58l3.54-3.53z"></path></g></svg></span>
                 </div>
             </div>
 
@@ -1149,8 +1152,8 @@ get_header(); ?>
                 <div class="warning-icon">⚠️</div>
                 <div class="warning-message-content">
                     <p><strong>SI ESCOGES LA OPCIÓN DE ENVÍO A DOMICILIO TEN EN</strong></p>
-                    <p><strong>⚠️ NUESTRO PRODUCTO ES CONGELADO.</p>
-                    <p><strong>⌚ EL HORARIO DE ENTREGA ES DE 9 A 14h, NO MODIFICABLE.</p>
+                    <p><strong>⚠️ NUESTRO PRODUCTO ES CONGELADO.</strong></p>
+                    <p><strong>⌚ EL HORARIO DE ENTREGA ES DE 9 A 14h, NO MODIFICABLE.</strong></p>
                     <p><strong>📅 NO ESCOJAS UN DIA FESTIVO EN TU LOCALIDAD.</strong></p>
                     <p><strong>📅 NO ESCOJAS UN DIA FESTIVO EN TU LOCALIDAD.</strong></p>
                     <p><strong>🚚 ASEGURATE DE PODER RECOGER EL ENVÍO EN LA FECHA Y LUGAR INDICADO.</strong>

@@ -270,19 +270,37 @@ jQuery(document).ready(function($) {
 
     $.datepicker.setDefaults($.datepicker.regional['es']);
 
-    $( '#datepicker' ).datepicker({
-        minDate: tomorrow,
+    function calcularTercerDiaHabil(inicio) {
+        let diasHabil = 0;
+        let fecha = new Date(inicio);
+
+        while (diasHabil < 3) {
+            fecha.setDate(fecha.getDate() + 1);
+            let diaSemana = fecha.getDay();
+            if (diaSemana !== 0 && diaSemana !== 1 && diaSemana !== 6) {
+                diasHabil++;
+            }
+        }
+
+        return fecha;
+    }
+
+    let today = new Date();
+    let fechaMinima = new Date('2024-12-11');
+    let tercerDiaHabil = calcularTercerDiaHabil(today);
+
+    $('#datepicker').datepicker({
+        minDate: today < fechaMinima ? fechaMinima : tercerDiaHabil,
         defaultDate: tomorrow,
         language: 'es',
         beforeShowDay: function(d) {
-            let day = d.getDay();
-            return [day !== 0 && day !== 1 && day !== 6];
+            let diaSemana = d.getDay();
+            return [diaSemana !== 0 && diaSemana !== 1 && diaSemana !== 6];
         },
         onSelect: function(dateText, inst) {
-            console.log('dateText: '+dateText);
-            console.log('inst: ');
-            console.log(inst);
-            console.log('Date Selected: '+$(this).val());
+            console.log('dateText: ' + dateText);
+            console.log('inst: ', inst);
+            console.log('Date Selected: ' + $(this).val());
             calculadora.selectedDay = inst.selectedDay;
             calculadora.selectedMonth = inst.selectedMonth + 1;
             calculadora.selectedYear = inst.selectedYear;
@@ -290,7 +308,7 @@ jQuery(document).ready(function($) {
         }
     });
 
-    $('#datepicker').val($.datepicker.formatDate('dd/mm/yy', tomorrow));
+    $('#datepicker').val($.datepicker.formatDate('dd/mm/yy', today));
 
 });
 
@@ -526,7 +544,11 @@ jQuery(function(){
                 console.log('Reason: ');
                 console.log(reason);
                 button.removeClass("loading");
-                showToast("Error al añadir el producto", 5000);
+                if(reason === 'No se puede agregar producto, se alcanzó la cantidad a comer al mes') {
+                    showToast("No se puede agregar producto, ya se ha alcanzado la cantidad a comer al mes", 5000);
+                } else {
+                    showToast("Error al añadir el producto", 5000);
+                }
                 canGoToStep6();
             });
     });
@@ -534,6 +556,10 @@ jQuery(function(){
     jQuery( ".page-template-calculator .remove-quantity-btn").on( "click", function(e){
         console.log('decreasing product....');
         calculadora.decreaseQuantityProduct(jQuery(this).attr('data-product-id'));
+        const button = jQuery(this);
+        const productId = button.data("product-id");
+        const productContainer = button.closest(".single-product");
+        productContainer.find("span.current-quantity").text(calculadora.getProductQuantity(productId));
         recalculateCalculatorSummary();
     });
 
@@ -611,13 +637,15 @@ function updateAddToCartButton(packageSize, productId) {
                     );
 
                     if(!result){
-                        reject('Can\'t add product, max weight reached');
+                        reject('No se puede agregar producto, se alcanzó la cantidad a comer al mes');
                         return;
                     }
 
+                    /*
                     if(!jQuery('#summary-calculator-sidebar').hasClass('model-summary-active')){
                         jQuery('#summary-calculator-sidebar').addClass('model-summary-active');
                     }
+                    */
 
                     recalculateCalculatorSummary();
                     resolve();

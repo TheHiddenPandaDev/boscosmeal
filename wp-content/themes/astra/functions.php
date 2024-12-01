@@ -649,3 +649,13 @@ add_filter('woocommerce_order_item_get_tax_class', function ($tax_class, $item) 
     }
     return $tax_class;
 }, 10, 2);
+
+function replace_menu_item_with_svg($items, $args) {
+    foreach ($items as $item) {
+        if ($item->classes && in_array('menu-icon-user', $item->classes)) {
+            $item->title = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>';
+        }
+    }
+    return $items;
+}
+add_filter('wp_nav_menu_objects', 'replace_menu_item_with_svg', 10, 2);
