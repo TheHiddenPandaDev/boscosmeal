@@ -1,3 +1,27 @@
+Version 1.35.27, Tuesday, 12th November 2024
+- Fixed: Advanced Accordion - Resolved CSS rendering issue.
+- Fixed: Advanced Posts -  Ensured mouse pointer visibility CTA type Complete Box.
+- Fixed: Info Box - Fixed nested <a> tags for CTA type complete box. 
+
+Version 1.35.26, Tuesday, 15th October 2024
+- Fixed: Info Box - Hover color was not applying correctly.
+- Fixed: Resolved CSS rendering issue for Advanced Accordion and Advanced Tabs.
+
+Version 1.35.25, Monday, 7th October 2024
+- Fixed: Default color fallback logic when the background color is not set for Advanced Accordion and Advanced Tabs.
+- Fixed: Info Box - Corrected image/icon alignment when positioned to the left of the text and heading.
+- Fixed: Testimonials - Improved Accessibility for form label.
+
+Version 1.35.24, Wednesday, 2nd October 2024
+- Improvement: Compatibility with Beaver Builder 2.9
+- Improvement: Enhanced opacity handling for color presets in some modules.
+- Improvement: Resolved high contrast accessibility issues for Info Box, Info List, and Advanced Posts modules.
+- Improvement: Video - Addressed deprecated dynamic property creation in a class.
+- Fixed: Advanced Menu - Collapsible menu was displaying on page load.
+- Fixed: Info List - Resolved text overlapping issue with Slidebox module when opened.
+- Fixed: Login Form – Updated Google Sign In as per latest Google guidelines.
+- Deprecated: Login Form – Removed Social Buttons border-radius.
+
 Version 1.35.23, Wednesday, 24th July 2024
 - Improvement: Hardened the security of plugin.
 - Improvement: Compatibility with latest WordPress version 6.6.

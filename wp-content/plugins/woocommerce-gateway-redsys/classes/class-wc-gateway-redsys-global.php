@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -21,11 +21,148 @@ use Automattic\WooCommerce\Utilities\OrderUtil;
  * Gateway class
  */
 class WC_Gateway_Redsys_Global {
+	/**
+	 * Debug
+	 *
+	 * @var bool
+	 */
+	public $debug = false;
+	/**
+	 * Debug
+	 *
+	 * @var bool
+	 */
+	public $log = false;
+	/**
+	 * Mapeo de reemplazos para caracteres específicos.
+	 *
+	 * @var array
+	 */
+	const CHAR_REPLACEMENTS = array(
+		// Latin Basic & Extended-A.
+		'ª' => 'a',
+		'º' => 'o',
+		'À' => 'A',
+		'Á' => 'A',
+		'Â' => 'A',
+		'Ã' => 'A',
+		'Ä' => 'A',
+		'Å' => 'A',
+		'Æ' => 'AE',
+		'Ç' => 'C',
+		'È' => 'E',
+		'É' => 'E',
+		'Ê' => 'E',
+		'Ë' => 'E',
+		'Ì' => 'I',
+		'Í' => 'I',
+		'Î' => 'I',
+		'Ï' => 'I',
+		'Ð' => 'D',
+		'Ñ' => 'N',
+		'Ò' => 'O',
+		'Ó' => 'O',
+		'Ô' => 'O',
+		'Õ' => 'O',
+		'Ö' => 'O',
+		'Ù' => 'U',
+		'Ú' => 'U',
+		'Û' => 'U',
+		'Ü' => 'U',
+		'Ý' => 'Y',
+		'Þ' => 'TH',
+		'ß' => 's',
+		'à' => 'a',
+		'á' => 'a',
+		'â' => 'a',
+		'ã' => 'a',
+		'ä' => 'a',
+		'å' => 'a',
+		'æ' => 'ae',
+		'ç' => 'c',
+		'è' => 'e',
+		'é' => 'e',
+		'ê' => 'e',
+		'ë' => 'e',
+		'ì' => 'i',
+		'í' => 'i',
+		'î' => 'i',
+		'ï' => 'i',
+		'ð' => 'd',
+		'ñ' => 'n',
+		'ò' => 'o',
+		'ó' => 'o',
+		'ô' => 'o',
+		'õ' => 'o',
+		'ö' => 'o',
+		'ø' => 'o',
+		'ù' => 'u',
+		'ú' => 'u',
+		'û' => 'u',
+		'ü' => 'u',
+		'ý' => 'y',
+		'þ' => 'th',
+		'ÿ' => 'y',
+		'Ø' => 'O',
+
+		// Latin Extended-B.
+		'Ș' => 'S',
+		'ș' => 's',
+		'Ț' => 'T',
+		'ț' => 't',
+
+		// Currency symbols.
+		'€' => 'E',
+		'£' => '',
+
+		// Vietnamese diacritics.
+		'Ơ' => 'O',
+		'ơ' => 'o',
+		'Ư' => 'U',
+		'ư' => 'u',
+		'Ầ' => 'A',
+		'ầ' => 'a',
+		'Ằ' => 'A',
+		'ằ' => 'a',
+		'Ề' => 'E',
+		'ề' => 'e',
+		'Ả' => 'A',
+		'ả' => 'a',
+		'Ẩ' => 'A',
+		'ẩ' => 'a',
+		'Ẳ' => 'A',
+		'ẳ' => 'a',
+
+		// Pinyin diacritics.
+		'Ǖ' => 'U',
+		'ǖ' => 'u',
+		'Ǘ' => 'U',
+		'ǘ' => 'u',
+		'Ǚ' => 'U',
+		'ǚ' => 'u',
+		'Ǜ' => 'U',
+		'ǜ' => 'u',
+
+		// Other replacements.
+		'&' => '-',
+		'<' => ' ',
+		'>' => ' ',
+		'/' => ' ',
+		'"' => ' ',
+		"'" => ' ',
+		'?' => ' ',
+		'¿' => ' ',
+		'#' => ' ',
+		'@' => ' ',
+		'[' => ' ',
+		']' => ' ',
+	);
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
+		$logger = wc_get_logger();
 		add_action( 'woocommerce_available_payment_gateways', array( $this, 'disable_gateways_preauth' ), 100 );
 		add_action( 'woocommerce_available_payment_gateways', array( $this, 'disable_gateways_token_r' ), 10 );
 	}
@@ -36,11 +173,50 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function debug( $log ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug = new WC_Logger();
-			$debug->add( 'redsys-global', $log );
+			$level = 'debug';
+			$this->log( 'redsys-global', $log, $level );
 		}
 	}
+	/**
+	 * Add log function.
+	 *
+	 * @param string $handler is the log handler.
+	 * @param string $message is the log message.
+	 * @param string $level is the log level.
+	 *
+	 * @since 25.1.0
+	 */
+	public function log( $handler, $message, $level = 'info' ) {
+		$logger  = wc_get_logger();
+		$context = array( 'source' => $handler );
 
+		switch ( $level ) {
+			case 'debug':
+				$logger->debug( $message, $context );
+				break;
+			case 'info':
+				$logger->info( $message, $context );
+				break;
+			case 'notice':
+				$logger->notice( $message, $context );
+				break;
+			case 'warning':
+				$logger->warning( $message, $context );
+				break;
+			case 'error':
+				$logger->error( $message, $context );
+				break;
+			case 'critical':
+				$logger->critical( $message, $context );
+				break;
+			case 'alert':
+				$logger->alert( $message, $context );
+				break;
+			case 'emergency':
+				$logger->emergency( $message, $context );
+				break;
+		}
+	}
 	/**
 	 * Get Redsys Ownsetting
 	 *
@@ -153,111 +329,26 @@ class WC_Gateway_Redsys_Global {
 	 * @param string $gateway Gateway.
 	 */
 	public function get_redsys_option( $option, $gateway ) {
-
 		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-		if ( ! empty( $options ) ) {
-			if ( 'all' === $option ) {
-				return maybe_unserialize( $options );
-			}
-			$redsys_options = maybe_unserialize( $options );
-			if ( array_key_exists( $option, $redsys_options ) ) {
-				$option_value = $redsys_options[ $option ];
-				return $option_value;
-			} else {
-				return false;
-			}
-		} else {
+
+		if ( empty( $options ) ) {
 			return false;
 		}
 
-		if ( is_multisite() && ! is_main_site() ) {
-			$this->debug( 'is_multisite() && ! is_main_site()' );
-			$this->debug( '$gateway: ' . $gateway );
-			$this->debug( '$option: ' . $option );
-			$options        = $this->get_option_from_main_site( $gateway );
-			$redsys_options = maybe_unserialize( $options );
-			if ( 'ownsetting' !== $option ) {
-				if ( 'hideownsetting' === $option || 'multisitesttings' === $option ) {
-					if ( ! empty( $redsys_options ) ) {
-						if ( array_key_exists( $option, $redsys_options ) ) {
-							$option_value = $redsys_options[ $option ];
-							return $option_value;
-						} else {
-							return false;
-						}
-					} else {
-						return false;
-					}
-				}
-			}
-
-			$multisitesttings = $redsys_options['multisitesttings'];
-			$ownsetting       = $redsys_options['hideownsetting'];
-
-			if ( 'yes' !== $ownsetting && 'yes' === $multisitesttings ) {
-				$this->debug( 'yes !== $ownsetting && yes === $multisitesttings' );
-				if ( ! empty( $redsys_options ) ) {
-					if ( 'all' === $option ) {
-						return $redsys_options;
-					}
-					if ( array_key_exists( $option, $redsys_options ) ) {
-						$option_value = $redsys_options[ $option ];
-						return $option_value;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			} else {
-				$this->debug( 'NOT: yes !== $ownsetting && yes === $multisitesttings' );
-				$options = get_option( 'woocommerce_' . $gateway . '_settings' );
-				if ( ! empty( $options ) ) {
-					$this->debug( '$options: ' . print_r( $options, true ) );
-					$this->debug( '$gateway: ' . $gateway );
-					$this->debug( '$option: ' . $option );
-					if ( 'all' === $option ) {
-						$this->debug( '$gateway: ' . $gateway );
-						$this->debug( '$option: ' . $option );
-						return $options;
-					}
-					$redsys_options = maybe_unserialize( $options );
-					if ( array_key_exists( $option, $redsys_options ) ) {
-						$option_value = $redsys_options[ $option ];
-						return $option_value;
-					} else {
-						return false;
-					}
-				} else {
-					return false;
-				}
-			}
-		}
-
-		$options = get_option( 'woocommerce_' . $gateway . '_settings' );
+		$redsys_options = maybe_unserialize( $options );
 
 		if ( 'all' === $option ) {
-			return $options;
+			return $redsys_options;
 		}
 
-		if ( ! empty( $options ) ) {
-			$redsys_options = maybe_unserialize( $options );
-			if ( array_key_exists( $option, $redsys_options ) ) {
-				$option_value = $redsys_options[ $option ];
-				return $option_value;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
+		return isset( $redsys_options[ $option ] ) ? $redsys_options[ $option ] : false;
 	}
 	/**
 	 * Return help notice
 	 */
 	public function return_help_notice() {
-		$guias  = 'https://redsys.joseconti.com/guias/';
-		$faq    = 'https://redsys.joseconti.com/redsys-for-woocommerce/';
+		$guias  = 'https://plugins.joseconti.com/guias/';
+		$faq    = 'https://plugins.joseconti.com/redsys-for-woocommerce/';
 		$ticket = 'https://woocommerce.com/my-account/tickets/';
 		printf(
 			wp_kses(
@@ -300,21 +391,21 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function get_redsys_token_r( $order_id ) {
 
-		if ( ! is_a( $order_id, 'WC_Abstract_Order' ) ) {
-			$order = wc_get_order( $order_id );
-		}
-		if ( $order ) {
-			foreach ( $order->get_items() as $item_id => $item_values ) {
-				$product_id = $item_values->get_product_id();
-				$get        = get_post_meta( $product_id, '_redsystokenr', true );
-				if ( 'yes' === $get ) {
-					return true;
-				}
-				continue;
-			}
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
 			$this->debug( 'get_redsys_token_r: FALSE' );
 			return false;
 		}
+
+		foreach ( $order->get_items() as $item ) {
+			$product_id = $item->get_product_id();
+			$get        = get_post_meta( $product_id, '_redsystokenr', true );
+			if ( 'yes' === $get ) {
+				return true;
+			}
+		}
+
 		$this->debug( 'get_redsys_token_r: FALSE' );
 		return false;
 	}
@@ -324,35 +415,28 @@ class WC_Gateway_Redsys_Global {
 	 * @param int $order_id Order ID.
 	 */
 	public function order_needs_preauth( $order_id ) {
+		$order = is_a( $order_id, 'WC_Abstract_Order' ) ? $order_id : wc_get_order( $order_id );
 
-		if ( ! is_a( $order_id, 'WC_Abstract_Order' ) ) {
-			$order = wc_get_order( $order_id );
-		}
-
-		if ( $order ) {
-
-			$global_preauth = $this->get_redsys_option( 'redsyspreauthall', 'redsys' );
-
-			if ( 'yes' === $global_preauth ) {
-				return true;
-			}
-
-			foreach ( $order->get_items() as $item_id => $item_values ) {
-				$product_id = $item_values->get_product_id();
-				$get        = get_post_meta( $product_id, '_redsyspreauth', true );
-				if ( 'yes' === $get ) {
-					return true;
-				}
-				continue;
-			}
+		if ( ! $order ) {
 			return false;
 		}
+
+		if ( 'yes' === $this->get_redsys_option( 'redsyspreauthall', 'redsys' ) ) {
+			return true;
+		}
+
+		foreach ( $order->get_items() as $item ) {
+			if ( 'yes' === get_post_meta( $item->get_product_id(), '_redsyspreauth', true ) ) {
+				return true;
+			}
+		}
+
 		return false;
 	}
 	/**
 	 * Get Parend Order ID from Subscriptin ID.
 	 *
-	 * @param int $subscription_id Subscription ID. 
+	 * @param int $subscription_id Subscription ID.
 	 */
 	public function get_order_id_from_subscription( $subscription_id ) {
 		if ( function_exists( 'wcs_is_subscription' ) ) {
@@ -454,383 +538,7 @@ class WC_Gateway_Redsys_Global {
 	 * @return string
 	 */
 	public function clean_data( $out ) {
-		$replacements = array(
-			'ª' => 'a',
-			'º' => 'o',
-			'À' => 'A',
-			'Á' => 'A',
-			'Â' => 'A',
-			'Ã' => 'A',
-			'Ä' => 'A',
-			'Å' => 'A',
-			'Æ' => 'AE',
-			'Ç' => 'C',
-			'È' => 'E',
-			'É' => 'E',
-			'Ê' => 'E',
-			'Ë' => 'E',
-			'Ì' => 'I',
-			'Í' => 'I',
-			'Î' => 'I',
-			'Ï' => 'I',
-			'Ð' => 'D',
-			'Ñ' => 'N',
-			'Ò' => 'O',
-			'Ó' => 'O',
-			'Ô' => 'O',
-			'Õ' => 'O',
-			'Ö' => 'O',
-			'Ù' => 'U',
-			'Ú' => 'U',
-			'Û' => 'U',
-			'Ü' => 'U',
-			'Ý' => 'Y',
-			'Þ' => 'TH',
-			'ß' => 's',
-			'à' => 'a',
-			'á' => 'a',
-			'â' => 'a',
-			'ã' => 'a',
-			'ä' => 'a',
-			'å' => 'a',
-			'æ' => 'ae',
-			'ç' => 'c',
-			'è' => 'e',
-			'é' => 'e',
-			'ê' => 'e',
-			'ë' => 'e',
-			'ì' => 'i',
-			'í' => 'i',
-			'î' => 'i',
-			'ï' => 'i',
-			'ð' => 'd',
-			'ñ' => 'n',
-			'ò' => 'o',
-			'ó' => 'o',
-			'ô' => 'o',
-			'õ' => 'o',
-			'ö' => 'o',
-			'ø' => 'o',
-			'ù' => 'u',
-			'ú' => 'u',
-			'û' => 'u',
-			'ü' => 'u',
-			'ý' => 'y',
-			'þ' => 'th',
-			'ÿ' => 'y',
-			'Ø' => 'O',
-			// Decompositions for Latin Extended-A.
-			'Ā' => 'A',
-			'ā' => 'a',
-			'Ă' => 'A',
-			'ă' => 'a',
-			'Ą' => 'A',
-			'ą' => 'a',
-			'Ć' => 'C',
-			'ć' => 'c',
-			'Ĉ' => 'C',
-			'ĉ' => 'c',
-			'Ċ' => 'C',
-			'ċ' => 'c',
-			'Č' => 'C',
-			'č' => 'c',
-			'Ď' => 'D',
-			'ď' => 'd',
-			'Đ' => 'D',
-			'đ' => 'd',
-			'Ē' => 'E',
-			'ē' => 'e',
-			'Ĕ' => 'E',
-			'ĕ' => 'e',
-			'Ė' => 'E',
-			'ė' => 'e',
-			'Ę' => 'E',
-			'ę' => 'e',
-			'Ě' => 'E',
-			'ě' => 'e',
-			'Ĝ' => 'G',
-			'ĝ' => 'g',
-			'Ğ' => 'G',
-			'ğ' => 'g',
-			'Ġ' => 'G',
-			'ġ' => 'g',
-			'Ģ' => 'G',
-			'ģ' => 'g',
-			'Ĥ' => 'H',
-			'ĥ' => 'h',
-			'Ħ' => 'H',
-			'ħ' => 'h',
-			'Ĩ' => 'I',
-			'ĩ' => 'i',
-			'Ī' => 'I',
-			'ī' => 'i',
-			'Ĭ' => 'I',
-			'ĭ' => 'i',
-			'Į' => 'I',
-			'į' => 'i',
-			'İ' => 'I',
-			'ı' => 'i',
-			'Ĳ' => 'IJ',
-			'ĳ' => 'ij',
-			'Ĵ' => 'J',
-			'ĵ' => 'j',
-			'Ķ' => 'K',
-			'ķ' => 'k',
-			'ĸ' => 'k',
-			'Ĺ' => 'L',
-			'ĺ' => 'l',
-			'Ļ' => 'L',
-			'ļ' => 'l',
-			'Ľ' => 'L',
-			'ľ' => 'l',
-			'Ŀ' => 'L',
-			'ŀ' => 'l',
-			'Ł' => 'L',
-			'ł' => 'l',
-			'Ń' => 'N',
-			'ń' => 'n',
-			'Ņ' => 'N',
-			'ņ' => 'n',
-			'Ň' => 'N',
-			'ň' => 'n',
-			'ŉ' => 'n',
-			'Ŋ' => 'N',
-			'ŋ' => 'n',
-			'Ō' => 'O',
-			'ō' => 'o',
-			'Ŏ' => 'O',
-			'ŏ' => 'o',
-			'Ő' => 'O',
-			'ő' => 'o',
-			'Œ' => 'OE',
-			'œ' => 'oe',
-			'Ŕ' => 'R',
-			'ŕ' => 'r',
-			'Ŗ' => 'R',
-			'ŗ' => 'r',
-			'Ř' => 'R',
-			'ř' => 'r',
-			'Ś' => 'S',
-			'ś' => 's',
-			'Ŝ' => 'S',
-			'ŝ' => 's',
-			'Ş' => 'S',
-			'ş' => 's',
-			'Š' => 'S',
-			'š' => 's',
-			'Ţ' => 'T',
-			'ţ' => 't',
-			'Ť' => 'T',
-			'ť' => 't',
-			'Ŧ' => 'T',
-			'ŧ' => 't',
-			'Ũ' => 'U',
-			'ũ' => 'u',
-			'Ū' => 'U',
-			'ū' => 'u',
-			'Ŭ' => 'U',
-			'ŭ' => 'u',
-			'Ů' => 'U',
-			'ů' => 'u',
-			'Ű' => 'U',
-			'ű' => 'u',
-			'Ų' => 'U',
-			'ų' => 'u',
-			'Ŵ' => 'W',
-			'ŵ' => 'w',
-			'Ŷ' => 'Y',
-			'ŷ' => 'y',
-			'Ÿ' => 'Y',
-			'Ź' => 'Z',
-			'ź' => 'z',
-			'Ż' => 'Z',
-			'ż' => 'z',
-			'Ž' => 'Z',
-			'ž' => 'z',
-			'ſ' => 's',
-			// Decompositions for Latin Extended-B.
-			'Ș' => 'S',
-			'ș' => 's',
-			'Ț' => 'T',
-			'ț' => 't',
-			// Euro sign.
-			'€' => 'E',
-			// GBP (Pound) sign.
-			'£' => '',
-			// Vowels with diacritic (Vietnamese).
-			// Unmarked.
-			'Ơ' => 'O',
-			'ơ' => 'o',
-			'Ư' => 'U',
-			'ư' => 'u',
-			// Grave accent.
-			'Ầ' => 'A',
-			'ầ' => 'a',
-			'Ằ' => 'A',
-			'ằ' => 'a',
-			'Ề' => 'E',
-			'ề' => 'e',
-			'Ồ' => 'O',
-			'ồ' => 'o',
-			'Ờ' => 'O',
-			'ờ' => 'o',
-			'Ừ' => 'U',
-			'ừ' => 'u',
-			'Ỳ' => 'Y',
-			'ỳ' => 'y',
-			// Hook.
-			'Ả' => 'A',
-			'ả' => 'a',
-			'Ẩ' => 'A',
-			'ẩ' => 'a',
-			'Ẳ' => 'A',
-			'ẳ' => 'a',
-			'Ẻ' => 'E',
-			'ẻ' => 'e',
-			'Ể' => 'E',
-			'ể' => 'e',
-			'Ỉ' => 'I',
-			'ỉ' => 'i',
-			'Ỏ' => 'O',
-			'ỏ' => 'o',
-			'Ổ' => 'O',
-			'ổ' => 'o',
-			'Ở' => 'O',
-			'ở' => 'o',
-			'Ủ' => 'U',
-			'ủ' => 'u',
-			'Ử' => 'U',
-			'ử' => 'u',
-			'Ỷ' => 'Y',
-			'ỷ' => 'y',
-			// Tilde.
-			'Ẫ' => 'A',
-			'ẫ' => 'a',
-			'Ẵ' => 'A',
-			'ẵ' => 'a',
-			'Ẽ' => 'E',
-			'ẽ' => 'e',
-			'Ễ' => 'E',
-			'ễ' => 'e',
-			'Ỗ' => 'O',
-			'ỗ' => 'o',
-			'Ỡ' => 'O',
-			'ỡ' => 'o',
-			'Ữ' => 'U',
-			'ữ' => 'u',
-			'Ỹ' => 'Y',
-			'ỹ' => 'y',
-			// Acute accent.
-			'Ấ' => 'A',
-			'ấ' => 'a',
-			'Ắ' => 'A',
-			'ắ' => 'a',
-			'Ế' => 'E',
-			'ế' => 'e',
-			'Ố' => 'O',
-			'ố' => 'o',
-			'Ớ' => 'O',
-			'ớ' => 'o',
-			'Ứ' => 'U',
-			'ứ' => 'u',
-			// Dot below.
-			'Ạ' => 'A',
-			'ạ' => 'a',
-			'Ậ' => 'A',
-			'ậ' => 'a',
-			'Ặ' => 'A',
-			'ặ' => 'a',
-			'Ẹ' => 'E',
-			'ẹ' => 'e',
-			'Ệ' => 'E',
-			'ệ' => 'e',
-			'Ị' => 'I',
-			'ị' => 'i',
-			'Ọ' => 'O',
-			'ọ' => 'o',
-			'Ộ' => 'O',
-			'ộ' => 'o',
-			'Ợ' => 'O',
-			'ợ' => 'o',
-			'Ụ' => 'U',
-			'ụ' => 'u',
-			'Ự' => 'U',
-			'ự' => 'u',
-			'Ỵ' => 'Y',
-			'ỵ' => 'y',
-			// Vowels with diacritic (Chinese, Hanyu Pinyin).
-			'ɑ' => 'a',
-			// Macron.
-			'Ǖ' => 'U',
-			'ǖ' => 'u',
-			// Acute accent.
-			'Ǘ' => 'U',
-			'ǘ' => 'u',
-			// Caron.
-			'Ǎ' => 'A',
-			'ǎ' => 'a',
-			'Ǐ' => 'I',
-			'ǐ' => 'i',
-			'Ǒ' => 'O',
-			'ǒ' => 'o',
-			'Ǔ' => 'U',
-			'ǔ' => 'u',
-			'Ǚ' => 'U',
-			'ǚ' => 'u',
-			// Grave accent.
-			'Ǜ' => 'U',
-			'ǜ' => 'u',
-			'Á' => 'A',
-			'À' => 'A',
-			'Ä' => 'A',
-			'É' => 'E',
-			'È' => 'E',
-			'Ë' => 'E',
-			'Í' => 'I',
-			'Ì' => 'I',
-			'Ï' => 'I',
-			'Ó' => 'O',
-			'Ò' => 'O',
-			'Ö' => 'O',
-			'Ú' => 'U',
-			'Ù' => 'U',
-			'Ü' => 'U',
-			'á' => 'a',
-			'à' => 'a',
-			'ä' => 'a',
-			'é' => 'e',
-			'è' => 'e',
-			'ë' => 'e',
-			'í' => 'i',
-			'ì' => 'i',
-			'ï' => 'i',
-			'ó' => 'o',
-			'ò' => 'o',
-			'ö' => 'o',
-			'ú' => 'u',
-			'ù' => 'u',
-			'ü' => 'u',
-			'ç' => 'c',
-			'Ç' => 'C',
-			'Ñ' => 'N',
-			'ñ' => 'n',
-			'&' => '-',
-			'<' => ' ',
-			'>' => ' ',
-			'/' => ' ',
-			'"' => ' ',
-			"'" => ' ',
-			'?' => ' ',
-			'¿' => ' ',
-			'º' => ' ',
-			'ª' => ' ',
-			'#' => ' ',
-			'@' => ' ',
-			'[' => ' ',
-			']' => ' ',
-		);
-
-		return strtr( $out, $replacements );
+		return strtr( $out, self::CHAR_REPLACEMENTS );
 	}
 	/**
 	 * Get Order
@@ -838,7 +546,7 @@ class WC_Gateway_Redsys_Global {
 	 * @param int $order_id Order ID.
 	 */
 	public function get_order( $order_id ) {
-		$order = new WC_Order( $order_id );
+		$order = wc_get_order( $order_id );
 		return $order;
 	}
 	/**
@@ -914,7 +622,7 @@ class WC_Gateway_Redsys_Global {
 	 *
 	 * @param string $token_id Token.
 	 *
-	 * @return string.
+	 * @return bool Returns true if the token can be used, false otherwise.
 	 */
 	public function maybe_use_token( $token_id ) {
 		$error_e174 = get_transient( 'redsys_E174_' . $token_id );
@@ -930,7 +638,7 @@ class WC_Gateway_Redsys_Global {
 	 * @param string   $token_id Token.
 	 * @param string   $error_code Error code.
 	 *
-	 * @return string.
+	 * @return string|false
 	 */
 	public function check_token_error( $order = false, $token_id = false, $error_code = false ) {
 		if ( ! $order || ! $token_id || ! $error_code ) {
@@ -1808,6 +1516,7 @@ class WC_Gateway_Redsys_Global {
 	public function get_users_token_bulk( $user_id, $type = false, $data = false ) {
 		$customer_token = false;
 		$tokens         = WC_Payment_Tokens::get_customer_tokens( $user_id, 'redsys' );
+
 		if ( ! $type ) {
 			foreach ( $tokens as $token ) {
 				if ( $token->get_gateway_id() === 'redsys' ) {
@@ -1820,20 +1529,44 @@ class WC_Gateway_Redsys_Global {
 				}
 			}
 		} else {
-			foreach ( $tokens as $token ) {
-				$token_num = $token->get_token();
-				$token_id  = $token->get_id();
-				$type_type = $this->get_token_type( $token_id );
-				if ( $type === $type_type || ! $type_type ) {
-					$valid_token = $this->check_if_token_is_valid( $token_id );
-					if ( $valid_token ) {
-						if ( 'id' === $data ) {
-							return $token_id;
+			// Solo se aplica la selección del ID más alto si $type es 'R'.
+			if ( 'R' === $type ) {
+				$highest_token_id = 0;
+				$selected_token   = null;
+
+				foreach ( $tokens as $token ) {
+					$token_num = $token->get_token();
+					$token_id  = $token->get_id();
+					$type_type = $this->get_token_type( $token_id );
+
+					if ( 'R' === $type_type ) {
+						$valid_token = $this->check_if_token_is_valid( $token_id );
+
+						// Verificar si el token es válido y tiene el ID más alto hasta el momento.
+						if ( $valid_token && $token_id > $highest_token_id ) {
+							$highest_token_id = $token_id;
+							$selected_token   = $token;
 						}
-						return $token_num;
 					}
-				} else {
-					continue;
+				}
+
+				// Devolver el token seleccionado con el ID más alto si existe.
+				if ( $selected_token ) {
+					return ( 'id' === $data ) ? $selected_token->get_id() : $selected_token->get_token();
+				}
+			} else {
+				// Si $type no es 'R', usa la lógica original.
+				foreach ( $tokens as $token ) {
+					$token_num = $token->get_token();
+					$token_id  = $token->get_id();
+					$type_type = $this->get_token_type( $token_id );
+
+					if ( $type === $type_type || ! $type_type ) {
+						$valid_token = $this->check_if_token_is_valid( $token_id );
+						if ( $valid_token ) {
+							return ( 'id' === $data ) ? $token_id : $token_num;
+						}
+					}
 				}
 			}
 			return $customer_token;
@@ -1947,6 +1680,17 @@ class WC_Gateway_Redsys_Global {
 				$transaction_id2 = str_pad( $order_id . $sufix, 12, '0', STR_PAD_LEFT );
 			}
 		}
+		/**
+		 * Filter Redsys Order Number
+		 *
+		 * @param string $transaction_id2 Order Number.
+		 * @param int    $order_id Order ID.
+		 * @param string $gateway Gateway.
+		 *
+		 * @return string Order Number.
+		 * @since 25.1.0
+		 */
+		$transaction_id2 = apply_filters( 'redsys_order_number', $transaction_id2, $order_id, $gateway );
 		set_transient( 'redys_order_temp_' . $transaction_id2, $order_id, 3600 );
 		return $transaction_id2;
 	}
@@ -1973,7 +1717,6 @@ class WC_Gateway_Redsys_Global {
 	 */
 	public function product_description( $order, $gateway ) {
 
-
 		$this->debug( 'function product_description' );
 		$this->debug( '$gateway: ' . $gateway );
 		// Inicializar variables para almacenar los IDs de producto, nombres y SKUs.
@@ -1986,10 +1729,13 @@ class WC_Gateway_Redsys_Global {
 			// Almacenar el ID de producto y nombre en arrays separados.
 			$product_ids[] = $item->get_product_id();
 			$names[]       = $item->get_name();
-
 			// Obtener el objeto de producto correspondiente y obtener su SKU.
 			$product = wc_get_product( $item->get_product_id() );
-			$skus[]  = $product->get_sku();
+			if ( $product ) {
+				$skus[] = $product->get_sku();
+			} else {
+				$skus[] = false;
+			}
 		}
 
 		// Definir las opciones de descripción disponibles y sus valores correspondientes.
@@ -2010,6 +1756,12 @@ class WC_Gateway_Redsys_Global {
 
 		/**
 		 * Aplicar cualquier filtro definido por otros plugins o temas.
+		 *
+		 * @param string  $description Descripción del producto.
+		 * @param WC_Order $order Objeto que representa el pedido de WooCommerce.
+		 *
+		 * @return string Descripción del producto.
+		 * @since 20.0.0
 		 */
 		$description = apply_filters( 'redsys_product_description', $description, $order );
 
@@ -2047,11 +1799,35 @@ class WC_Gateway_Redsys_Global {
 			}
 			$items = $order->get_items();
 			foreach ( $items as $item ) {
-				$product_id  = $item->get_product_id();
-				$sumo_status = (string) get_post_meta( $product_id, 'sumo_susbcription_status', true );
-				$this->debug( '$sumo_status: ' . $sumo_status );
-				if ( '1' === $sumo_status ) {
-					$this->debug( '$sumo_status: return true' );
+				$product_id   = $item->get_product_id();
+				$variation_id = $item->get_variation_id();
+				$this->debug( '$product_id: ' . $product_id );
+				$this->debug( '$variation_id: ' . $variation_id );
+
+				// Check if it's a variable product and get the parent ID.
+				if ( $variation_id ) {
+					$product_id = wp_get_post_parent_id( $variation_id );
+					$this->debug( '$variation_id $product_id: ' . $product_id );
+				}
+
+				$sumo_status = get_post_meta( $product_id, 'sumo_susbcription_status', true );
+				$this->debug( '$sumo_status (raw): ' . maybe_serialize( $sumo_status ) );
+
+				// If the value is serialized, unserialize it.
+				if ( is_serialized( $sumo_status ) ) {
+					$sumo_status = maybe_unserialize( $sumo_status );
+					$this->debug( '$sumo_status (unserialized): ' . maybe_serialize( $sumo_status ) );
+				}
+
+				// Check if $sumo_status is an array and if '1' is present in it.
+				if ( is_array( $sumo_status ) && in_array( '1', $sumo_status, true ) ) {
+					$this->debug( '$sumo_status array contains 1: return true' );
+					return true;
+				}
+
+				// Check if $sumo_status is a string and equals '1'.
+				if ( '1' === (string) $sumo_status ) {
+					$this->debug( '$sumo_status string equals 1: return true' );
 					return true;
 				}
 			}
@@ -2334,7 +2110,7 @@ class WC_Gateway_Redsys_Global {
 		do {
 			sleep( 5 );
 			$result = $this->is_paid( $order_id );
-			$x++;
+			++$x;
 		} while ( $x <= 20 && false === $result );
 		if ( $result ) {
 			return true;
@@ -2378,7 +2154,7 @@ class WC_Gateway_Redsys_Global {
 	 * @param WC_Order $order Order object.
 	 * @param array    $valid_order_statuses Array of valid order statuses.
 	 */
-	public static function order_needs_payment( $needs_payment, $order, $valid_order_statuses ) {
+	public static function order_needs_payment( $needs_payment, $order, $valid_order_statuses ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		// $global = new WC_Gateway_Redsys_Global();
 		// Skips checks if the order already needs payment.
 
@@ -2458,7 +2234,6 @@ class WC_Gateway_Redsys_Global {
 			$this->debug( 'check_simple_product_subscription() return C )' );
 			return 'C';
 		}
-
 	}
 	/**
 	 * Check if product needs preauth.
@@ -2566,7 +2341,7 @@ class WC_Gateway_Redsys_Global {
 			// Si es un producto variable, verifica cada variación.
 			$variations = $product->get_available_variations();
 			foreach ( $variations as $variation ) {
-				$variation_product = wc_get_product( $variation['variation_id'] );
+				$variation_product  = wc_get_product( $variation['variation_id'] );
 				$subscription_check = $this->check_simple_product_subscription( $variation_product->get_id() );
 				if ( 'R' === $subscription_check ) {
 					return 'R';
@@ -2654,15 +2429,15 @@ class WC_Gateway_Redsys_Global {
 		$redsys_adr          = $data['redsys_adr'];
 		$mi_obj              = new WooRedsysAPI();
 
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $merchant_code );
-		$mi_obj->setParameter( 'Ds_Merchant_Identifier', $merchant_identifier );
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $order_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', '44' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $merchant_code );
+		$mi_obj->set_parameter( 'Ds_Merchant_Identifier', $merchant_identifier );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $order_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', '44' );
 
 		$version   = 'HMAC_SHA256_V1';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$response = wp_remote_post(
 			$redsys_adr,
@@ -2682,7 +2457,7 @@ class WC_Gateway_Redsys_Global {
 		$response_code = wp_remote_retrieve_response_code( $response );
 		$response_body = wp_remote_retrieve_body( $response );
 		$result        = json_decode( $response_body );
-		$decodec       = $mi_obj->decodeMerchantParameters( $result->Ds_MerchantParameters ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		$decodec       = $mi_obj->decode_merchant_parameters( $result->Ds_MerchantParameters ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$decodec_array = json_decode( $decodec );
 
 		$return = array(
@@ -2898,7 +2673,7 @@ class WC_Gateway_Redsys_Global {
 		$xml  = '<REQUEST>';
 		$xml .= $datos_entrada;
 		$xml .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
-		$xml .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
+		$xml .= '<DS_SIGNATURE>' . $mi_obj->create_merchant_signature_host_to_host( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
 		$xml .= '</REQUEST>';
 
 		$this->debug( '$xml: ' . $xml );
@@ -3051,12 +2826,10 @@ class WC_Gateway_Redsys_Global {
 
 		if ( ( ! $number2 && ! $number ) || ( '' === $number && '' === $number2 ) ) {
 			$dscardnumber4 = '0000';
-		} else {
-			if ( $number2 ) {
+		} elseif ( $number2 ) {
 				$dscardnumber4 = substr( $number2, -4 );
-			} else {
-				$dscardnumber4 = substr( $number, -4 );
-			}
+		} else {
+			$dscardnumber4 = substr( $number, -4 );
 		}
 		return $dscardnumber4;
 	}
@@ -3085,10 +2858,10 @@ class WC_Gateway_Redsys_Global {
 	 * @return bool
 	 */
 	public function check_product_key() {
-
 		if ( is_multisite() ) {
 			switch_to_blog( REDSYS_LICENSE_SITE_ID );
 		}
+
 		$license = get_transient( 'redsys_license_active' );
 
 		if ( 'yes' === $license ) {
@@ -3104,10 +2877,15 @@ class WC_Gateway_Redsys_Global {
 			}
 			return;
 		}
+
 		$woocommerce_account_auth = WC_Helper_Options::get( 'auth' );
 		if ( empty( $woocommerce_account_auth ) ) {
+			if ( is_multisite() ) {
+				restore_current_blog();
+			}
 			return false;
 		}
+
 		$woocommerce_account_connected = ! empty( $woocommerce_account_auth );
 
 		if ( ! $woocommerce_account_connected ) {
@@ -3133,6 +2911,7 @@ class WC_Gateway_Redsys_Global {
 				}
 			}
 		}
+
 		if ( is_multisite() ) {
 			restore_current_blog();
 		}
@@ -3247,11 +3026,11 @@ class WC_Gateway_Redsys_Global {
 		$item = array();
 
 		if ( ! is_a( $order, 'WC_Abstract_Order' ) ) {
-			throw new InvalidArgumentException( __( 'Invalid data. No valid subscription / order was passed in.', 'woocommerce-redsys' ), 422 );
+			throw new InvalidArgumentException( esc_html__( 'Invalid data. No valid subscription / order was passed in.', 'woocommerce-redsys' ), 422 );
 		}
 
 		if ( ! absint( $item_id ) ) {
-			throw new InvalidArgumentException( __( 'Invalid data. No valid item id was passed in.', 'woocommerce-redsys' ), 422 );
+			throw new InvalidArgumentException( esc_html__( 'Invalid data. No valid item id was passed in.', 'woocommerce-redsys' ), 422 );
 		}
 
 		foreach ( $order->get_items() as $line_item_id => $line_item ) {
@@ -3279,6 +3058,57 @@ class WC_Gateway_Redsys_Global {
 		}
 
 		return $product_id;
+	}
+	/**
+	 * Check if checkout uses blocks.
+	 */
+	public function checkout_use_block() {
+		if ( class_exists( 'WC_Blocks_Utils' ) ) {
+			return WC_Blocks_Utils::has_block_in_page( wc_get_page_id( 'checkout' ), 'woocommerce/checkout' );
+		}
+		return false;
+	}
+	/**
+	 * Check if cart uses blocks.
+	 */
+	public function cart_use_block() {
+		if ( class_exists( 'WC_Blocks_Utils' ) ) {
+			return WC_Blocks_Utils::has_block_in_page( wc_get_page_id( 'cart' ), 'woocommerce/cart' );
+		}
+		return false;
+	}
+	/**
+	 * Check if the product needs preauth.
+	 */
+	public function all_virtual_products() {
+		// Comprueba si WC() y WC()->cart están definidos.
+		if ( ! function_exists( 'WC' ) || ! isset( WC()->cart ) ) {
+			return false; // Retorna falso porque no se puede determinar el estado del carrito.
+		}
+
+		// Comprueba si el carrito está vacío.
+		if ( WC()->cart->is_empty() ) {
+			return false; // Retorna falso porque el carrito está vacío.
+		}
+
+		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+			$producto = $cart_item['data'];
+			// Verifica si el producto es simple y no es virtual.
+			if ( ! $producto->is_virtual() ) {
+				return false;
+			}
+			// Si el producto es variable, verifica cada variación en el carrito.
+			if ( $producto->is_type( 'variable' ) ) {
+				$variaciones = $producto->get_available_variations();
+				foreach ( $variaciones as $variacion ) {
+					$producto_variacion = new WC_Product_Variation( $variacion['variation_id'] );
+					if ( ! $producto_variacion->is_virtual() ) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
 	}
 	/**
 	 * Print overlay image.

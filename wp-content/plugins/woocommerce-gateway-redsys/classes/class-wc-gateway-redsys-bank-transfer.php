@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -19,7 +19,224 @@ defined( 'ABSPATH' ) || exit;
  * WooCommerce Redsys Bank Transfer Gateway Class
  */
 class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
-	var $notify_url;
+
+	/**
+	 * Gateway ID.
+	 *
+	 * @var string $id
+	 */
+	public $id;
+
+	/**
+	 * Gateway icon URL.
+	 *
+	 * @var string $icon
+	 */
+	public $icon;
+
+	/**
+	 * Whether the gateway has fields.
+	 *
+	 * @var bool $has_fields
+	 */
+	public $has_fields;
+
+	/**
+	 * Live URL for payment.
+	 *
+	 * @var string $liveurl
+	 */
+	public $liveurl;
+
+	/**
+	 * Title of the payment method.
+	 *
+	 * @var string $method_title
+	 */
+	public $method_title;
+
+	/**
+	 * Description of the payment method.
+	 *
+	 * @var string $method_description
+	 */
+	public $method_description;
+
+	/**
+	 * Whether to use HTTPS.
+	 *
+	 * @var bool $not_use_https
+	 */
+	public $not_use_https;
+
+	/**
+	 * Notification URL.
+	 *
+	 * @var string $notify_url
+	 */
+	public $notify_url;
+
+	/**
+	 * Notification URL without HTTPS.
+	 *
+	 * @var string $notify_url_not_https
+	 */
+	public $notify_url_not_https;
+
+	/**
+	 * Title of the gateway.
+	 *
+	 * @var string $title
+	 */
+	public $title;
+
+	/**
+	 * Description of the gateway.
+	 *
+	 * @var string $description
+	 */
+	public $description;
+
+	/**
+	 * Gateway logo.
+	 *
+	 * @var string $logo
+	 */
+	public $logo;
+
+	/**
+	 * Order operation.
+	 *
+	 * @var string $orderdo
+	 */
+	public $orderdo;
+
+	/**
+	 * Customer ID.
+	 *
+	 * @var string $customer
+	 */
+	public $customer;
+
+	/**
+	 * Commerce name.
+	 *
+	 * @var string $commercename
+	 */
+	public $commercename;
+
+	/**
+	 * Terminal ID.
+	 *
+	 * @var string $terminal
+	 */
+	public $terminal;
+
+	/**
+	 * Secret key.
+	 *
+	 * @var string $secret
+	 */
+	public $secret;
+
+	/**
+	 * Secret SHA-256 key.
+	 *
+	 * @var string $secretsha256
+	 */
+	public $secretsha256;
+
+	/**
+	 * Whether debugging is enabled.
+	 *
+	 * @var bool $debug
+	 */
+	public $debug;
+
+	/**
+	 * Hash type used for security.
+	 *
+	 * @var string $hashtype
+	 */
+	public $hashtype;
+
+	/**
+	 * Language for Redsys.
+	 *
+	 * @var string $redsyslanguage
+	 */
+	public $redsyslanguage;
+
+	/**
+	 * SWIFT/BIC code for international transactions.
+	 *
+	 * @var string $codigoswift
+	 */
+	public $codigoswift;
+
+	/**
+	 * IBAN number for transactions.
+	 *
+	 * @var string $iban
+	 */
+	public $iban;
+
+	/**
+	 * Beneficiary of the transaction.
+	 *
+	 * @var string $beneficiario
+	 */
+	public $beneficiario;
+
+	/**
+	 * Button text at checkout.
+	 *
+	 * @var string $buttoncheckout
+	 */
+	public $buttoncheckout;
+
+	/**
+	 * Button background color.
+	 *
+	 * @var string $butonbgcolor
+	 */
+	public $butonbgcolor;
+
+	/**
+	 * Button text color.
+	 *
+	 * @var string $butontextcolor
+	 */
+	public $butontextcolor;
+
+	/**
+	 * Description for Redsys.
+	 *
+	 * @var string $descripredsys
+	 */
+	public $descripredsys;
+
+	/**
+	 * User IDs to show gateway in test mode.
+	 *
+	 * @var array $testshowgateway
+	 */
+	public $testshowgateway;
+
+	/**
+	 * Whether the gateway is in test mode.
+	 *
+	 * @var bool $testmode
+	 */
+	public $testmode;
+
+	/**
+	 * Logger instance.
+	 *
+	 * @var WC_Logger $log
+	 */
+	public $log;
+
 	/**
 	 * Constructor for the gateway.
 	 *
@@ -27,7 +244,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function __construct() {
@@ -52,9 +269,6 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$this->init_settings();
 		// Define user set variables.
 		$this->title            = WCRed()->get_redsys_option( 'title', 'redsysbank' );
-		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'redsysbank' );
-		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'redsysbank' );
-		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'redsysbank' );
 		$this->description      = WCRed()->get_redsys_option( 'description', 'redsysbank' );
 		$this->logo             = WCRed()->get_redsys_option( 'logo', 'redsysbank' );
 		$this->orderdo          = WCRed()->get_redsys_option( 'orderdo', 'redsysbank' );
@@ -75,7 +289,6 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$this->descripredsys    = WCRed()->get_redsys_option( 'descripredsys', 'redsysbank' );
 		$this->testshowgateway  = WCRed()->get_redsys_option( 'testshowgateway', 'redsysbank' );
 		$this->testmode         = 'no';
-		$this->log              = new WC_Logger();
 		// Actions.
 		add_action( 'valid_redsysbank_standard_ipn_request', array( $this, 'successful_request' ) );
 		add_action( 'woocommerce_receipt_redsysbank', array( $this, 'receipt_page' ) );
@@ -93,7 +306,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function is_valid_for_use() {
@@ -111,7 +324,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function admin_options() {
@@ -164,27 +377,6 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 				'type'    => 'checkbox',
 				'label'   => __( 'Enable Redsys Bank Transfer', 'woocommerce-redsys' ),
 				'default' => 'no',
-			),
-			'multisitesttings' => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'hideownsetting'   => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'ownsetting'       => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
 			),
 			'title'            => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
@@ -314,23 +506,6 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
 			$this->form_fields['redsyslanguage']['options'][ $redsyslanguage ] = $valor;
 		}
-		if ( ! is_multisite() ) {
-			unset( $this->form_fields['multisitesttings'] );
-			unset( $this->form_fields['ownsetting'] );
-			unset( $this->form_fields['hideownsetting'] );
-		} else {
-			if ( is_main_site() ) {
-				unset( $this->form_fields['ownsetting'] );
-			} else {
-				unset( $this->form_fields['multisitesttings'] );
-				unset( $this->form_fields['hideownsetting'] );
-				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
-				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
-				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
-					unset( $this->form_fields['ownsetting'] );
-				}
-			}
-		}
 	}
 	/**
 	 * Get Redsys Arguments for passing to PP
@@ -345,7 +520,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$transaction_id2  = WCRed()->prepare_order_number( $order_id );
 		$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
 		$transaction_type = '0';
-		$secretsha256     = utf8_decode( $this->secretsha256 );
+		$secretsha256     = mb_convert_encoding( $this->secretsha256, 'ISO-8859-1', 'UTF-8' );
 		if ( class_exists( 'SitePress' ) ) {
 			$gatewaylanguage = WCRed()->get_lang_code( ICL_LANGUAGE_CODE );
 		} elseif ( $this->redsyslanguage ) {
@@ -362,45 +537,45 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		}
 		// redsys Args.
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
-		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', $payment_option );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$miobj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$miobj->setParameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
-		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
-		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'R' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
+		$miobj->set_parameter( 'DS_MERCHANT_PAYMETHODS', $payment_option );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$miobj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$miobj->set_parameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
+		$miobj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$miobj->set_parameter( 'DS_MERCHANT_PAYMETHODS', 'R' );
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request     = '';
-		$params      = $miobj->createMerchantParameters();
-		$signature   = $miobj->createMerchantSignature( $secretsha256 );
+		$params      = $miobj->create_merchant_parameters();
+		$signature   = $miobj->create_merchant_signature( $secretsha256 );
 		$redsys_args = array(
 			'Ds_SignatureVersion'   => $version,
 			'Ds_MerchantParameters' => $params,
 			'Ds_Signature'          => $signature,
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsysbanktransfer', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'redsysbanktransfer', 'Helping to understand the encrypted code: ' );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_MERCHANTCODE: ' . $this->customer );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_CURRENCY' . $currency_codes[ get_woocommerce_currency() ] );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_MERCHANTURL: ' . $final_notify_url );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-			$this->log->add( 'redsysbanktransfer', 'DS_MERCHANT_PAYMETHODS: R' );
+			WCRed()->log( 'redsysbanktransfer', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'redsysbanktransfer', 'Helping to understand the encrypted code: ' );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_MERCHANTCODE: ' . $this->customer );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_CURRENCY' . $currency_codes[ get_woocommerce_currency() ] );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_MERCHANTURL: ' . $final_notify_url );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+			WCRed()->log( 'redsysbanktransfer', 'DS_MERCHANT_PAYMETHODS: R' );
 		}
 		$redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );
 		return $redsys_args;
@@ -512,14 +687,14 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'redsysbanktransfer', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'redsysbanktransfer', 'HTTP Notification received 1: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( $usesecretsha256 ) {
@@ -527,32 +702,32 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			$data        = sanitize_text_field( $_POST['Ds_MerchantParameters'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.NonceVerification.Missing
 			$remote_sign = sanitize_text_field( $_POST['Ds_Signature'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.NonceVerification.Missing
 			$miobj       = new WooRedsysAPI();
-			$localsecret = $miobj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $miobj->create_merchant_signature_notif( $usesecretsha256, $data );
 
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbanktransfer', 'Received valid notification from Servired/RedSys' );
-					$this->log->add( 'redsysbanktransfer', $data );
+					WCRed()->log( 'redsysbanktransfer', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'redsysbanktransfer', $data );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbanktransfer', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'redsysbanktransfer', 'Received INVALID notification from Servired/RedSys' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbanktransfer', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'redsysbanktransfer', 'HTTP Notification received 2: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( $data ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbanktransfer', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'redsysbanktransfer', 'Received valid notification from Servired/RedSys' );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbanktransfer', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'redsysbanktransfer', 'Received INVALID notification from Servired/RedSys' );
 				}
 				return false;
 			}
@@ -565,7 +740,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_response() {
@@ -590,27 +765,27 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 		$data              = sanitize_text_field( $_POST['Ds_MerchantParameters'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.NonceVerification.Missing
 		$remote_sign       = sanitize_text_field( $_POST['Ds_Signature'] ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.NonceVerification.Missing
 		$miobj             = new WooRedsysAPI();
-		$decodedata        = $miobj->decodeMerchantParameters( $data );
-		$localsecret       = $miobj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $miobj->getParameter( 'Ds_Amount' );
-		$ordermi           = $miobj->getParameter( 'Ds_Order' );
-		$dscode            = $miobj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $miobj->getParameter( 'Ds_Currency' );
-		$response          = $miobj->getParameter( 'Ds_Response' );
-		$id_trans          = $miobj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = $miobj->getParameter( 'Ds_Date' );
-		$dshour            = $miobj->getParameter( 'Ds_Hour' );
-		$dstermnal         = $miobj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $miobj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $miobj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $miobj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $miobj->getParameter( 'Ds_ConsumerLanguage' );
-		$dscargtype        = $miobj->getParameter( 'Ds_Card_Type' );
+		$decodedata        = $miobj->decode_merchant_parameters( $data );
+		$localsecret       = $miobj->create_merchant_signature_notif( $usesecretsha256, $data );
+		$total             = $miobj->get_parameter( 'Ds_Amount' );
+		$ordermi           = $miobj->get_parameter( 'Ds_Order' );
+		$dscode            = $miobj->get_parameter( 'Ds_MerchantCode' );
+		$currency_code     = $miobj->get_parameter( 'Ds_Currency' );
+		$response          = $miobj->get_parameter( 'Ds_Response' );
+		$id_trans          = $miobj->get_parameter( 'Ds_AuthorisationCode' );
+		$dsdate            = $miobj->get_parameter( 'Ds_Date' );
+		$dshour            = $miobj->get_parameter( 'Ds_Hour' );
+		$dstermnal         = $miobj->get_parameter( 'Ds_Terminal' );
+		$dsmerchandata     = $miobj->get_parameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $miobj->get_parameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $miobj->get_parameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $miobj->get_parameter( 'Ds_ConsumerLanguage' );
+		$dscargtype        = $miobj->get_parameter( 'Ds_Card_Type' );
 		$order1            = $ordermi;
 		$order2            = WCRed()->clean_order_number( $order1 );
 		$order             = $this->get_redsys_order( (int) $order2 );
 		if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbanktransfer', 'Ds_Amount: ' . $total . ', Ds_Order: ' . $order1 . ',	Ds_MerchantCode: ' . $dscode . ', Ds_Currency: ' . $currency_code . ', Ds_Response: ' . $response . ', Ds_AuthorisationCode: ' . $id_trans . ', $order2: ' . $order2 );
+				WCRed()->log( 'redsysbanktransfer', 'Ds_Amount: ' . $total . ', Ds_Order: ' . $order1 . ',	Ds_MerchantCode: ' . $dscode . ', Ds_Currency: ' . $currency_code . ', Ds_Response: ' . $response . ', Ds_AuthorisationCode: ' . $id_trans . ', $order2: ' . $order2 );
 		}
 		$response = intval( $response );
 		if ( $response <= 99 ) {
@@ -621,7 +796,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			if ( $order_total_compare !== $total ) {
 				// amount does not match.
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'redsysbanktransfer', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
+					WCRed()->log( 'redsysbanktransfer', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
 				// Put this order on-hold for manual checking.
 				/* translators: order an received are the amount */
@@ -655,12 +830,12 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbanktransfer', 'Payment complete.' );
+				WCRed()->log( 'redsysbanktransfer', 'Payment complete.' );
 			}
 		} elseif ( 101 === $response ) {
 			// Tarjeta caducada.
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbanktransfer', 'Order cancelled by Redsys: Expired credit card' );
+				WCRed()->log( 'redsysbanktransfer', 'Order cancelled by Redsys: Expired credit card' );
 			}
 			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Cancelled by Redsys', 'woocommerce-redsys' ) );
@@ -668,7 +843,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
 			WC()->cart->empty_cart();
 		} elseif ( '0930' === $response ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'redsysbanktransfer', 'Hay respuesta aparentemente' );
+				WCRed()->log( 'redsysbanktransfer', 'Hay respuesta aparentemente' );
 			}
 		}
 	}
@@ -738,7 +913,7 @@ class WC_Gateway_Redsys_Bank_Transfer extends WC_Payment_Gateway {
  *
  * @param array $methods Payment methods.
  */
-function woocommerce_add_gateway_bank_transfer_gateway( $methods ) {
+function woocommerce_add_gateway_bank_transfer_gateway( $methods ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 	$methods[] = 'WC_Gateway_Redsys_Bank_Transfer';
 	return $methods;
 }

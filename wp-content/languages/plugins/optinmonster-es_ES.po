@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Popup Builder by OptinMonster &#8211; WordPress Popups for Optins, Email Newsletters and Lead Generation - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-07-01 20:23:30+0000\n"
+"PO-Revision-Date: 2024-10-27 20:18:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,18 @@ msgstr ""
 "X-Generator: GlotPress/4.0.1\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - Popup Builder by OptinMonster &#8211; WordPress Popups for Optins, Email Newsletters and Lead Generation - Stable (latest release)\n"
+
+#: OMAPI/RestApi.php:1488
+msgid "Account connection succeeded!"
+msgstr "¡Cuenta conectada correctamente!"
+
+#: OMAPI/RestApi.php:1477
+msgid "Account connection failed!"
+msgstr "¡Ha fallado la conexión de la cuenta!"
+
+#: OMAPI/BaseRestApi.php:163
+msgid "Could not verify your connection token."
+msgstr "No se pudo verificar el token de conexión."
 
 #: OMAPI/MailPoet.php:117
 msgid "Select the custom field..."
@@ -103,7 +115,7 @@ msgstr "Conecta tus plugins, sitios y aplicaciones de WordPress con potentes aut
 msgid "Create New Popup Campaign"
 msgstr "Crea una nueva campaña de mensajes emergentes"
 
-#: OMAPI/Menu.php:181
+#: OMAPI/Menu.php:185
 msgid "Marketing Education"
 msgstr "Educación en marketing"
 
@@ -172,15 +184,15 @@ msgstr "token"
 msgid "Playbooks"
 msgstr "Playbooks"
 
-#: OMAPI/Pages.php:296
+#: OMAPI/Pages.php:280
 msgid "Green Monday!"
 msgstr "¡Green Monday!"
 
-#: OMAPI/Pages.php:260
+#: OMAPI/Pages.php:244
 msgid "Black Friday!"
 msgstr "¡Black Friday!"
 
-#: OMAPI/Pages.php:259
+#: OMAPI/Pages.php:243
 msgid "Cyber Monday!"
 msgstr "¡Cyber Monday!"
 
@@ -227,18 +239,6 @@ msgstr "Instalando..."
 #: views/install-plugin-form.php:27
 msgid "Activating..."
 msgstr "Activando..."
-
-#: OMAPI/Wordfence.php:140
-msgid "Success! Your Wordfence Firewall rules have been optimized to work with OptinMonster."
-msgstr "¡Éxito! Se han optimizado las reglas del cortafuegos de WordFence para OptinMonster."
-
-#: OMAPI/Wordfence.php:118
-msgid "Fix this for me"
-msgstr "Arregla esto por mi"
-
-#: OMAPI/Wordfence.php:115
-msgid "Your site is using Wordfence Firewall rules which will prevent OptinMonster from working correctly. "
-msgstr "Tu sitio usa reglas del cortafuegos de WordFence que pueden evitar que OptinMonster funcione bien. "
 
 #: OMAPI/Promos/TrustPulse.php:120
 msgid "Install & Activate the TrustPulse Plugin"
@@ -298,11 +298,11 @@ msgstr "EDD no se ha podido conectar a OptinMonster. La API de OptinMonster ha d
 msgid "The EDD key or token appears to be invalid. Try again."
 msgstr "La clave o token de EDD parece ser que no es válida. Inténtalo de nuevo."
 
-#: OMAPI/RestApi.php:1422
+#: OMAPI/RestApi.php:1439
 msgid "Sync succeeded!"
 msgstr "¡Sincronización correcta!"
 
-#: OMAPI/RestApi.php:1416
+#: OMAPI/RestApi.php:1433
 msgid "Sync failed!"
 msgstr "¡Sincronización fallida!"
 
@@ -311,7 +311,7 @@ msgstr "¡Sincronización fallida!"
 msgid "OptinMonster Popup Builder Team"
 msgstr "OptinMonster Popup Builder Team"
 
-#: OMAPI/Menu.php:189
+#: OMAPI/Menu.php:193
 msgid "Popup Builder"
 msgstr "Maquetador de ventanas emergentes"
 
@@ -367,15 +367,15 @@ msgstr "Mejorar ahora"
 msgid "Unlock access to the OptinMonster click-to-load feature called MonsterLinks by upgrading your subscription."
 msgstr "Desbloquea el acceso a la función de click-to-load de OptinMonster llamada MonsterLinks actualizando tu suscripción."
 
-#: OMAPI/RestApi.php:1062
+#: OMAPI/RestApi.php:1072
 msgid "Invalid token!"
 msgstr "¡Token no válido!"
 
-#: OMAPI/RestApi.php:1057
+#: OMAPI/RestApi.php:1067
 msgid "Required Credentials Missing!"
 msgstr "¡Faltan las credenciales requeridas!"
 
-#: OMAPI/RestApi.php:476
+#: OMAPI/RestApi.php:486
 msgid "Not Modified"
 msgstr "No modificado"
 
@@ -383,11 +383,11 @@ msgstr "No modificado"
 msgid "Integrations"
 msgstr "Integraciones"
 
-#: OMAPI/Menu.php:296 OMAPI/Menu.php:330 OMAPI/Pages.php:186
+#: OMAPI/Menu.php:304 OMAPI/Menu.php:338 OMAPI/Pages.php:180
 msgid "Upgrade to Pro"
 msgstr "Actualizar a Pro"
 
-#: OMAPI/Menu.php:296 OMAPI/Menu.php:329 OMAPI/Pages.php:185
+#: OMAPI/Menu.php:304 OMAPI/Menu.php:337 OMAPI/Pages.php:179
 msgid "Upgrade to Growth"
 msgstr "Mejora para crecer"
 
@@ -585,7 +585,7 @@ msgstr "¿Sabías que crear una barra fija para promocionar tu cupón puede ayud
 msgid "Gamified Spin to Win"
 msgstr "Gira para ganar gamificado"
 
-#: OMAPI/Menu.php:216 views/coupon-metabox.php:22
+#: OMAPI/Menu.php:220 views/coupon-metabox.php:22
 #: assets/js/Utils/campaigns-block-settings.js:30
 msgid "Popup"
 msgstr "Mensaje emergente"
@@ -774,13 +774,9 @@ msgctxt "Word count type. Do not translate!"
 msgid "words"
 msgstr "words"
 
-#: OMAPI/Menu.php:155 OMAPI/Menu.php:156 OMAPI/Pages.php:495
+#: OMAPI/Menu.php:159 OMAPI/Menu.php:160 OMAPI/Pages.php:479
 msgid "Dashboard"
 msgstr "Escritorio"
-
-#: OMAPI/Pages.php:174
-msgid "Onboarding Wizard"
-msgstr "Asistente de puesta en marcha"
 
 #: OMAPI/Pages.php:134
 msgid "Subscribers"
@@ -802,16 +798,16 @@ msgstr "Aprender más"
 msgid "Instantly grow your email list, get more leads and increase sales with the <strong>#1 most powerful conversion optimization toolkit in the world.</strong>"
 msgstr "Haz crecer instantáneamente tu lista de correo electrónico, consigue más clientes potenciales y aumenta las ventas con el <strong>kit de herramientas de optimización de conversión número 1 del mundo.</strong>"
 
-#: OMAPI/RestApi.php:1257
+#: OMAPI/RestApi.php:1274
 msgid "Invalid Settings!"
 msgstr "¡Ajustes no válidos!"
 
-#: OMAPI/RestApi.php:1171
+#: OMAPI/RestApi.php:1181
 msgid "Settings Missing!"
 msgstr "¡Faltan los ajustes!"
 
-#: OMAPI/RestApi.php:957 OMAPI/RestApi.php:990 OMAPI/RestApi.php:1022
-#: OMAPI/RestApi.php:1118
+#: OMAPI/RestApi.php:967 OMAPI/RestApi.php:1000 OMAPI/RestApi.php:1032
+#: OMAPI/RestApi.php:1128
 msgid "API Key Missing!"
 msgstr "¡Falta la clave de la API!"
 
@@ -827,46 +823,46 @@ msgstr "¡Falta la clave secreta de cliente!"
 msgid "Consumer key missing!"
 msgstr "¡Falta la clave de cliente!"
 
-#: OMAPI/RestApi.php:918
+#: OMAPI/RestApi.php:928
 msgid "Plugin Id required."
 msgstr "El ID del plugin es obligatorio."
 
-#: OMAPI/RestApi.php:926
+#: OMAPI/RestApi.php:936
 msgid "Plugin install URL required."
 msgstr "La URL de instalación del plugin es obligatoria."
 
-#: OMAPI/BaseRestApi.php:263 OMAPI/RestApi.php:913
+#: OMAPI/BaseRestApi.php:292 OMAPI/RestApi.php:923
 msgid "Security token invalid!"
 msgstr "¡El token de seguridad no es válido!"
 
-#: OMAPI/BaseRestApi.php:257
+#: OMAPI/BaseRestApi.php:286
 msgid "Missing security token!"
 msgstr "¡Falta el token de seguridad!"
 
-#: OMAPI/RestApi.php:835
+#: OMAPI/RestApi.php:845
 msgid "Could not create event notification!"
 msgstr "¡No se ha podido crear el aviso del evento!"
 
-#: OMAPI/RestApi.php:833
+#: OMAPI/RestApi.php:843
 msgid "one"
 msgstr "uno"
 
-#: OMAPI/RestApi.php:833
+#: OMAPI/RestApi.php:843
 msgid "some"
 msgstr "algunos"
 
 #. translators: %s: "Some" or "one".
-#: OMAPI/RestApi.php:832
+#: OMAPI/RestApi.php:842
 msgid "Could not create %s of the event notifications!"
 msgstr "¡No se ha(n) podido crear %s de los avisos de eventos!"
 
 #. translators: %s: the notification id(s).
-#: OMAPI/RestApi.php:794
+#: OMAPI/RestApi.php:804
 msgid "Could not dismiss: %s"
 msgstr "No se han podido descartar: %s"
 
 #. translators: %s: the campaign post id.
-#: OMAPI/RestApi.php:549
+#: OMAPI/RestApi.php:559
 msgid "Could not find campaign by given ID: %s. Are you sure campaign is associated with this site?"
 msgstr "No se ha podido encontrar la campaña con el ID suministrado: %s. ¿Seguro que la campaña está asociada a este sitio?"
 
@@ -886,7 +882,7 @@ msgstr "Inactivo"
 msgid "TrustPulse is the honest marketing platform that leverages and automates the real power of social proof to instantly increase trust, conversions and sales."
 msgstr "TrustPulse es la plataforma de marketing honesto que aprovecha y automatiza el poder real de la prueba social para aumentar instantáneamente la confianza, las conversiones y las ventas."
 
-#: OMAPI/ConstantContact.php:183 OMAPI/Menu.php:305 OMAPI/Validate.php:212
+#: OMAPI/ConstantContact.php:183 OMAPI/Menu.php:313 OMAPI/Validate.php:212
 #: OMAPI/Welcome.php:182
 msgid "Get Started"
 msgstr "Primeros pasos"
@@ -915,13 +911,13 @@ msgstr "Crear una cuenta gratuita"
 msgid "Please create a free account or connect an existing account to use an OptinMonster block."
 msgstr "Por favor, crea una cuenta gratuita o conecta una cuenta existente para usar un bloque de OptinMonster."
 
-#: optin-monster-wp-api.php:1071
+#: optin-monster-wp-api.php:1076
 msgid "<strong>Please Note:</strong> Support for PHP 5.5 will be discontinued in 2020. After this, if no further action is taken, OptinMonster functionality will be disabled."
 msgstr "<strong>Por favor, ten en cuenta:</strong> La compatibilidad con PHP 5.5 se abandonará en 2020. Después de esto, si no se lleva a cabo ninguna otra acción, se desactivará la funcionalidad de OptinMonster."
 
 #. translators: %1$s - OptinMonster API plugin name; %2$s - optinmonster.com
 #. URL to a related doc.
-#: optin-monster-wp-api.php:1057
+#: optin-monster-wp-api.php:1062
 msgid "Your site is running an outdated version of PHP that is no longer supported and may cause issues with the %1$s plugin. <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">Read more</a> for additional information."
 msgstr "Tu sitio está ejecutando una versión obsoleta de PHP que ya no es compatible y puede causar problemas con el plugin %1$s. <a href=\"%2$s\" target=\"_blank\" rel=\"noopener noreferrer\">Lee más</a> para información adicional."
 
@@ -980,11 +976,11 @@ msgstr "Activo"
 msgid "About Us"
 msgstr "Sobre nosotros"
 
-#: OMAPI/RestApi.php:497 OMAPI/RestApi.php:528
+#: OMAPI/RestApi.php:507 OMAPI/RestApi.php:538
 msgid "No campaign ID given."
 msgstr "No se ha proporcionado ningún ID de campaña."
 
-#: OMAPI/Menu.php:302 OMAPI/Pages.php:150
+#: OMAPI/Menu.php:310 OMAPI/Pages.php:150
 msgid "Settings"
 msgstr "Ajustes"
 
@@ -1005,7 +1001,7 @@ msgid "Sorry, not allowed!"
 msgstr "¡Lo siento, no está permitido!"
 
 #. translators: %s) admin url
-#: optin-monster-wp-api.php:1242
+#: optin-monster-wp-api.php:1247
 msgid "Sorry, but your version of WordPress does not meet OptinMonster's required version of <strong>4.7.0</strong> to run properly. The plugin has been deactivated. <a href=\"%s\">Click here to return to the Dashboard</a>."
 msgstr "Lo siento, pero tu versión de WordPress es anterior a la <strong>4.7.0</strong> requerida por OptinMonster para funcionar correctamente. El plugin ha sido desactivado. <a href=\"%s\">Haz clic aquí para volver al escritorio</a>."
 
@@ -1173,7 +1169,7 @@ msgid "Grow Your Website with OptinMonster + Email Marketing"
 msgstr "Haz crecer tu web con OptinMonster + marketing por correo electrónico"
 
 #. translators: %1$s - OptinMonster plugin support url
-#: OMAPI/ConstantContact.php:293 OMAPI/Menu.php:491
+#: OMAPI/ConstantContact.php:293 OMAPI/Menu.php:499
 msgid "Please rate <strong>OptinMonster</strong> <a href=\"%1$s\" target=\"_blank\" rel=\"noopener\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> on <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> to help us spread the word. Thank you from the OptinMonster team!"
 msgstr "Por favor, valora a <strong>OptinMonster</strong> con <a href=\"%1$s\" target=\"_blank\" rel=\"noopener\">&#9733;&#9733;&#9733;&#9733;&#9733;</a> en <a href=\"%1$s\" target=\"_blank\" rel=\"noopener noreferrer\">WordPress.org</a> para ayudarnos a hacer correr la voz. ¡Gracias del equipo de OptinMonster!"
 
@@ -1234,14 +1230,14 @@ msgstr "Empieza gratis"
 msgid "Could not verify your API Key."
 msgstr "No se ha podido verificar tu clave de API."
 
-#: OMAPI/RestApi.php:383 OMAPI/RestApi.php:475 OMAPI/RestApi.php:505
-#: OMAPI/RestApi.php:617 OMAPI/RestApi.php:1093 OMAPI/RestApi.php:1328
+#: OMAPI/RestApi.php:393 OMAPI/RestApi.php:485 OMAPI/RestApi.php:515
+#: OMAPI/RestApi.php:627 OMAPI/RestApi.php:1103 OMAPI/RestApi.php:1345
 #: OMAPI/WooCommerce/RestApi.php:213
 msgid "OK"
 msgstr "Correcto"
 
 #. translators: %1$s - API response code, %2$s - returned error from API.
-#: OMAPI/Api.php:343
+#: OMAPI/Api.php:349
 msgid "The API returned a <strong>%1$s</strong> response with this message: <strong>%2$s</strong>"
 msgstr "La API ha devuelto una respuesta de <strong>%1$s</strong> con este mensaje: <strong>%2$s</strong>"
 
@@ -1344,7 +1340,7 @@ msgstr "Buscar campañas"
 msgid "View Campaign"
 msgstr "Ver campaña"
 
-#: OMAPI/Menu.php:301 OMAPI/Pages.php:116 OMAPI/Type.php:98 OMAPI/Type.php:104
+#: OMAPI/Menu.php:309 OMAPI/Pages.php:116 OMAPI/Type.php:98 OMAPI/Type.php:104
 msgid "Campaigns"
 msgstr "Campañas"
 

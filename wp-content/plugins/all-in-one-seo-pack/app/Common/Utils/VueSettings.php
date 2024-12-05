@@ -118,6 +118,8 @@ class VueSettings {
 			'404Settings'                  => true,
 			'userProfiles'                 => true,
 			'queryArgLogs'                 => true,
+			'writingAssistantSettings'     => true,
+			'writingAssistantCta'          => true
 		],
 		'toggledRadio'    => [
 			'breadcrumbsShowMoreSeparators' => false,
@@ -150,7 +152,8 @@ class VueSettings {
 			'searchStatisticsPostDetailKeywords' => 20,
 			'searchStatisticsKeywordRankTracker' => 20,
 			'queryArgs'                          => 20
-		]
+		],
+		'semrushCountry'  => 'US'
 	];
 
 	/**

@@ -1,4 +1,10 @@
 <?php
+/**
+ * Class WC_Gateway_Paygold_Support
+ *
+ * @package WooCommerce\Payments
+ */
+
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
 
 /**
@@ -27,7 +33,6 @@ final class WC_Gateway_Paygold_Support extends AbstractPaymentMethodType {
 	 */
 	public function initialize() {
 		$this->settings = get_option( 'woocommerce_paygold_settings', array() );
-
 	}
 
 	/**
@@ -45,7 +50,7 @@ final class WC_Gateway_Paygold_Support extends AbstractPaymentMethodType {
 	 * @return array
 	 */
 	public function get_payment_method_script_handles() {
-		$script_path       = '/assets/js/frontend/blocks.js';
+		$script_path       = 'assets/js/frontend/blocks.js';
 		$script_asset_path = REDSYS_PLUGIN_PATH_P . 'assets/js/frontend/blocks.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 			? require $script_asset_path
@@ -77,8 +82,8 @@ final class WC_Gateway_Paygold_Support extends AbstractPaymentMethodType {
 	 */
 	public function get_payment_method_data() {
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'paygold' ) ) ) {
-			$logo_url   = WCRed()->get_redsys_option( 'logo', 'paygold' );
-			$icon       = apply_filters( 'woocommerce_paygold_icon', $logo_url );
+			$logo_url = WCRed()->get_redsys_option( 'logo', 'paygold' );
+			$icon     = apply_filters( 'woocommerce_paygold_icon', $logo_url );
 		} else {
 			$icon = apply_filters( 'woocommerce_paygold_icon', REDSYS_PLUGIN_URL_P . 'assets/images/paygold.png' );
 		}
@@ -91,15 +96,16 @@ final class WC_Gateway_Paygold_Support extends AbstractPaymentMethodType {
 			$show_gateway = false;
 		}
 		return array(
-			'title'       => WCRed()->get_redsys_option( 'title', 'paygold' ),
-			'description' => WCRed()->get_redsys_option( 'description', 'paygold' ),
-			'icon'        => $icon,
-			'show'        => $show_gateway,
-			'supports'    => array(
+			'enabled'           => $this->is_active(),
+			'title'             => WCRed()->get_redsys_option( 'title', 'paygold' ),
+			'description'       => WCRed()->get_redsys_option( 'description', 'paygold' ),
+			'logodisplayoption' => get_option( 'redsys_logo_display_option', 'right' ), // left", right, afterText, iconOnly.
+			'icon'              => $icon,
+			'show'              => $show_gateway,
+			'supports'          => array(
 				'products',
 				'refunds',
 			),
 		);
 	}
 }
-

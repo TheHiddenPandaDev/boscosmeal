@@ -659,3 +659,31 @@ function replace_menu_item_with_svg($items, $args) {
     return $items;
 }
 add_filter('wp_nav_menu_objects', 'replace_menu_item_with_svg', 10, 2);
+
+function hide_empty_payment_box() {
+    ?>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+
+            let paymentBox = document.querySelector(".payment_box.payment_method_redsys");
+            if (paymentBox) {
+                paymentBox.remove();
+            }
+
+            jQuery(document.body).on('updated_checkout', function() {
+                let paymentBox = document.querySelector(".payment_box.payment_method_redsys");
+                if (paymentBox) {
+                    paymentBox.remove();
+                }
+
+            });
+        });
+    </script>
+    <?php
+}
+add_action('wp_footer', 'hide_empty_payment_box');
+
+
+
+
+

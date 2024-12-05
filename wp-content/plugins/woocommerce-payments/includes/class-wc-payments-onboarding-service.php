@@ -157,29 +157,20 @@ class WC_Payments_Onboarding_Service {
 	 *
 	 * @param array   $self_assessment_data Self assessment data.
 	 * @param boolean $progressive Whether the onboarding is progressive.
-	 * @param boolean $collect_payout_requirements Whether to collect payout requirements.
 	 *
 	 * @return array Session data.
 	 *
-	 * @throws API_Exception
+	 * @throws API_Exception|Exception
 	 */
-	public function create_embedded_kyc_session( array $self_assessment_data, bool $progressive = false, bool $collect_payout_requirements = false ): array {
+	public function create_embedded_kyc_session( array $self_assessment_data, bool $progressive = false ): array {
 		if ( ! $this->payments_api_client->is_server_connected() ) {
 			return [];
 		}
+
 		$setup_mode = WC_Payments::mode()->is_live() ? 'live' : 'test';
 
 		// Make sure the onboarding test mode DB flag is set.
 		self::set_test_mode( 'live' !== $setup_mode );
-
-		if ( ! $collect_payout_requirements ) {
-			// Clear onboarding related account options if this is an initial onboarding attempt.
-			self::clear_account_options();
-		} else {
-			// Since we assume user has already either gotten here from the eligibility modal,
-			// or has already dismissed it, we should set the modal as dismissed so it doesn't display again.
-			self::set_onboarding_eligibility_modal_dismissed();
-		}
 
 		$site_data      = [
 			'site_username' => wp_get_current_user()->user_login,
@@ -196,13 +187,22 @@ class WC_Payments_Onboarding_Service {
 				array_filter( $user_data ), // nosemgrep: audit.php.lang.misc.array-filter-no-callback -- output of array_filter is escaped.
 				array_filter( $account_data ), // nosemgrep: audit.php.lang.misc.array-filter-no-callback -- output of array_filter is escaped.
 				$actioned_notes,
-				$progressive,
-				$collect_payout_requirements
+				$progressive
 			);
 		} catch ( API_Exception $e ) {
 			// If we fail to create the session, return an empty array.
 			return [];
 		}
+
+		// Set the embedded KYC in progress flag.
+		$this->set_embedded_kyc_in_progress();
+
+		// Remember if we should enable WooPay by default.
+		set_transient(
+			WC_Payments_Account::WOOPAY_ENABLED_BY_DEFAULT_TRANSIENT,
+			filter_var( $account_session['woopay_enabled_by_default'] ?? false, FILTER_VALIDATE_BOOLEAN ),
+			DAY_IN_SECONDS
+		);
 
 		return [
 			'clientSecret'   => $account_session['client_secret'] ?? '',
@@ -241,7 +241,7 @@ class WC_Payments_Onboarding_Service {
 			throw new API_Exception( __( 'Failed to finalize onboarding session.', 'woocommerce-payments' ), 'wcpay-onboarding-finalize-error', 400 );
 		}
 
-		// Clear the onboarding in progress option, since the onboarding flow is now complete.
+		// Clear the embedded KYC in progress option, since the onboarding flow is now complete.
 		$this->clear_embedded_kyc_in_progress();
 
 		return [
@@ -333,7 +333,7 @@ class WC_Payments_Onboarding_Service {
 	}
 
 	/**
-	 * Get account data for onboarding from self assestment data.
+	 * Get account data for onboarding from self assessment data.
 	 *
 	 * @param string $setup_mode Setup mode.
 	 * @param array  $self_assessment_data Self assessment data.
@@ -435,7 +435,7 @@ class WC_Payments_Onboarding_Service {
 	 * @return bool True if embedded KYC is in progress, false otherwise.
 	 */
 	public function is_embedded_kyc_in_progress(): bool {
-		return in_array( get_option( WC_Payments_Account::EMBEDDED_KYC_IN_PROGRESS_OPTION, 'no' ), [ 'yes', '1' ], true );
+		return filter_var( get_option( WC_Payments_Account::EMBEDDED_KYC_IN_PROGRESS_OPTION, 'no' ), FILTER_VALIDATE_BOOLEAN );
 	}
 
 	/**
@@ -655,7 +655,7 @@ class WC_Payments_Onboarding_Service {
 		if ( false !== strpos( $referer, 'path=/payments/onboarding' ) ) {
 			return self::FROM_ONBOARDING_WIZARD;
 		}
-		if ( false !== strpos( $referer, 'path=/payments/deposits' ) ) {
+		if ( false !== strpos( $referer, 'path=/payments/deposits' ) || false !== strpos( $referer, 'path=/payments/payouts' ) ) {
 			return self::FROM_PAYOUTS;
 		}
 		if ( false !== strpos( $referer, 'wordpress.com' ) ) {
@@ -858,7 +858,15 @@ class WC_Payments_Onboarding_Service {
 					'path' => '/payments/deposits',
 				]
 			)
-		) ) {
+		) || ( 2 === count(
+			array_intersect_assoc(
+				$referer_params,
+				[
+					'page' => 'wc-admin',
+					'path' => '/payments/payouts',
+				]
+			)
+		) ) ) {
 			return self::SOURCE_WCPAY_PAYOUTS_PAGE;
 		}
 

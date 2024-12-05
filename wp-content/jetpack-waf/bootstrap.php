@@ -6,5 +6,6 @@ define( 'JETPACK_WAF_SHARE_DATA', false );
 define( 'JETPACK_WAF_SHARE_DEBUG_DATA', false );
 define( 'JETPACK_WAF_DIR', '/home/customer/www/boscosmeal.com/public_html/wp-content/jetpack-waf' );
 define( 'JETPACK_WAF_WPCONFIG', '/home/customer/www/boscosmeal.com/public_html/wp-content/../wp-config.php' );
+define( 'JETPACK_WAF_ENTRYPOINT', 'rules/rules.php' );
 require_once '/home/customer/www/boscosmeal.com/public_html/wp-content/plugins/jetpack/vendor/autoload.php';
 Automattic\Jetpack\Waf\Waf_Runner::initialize();

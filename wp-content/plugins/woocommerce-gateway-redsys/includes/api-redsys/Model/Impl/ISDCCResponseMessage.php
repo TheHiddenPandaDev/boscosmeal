@@ -1,8 +1,8 @@
-<?php
+<?php // phpcs:disable
 if (! class_exists ( 'ISDCCResponseMessage' )) {
-	include_once $GLOBALS["REDSYS_API_PATH"] . "/Model/ISGenericXml.php";
-	include_once $GLOBALS["REDSYS_API_PATH"] . "/Model/Impl/ISDCCElement.php";
-	include_once $GLOBALS["REDSYS_API_PATH"] . "/Model/ISResponseInterface.php";
+	include_once $GLOBALS["REDSYS_API_PATH"] . "/model/class-isgenericxml.php";
+	include_once $GLOBALS["REDSYS_API_PATH"] . "/model/impl/ISDCCElement.php";
+	include_once $GLOBALS["REDSYS_API_PATH"] . "/model/ISResponseInterface.php";
 	
 	/**
 	 * @XML_ELEM=RETORNOXML

@@ -6,8 +6,8 @@
  * @since 18.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -19,11 +19,11 @@ defined( 'ABSPATH' ) || exit;
  * Class Redsys Push Notifications
  */
 class Redsys_Push_Notifications {
+
 	/**
 	 * Construct
 	 */
 	public function __construct() {
-		$this->log = new WC_Logger();
 	}
 	/**
 	 * Identifier
@@ -79,9 +79,9 @@ class Redsys_Push_Notifications {
 
 		if ( $message && $this->is_active() ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				$this->log->add( 'pushredsys', '/******************************************/' );
-				$this->log->add( 'pushredsys', '  LLega la petición a la clase Call  ' );
-				$this->log->add( 'pushredsys', '/******************************************/' );
+				WCRed()->log( 'pushredsys', '/******************************************/' );
+				WCRed()->log( 'pushredsys', '  LLega la petición a la clase Call  ' );
+				WCRed()->log( 'pushredsys', '/******************************************/' );
 			}
 
 			$access_token  = $this->get_access_token();
@@ -103,7 +103,7 @@ class Redsys_Push_Notifications {
 				)
 			);
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				$this->log->add( 'pushredsys', wp_remote_retrieve_body( $response ) );
+				WCRed()->log( 'pushredsys', wp_remote_retrieve_body( $response ) );
 			}
 		}
 	}

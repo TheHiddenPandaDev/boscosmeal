@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -39,7 +39,7 @@ class Redsys_WP_Dashboard {
 	 * Render render links.
 	 */
 	public function redsys_reder_links() {
-		$rss      = fetch_feed( 'https://redsys.joseconti.com/guias/feed/' );
+		$rss      = fetch_feed( 'https://plugins.joseconti.com/guias/feed/' );
 		$maxitems = 0;
 		if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly.
 
@@ -66,13 +66,13 @@ class Redsys_WP_Dashboard {
 		<?php endif; ?>
 	</ul>
 	<p class="community-events-footer">
-			<a href="https://redsys.joseconti.com/guias/" target="_blank"><?php esc_html_e( 'Visit Guides ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>
+			<a href="https://plugins.joseconti.com/guias/" target="_blank"><?php esc_html_e( 'Visit Guides ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>
 			|
 
-			<a href="https://redsys.joseconti.com/api-woocommerce-redsys-gateway/" target="_blank"><?php esc_html_e( 'Plugin API ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>
+			<a href="https://plugins.joseconti.com/api-woocommerce-redsys-gateway/" target="_blank"><?php esc_html_e( 'Plugin API ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>
 			|
 
-			<a href="https://redsys.joseconti.com/guias/como-abrir-un-ticket-en-woocommerce-com/" target="_blank"><?php esc_html_e( 'Get Help ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a></p>
+			<a href="https://plugins.joseconti.com/guias/como-abrir-un-ticket-en-woocommerce-com/" target="_blank"><?php esc_html_e( 'Get Help ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a></p>
 			<?php
 	}
 	/**
@@ -87,7 +87,7 @@ class Redsys_WP_Dashboard {
 	 * Render render post links.
 	 */
 	public function redsys_reder_posts_links() {
-		$rss      = fetch_feed( 'https://redsys.joseconti.com/feed/' );
+		$rss      = fetch_feed( 'https://plugins.joseconti.com/feed/' );
 		$maxitems = 0;
 		if ( ! is_wp_error( $rss ) ) { // Checks that the object is created correctly.
 
@@ -114,10 +114,10 @@ class Redsys_WP_Dashboard {
 		<?php endif; ?>
 	</ul>
 	<p class="community-events-footer">
-		<a href="https://redsys.joseconti.com/noticias/" target="_blank"><?php esc_html_e( 'Visit blogs ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>
+		<a href="https://plugins.joseconti.com/noticias/" target="_blank"><?php esc_html_e( 'Visit blogs ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>
 		|
 
-		<a href="https://redsys.joseconti.com/redsys-for-woocommerce/" target="_blank"><?php esc_html_e( 'FAQ ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a></p>
+		<a href="https://plugins.joseconti.com/redsys-for-woocommerce/" target="_blank"><?php esc_html_e( 'FAQ ', 'woocommerce-redsys' ); ?><span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'woocommerce-redsys' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a></p>
 		<?php
 	}
 }

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - HubSpot &#8211; CRM, Email Marketing, Live Chat, Forms &amp; Analytics - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-04-22 13:51:42+0000\n"
+"PO-Revision-Date: 2024-10-16 14:56:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/4.0.1\n"
 "Language: es\n"
 "Project-Id-Version: Plugins - HubSpot &#8211; CRM, Email Marketing, Live Chat, Forms &amp; Analytics - Stable (latest release)\n"
+
+#. translators: %1$s: Plugin current version %2$s: WordPress required version
+#: public/admin/class-leadinadmin.php:266
+msgid "HubSpot All-In-One Marketing %1$s requires WordPress %2$s or higher Please upgrade WordPress first"
+msgstr "HubSpot All-In-One Marketing %1$s necesita WordPress %2$s o superior. Por favor, actualiza primero WordPress"
 
 #: public/admin/class-deactivationform.php:81
 msgid "Feedback"
@@ -23,27 +28,29 @@ msgstr "Programador de reuniones"
 msgid "Form"
 msgstr "Formulario"
 
-#: public/admin/class-reviewbanner.php:59
+#: public/admin/class-reviewbanner.php:63
 msgid "Leave us a review | link opens in a new tab"
 msgstr "Déjanos una reseña | el enlace se abre en una pestaña nueva"
 
-#: public/admin/class-reviewbanner.php:35
+#: public/admin/class-reviewbanner.php:39
 msgid "Thanks,"
 msgstr "Gracias,"
 
-#: public/admin/class-reviewbanner.php:34
+#: public/admin/class-reviewbanner.php:38
 msgid "HubSpot for WordPress Team"
 msgstr "Equipo de HubSpot para WordPress"
 
-#: public/admin/class-reviewbanner.php:33
+#: public/admin/class-reviewbanner.php:37
 msgid "We read every response Your feedback helps our team make the improvements that you need the most"
 msgstr "Leemos todas las respuestas. Tus comentarios ayudan a nuestro equipo a realizar las mejoras que más necesitas"
 
-#: public/admin/class-reviewbanner.php:32
+#. translators: %1$s: HTML anchor opening tag %2$s: HTML anchor closing tag
+#: public/admin/class-reviewbanner.php:36
 msgid "Have you got 2 minutes to complete %1$sthis survey%2$s about the HubSpot for WordPress plugin?"
 msgstr "¿Tienes 2 minutos para completar %1$sesta encuesta%2$s sobre el plugin HubSpot para WordPress?"
 
-#: public/admin/class-reviewbanner.php:29
+#. translators: %1$s: Current user name or nickname
+#: public/admin/class-reviewbanner.php:31
 msgid "Hey %1$s,"
 msgstr "Hola %1$s,"
 
@@ -72,38 +79,38 @@ msgstr "Contactos"
 msgid "User Guide"
 msgstr "Guía del usuario"
 
-#: public/admin/class-leadinadmin.php:89 build/gutenberg.js:842
-#: build/gutenberg.js:323
+#: public/admin/class-leadinadmin.php:89 build/gutenberg.js:924
+#: build/gutenberg.js:359
 msgid "Standard Page"
 msgstr "Página estándar"
 
-#: public/admin/class-leadinadmin.php:88 build/gutenberg.js:839
-#: build/gutenberg.js:321
+#: public/admin/class-leadinadmin.php:88 build/gutenberg.js:921
+#: build/gutenberg.js:357
 msgid "Listing Page"
 msgstr "Pagina de anuncios"
 
-#: public/admin/class-leadinadmin.php:87 build/gutenberg.js:836
-#: build/gutenberg.js:320
+#: public/admin/class-leadinadmin.php:87 build/gutenberg.js:918
+#: build/gutenberg.js:356
 msgid "Landing Page"
 msgstr "Página de destino"
 
-#: public/admin/class-leadinadmin.php:86 build/gutenberg.js:833
-#: build/gutenberg.js:317
+#: public/admin/class-leadinadmin.php:86 build/gutenberg.js:915
+#: build/gutenberg.js:353
 msgid "Knowledge Article"
 msgstr "Artículo de conocimiento"
 
-#: public/admin/class-leadinadmin.php:85 build/gutenberg.js:830
-#: build/gutenberg.js:315
+#: public/admin/class-leadinadmin.php:85 build/gutenberg.js:912
+#: build/gutenberg.js:351
 msgid "Blog Post"
 msgstr "Entrada de blog"
 
-#: public/admin/class-leadinadmin.php:84 build/gutenberg.js:827
-#: build/gutenberg.js:314
+#: public/admin/class-leadinadmin.php:84 build/gutenberg.js:909
+#: build/gutenberg.js:350
 msgid "Detect Automatically"
 msgstr "Detectar automáticamente"
 
-#: public/admin/class-leadinadmin.php:80 build/gutenberg.js:805
-#: build/gutenberg.js:312
+#: public/admin/class-leadinadmin.php:80 build/gutenberg.js:888
+#: build/gutenberg.js:348
 msgid "Select the content type HubSpot Analytics uses to track this page"
 msgstr "Selecciona el tipo de contenido que HubSpot Analytics utiliza para realizar el seguimiento de esta página"
 
@@ -156,8 +163,9 @@ msgstr "Sentimos ver que te vas"
 msgid "http://hubspot.com/products/wordpress"
 msgstr "http://hubspot.com/products/wordpress"
 
-#: public/admin/class-noticemanager.php:35 build/elementor.js:211
-#: build/elementor.js:59
+#. translators: %1$s: HTML anchor opening tag %2$s: HTML anchor closing tag
+#: public/admin/class-noticemanager.php:36 build/elementor.js:220
+#: build/elementor.js:61
 msgid "The HubSpot plugin is not connected right now To use HubSpot tools on your WordPress site, %1$sconnect the plugin now%2$s"
 msgstr "El plugin de HubSpot no está conectado ahora mismo. Para usar las herramientas de HubSpot en tu sitio WordPress, %1$sconecta el plugin ahora%2$s"
 
@@ -169,8 +177,8 @@ msgstr "Correo electrónico"
 msgid "Live Chat"
 msgstr "Chat en vivo"
 
-#: public/admin/class-leadinadmin.php:258
-#: public/admin/class-leadinadmin.php:264
+#. translators: %1$s: Plugin current version %2$s: PHP required version
+#: public/admin/class-leadinadmin.php:259
 msgid "HubSpot All-In-One Marketing %1$s requires PHP %2$s or higher Please upgrade WordPress first"
 msgstr "HubSpot All-In-One Marketing %1$s necesita PHP %2$s o superior. Por favor, primero actualiza WordPress"
 

@@ -1,14 +1,13 @@
-<?php
+<?php // phpcs:disable
 
 if(!class_exists('ISService')){
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Service/ISOperationService.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Service/Impl/ISDCCConfirmationService.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Model/Impl/ISDCCConfirmationMessage.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Model/Impl/ISOperationElement.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Model/Impl/ISResponseMessage.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Model/Impl/ISRequestElement.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Utils/ISSignatureUtils.php";
-	include_once $GLOBALS["REDSYS_API_PATH"]."/Utils/ISLogger.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/service/ISOperationService.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/service/impl/ISDCCConfirmationService.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/model/impl/ISDCCConfirmationMessage.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/model/impl/ISOperationElement.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/model/impl/ISResponseMessage.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/model/impl/class-isrequestelement.php";
+	include_once $GLOBALS["REDSYS_API_PATH"]."/utils/ISSignatureUtils.php";
 	
 	class ISService extends ISOperationService{
 		private $request;
@@ -19,12 +18,12 @@ if(!class_exists('ISService')){
 		public function createRequestMessage($message){
 			$this->request=$message;
 			$req=new ISRequestElement();
-			$req->setDatosEntrada($message);
+			$req->set_datos_entrada($message);
 			
 			$signatureUtils=new ISSignatureUtils();
-			$localSignature=$signatureUtils->createMerchantSignature($this->getSignatureKey(), $req->getDatosEntradaB64());
+			$localSignature=$signatureUtils->create_merchant_signature($this->getSignatureKey(), $req->get_datos_entrada_b64());
 			
-			$req->setSignature($localSignature);
+			$req->set_signature($localSignature);
 			
 			return $req;
 		}
@@ -35,74 +34,74 @@ if(!class_exists('ISService')){
 			
 			if(isset($varArray["ERROR"]) || isset($varArray["errorCode"])){
 				ISLogger::error("Received JSON '".$trataPeticionResponse."'");
-				$response->setResult(ISConstants::$RESP_LITERAL_KO);
+				$response->setResult(ISConstants::$rest_literal_ko);
 			}
 			else{
 				$varArray=json_decode(base64_decode($varArray["Ds_MerchantParameters"]),true);
 				
-				$dccElem=isset($varArray[ISConstants::$RESPONSE_DCC_MARGIN_TAG]);
+				$dccElem=isset($varArray[ISConstants::$response_dcc_margin_tag]);
 			
 				if($dccElem){
 // 					$dccService=new ISDCCConfirmationService($this->getSignatureKey(), $this->getEnv());
 // 					$dccResponse=$dccService->unMarshallResponseMessage($trataPeticionResponse);
-// 					ISLogger::debug("Received ".ISLogger::beautifyXML($dccResponse->toXml()));
+// 					ISLogger::debug("Received ".ISLogger::beautifyXML($dccResponse->to_xml()));
 				
 // 					$dccConfirmation=new ISDCCConfirmationMessage();
 // 					$currency="";
 // 					$amount="";
-// 					if($this->request->isDcc()){
-// 						$currency=$dccResponse->getDcc0()->getCurrency();
-// 						$amount=$dccResponse->getDcc0()->getAmount();
+// 					if($this->request->is_dcc()){
+// 						$currency=$dccResponse->getDcc0()->get_currency();
+// 						$amount=$dccResponse->getDcc0()->get_amount();
 // 					}
 // 					else{
-// 						$currency=$dccResponse->getDcc1()->getCurrency();
-// 						$amount=$dccResponse->getDcc1()->getAmount();
+// 						$currency=$dccResponse->getDcc1()->get_currency();
+// 						$amount=$dccResponse->getDcc1()->get_amount();
 // 					}
 				
 // 					$dccConfirmation->setCurrencyCode($currency, $amount);
-// 					$dccConfirmation->setMerchant($this->request->getMerchant());
-// 					$dccConfirmation->setTerminal($this->request->getTerminal());
-// 					$dccConfirmation->setOrder($this->request->getOrder());
+// 					$dccConfirmation->set_merchant($this->request->get_merchant());
+// 					$dccConfirmation->set_terminal($this->request->get_terminal());
+// 					$dccConfirmation->set_order($this->request->get_order());
 // 					$dccConfirmation->setSesion($dccResponse->getSesion());
 				
 // 					$response=$dccService->sendOperation($dccConfirmation);
 				}
 				else{
 					$response=$this->unMarshallResponseMessage($trataPeticionResponse);
-					ISLogger::debug("Received ".ISLogger::beautifyXML($response->toXml()));
+					ISLogger::debug("Received ".ISLogger::beautifyXML($response->to_xml()));
 					$paramsB64=json_decode($trataPeticionResponse,true)["Ds_MerchantParameters"];
 				
 					if($response->getOperation()->requires3DS1()){
-						if(!$this->checkSignature($paramsB64, $response->getOperation()->getSignature()))
+						if(!$this->checkSignature($paramsB64, $response->getOperation()->get_signature()))
 						{
-							$response->setResult(ISConstants::$RESP_LITERAL_KO);
+							$response->setResult(ISConstants::$rest_literal_ko);
 						}
 						else{
-							$response->setResult(ISConstants::$RESP_LITERAL_AUT);
+							$response->setResult(ISConstants::$resp_literal_aut);
 						}
 					}
 					else{
-						$transType = $response->getTransactionType();
-						if(!$this->checkSignature($paramsB64, $response->getOperation()->getSignature()))
+						$transType = $response->get_tansaction_type();
+						if(!$this->checkSignature($paramsB64, $response->getOperation()->get_signature()))
 						{
-							$response->setResult(ISConstants::$RESP_LITERAL_KO);
+							$response->setResult(ISConstants::$rest_literal_ko);
 						}
 						else{
 							switch ((int)$response->getOperation()->getResponseCode()){
-								case ISConstants::$AUTHORIZATION_OK: $response->setResult(($transType==ISConstants::$AUTHORIZATION || $transType==ISConstants::$PREAUTHORIZATION)?ISConstants::$RESP_LITERAL_OK:ISConstants::$RESP_LITERAL_KO); break;
-								case ISConstants::$CONFIRMATION_OK: $response->setResult(($transType==ISConstants::$CONFIRMATION || $transType==ISConstants::$REFUND)?ISConstants::$RESP_LITERAL_OK:ISConstants::$RESP_LITERAL_KO);  break;
-								case ISConstants::$CANCELLATION_OK: $response->setResult($transType==ISConstants::$CANCELLATION?ISConstants::$RESP_LITERAL_OK:ISConstants::$RESP_LITERAL_KO);  break;
-								default: $response->setResult(ISConstants::$RESP_LITERAL_KO);
+								case ISConstants::$authorization_ok: $response->setResult(($transType==ISConstants::$authorization || $transType==ISConstants::$preauthorization)?ISConstants::$resp_literal_ok:ISConstants::$rest_literal_ko); break;
+								case ISConstants::$confirmation_ok: $response->setResult(($transType==ISConstants::$confirmation || $transType==ISConstants::$refund)?ISConstants::$resp_literal_ok:ISConstants::$rest_literal_ko);  break;
+								case ISConstants::$cancelation_ok: $response->setResult($transType==ISConstants::$cancellation?ISConstants::$resp_literal_ok:ISConstants::$rest_literal_ko);  break;
+								default: $response->setResult(ISConstants::$rest_literal_ko);
 							}
 						}
 					}
 				}
 					
-				if($response->getResult()==ISConstants::$RESP_LITERAL_OK){
+				if($response->getResult()==ISConstants::$resp_literal_ok){
 					ISLogger::info("Operation finished successfully");
 				}
 				else{
-					if($response->getResult()==ISConstants::$RESP_LITERAL_AUT){
+					if($response->getResult()==ISConstants::$resp_literal_aut){
 						ISLogger::info("Operation requires autentication");
 					}
 					else{
@@ -119,8 +118,8 @@ if(!class_exists('ISService')){
 			$varArray=json_decode($message,true);
 			
 			$operacion=new ISOperationElement();
-			$operacion->parseJson(base64_decode($varArray["Ds_MerchantParameters"]));
-			$operacion->setSignature($varArray["Ds_Signature"]);
+			$operacion->parse_json(base64_decode($varArray["Ds_MerchantParameters"]));
+			$operacion->set_signature($varArray["Ds_Signature"]);
 			
 			$response->setOperation($operacion);
 			

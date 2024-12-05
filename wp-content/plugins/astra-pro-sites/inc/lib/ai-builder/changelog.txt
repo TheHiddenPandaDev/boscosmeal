@@ -1,3 +1,48 @@
+v1.2.13 - 13-November-2024
+- Fix: Resolved an issue causing the import process to fail due to unexpected SureForm plugin redirection upon activation.
+
+v1.2.12 - 13-November-2024
+- Fix: This update addressed a security bug. Props to Patchstack for privately reporting it.
+
+v1.2.11 - 05-November-2024
+- Improvement: Hidding ecommerce templates if ecommerce feature is hidden.
+
+v1.2.10 - 31-October-2024
+- New: Added a filter to hide specified features on the selection screen.
+
+v1.2.9 - 24-October-2024
+- Improvement: Prompted users for detailed business descriptions to enhance content generation.
+- Improvement: Creating a SureCart merchant account when selected from the feature screen.
+- Improvement: Added compatibility for SureForms templates.
+
+v1.2.8 - 15-October-2024
+- Improvement: Corrected typos and applied minor CSS enhancements.
+
+v1.2.7 - 14-October-2024
+- New: Introduced a ZipWP upgrade promotional popup.
+- New: Implemented toasters to provide more detailed error information.
+- New: Added source parameters to URLs redirecting to ZipWP for better tracking.
+
+v1.2.6 - 20-September-2024
+- New: Added a filter to hide premium templates.
+- Improvement: Added a validation on Image upload to check if the image URL is valid.
+
+v1.2.5 - 13-September-2024
+- Fix: Console error for starter templates onboarding plugin.
+
+v1.2.4 - 13-September-2024
+- Improvement: Added sanitization for display site title value.
+
+v1.2.3 - 09-September-2024
+- New: Added functionality to save failed site creations and allow reimporting them.
+- New: Displaying users ZipWP plan information.
+- New: Displaying alert notice when AI site generation count is nearing its limit.
+- New: Added an option to choose the type of store when the Ecommerce feature is selected.
+- Improvement: Resume Session popup will now restore the step where the user left off.
+- Improvement: Improved images upload process for better performance and user experience.
+- Improvement: Showing Premium template notice on customizer screen if user has free plan.
+- Fix: Customizer 'Show site title' option was not applied correctly during site import.
+
 v1.2.2 - 30-August-2024
 - New: Added filter to update the default website language.
 

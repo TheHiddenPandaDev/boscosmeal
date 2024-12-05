@@ -26,6 +26,8 @@ class WC_Subscriptions_Email {
 
 		add_action( 'woocommerce_subscriptions_email_order_details', __CLASS__ . '::order_download_details', 10, 4 );
 		add_action( 'woocommerce_subscriptions_email_order_details', __CLASS__ . '::order_details', 10, 4 );
+
+		add_action( 'woocommerce_subscription_status_pending-cancel_to_active', __CLASS__ . '::maybe_clear_cancelled_email_flag', 10, 4 );
 	}
 
 	/**
@@ -293,6 +295,31 @@ class WC_Subscriptions_Email {
 	}
 
 	/**
+	 * Show the subscription details table.
+	 *
+	 * @param WC_Subscription[] $subscriptions        List of subscriptions. Also accepts a single subscription.
+	 * @param WC_Order|null     $order                The order related to the subscription - defaults to parent order.
+	 * @param bool              $sent_to_admin        Whether the email is sent to admin - defaults to false.
+	 * @param bool              $plain_text           Whether the email should use plain text templates - defaults to false.
+	 * @param bool              $skip_my_account_link Whether to skip displaying the My Account link - defaults to false.
+	 */
+	public static function subscription_details( $subscriptions, $order = null, $sent_to_admin = false, $plain_text = false, $skip_my_account_link = false ) {
+		$template = ( $plain_text ) ? 'emails/plain/subscription-info.php' : 'emails/subscription-info.php';
+
+		wc_get_template(
+			$template,
+			array(
+				'order'                => ! $order ? $subscription->get_parent() : $order,
+				'subscriptions'        => is_array( $subscriptions ) ? $subscriptions : [ $subscriptions ],
+				'is_admin_email'       => $sent_to_admin,
+				'skip_my_account_link' => $skip_my_account_link,
+			),
+			'',
+			WC_Subscriptions_Core_Plugin::instance()->get_subscriptions_core_directory( 'templates/' )
+		);
+	}
+
+	/**
 	 * Detach WC transactional emails from a specific hook.
 	 *
 	 * @param string Optional. The action hook or filter to detach WC core's transactional emails from. Defaults to the current filter.
@@ -344,6 +371,17 @@ class WC_Subscriptions_Email {
 		if ( is_callable( array( 'WC_Emails', 'order_downloads' ) ) ) {
 			WC_Emails::instance()->order_downloads( $order, $sent_to_admin, $plain_text, $email );
 		}
+	}
+
+	/**
+	 * If the subscription was cancelled before, reset the cancelled email sent flag so the customer can be notified of a future cancellation.
+	 *
+	 * @param $subscription WC_Subscription The subscription object.
+	 * @return void
+	 */
+	public static function maybe_clear_cancelled_email_flag( $subscription ) {
+		$subscription->set_cancelled_email_sent( 'false' );
+		$subscription->save();
 	}
 
 	/**

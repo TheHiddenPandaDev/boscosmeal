@@ -6,8 +6,8 @@
  * @since 10.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -33,8 +33,7 @@ function redsys_change_order_received_text( $text, $order ) {
 
 		if ( ! WCRed()->is_paid( $order_id ) && ( 'redsys-pre' !== $order->get_status() ) && WCRed()->is_redsys_order( $order_id, 'redsys' ) && 'yes' === WCRed()->get_redsys_option( 'sendemailthankyou', 'redsys' ) ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				$debug = new WC_Logger();
-				$debug->add( 'redsys-thankyou-page', 'is redsys & is not paid' );
+				WCRed()->log( 'redsys-thankyou-page', 'is redsys & is not paid' );
 			}
 			$sendemailthankyoutxt = WCRed()->get_redsys_option( 'sendemailthankyoutxt', 'redsys' );
 			if ( $sendemailthankyoutxt ) {
@@ -46,8 +45,7 @@ function redsys_change_order_received_text( $text, $order ) {
 			return $text . ' ' . $sendemailthankyoutxt;
 		} elseif ( ! WCRed()->is_paid( $order_id ) && WCRed()->is_redsys_order( $order_id, 'redsysbank' ) ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				$debug = new WC_Logger();
-				$debug->add( 'redsys-thankyou-page', 'is redsysbank & is waiting transfer' );
+				WCRed()->log( 'redsys-thankyou-page', 'is redsysbank & is waiting transfer' );
 			}
 			$codigoswift  = WCRed()->get_redsys_option( 'codigoswift', 'redsysbank' );
 			$iban         = WCRed()->get_redsys_option( 'iban', 'redsysbank' );
@@ -60,8 +58,7 @@ function redsys_change_order_received_text( $text, $order ) {
 			return $text;
 		} elseif ( ! WCRed()->is_paid( $order_id ) && ( 'redsys-pre' !== $order->get_status() ) && WCRed()->is_redsys_order( $order_id, 'redsys' ) && 'yes' === WCRed()->get_redsys_option( 'sendemailthankyou', 'redsys' ) ) {
 			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				$debug = new WC_Logger();
-				$debug->add( 'redsys-thankyou-page', 'is preauthorizationsredsys & is not paid' );
+				WCRed()->log( 'redsys-thankyou-page', 'is preauthorizationsredsys & is not paid' );
 			}
 			$sendemailthankyoutxt = WCRed()->get_redsys_option( 'sendemailthankyoutxt', 'preauthorizationsredsys' );
 			if ( $sendemailthankyoutxt ) {
@@ -88,7 +85,7 @@ function redsys_send_warning_email_thankyou_page( $order_id ) {
 
 	$admin_url    = admin_url();
 	$url_to_order = WCRed()->get_order_edit_url( $order_id );
-	$url_to_woo   = 'https://woo.com/es/my-account/contact-support/';
+	$url_to_woo   = 'https://woocommerce.com/es/my-account/contact-support/';
 	$to           = get_bloginfo( 'admin_email' );
 	$subject      = __( 'Possible problem with Redsys notifying the website.', 'woocommerce-redsys' );
 	$body         = __( 'We have detected that a user has reached the thank you page from Redsys, but the order is not marked as paid.', 'woocommerce-redsys' );

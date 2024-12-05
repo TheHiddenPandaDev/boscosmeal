@@ -23,17 +23,24 @@ class Astra_Addon_Gutenberg_Compatibility extends Astra_Addon_Page_Builder_Compa
 	public function render_content( $post_id ) {
 		$output       = '';
 		$current_post = get_post( $post_id, OBJECT );
+
 		if ( has_blocks( $current_post ) ) {
 			$blocks = parse_blocks( $current_post->post_content );
 			foreach ( $blocks as $block ) {
 				$output .= render_block( $block );
 			}
+
+			// Automatically embed URLs (like Vimeo) using WP_Embed.
+			if ( class_exists( 'WP_Embed' ) ) {
+				$wp_embed = new WP_Embed();
+				$output   = $wp_embed->autoembed( $output );
+			}
 		} else {
 			$output = $current_post->post_content;
 		}
-		ob_start();
-		echo do_shortcode( $output );
-		echo do_shortcode( ob_get_clean() );
+		
+		// Process nested shortcodes as it's for site builder and remove automatic <p> tags around them.
+		echo do_shortcode( do_shortcode( shortcode_unautop( $output ) ) );
 	}
 
 	/**

@@ -1,5 +1,6 @@
 import { twMerge } from 'tailwind-merge';
 import clsx from 'clsx';
+import apiFetch from '@wordpress/api-fetch';
 
 export const classNames = ( ...classes ) => twMerge( clsx( classes ) );
 
@@ -320,4 +321,66 @@ export const socialMediaParser = {
 
 		return matches;
 	},
+};
+
+export const isValidURL = ( url ) => {
+	try {
+		new URL( url );
+		return true; // If the URL constructor doesn't throw an error, the URL is valid
+	} catch ( _ ) {
+		return false; // Invalid URL
+	}
+};
+
+export const isValidImageURL = ( fileURL ) => {
+	// regex only matches letters, numbers, spaces, dots, underscores, colons, slashes, and hyphens
+	const validPattern = /^[a-zA-Z0-9_\-\. :/]+$/;
+
+	if ( ! isValidURL( fileURL ) ) {
+		return false;
+	}
+
+	if ( ! validPattern.test( fileURL ) ) {
+		return false;
+	}
+
+	return true;
+};
+
+const { plan_data } = aiBuilderVars?.zip_plans;
+
+export const showAISitesNotice = () => {
+	// if only 1 AI Site is remaining
+	if ( plan_data?.remaining?.ai_sites_count === 1 ) {
+		return true;
+	}
+
+	const usagePercentage =
+		( plan_data?.usage?.ai_sites_count /
+			plan_data?.limit?.ai_sites_count ) *
+		100;
+
+	if ( usagePercentage >= 60 ) {
+		return true;
+	}
+
+	return false;
+};
+
+export const getPlanPromoDissmissTime = async () => {
+	const data = await apiFetch( {
+		path: 'zipwp/v1/get-plan-promo-dismiss-time',
+		method: 'GET',
+		headers: {
+			'X-WP-Nonce': aiBuilderVars.rest_api_nonce,
+			'content-type': 'application/json',
+		},
+	} );
+
+	return data;
+};
+
+export const getTimeDiff = ( timeToCompare ) => {
+	const timeDiff = Math.floor( Date.now() / 1000 ) - timeToCompare;
+	return timeDiff;
 };

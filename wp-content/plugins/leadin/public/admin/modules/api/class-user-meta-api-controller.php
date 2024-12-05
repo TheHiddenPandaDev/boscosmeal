@@ -46,7 +46,7 @@ class User_Meta_Api_Controller extends Base_Api_Controller {
 			User_Metadata::set_track_consent( $consent ? 'true' : 'false' );
 		}
 		return new \WP_REST_Response(
-			json_encode( User_Metadata::get_track_consent(), true ),
+			wp_json_encode( User_Metadata::get_track_consent(), true ),
 			200
 		);
 	}

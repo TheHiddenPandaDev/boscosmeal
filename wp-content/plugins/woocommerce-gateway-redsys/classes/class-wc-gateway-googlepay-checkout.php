@@ -6,8 +6,8 @@
  * @since 22.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -22,13 +22,278 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 
-	var $notify_url;
+	/**
+	 * Constructor
+	 *
+	 * @var string
+	 */
+	public $id;
+
+	/**
+	 *
+	 * The icon of the gateway
+	 *
+	 * @var string
+	 */
+	public $icon;
+
+	/**
+	 * $has_fields Whether or not the gateway has fields.
+	 *
+	 * @var bool
+	 */
+	public $has_fields;
+
+	/**
+	 * $liveurl The live URL for the gateway.
+	 *
+	 * @var string
+	 */
+	public $liveurl;
+
+	/**
+	 * $testurl The test URL for the gateway.
+	 *
+	 * @var string The test URL for the gateway.
+	 */
+	public $testurl;
+
+	/**
+	 * Test SHA256 for the gateway.
+	 *
+	 * @var string The test SHA256 for the gateway.
+	 */
+	public $testsha256;
+
+	/**
+	 * Test mode for the gateway.
+	 *
+	 * @var bool Whether the gateway is in test mode or not.
+	 */
+	public $testmode;
+
+	/**
+	 * Title for the gateway.
+	 *
+	 * @var string The title of the payment method.
+	 */
+	public $method_title;
+
+	/**
+	 * Description for the gateway.
+	 *
+	 * @var string The description of the payment method.
+	 */
+	public $method_description;
+
+	/**
+	 * HTTPS for the gateway.
+	 *
+	 * @var bool Whether to use HTTPS or not.
+	 */
+	public $not_use_https;
+
+	/**
+	 * Notify URL for the gateway.
+	 *
+	 * @var string The notify URL for the gateway.
+	 */
+	public $notify_url;
+
+	/**
+	 * Notify URL without HTTPS for the gateway.
+	 *
+	 * @var string The notify URL without HTTPS for the gateway.
+	 */
+	public $notify_url_not_https;
+
+	/**
+	 * Merchant ID for the gateway.
+	 *
+	 * @var string The merchant ID for the gateway.
+	 */
+	public $g_merchant_id;
+
+	/**
+	 * XPay type for the gateway.
+	 *
+	 * @var string The XPay type for the gateway.
+	 */
+	public $xpay_type;
+
+	/**
+	 * XPay origin for the gateway.
+	 *
+	 * @var string The XPay origin for the gateway.
+	 */
+	public $xpay_origen;
+
+	/**
+	 * Title for the gateway.
+	 *
+	 * @var string The title of the gateway.
+	 */
+	public $title;
+
+	/**
+	 * Description for the gateway.
+	 *
+	 * @var string The description for the gateway.
+	 */
+	public $description;
+
+	/**
+	 * Customer for the gateway.
+	 *
+	 * @var string The customer for the gateway.
+	 */
+	public $customer;
+
+	/**
+	 * Commerce name for the gateway.
+	 *
+	 * @var string The commerce name for the gateway.
+	 */
+	public $commercename;
+
+	/**
+	 * Terminal for the gateway.
+	 *
+	 * @var string The terminal for the gateway.
+	 */
+	public $terminal;
+
+	/**
+	 * Secret SHA256 for the gateway.
+	 *
+	 * @var string The secret SHA256 for the gateway.
+	 */
+	public $secretsha256;
+
+	/**
+	 * Custom test SHA256 for the gateway.
+	 *
+	 * @var string The custom test SHA256 for the gateway.
+	 */
+	public $customtestsha256;
+
+	/**
+	 * Redsys language for the gateway.
+	 *
+	 * @var string The Redsys language for the gateway.
+	 */
+	public $redsyslanguage;
+
+	/**
+	 * Debug for the gateway.
+	 *
+	 * @var bool Whether the gateway is in debug mode or not.
+	 */
+	public $debug;
+
+	/**
+	 * Time to load the button for the gateway.
+	 *
+	 * @var string The time to load the button for the gateway.
+	 */
+	public $time_load_button;
+
+	/**
+	 * Test for user for the gateway.
+	 *
+	 * @var string The test for user for the gateway.
+	 */
+	public $testforuser;
+
+	/**
+	 * Test for user ID for the gateway.
+	 *
+	 * @var string The test for user ID for the gateway.
+	 */
+	public $testforuserid;
+
+	/**
+	 * Button checkout for the gateway.
+	 *
+	 * @var string The button checkout for the gateway.
+	 */
+	public $buttoncheckout;
+
+	/**
+	 * Button background color for the gateway.
+	 *
+	 * @var string The button background color for the gateway.
+	 */
+	public $butonbgcolor;
+
+	/**
+	 * Button text color for the gateway.
+	 *
+	 * @var string The button text color for the gateway.
+	 */
+	public $butontextcolor;
+
+	/**
+	 * Description for the Redsys gateway.
+	 *
+	 * @var string The description for the Redsys gateway.
+	 */
+	public $descripredsys;
+
+	/**
+	 * Test show gateway for the gateway.
+	 *
+	 * @var string The test show gateway for the gateway.
+	 */
+	public $testshowgateway;
+
+	/**
+	 * Button color for the gateway.
+	 *
+	 * @var string The button color for the gateway.
+	 */
+	public $button_color;
+
+	/**
+	 * Button type for the gateway.
+	 *
+	 * @var string The button type for the gateway.
+	 */
+	public $button_type;
+
+	/**
+	 * Button locale for the gateway.
+	 *
+	 * @var string The button locale for the gateway.
+	 */
+	public $button_locale;
+
+	/**
+	 * Log for the gateway.
+	 *
+	 * @var mixed The log for the gateway.
+	 */
+	public $log;
+
+	/**
+	 * Supports for the gateway.
+	 *
+	 * @var array The supported features for the gateway.
+	 */
+	public $supports;
+
+	/**
+	 * Enabled for the gateway.
+	 *
+	 * @var bool Whether the gateway is enabled or not.
+	 */
+	public $enabled;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->id                   = 'googlepayredsys';
+		$this->id = 'googlepayredsys';
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'googlepayredsys' ) ) ) {
 			$logo_url   = WCRed()->get_redsys_option( 'logo', 'googlepayredsys' );
 			$this->icon = apply_filters( 'woocommerce_' . $this->id . '_iconn', $logo_url );
@@ -53,9 +318,6 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$this->xpay_type        = 'Google';
 		$this->xpay_origen      = 'WEB';
 		$this->title            = WCRed()->get_redsys_option( 'title', 'googlepayredsys' );
-		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'googlepayredsys' );
-		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'googlepayredsys' );
-		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'googlepayredsys' );
 		$this->description      = WCRed()->get_redsys_option( 'description', 'googlepayredsys' );
 		$this->customer         = WCRed()->get_redsys_option( 'customer', 'googlepayredsys' );
 		$this->commercename     = WCRed()->get_redsys_option( 'commercename', 'googlepayredsys' );
@@ -75,7 +337,6 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$this->button_color     = WCRed()->get_redsys_option( 'button_color', 'googlepayredsys' );
 		$this->button_type      = WCRed()->get_redsys_option( 'button_type', 'googlepayredsys' );
 		$this->button_locale    = WCRed()->get_redsys_option( 'button_locale', 'googlepayredsys' );
-		$this->log              = new WC_Logger();
 		$this->supports         = array(
 			'products',
 			'refunds',
@@ -195,27 +456,6 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 				'label'   => __( 'Enable Google Pay', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'multisitesttings' => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'hideownsetting'   => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'ownsetting'       => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
 			'title'            => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
@@ -229,7 +469,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via Gpay With your Google Account.', 'woocommerce-redsys' ),
 			),
-			'logo'                  => array(
+			'logo'             => array(
 				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
@@ -355,7 +595,6 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 					'sr' => __( 'Serbian', 'woocommerce-redsys' ),
 					'sk' => __( 'Slovak', 'woocommerce-redsys' ),
 					'sl' => __( 'Slovenian', 'woocommerce-redsys' ),
-					'es' => __( 'Spanish', 'woocommerce-redsys' ),
 					'sv' => __( 'Swedish', 'woocommerce-redsys' ),
 					'th' => __( 'Thai', 'woocommerce-redsys' ),
 					'tr' => __( 'Turkish', 'woocommerce-redsys' ),
@@ -399,29 +638,11 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			'debug'            => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => __( 'Log Gpay events, such as notifications requests, inside <code>WooCommerce > Status > Logs > googlepayredsys-{date}-{number}.log</code>', 'woocommerce-redsys' ),
 			),
 		);
-		if ( ! is_multisite() ) {
-			unset( $this->form_fields['multisitesttings'] );
-			unset( $this->form_fields['ownsetting'] );
-			unset( $this->form_fields['hideownsetting'] );
-		} else {
-			if ( is_main_site() ) {
-				unset( $this->form_fields['ownsetting'] );
-			} else {
-				unset( $this->form_fields['multisitesttings'] );
-				unset( $this->form_fields['hideownsetting'] );
-				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
-				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
-				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
-					unset( $this->form_fields['ownsetting'] );
-				}
-			}
-		}
 	}
 	/**
 	 * Check if this gateway is enabled in test mode for a user
@@ -435,11 +656,11 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$usertest_active = $this->testforuser;
 		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'googlepayredsys' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', '/****************************/' );
-			$this->log->add( 'googlepayredsys', '     Checking user test       ' );
-			$this->log->add( 'googlepayredsys', '/****************************/' );
-			$this->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', '/****************************/' );
+			WCRed()->log( 'googlepayredsys', '     Checking user test       ' );
+			WCRed()->log( 'googlepayredsys', '/****************************/' );
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 
 		if ( 'yes' === $usertest_active ) {
@@ -447,66 +668,66 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			if ( ! empty( $selections ) ) {
 				foreach ( $selections as $user_id ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '   Checking user ' . $userid );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '  User in forach ' . $user_id );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', '   Checking user ' . $userid );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', '  User in forach ' . $user_id );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', ' ' );
 					}
 					if ( (string) $user_id === (string) $userid ) {
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'googlepayredsys', ' ' );
-							$this->log->add( 'googlepayredsys', '/****************************/' );
-							$this->log->add( 'googlepayredsys', '   Checking user test TRUE    ' );
-							$this->log->add( 'googlepayredsys', '/****************************/' );
-							$this->log->add( 'googlepayredsys', ' ' );
-							$this->log->add( 'googlepayredsys', ' ' );
-							$this->log->add( 'googlepayredsys', '/********************************************/' );
-							$this->log->add( 'googlepayredsys', '  User ' . $userid . ' is equal to ' . $user_id );
-							$this->log->add( 'googlepayredsys', '/********************************************/' );
-							$this->log->add( 'googlepayredsys', ' ' );
+							WCRed()->log( 'googlepayredsys', ' ' );
+							WCRed()->log( 'googlepayredsys', '/****************************/' );
+							WCRed()->log( 'googlepayredsys', '   Checking user test TRUE    ' );
+							WCRed()->log( 'googlepayredsys', '/****************************/' );
+							WCRed()->log( 'googlepayredsys', ' ' );
+							WCRed()->log( 'googlepayredsys', ' ' );
+							WCRed()->log( 'googlepayredsys', '/********************************************/' );
+							WCRed()->log( 'googlepayredsys', '  User ' . $userid . ' is equal to ' . $user_id );
+							WCRed()->log( 'googlepayredsys', '/********************************************/' );
+							WCRed()->log( 'googlepayredsys', ' ' );
 						}
 						return true;
 					}
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '  Checking user test continue ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', '  Checking user test continue ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', ' ' );
 					}
 					continue;
 				}
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '  Checking user test FALSE    ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '  Checking user test FALSE    ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				return false;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '  Checking user test FALSE    ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '  Checking user test FALSE    ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', '/****************************/' );
-				$this->log->add( 'googlepayredsys', '     User test Disabled.      ' );
-				$this->log->add( 'googlepayredsys', '/****************************/' );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', '/****************************/' );
+				WCRed()->log( 'googlepayredsys', '     User test Disabled.      ' );
+				WCRed()->log( 'googlepayredsys', '/****************************/' );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 			return false;
 		}
@@ -524,20 +745,20 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		if ( 'yes' === $this->testmode ) {
 			if ( 'rd' === $type ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '          URL Test RD         ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '          URL Test RD         ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				$url = $this->testurl;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '          URL Test WS         ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '          URL Test WS         ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				$url = $this->testurlws;
 			}
@@ -546,43 +767,41 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			if ( $user_test ) {
 				if ( 'rd' === $type ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '          URL Test RD         ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', '          URL Test RD         ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', ' ' );
 					}
 					$url = $this->testurl;
 				} else {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '          URL Test WS         ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', '          URL Test WS         ' );
+						WCRed()->log( 'googlepayredsys', '/****************************/' );
+						WCRed()->log( 'googlepayredsys', ' ' );
 					}
 					$url = $this->testurlws;
 				}
-			} else {
-				if ( 'rd' === $type ) {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '          URL Live RD         ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
-					$url = $this->liveurl;
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', '          URL Live WS         ' );
-						$this->log->add( 'googlepayredsys', '/****************************/' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
-					$url = $this->liveurlws;
+			} elseif ( 'rd' === $type ) {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '          URL Live RD         ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
+					$url = $this->liveurl;
+			} else {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '          URL Live WS         ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+				}
+				$url = $this->liveurlws;
 			}
 		}
 		return $url;
@@ -598,43 +817,43 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', '/****************************/' );
-				$this->log->add( 'googlepayredsys', '         SHA256 Test.         ' );
-				$this->log->add( 'googlepayredsys', '/****************************/' );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', '/****************************/' );
+				WCRed()->log( 'googlepayredsys', '         SHA256 Test.         ' );
+				WCRed()->log( 'googlepayredsys', '/****************************/' );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
-			$customtestsha256 = utf8_decode( $this->customtestsha256 );
+			$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 			if ( ! empty( $customtestsha256 ) ) {
 				$sha256 = $customtestsha256;
 			} else {
-				$sha256 = utf8_decode( $this->testsha256 );
+				$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		} else {
 			$user_test = $this->check_user_test_mode( $user_id );
 			if ( $user_test ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '      USER SHA256 Test.       ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '      USER SHA256 Test.       ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
-				$customtestsha256 = utf8_decode( $this->customtestsha256 );
+				$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 				if ( ! empty( $customtestsha256 ) ) {
 					$sha256 = $customtestsha256;
 				} else {
-					$sha256 = utf8_decode( $this->testsha256 );
+					$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '     USER SHA256 NOT Test.    ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '     USER SHA256 NOT Test.    ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
-				$sha256 = utf8_decode( $this->secretsha256 );
+				$sha256 = mb_convert_encoding( $this->secretsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		}
 		return $sha256;
@@ -701,40 +920,40 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$gpay_data_send = apply_filters( 'gpay_modify_data_to_send', $gpay_data_send );
 
 			if ( 'yes' === $redsys->debug ) {
-				$redsys->log->add( 'googlepayredsys', ' ' );
-				$redsys->log->add( 'googlepayredsys', 'Using filter gpay_modify_data_to_send' );
-				$redsys->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', 'Using filter gpay_modify_data_to_send' );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 		}
 
 		if ( 'yes' === $redsys->debug ) {
-			$redsys->log->add( 'googlepayredsys', ' ' );
-			$redsys->log->add( 'googlepayredsys', 'Data sent to Gpay, $gpay_data_send: ' . print_r( $gpay_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$redsys->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', 'Data sent to Gpay, $gpay_data_send: ' . print_r( $gpay_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 
 		// redsys Args.
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $gpay_data_send['order_total_sign'] );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $gpay_data_send['transaction_id2'] );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $gpay_data_send['customer'] );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $gpay_data_send['currency'] );
-		$miobj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $gpay_data_send['transaction_type'] );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $gpay_data_send['DSMerchantTerminal'] );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTURL', $gpay_data_send['final_notify_url'] );
-		$miobj->setParameter( 'DS_MERCHANT_URLOK', $gpay_data_send['url_ok'] );
-		$miobj->setParameter( 'DS_MERCHANT_URLKO', $gpay_data_send['returnfromredsys'] );
-		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gpay_data_send['gatewaylanguage'] );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $gpay_data_send['product_description'] ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $gpay_data_send['merchant_name'] );
-		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'xpay' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $gpay_data_send['order_total_sign'] );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $gpay_data_send['transaction_id2'] );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $gpay_data_send['customer'] );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $gpay_data_send['currency'] );
+		$miobj->set_parameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $gpay_data_send['transaction_type'] );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $gpay_data_send['DSMerchantTerminal'] );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $gpay_data_send['final_notify_url'] );
+		$miobj->set_parameter( 'DS_MERCHANT_URLOK', $gpay_data_send['url_ok'] );
+		$miobj->set_parameter( 'DS_MERCHANT_URLKO', $gpay_data_send['returnfromredsys'] );
+		$miobj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gpay_data_send['gatewaylanguage'] );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $gpay_data_send['product_description'] ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $gpay_data_send['merchant_name'] );
+		$miobj->set_parameter( 'DS_MERCHANT_PAYMETHODS', 'xpay' );
 
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request      = '';
-		$params       = $miobj->createMerchantParameters();
-		$signature    = $miobj->createMerchantSignature( $gpay_data_send['secretsha256'] );
+		$params       = $miobj->create_merchant_parameters();
+		$signature    = $miobj->create_merchant_signature( $gpay_data_send['secretsha256'] );
 		$order_id_set = $gpay_data_send['transaction_id2'];
 		set_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ), $gpay_data_send['secretsha256'], 3600 );
 		$redsys_args = array(
@@ -743,21 +962,21 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			'Ds_Signature'          => $signature,
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'googlepayredsys', 'Helping to understand the encrypted code: ' );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_AMOUNT: ' . $gpay_data_send['order_total_sign'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_ORDER: ' . $gpay_data_send['transaction_id2'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $gpay_data_send['customer'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_CURRENCY' . $gpay_data_send['currency'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $gpay_data_send['transaction_type'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TERMINAL: ' . $gpay_data_send['DSMerchantTerminal'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_MERCHANTURL: ' . $gpay_data_send['final_notify_url'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_URLOK: ' . $gpay_data_send['url_ok'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_URLKO: ' . $gpay_data_send['returnfromredsys'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gpay_data_send['gatewaylanguage'] );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $gpay_data_send['product_description'] ) );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PAYMETHODS: xpay' );
+			WCRed()->log( 'googlepayredsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'googlepayredsys', 'Helping to understand the encrypted code: ' );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_AMOUNT: ' . $gpay_data_send['order_total_sign'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_ORDER: ' . $gpay_data_send['transaction_id2'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $gpay_data_send['customer'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_CURRENCY' . $gpay_data_send['currency'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $gpay_data_send['transaction_type'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_TERMINAL: ' . $gpay_data_send['DSMerchantTerminal'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_MERCHANTURL: ' . $gpay_data_send['final_notify_url'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_URLOK: ' . $gpay_data_send['url_ok'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_URLKO: ' . $gpay_data_send['returnfromredsys'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gpay_data_send['gatewaylanguage'] );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $gpay_data_send['product_description'] ) );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_PAYMETHODS: xpay' );
 		}
 		/**
 		 * Filter hook to allow 3rd parties to add more fields to the form
@@ -812,43 +1031,43 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$redsys_adr = $this->liveurl;
 		}
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $customer );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
-		$miobj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $product_description ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $merchant_name );
-		$miobj->setParameter( 'DS_XPAYDATA', $ds_xpay_data );
-		$miobj->setParameter( 'DS_XPAYTYPE', $ds_xpay_type );
-		$miobj->setParameter( 'DS_XPAYORIGEN', $ds_xpay_origen );
-		$miobj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', 'TRUE' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $customer );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
+		$miobj->set_parameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $product_description ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $merchant_name );
+		$miobj->set_parameter( 'DS_XPAYDATA', $ds_xpay_data );
+		$miobj->set_parameter( 'DS_XPAYTYPE', $ds_xpay_type );
+		$miobj->set_parameter( 'DS_XPAYORIGEN', $ds_xpay_origen );
+		$miobj->set_parameter( 'DS_MERCHANT_DIRECTPAYMENT', 'TRUE' );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $customer );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_CURRENCY: ' . $currency );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $product_description ) );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_MERCHANTNAME: ' . $merchant_name );
-			$this->log->add( 'googlepayredsys', 'DS_XPAYDATA: ' . $ds_xpay_data );
-			$this->log->add( 'googlepayredsys', 'DS_XPAYTYPE: ' . $ds_xpay_type );
-			$this->log->add( 'googlepayredsys', 'DS_XPAYORIGEN: ' . $ds_xpay_origen );
-			$this->log->add( 'googlepayredsys', 'DS_MERCHANT_DIRECTPAYMENT: TRUE' );
-			$this->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $customer );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_CURRENCY: ' . $currency );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $product_description ) );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_MERCHANTNAME: ' . $merchant_name );
+			WCRed()->log( 'googlepayredsys', 'DS_XPAYDATA: ' . $ds_xpay_data );
+			WCRed()->log( 'googlepayredsys', 'DS_XPAYTYPE: ' . $ds_xpay_type );
+			WCRed()->log( 'googlepayredsys', 'DS_XPAYORIGEN: ' . $ds_xpay_origen );
+			WCRed()->log( 'googlepayredsys', 'DS_MERCHANT_DIRECTPAYMENT: TRUE' );
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request       = '';
-		$params        = $miobj->createMerchantParameters();
-		$signature     = $miobj->createMerchantSignature( $secretsha256 );
+		$params        = $miobj->create_merchant_parameters();
+		$signature     = $miobj->create_merchant_signature( $secretsha256 );
 		$version       = 'HMAC_SHA256_V1';
 		$response      = wp_remote_post(
 			$redsys_adr,
@@ -868,19 +1087,19 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$result        = json_decode( $response_body, true );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', 'Response from Redsys: ' . print_r( $result, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', 'Response from Redsys: ' . print_r( $result, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 		if ( $result['Ds_MerchantParameters'] ) {
 			$version     = $result['Ds_SignatureVersion']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$data        = $result['Ds_MerchantParameters']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign = $result['Ds_Signature']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$decodec     = $miobj->decodeMerchantParameters( $data );
+			$decodec     = $miobj->decode_merchant_parameters( $data );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', '$decodec: ' . $decodec );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', '$decodec: ' . $decodec );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 			$decocec_json = json_decode( $decodec, true );
 			if ( '0000' === $decocec_json['Ds_Response'] ) {
@@ -892,80 +1111,65 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 				$data = array();
 					$order->payment_complete();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'payment_complete 1' );
+					WCRed()->log( 'googlepayredsys', 'payment_complete 1' );
 				}
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', '      Saving Order Meta       ' );
-					$this->log->add( 'googlepayredsys', '/****************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', '      Saving Order Meta       ' );
+					WCRed()->log( 'googlepayredsys', '/****************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 
 				if ( ! empty( $transaction_id2 ) ) {
 					$data['_payment_order_number_redsys'] = $transaction_id2;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', '_payment_order_number_redsys saved: ' . $transaction_id2 );
+						WCRed()->log( 'googlepayredsys', '_payment_order_number_redsys saved: ' . $transaction_id2 );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '_payment_order_number_redsys NOT SAVED!!!' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
-				}
-				if ( ! empty( $dsmerchantterminal ) ) {
+				} elseif ( ! empty( $dsmerchantterminal ) ) {
 					$data['_payment_terminal_redsys'] = $dsmerchantterminal;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', '_payment_terminal_redsys saved: ' . $dsmerchantterminal );
+						WCRed()->log( 'googlepayredsys', '_payment_terminal_redsys saved: ' . $dsmerchantterminal );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '_payment_terminal_redsys NOT SAVED!!!' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '_payment_terminal_redsys NOT SAVED!!!' );
+						WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				if ( ! empty( $ds_authorisation_code ) ) {
 					$data['_authorisation_code_redsys'] = $ds_authorisation_code;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', '_authorisation_code_redsys saved: ' . $ds_authorisation_code );
+						WCRed()->log( 'googlepayredsys', '_authorisation_code_redsys saved: ' . $ds_authorisation_code );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '_authorisation_code_redsys NOT SAVED!!!' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+						WCRed()->log( 'googlepayredsys', ' ' );
+						WCRed()->log( 'googlepayredsys', '_authorisation_code_redsys NOT SAVED!!!' );
+						WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				if ( ! empty( $currency ) ) {
 					$data['_corruncy_code_redsys'] = $currency;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', '_corruncy_code_redsys saved: ' . $currency );
+						WCRed()->log( 'googlepayredsys', '_corruncy_code_redsys saved: ' . $currency );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '_corruncy_code_redsys NOT SAVED!!!' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '_corruncy_code_redsys NOT SAVED!!!' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				if ( ! empty( $secretsha256 ) ) {
 					$data['_redsys_secretsha256'] = $secretsha256;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+						WCRed()->log( 'googlepayredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'googlepayredsys', ' ' );
-						$this->log->add( 'googlepayredsys', '_redsys_secretsha256 NOT SAVED!!!' );
-						$this->log->add( 'googlepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '_redsys_secretsha256 NOT SAVED!!!' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', '/******************************************/' );
-					$this->log->add( 'googlepayredsys', '  The final has come, this story has ended  ' );
-					$this->log->add( 'googlepayredsys', '/******************************************/' );
+					WCRed()->log( 'googlepayredsys', '/******************************************/' );
+					WCRed()->log( 'googlepayredsys', '  The final has come, this story has ended  ' );
+					WCRed()->log( 'googlepayredsys', '/******************************************/' );
 				}
 					WCRed()->update_order_meta( $order->get_id(), $data );
 					do_action( $this->id . '_post_payment_complete', $order->get_id() );
@@ -977,9 +1181,9 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		}
 		if ( isset( $result['errorCode'] ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', 'Error: ' . $result['errorCode'] );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', 'Error: ' . $result['errorCode'] );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 			$error = WCRed()->get_error( $result['errorCode'] );
 			do_action( $this->id . '_post_payment_error', $order->get_id(), $error );
@@ -1002,7 +1206,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 	public function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'googlepayredsys', 'HTTP Notification received 1: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) || ! isset( $_POST['Ds_Signature'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -1013,64 +1217,64 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', 'Signature from Redsys: ' . $remote_sign );
-				$this->log->add( 'googlepayredsys', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
-				$this->log->add( 'googlepayredsys', 'Secret SHA256 transcient: ' . $secretsha256 );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', 'Signature from Redsys: ' . $remote_sign );
+				WCRed()->log( 'googlepayredsys', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
+				WCRed()->log( 'googlepayredsys', 'Secret SHA256 transcient: ' . $secretsha256 );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$order_id = $mi_obj->getParameter( 'Ds_Order' );
-				$this->log->add( 'googlepayredsys', 'Order ID: ' . $order_id );
+				$order_id = $mi_obj->get_parameter( 'Ds_Order' );
+				WCRed()->log( 'googlepayredsys', 'Order ID: ' . $order_id );
 			}
 			$order           = WCRed()->get_order( $order2 );
 			$user_id         = $order->get_user_id();
 			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
 			if ( empty( $secretsha256 ) && ! $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', 'Using $usesecretsha256 Settings' );
-					$this->log->add( 'googlepayredsys', 'Secret SHA256 Settings: ' . $usesecretsha256 );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', 'Using $usesecretsha256 Settings' );
+					WCRed()->log( 'googlepayredsys', 'Secret SHA256 Settings: ' . $usesecretsha256 );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				$usesecretsha256 = $usesecretsha256;
 			} elseif ( $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', 'Using $secretsha256_meta Meta' );
-					$this->log->add( 'googlepayredsys', 'Secret SHA256 Meta: ' . $secretsha256_meta );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', 'Using $secretsha256_meta Meta' );
+					WCRed()->log( 'googlepayredsys', 'Secret SHA256 Meta: ' . $secretsha256_meta );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				$usesecretsha256 = $secretsha256_meta;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', 'Using $secretsha256 Transcient' );
-					$this->log->add( 'googlepayredsys', 'Secret SHA256 Transcient: ' . $secretsha256 );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', 'Using $secretsha256 Transcient' );
+					WCRed()->log( 'googlepayredsys', 'Secret SHA256 Transcient: ' . $secretsha256 );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				$usesecretsha256 = $secretsha256;
 			}
-			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'Received valid notification from Servired/RedSys' );
-					$this->log->add( 'googlepayredsys', $data );
+					WCRed()->log( 'googlepayredsys', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'googlepayredsys', $data );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'googlepayredsys', 'Received INVALID notification from Servired/RedSys' );
 				}
 				delete_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 				return false;
@@ -1080,26 +1284,26 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'googlepayredsys', 'HTTP Notification received 2: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( $ds_merchant_code === $this->customer ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'googlepayredsys', 'Received valid notification from Servired/RedSys' );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'Received INVALID notification from Servired/RedSys' );
-					$this->log->add( 'googlepayredsys', '$remote_sign: ' . $remote_sign );
-					$this->log->add( 'googlepayredsys', '$localsecret: ' . $localsecret );
+					WCRed()->log( 'googlepayredsys', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'googlepayredsys', '$remote_sign: ' . $remote_sign );
+					WCRed()->log( 'googlepayredsys', '$localsecret: ' . $localsecret );
 				}
 				return false;
 			}
@@ -1112,7 +1316,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 	public function check_ipn_response() {
 
 		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-		if ( isset( $_GET['checkout-price'] ) ) {
+		if ( isset( $_GET['checkout-price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			WC()->frontend_includes();
 			if ( null === WC()->cart && function_exists( 'wc_load_cart' ) ) {
 				wc_load_cart();
@@ -1137,11 +1341,11 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 	public function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', '/****************************/' );
-			$this->log->add( 'googlepayredsys', '      successful_request      ' );
-			$this->log->add( 'googlepayredsys', '/****************************/' );
-			$this->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', '/****************************/' );
+			WCRed()->log( 'googlepayredsys', '      successful_request      ' );
+			WCRed()->log( 'googlepayredsys', '/****************************/' );
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 
 		if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_Signature'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -1153,11 +1357,11 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', '$version: ' . $version );
-			$this->log->add( 'googlepayredsys', '$data: ' . $data );
-			$this->log->add( 'googlepayredsys', '$remote_sign: ' . $remote_sign );
-			$this->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', '$version: ' . $version );
+			WCRed()->log( 'googlepayredsys', '$data: ' . $data );
+			WCRed()->log( 'googlepayredsys', '$remote_sign: ' . $remote_sign );
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 
 		$mi_obj            = new WooRedsysAPI();
@@ -1168,28 +1372,28 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$dscardnumber4     = '';
 		$dsexpiryyear      = '';
 		$dsexpirymonth     = '';
-		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
-		$response          = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$decodedata        = $mi_obj->decode_merchant_parameters( $data );
+		$localsecret       = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
+		$total             = $mi_obj->get_parameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->get_parameter( 'Ds_Order' );
+		$dscode            = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->get_parameter( 'Ds_Currency' );
+		$response          = $mi_obj->get_parameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->get_parameter( 'Ds_AuthorisationCode' );
+		$dsdate            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Date' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dshour            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Hour' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dstermnal         = $mi_obj->get_parameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->get_parameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->get_parameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->get_parameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype = $mi_obj->get_parameter( 'Ds_TransactionType' );
+		$dsmerchantidenti  = $mi_obj->get_parameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand       = $mi_obj->get_parameter( 'Ds_Card_Brand' );
+		$dsmechandata      = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dscargtype        = $mi_obj->get_parameter( 'Ds_Card_Type' );
+		$dserrorcode       = $mi_obj->get_parameter( 'Ds_ErrorCode' );
+		$dpaymethod        = $mi_obj->get_parameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
 		$response          = intval( $response );
 		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
 		$order1            = $ordermi;
@@ -1197,46 +1401,46 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$order             = WCRed()->get_order( (int) $order2 );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', 'SHA256 Settings: ' . $usesecretsha256 );
-			$this->log->add( 'googlepayredsys', 'SHA256 Transcient: ' . $secretsha256 );
-			$this->log->add( 'googlepayredsys', 'decodeMerchantParameters: ' . $decodedata );
-			$this->log->add( 'googlepayredsys', 'createMerchantSignatureNotif: ' . $localsecret );
-			$this->log->add( 'googlepayredsys', 'Ds_Amount: ' . $total );
-			$this->log->add( 'googlepayredsys', 'Ds_Order: ' . $ordermi );
-			$this->log->add( 'googlepayredsys', 'Ds_MerchantCode: ' . $dscode );
-			$this->log->add( 'googlepayredsys', 'Ds_Currency: ' . $currency_code );
-			$this->log->add( 'googlepayredsys', 'Ds_Response: ' . $response );
-			$this->log->add( 'googlepayredsys', 'Ds_AuthorisationCode: ' . $id_trans );
-			$this->log->add( 'googlepayredsys', 'Ds_Date: ' . $dsdate );
-			$this->log->add( 'googlepayredsys', 'Ds_Hour: ' . $dshour );
-			$this->log->add( 'googlepayredsys', 'Ds_Terminal: ' . $dstermnal );
-			$this->log->add( 'googlepayredsys', 'Ds_MerchantData: ' . $dsmerchandata );
-			$this->log->add( 'googlepayredsys', 'Ds_SecurePayment: ' . $dssucurepayment );
-			$this->log->add( 'googlepayredsys', 'Ds_Card_Country: ' . $dscardcountry );
-			$this->log->add( 'googlepayredsys', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
-			$this->log->add( 'googlepayredsys', 'Ds_Card_Type: ' . $dscargtype );
-			$this->log->add( 'googlepayredsys', 'Ds_TransactionType: ' . $dstransactiontype );
-			$this->log->add( 'googlepayredsys', 'Ds_Merchant_Identifiers_Amount: ' . $response );
-			$this->log->add( 'googlepayredsys', 'Ds_Card_Brand: ' . $dscardbrand );
-			$this->log->add( 'googlepayredsys', 'Ds_MerchantData: ' . $dsmechandata );
-			$this->log->add( 'googlepayredsys', 'Ds_ErrorCode: ' . $dserrorcode );
-			$this->log->add( 'googlepayredsys', 'Ds_PayMethod: ' . $dpaymethod );
+			WCRed()->log( 'googlepayredsys', 'SHA256 Settings: ' . $usesecretsha256 );
+			WCRed()->log( 'googlepayredsys', 'SHA256 Transcient: ' . $secretsha256 );
+			WCRed()->log( 'googlepayredsys', 'decode_merchant_parameters: ' . $decodedata );
+			WCRed()->log( 'googlepayredsys', 'create_merchant_signature_notif: ' . $localsecret );
+			WCRed()->log( 'googlepayredsys', 'Ds_Amount: ' . $total );
+			WCRed()->log( 'googlepayredsys', 'Ds_Order: ' . $ordermi );
+			WCRed()->log( 'googlepayredsys', 'Ds_MerchantCode: ' . $dscode );
+			WCRed()->log( 'googlepayredsys', 'Ds_Currency: ' . $currency_code );
+			WCRed()->log( 'googlepayredsys', 'Ds_Response: ' . $response );
+			WCRed()->log( 'googlepayredsys', 'Ds_AuthorisationCode: ' . $id_trans );
+			WCRed()->log( 'googlepayredsys', 'Ds_Date: ' . $dsdate );
+			WCRed()->log( 'googlepayredsys', 'Ds_Hour: ' . $dshour );
+			WCRed()->log( 'googlepayredsys', 'Ds_Terminal: ' . $dstermnal );
+			WCRed()->log( 'googlepayredsys', 'Ds_MerchantData: ' . $dsmerchandata );
+			WCRed()->log( 'googlepayredsys', 'Ds_SecurePayment: ' . $dssucurepayment );
+			WCRed()->log( 'googlepayredsys', 'Ds_Card_Country: ' . $dscardcountry );
+			WCRed()->log( 'googlepayredsys', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
+			WCRed()->log( 'googlepayredsys', 'Ds_Card_Type: ' . $dscargtype );
+			WCRed()->log( 'googlepayredsys', 'Ds_TransactionType: ' . $dstransactiontype );
+			WCRed()->log( 'googlepayredsys', 'Ds_Merchant_Identifiers_Amount: ' . $response );
+			WCRed()->log( 'googlepayredsys', 'Ds_Card_Brand: ' . $dscardbrand );
+			WCRed()->log( 'googlepayredsys', 'Ds_MerchantData: ' . $dsmechandata );
+			WCRed()->log( 'googlepayredsys', 'Ds_ErrorCode: ' . $dserrorcode );
+			WCRed()->log( 'googlepayredsys', 'Ds_PayMethod: ' . $dpaymethod );
 		}
 
 		// refund.
 		if ( '3' === $dstransactiontype ) {
 			if ( 900 === $response ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'Response 900 (refund)' );
+					WCRed()->log( 'googlepayredsys', 'Response 900 (refund)' );
 				}
 				set_transient( $order->get_id() . '_redsys_refund', 'yes' );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'WCRed()->update_order_meta to "refund yes"' );
+					WCRed()->log( 'googlepayredsys', 'WCRed()->update_order_meta to "refund yes"' );
 				}
 				$status = $order->get_status();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', 'New Status in request: ' . $status );
+					WCRed()->log( 'googlepayredsys', 'New Status in request: ' . $status );
 				}
 				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
 				return;
@@ -1263,28 +1467,28 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$secretsha256   = $this->get_redsys_sha256( $user_id );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', '/**************************/' );
-			$this->log->add( 'googlepayredsys', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', '/**************************/' );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', '/**************************/' );
+			WCRed()->log( 'googlepayredsys', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', '/**************************/' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
 		}
 		$transaction_type  = '3';
 		$secretsha256_meta = WCRed()->get_order_meta( $order_id, '_redsys_secretsha256', true );
 		if ( $secretsha256_meta ) {
 			$secretsha256 = $secretsha256_meta;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'googlepayredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'googlepayredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'googlepayredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		} else {
 			$secretsha256 = $secretsha256;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'googlepayredsys', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'googlepayredsys', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'googlepayredsys', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		}
 		if ( 'yes' === $this->not_use_https ) {
@@ -1303,71 +1507,69 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', '**********************' );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'googlepayredsys', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'googlepayredsys', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
-			$this->log->add( 'googlepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'googlepayredsys', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
-			$this->log->add( 'googlepayredsys', __( 'FUC : ', 'woocommerce-redsys' ) . $order_fuc );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', '**********************' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'googlepayredsys', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'googlepayredsys', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
+			WCRed()->log( 'googlepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'googlepayredsys', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
+			WCRed()->log( 'googlepayredsys', __( 'FUC : ', 'woocommerce-redsys' ) . $order_fuc );
 		}
 
 		if ( ! empty( $currencycode ) ) {
 			$currency = $currencycode;
-		} else {
-			if ( ! empty( $currency_codes ) ) {
-				$currency = $currency_codes[ get_woocommerce_currency() ];
-			}
+		} elseif ( ! empty( $currency_codes ) ) {
+			$currency = $currency_codes[ get_woocommerce_currency() ];
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
-		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', '*********************************' );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $order_fuc );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
-			$this->log->add( 'googlepayredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'googlepayredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'googlepayredsys', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
-			$this->log->add( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', '*********************************' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $order_fuc );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
+			WCRed()->log( 'googlepayredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'googlepayredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'googlepayredsys', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
+			WCRed()->log( 'googlepayredsys', ' ' );
 		}
 
 		$version   = 'HMAC_SHA256_V1';
 		$request   = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$redsys_adr,
@@ -1385,11 +1587,11 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'googlepayredsys', '*********************************' );
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'googlepayredsys', '*********************************' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
 			return $post_arg;
 		}
@@ -1406,12 +1608,12 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		$order        = WCRed()->get_order( (int) $order_id );
 		$order_refund = get_transient( $order->get_id() . '_redsys_refund' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
-			$this->log->add( 'googlepayredsys', '*****************************************' );
-			$this->log->add( 'googlepayredsys', ' ' );
-			$this->log->add( 'googlepayredsys', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
-			$this->log->add( 'googlepayredsys', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
+			WCRed()->log( 'googlepayredsys', '*****************************************' );
+			WCRed()->log( 'googlepayredsys', ' ' );
+			WCRed()->log( 'googlepayredsys', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
+			WCRed()->log( 'googlepayredsys', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
 		}
 		if ( 'yes' === $order_refund ) {
 			return true;
@@ -1434,7 +1636,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 
 		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'googlepayredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'googlepayredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}
 		if ( ! $amount ) {
 			$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
@@ -1444,14 +1646,14 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 
 		if ( ! empty( $transaction_id ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
+				WCRed()->log( 'googlepayredsys', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
 
 			$refund_asked = $this->ask_for_refund( $order_id, $transaction_id, $order_total_sign );
 
 			if ( is_wp_error( $refund_asked ) ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'googlepayredsys', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
+					WCRed()->log( 'googlepayredsys', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
 				}
 				return new WP_Error( 'error', $refund_asked->get_error_message() );
 			}
@@ -1459,50 +1661,50 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			do {
 				sleep( 5 );
 				$result = $this->check_redsys_refund( $order_id );
-				$x++;
+				++$x;
 			} while ( $x <= 20 && false === $result );
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'googlepayredsys', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', '/********************************/' );
-				$this->log->add( 'googlepayredsys', '  Refund complete by Redsys   ' );
-				$this->log->add( 'googlepayredsys', '/********************************/' );
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', '/******************************************/' );
-				$this->log->add( 'googlepayredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'googlepayredsys', '/******************************************/' );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', '/********************************/' );
+				WCRed()->log( 'googlepayredsys', '  Refund complete by Redsys   ' );
+				WCRed()->log( 'googlepayredsys', '/********************************/' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', '/******************************************/' );
+				WCRed()->log( 'googlepayredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'googlepayredsys', '/******************************************/' );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 			if ( 'yes' === $this->debug && ! $result ) {
-				$this->log->add( 'googlepayredsys', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'googlepayredsys', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
 			}
 			if ( $result ) {
 				delete_transient( $order->get_id() . '_redsys_refund' );
 				return true;
 			} else {
 				if ( 'yes' === $this->debug && $result ) {
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'googlepayredsys', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
-					$this->log->add( 'googlepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', ' ' );
-					$this->log->add( 'googlepayredsys', '/******************************************/' );
-					$this->log->add( 'googlepayredsys', '  The final has come, this story has ended  ' );
-					$this->log->add( 'googlepayredsys', '/******************************************/' );
-					$this->log->add( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'googlepayredsys', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
+					WCRed()->log( 'googlepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', ' ' );
+					WCRed()->log( 'googlepayredsys', '/******************************************/' );
+					WCRed()->log( 'googlepayredsys', '  The final has come, this story has ended  ' );
+					WCRed()->log( 'googlepayredsys', '/******************************************/' );
+					WCRed()->log( 'googlepayredsys', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'googlepayredsys', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
-				$this->log->add( 'googlepayredsys', ' ' );
-				$this->log->add( 'googlepayredsys', '/******************************************/' );
-				$this->log->add( 'googlepayredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'googlepayredsys', '/******************************************/' );
-				$this->log->add( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
+				WCRed()->log( 'googlepayredsys', ' ' );
+				WCRed()->log( 'googlepayredsys', '/******************************************/' );
+				WCRed()->log( 'googlepayredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'googlepayredsys', '/******************************************/' );
+				WCRed()->log( 'googlepayredsys', ' ' );
 			}
 			return new WP_Error( 'error', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
 		}
@@ -1529,7 +1731,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 						}
 					}
 				</style>';
-			$allowed_html        = array(
+			$allowed_html = array(
 				'br'     => array(),
 				'p'      => array(
 					'style' => array(),
@@ -1584,7 +1786,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 			$time          = time();
 			wp_deregister_script( 'gpay-redsys' );
 			wp_register_script( 'redsys-external-pay-js', 'https://pay.google.com/gp/p/js/pay.js', array(), $time, true );
-			wp_register_script( 'gpay-redsys', esc_url( REDSYS_PLUGIN_URL_P ) . 'assets/js/gpay-redsys.js', array( 'jquery', 'redsys-external-pay-js' ), $time, true );
+			wp_register_script( 'gpay-redsys', esc_url( REDSYS_PLUGIN_URL_P ) . 'assets/js/gpay-redsys.min.js', array( 'jquery', 'redsys-external-pay-js' ), $time, true );
 			$script_data_array = array(
 				'gatewayMerchantId' => $this->customer,
 				'merchantId'        => $this->g_merchant_id,
@@ -1602,7 +1804,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 				'buttonLocale'      => $this->button_locale,
 			);
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', '$script_data_array: ' . print_r( $script_data_array, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'googlepayredsys', '$script_data_array: ' . print_r( $script_data_array, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			wp_localize_script( 'gpay-redsys', 'gpay_redsys', $script_data_array );
 			wp_enqueue_script( 'redsys-external-pay-js' );
@@ -1611,21 +1813,32 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
 		}
 	}
 	/**
-	 * Save fields to checkout (Gpay).
+	 * Process the payment and return the result.
 	 *
 	 * @param int $order_id Order ID.
 	 */
 	public function save_field_update_order_meta( $order_id ) {
 
-		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) && 'googlepayredsys' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
+		if ( isset( $_POST['payment_method'] ) && 'googlepayredsys' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'googlepayredsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'googlepayredsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
-			if ( ! empty( $_POST['gpay-token-redsys'] ) ) {
-				$gpay_token                 = sanitize_text_field( wp_unslash( $_POST['gpay-token-redsys'] ) );
+
+			$data = array(); // Inicializar array $data para almacenar los datos de la orden.
+
+			// Verificar si 'gpay-token-redsys' está definido y no está vacío.
+			if ( ! empty( $_POST['gpay-token-redsys'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+				$gpay_token                 = sanitize_text_field( wp_unslash( $_POST['gpay-token-redsys'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				$data['_gpay_token_redsys'] = sanitize_text_field( $gpay_token );
 			}
-			WCRed()->update_order_meta( $order_id, $data );
+
+			// Asegurarse de que $data no esté vacío antes de actualizar el meta de la orden.
+			if ( ! empty( $data ) ) {
+				WCRed()->update_order_meta( $order_id, $data );
+			}
 		}
 	}
 }
@@ -1634,7 +1847,7 @@ class WC_Gateway_Googlepay_Checkout extends WC_Payment_Gateway {
  *
  * @param array $methods WooCommerce payment methods.
  */
-function woocommerce_add_gateway_googlepay_redsys( $methods ) {
+function woocommerce_add_gateway_googlepay_redsys( $methods ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 	$methods[] = 'WC_Gateway_Googlepay_Checkout';
 	return $methods;
 }

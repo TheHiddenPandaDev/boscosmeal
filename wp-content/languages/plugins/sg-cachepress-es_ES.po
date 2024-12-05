@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Speed Optimizer &#8211; The All-In-One Performance-Boosting Plugin - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-07-02 16:12:52+0000\n"
+"PO-Revision-Date: 2024-11-21 14:49:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,11 +11,15 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: Plugins - Speed Optimizer &#8211; The All-In-One Performance-Boosting Plugin - Stable (latest release)\n"
 
+#: helpers/react-strings.php:27
+msgid "Caching is essential for speeding up your website. With our Dynamic Caching enabled all non-static resources of your website are cached to prevent unnecessary database queries and page loading, effectively decreasing the loading speed and TTFB (time to first byte) of your website."
+msgstr "El almacenamiento en caché es esencial para acelerar tu web. Con nuestro almacenamiento en caché dinámico activo todos los recursos no estáticos de tu web se almacenan en caché para evitar consultas innecesarias en la base de datos y la carga de página, lo que reduce de forma muy efectiva la velocidad de carga y el TTFB (tiempo hasta el primer byte) de tu web."
+
 #: helpers/react-strings.php:69
 msgid "With file-based caching enabled, we will create static HTML versions of your website for future visitors. The files will be stored in the WordPress cache directory and served from the local browser cache."
 msgstr "Con la caché basada en archivos activa, crearemos versiones de HTML estático de tu web para los futuros visitantes. Los archivos se almacenarán en el directorio cache de WordPress y se servirán desde la caché local del navegador."
 
-#: core/Admin/Admin.php:463
+#: core/Admin/Admin.php:462
 msgid "By installing and using this plugin you acknowledge that you have read and understood <a href=\"//siteground.com/viewtos/siteground_plugins_privacy_notice\"> SiteGround Plugins Privacy Notice </a>."
 msgstr "Al instalar y usar este plugin aceptas que has leído y comprendido <a href=\"//siteground.com/viewtos/siteground_plugins_privacy_notice\">el aviso de privacidad de plugins de SiteGround</a>."
 
@@ -75,12 +79,12 @@ msgstr "Speed Optimizer de SiteGround"
 msgid "Send occasional emails with tips on improving my site performance, information about new plugin features and exclusive offers by SiteGround. You can always opt-out from these."
 msgstr "Envía correos electrónicos ocasionales con consejos sobre cómo mejorar el rendimiento de mi sitio, información sobre nuevas características del plugin y ofertas exclusivas de SiteGround. Siempre puedes anular el consentimiento."
 
-#: core/Modules/Modules.php:777
+#: core/Modules/Modules.php:798
 msgid "Welcome to Speed Optimizer by SiteGround"
 msgstr "Te damos la bienvenida a Speed Optimizer de SiteGround"
 
 #. Plugin Name of the plugin
-#: sg-cachepress.php core/Admin/Admin.php:248 core/Admin/Admin.php:249
+#: sg-cachepress.php core/Admin/Admin.php:247 core/Admin/Admin.php:248
 msgid "Speed Optimizer"
 msgstr "Speed Optimizer"
 
@@ -88,6 +92,9 @@ msgstr "Speed Optimizer"
 msgid " recommended speed optimization features"
 msgstr " características de optimización de velocidad recomendadas"
 
+#: core/Performance_Reports/Performance_Reports.php:232
+#: core/Performance_Reports/Performance_Reports.php:254
+#: core/Performance_Reports/Performance_Reports.php:300
 #: templates/performance_reports/performance_reports.php:129
 msgid " out of "
 msgstr " de "
@@ -166,10 +173,6 @@ msgstr "Dirección de correo electrónico no válida."
 #: core/Performance_Reports/Performance_Reports.php:395
 msgid "Once Monthly"
 msgstr "Una vez al mes"
-
-#: core/Performance_Reports/Performance_Reports.php:39
-msgid "Optimization Status Report for "
-msgstr "Informe de estado de optimización para "
 
 #: templates/campaigns/campaign-template.php:141
 msgid "You are receiving this email because you’re using the SiteGround Optimizer WordPress plugin and you have agreed to receive promotional emails from us. You can unsubscribe or manage your email preferences in the WordPress admin panel."
@@ -852,7 +855,7 @@ msgstr "Las optimizaciones de portada pueden disminuir significativamente la vel
 msgid "Create a safer and faster experience for your users with an optimized environment - decrease the CPU usage by modifying the WordPress Heartbeat API; Pre-Fetch External domains to decrease loading time for third-party domains content; Schedule Database Maintenance to keep your databases clean and fast, and more."
 msgstr "Crea una experiencia más segura y rápida para tus usuarios con un entorno optimizado: disminuye el uso de la CPU modificando la API Heartbeat de WordPress; precarga de dominios externos para reducir el tiempo de carga del contenido de dominios de terceros; programa el mantenimiento de la base de datos para mantenerlas limpias y rápidas, y más."
 
-#: helpers/react-strings.php:27 helpers/sg-cachepress-react-strings.php:26
+#: helpers/sg-cachepress-react-strings.php:26
 msgid "Caching is essential for speeding up your website. With our Dynamic Caching enabled all non-static resources of your website are cached to prevent unnecessary database queries and page loading, effectively decreasing the loading sped and TTFB (time to first byte) of your website."
 msgstr "El almacenamiento en caché es esencial para acelerar tu web. Con nuestro almacenamiento en caché dinámico activo todos los recursos no estáticos de tu web se almacenan en caché para evitar consultas innecesarias en la base de datos y la carga de página, lo que reduce de forma muy efectiva la velocidad de carga y el TTFB (tiempo hasta el primer byte) de tu web."
 
@@ -1046,37 +1049,39 @@ msgstr "La URL está en la caché"
 msgid "Incorrect params used."
 msgstr "Se han usado parámetros incorrectos."
 
-#: core/Modules/Modules.php:778
+#: core/Modules/Modules.php:799
 msgid "Get the best performance for your WordPress website with our optimization plugin. It handles caching, system settings, and all the necessary configurations for a blazing-fast website. With the Speed Optimizer by SiteGround enabled, you’re getting the very best from your hosting environment!"
 msgstr "Obtén el mejor rendimiento para tu sitio WordPress con nuestro plugin de optimización. Gestiona la caché, los ajustes del sistema y todas las configuraciones necesarias para tener una web rápida como el rayo. ¡Con Speed Optimizer de SiteGround activo vas a aprovechar lo mejor de tu entorno de alojamiento!"
 
-#: core/Modules/Modules.php:577
+#. translators: 1: list of conflicting plugins
+#: core/Modules/Modules.php:598
 msgid "<strong>Important warning from Speed Optimizer by SiteGround plugin</strong>: We have detected that there is duplicate functionality with other plugins installed on your site: <strong>%s</strong>. Please note that having two plugins with the same functionality may actually decrease your site's performance and hurt your pages loading times so we recommend you to leave only one of the plugins active."
 msgstr "<strong>Advertencia importante del plugin Speed Optimizer de SiteGround</strong>: Hemos detectado que hay una funcionalidad duplicada con otros plugins instalados en tu sitio: <strong>%s</strong>. Por favor, ten en cuenta que tener dos plugins con la misma funcionalidad puede disminuir realmente el rendimiento de tu sitio y dañar los tiempos de carga de tus páginas, por lo que te recomendamos que dejes activo solo uno de los plugins."
 
-#: core/Modules/Modules.php:542
+#. translators: 1: list of conflicting plugins, 2: module names
+#: core/Modules/Modules.php:562
 msgid "<strong>Important message from Speed Optimizer by SiteGround plugin</strong>: We have detected that there is duplicate functionality with other plugins installed on your site: <strong>%1$s</strong> and have deactivated the following functions from our plugin: <strong>%2$s</strong>. If you wish to enable them, please do that from the Speed Optimizer by SiteGround config page."
 msgstr "<strong>Mensaje importante del plugin Speed Optimizer de SiteGround</strong>: Hemos detectado que hay una funcionalidad duplicada con otros plugins instalados en tu sitio: <strong>%1$s</strong> y hemos desactivado las siguientes funciones de nuestro plugin: <strong>%2$s</strong>. Si quieres activarlas, por favor, hazlo desde la página de configuración de SiteGround Optimizer."
 
-#: core/Message_Service/Message_Service.php:91
+#. translators: 1: the message option
+#: core/Message_Service/Message_Service.php:93
 msgid "Could not disable %s"
 msgstr "No se puede desactivar %s"
 
-#: core/Message_Service/Message_Service.php:88
+#. translators: 1: the message option
+#: core/Message_Service/Message_Service.php:90
 msgid "Could not enable %s"
 msgstr "No se puede activar %s"
 
-#: core/Message_Service/Message_Service.php:83
+#. translators: 1: the message option
+#: core/Message_Service/Message_Service.php:84
 msgid "%s Disabled"
 msgstr "%s desactivado"
 
-#: core/Message_Service/Message_Service.php:80
+#. translators: 1: the message option
+#: core/Message_Service/Message_Service.php:81
 msgid "%s Enabled"
 msgstr "%s activado"
-
-#: core/Message_Service/Message_Service.php:75
-msgid "%s"
-msgstr "%s"
 
 #: core/Message_Service/Message_Service.php:67
 msgid "Compression settings updated"
@@ -1277,102 +1282,102 @@ msgstr "Nivel de compresión"
 msgid "others"
 msgstr "otras"
 
-#: core/File_Cacher/File_Cacher.php:764
+#: core/File_Cacher/File_Cacher.php:783
 msgid "Once in two days"
 msgstr "Cada dos días"
 
-#: core/Analysis/Analysis.php:451
+#: core/Analysis/Analysis.php:461
 msgid "Speed Index shows how quickly the contents of a page are visibly populated."
 msgstr "El índice de velocidad muestra lo rápidamente que se rellena de forma visible el contenido de una página."
 
-#: core/Analysis/Analysis.php:450
+#: core/Analysis/Analysis.php:460
 msgid "Summarizes the page's performance."
 msgstr "Resume el rendimiento de la página."
 
-#: core/Analysis/Analysis.php:420
+#: core/Analysis/Analysis.php:430
 msgid "Minify your JavaScript files in order to reduce their size and reduce the number of requests to the server."
 msgstr "Minimiza tus archivos JavaScript para disminuir su tamaño y reducir el número de peticiones al servidor."
 
-#: core/Analysis/Analysis.php:419 helpers/react-strings.php:166
+#: core/Analysis/Analysis.php:429 helpers/react-strings.php:166
 #: helpers/sg-cachepress-react-strings.php:164
 msgid "Minify JavaScript Files"
 msgstr "MInimizar los archivos JavaScript"
 
-#: core/Analysis/Analysis.php:416
+#: core/Analysis/Analysis.php:426
 msgid "Removes unnecessary characters from your HTML output saving data and improving your site speed."
 msgstr "Elimina caracteres innecesarios de tu salida HTML ahorrando datos y mejorando la velocidad de tu sitio."
 
-#: core/Analysis/Analysis.php:415 helpers/react-strings.php:147
+#: core/Analysis/Analysis.php:425 helpers/react-strings.php:147
 #: helpers/sg-cachepress-react-strings.php:145
 msgid "Minify the HTML Output"
 msgstr "Minimizar la salida HTML"
 
-#: core/Analysis/Analysis.php:410 helpers/react-strings.php:152
+#: core/Analysis/Analysis.php:420 helpers/react-strings.php:152
 #: helpers/sg-cachepress-react-strings.php:150
 msgid "With this optimization we're changing the default way to load Google fonts in order to save HTTP requests. In addition to that, all other fonts that your website uses will be properly preloaded so browsers take the least possible amount of time to cache and render them."
 msgstr "Con esta optimización estamos cambiando la forma de cargar las fuentes de Google por defecto para ahorrar peticiones HTTP. Además, todas las demás fuentes que usa tu web serán cargadas previamente de forma correcta para que los navegadores tarden la menor cantidad de tiempo posible en almacenarlas en la caché y mostrarlas."
 
-#: core/Analysis/Analysis.php:409 core/Install_Service/Install_5_7_0.php:28
+#: core/Analysis/Analysis.php:419 core/Install_Service/Install_5_7_0.php:28
 #: core/Message_Service/Message_Service.php:37 helpers/react-strings.php:151
 #: helpers/sg-cachepress-react-strings.php:149
 msgid "Web Fonts Optimization"
 msgstr "Optimización de fuentes web"
 
-#: core/Analysis/Analysis.php:400 core/Analysis/Analysis.php:430
+#: core/Analysis/Analysis.php:410 core/Analysis/Analysis.php:440
 msgid "Store your content in the server’s memory for a faster access with this full-page caching solution powered by NGINX."
 msgstr "Almacena tu contenido en la memoria de los servidores para un acceso más rápido con esta solución de caché de página completa creada por NGINX."
 
-#: core/Analysis/Analysis.php:399 core/Analysis/Analysis.php:429
+#: core/Analysis/Analysis.php:409 core/Analysis/Analysis.php:439
 #: helpers/react-strings.php:56 helpers/sg-cachepress-react-strings.php:55
 msgid "Dynamic Caching"
 msgstr "Caché dinámica"
 
-#: core/Analysis/Analysis.php:394 core/Analysis/Analysis.php:424
+#: core/Analysis/Analysis.php:404 core/Analysis/Analysis.php:434
 #: helpers/react-strings.php:119 helpers/sg-cachepress-react-strings.php:117
 msgid "Combine multiple CSS files into one to lower the number of requests your site generates."
 msgstr "Combina varios archivos CSS en uno para reducir el número de peticiones que genera tu sitio."
 
-#: core/Analysis/Analysis.php:393 core/Analysis/Analysis.php:423
+#: core/Analysis/Analysis.php:403 core/Analysis/Analysis.php:433
 #: helpers/react-strings.php:118 helpers/sg-cachepress-react-strings.php:116
 msgid "Combine CSS Files"
 msgstr "Combinar archivos CSS"
 
-#: core/Analysis/Analysis.php:388
+#: core/Analysis/Analysis.php:398
 msgid "Load images only when they are visible in the browser."
 msgstr "Carga las imágenes solo cuando sean visibles en el navegador."
 
-#: core/Analysis/Analysis.php:387 helpers/react-strings.php:201
+#: core/Analysis/Analysis.php:397 helpers/react-strings.php:201
 #: helpers/sg-cachepress-react-strings.php:199
 msgid "Lazy Load Media"
 msgstr "Carga diferida de medios"
 
-#: core/Analysis/Analysis.php:382 helpers/react-strings.php:209
+#: core/Analysis/Analysis.php:392 helpers/react-strings.php:209
 #: helpers/react-strings.php:238 helpers/sg-cachepress-react-strings.php:207
 #: helpers/sg-cachepress-react-strings.php:236
 msgid "WebP is a next generation image format supported by modern browsers which greatly reduces the size of standard image formats while keeping the same quality. Almost all current browsers work with WebP."
 msgstr "WebP es un formato de imágenes de nueva generación admitido por los navegadores modernos que reduce enormemente el tamaño de los formatos de imagen tradicionales al mismo tiempo que mantiene la misma calidad. Casi todos los navegadores modernos funcionan con WebP."
 
-#: core/Analysis/Analysis.php:381 helpers/react-strings.php:208
+#: core/Analysis/Analysis.php:391 helpers/react-strings.php:208
 #: helpers/react-strings.php:237 helpers/sg-cachepress-react-strings.php:206
 #: helpers/sg-cachepress-react-strings.php:235
 msgid "Use WebP Images"
 msgstr "Usar imágenes WebP"
 
-#: core/Analysis/Analysis.php:376 core/Analysis/Analysis.php:406
+#: core/Analysis/Analysis.php:386 core/Analysis/Analysis.php:416
 #: helpers/react-strings.php:156 helpers/sg-cachepress-react-strings.php:154
 msgid "Defer loading of render-blocking JavaScript files for faster initial site load."
 msgstr "Carga aplazada de archivos JavaScript que bloquean la visualización para una carga inicial del sitio más rápida."
 
-#: core/Analysis/Analysis.php:375 core/Analysis/Analysis.php:405
+#: core/Analysis/Analysis.php:385 core/Analysis/Analysis.php:415
 #: core/Message_Service/Message_Service.php:33
 msgid "Defer Render-blocking JS"
 msgstr "Aplazar JS que bloqueen la carga"
 
-#: core/Analysis/Analysis.php:190
+#: core/Analysis/Analysis.php:195
 msgid "Opportunities to Optimize"
 msgstr "Oportunidades para optimizar"
 
-#: core/Analysis/Analysis.php:183
+#: core/Analysis/Analysis.php:188
 msgid "The Following Areas of Your Site Are Well Optimized:"
 msgstr "Las siguientes áreas de tu sitio están bien optimizadas:"
 
@@ -1380,15 +1385,15 @@ msgstr "Las siguientes áreas de tu sitio están bien optimizadas:"
 msgid "Purge SG Cache"
 msgstr "Purgar caché de SG"
 
-#: core/Admin/Admin.php:389
+#: core/Admin/Admin.php:388
 msgid "Dashboard"
 msgstr "Escritorio"
 
-#: core/Admin/Admin.php:226
+#: core/Admin/Admin.php:225
 msgid "Your site tried to store a single object above 1MB in Memcached which is above the limitation and will actually slow your site rather than speed it up. Please, check your Options table for obsolete data before enabling it again. Note that the service will be automatically disabled if such error occurs again."
 msgstr "Tu sitio trató de almacenar un objeto simple de más de 1MB en Memcached, que está por encima del límite, y ralentizará tu sitio en vez de acelerarlo. Por favor, revisa tu tabla de opciones para buscar datos obsoletos antes de activarlo de nuevo. Ten en cuenta que el servicio se desactivará automáticamente si ocurre de nuevo este error. "
 
-#: core/Admin/Admin.php:223
+#: core/Admin/Admin.php:222
 msgid "Speed Optimizer by SiteGround has detected that Memcached was turned off. If you want to use it, please enable it from your SiteGround control panel first."
 msgstr "Speed Optimizer de SiteGround ha detectado que Memcached ha sido desactivado. Si quieres usarlo, por favor, primero actívalo desde tu panel de control de SiteGround."
 

@@ -2,9 +2,9 @@
 Contributors: automattic, woocommerce, mikejolley, jameskoster, claudiosanches, rodrigosprimo, peterfabian1000, vedjain, jamosova, obliviousharmony, konamiman, sadowski, wpmuguru, royho, barryhughes-1, claudiulodro, tiagonoronha, ryelle, levinmedia, aljullu, nerrad, joshuawold, assassinateur, haszari, mppfeiffer, nielslange, opr18, ralucastn, tjcafferkey, danielwrobert, patriciahillebrandt, albarin, dinhtungdu, imanish003, karolmanijak, sunyatasattva, alexandrelara, gigitux, danieldudzic, samueljseay, alexflorisca, opr18, tarunvijwani, pauloarromba, saadtarhi, bor0, kloon, coreymckrill, jorgeatorres, leifsinger
 Tags: online store, ecommerce, shop, shopping cart, sell online
 Requires at least: 6.5
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 9.3.1
+Stable tag: 9.4.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -169,11 +169,12 @@ WooCommerce comes with some sample data you can use to see how products look; im
 
 == Changelog ==
 
-= 9.3.2 2024-09-18 =
+= 9.4.2 2024-11-19 =
 
-- Fix - Improve the product importer's handling of filepaths under Windows [#51456](https://github.com/woocommerce/woocommerce/pull/51456)
-- Fix - Revert changes related to low stock product notifications [#51441](https://github.com/woocommerce/woocommerce/pull/51441)
-- Fix - Resolve a bug where manually triggering `added_to_cart` event without a button element caused an Exception [#51449](https://github.com/woocommerce/woocommerce/pull/51449)
+**WooCommerce**
 
+* Fix - Modify product import file check to use the WP filesystem API [#51540](https://github.com/woocommerce/woocommerce/pull/51540)
+* Fix - Fix the Payments main menu item linking to a blank page when onboarding tasks are hidden [#52917](https://github.com/woocommerce/woocommerce/pull/52917)
+* Fix - Improve CSV import performance by restoring the default value for `woocommerce_product_import_batch_size` [#51666](https://github.com/woocommerce/woocommerce/pull/51666)
 
 [See changelog for all versions](https://raw.githubusercontent.com/woocommerce/woocommerce/trunk/changelog.txt).

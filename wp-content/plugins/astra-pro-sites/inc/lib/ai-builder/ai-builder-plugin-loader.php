@@ -265,6 +265,7 @@ class Ai_Builder_Plugin_Loader {
 		$zipwp_auth = array(
 			'screen_url'   => ZIPWP_APP,
 			'redirect_url' => admin_url( 'themes.php?page=ai-builder' ),
+			'source'       => 'starter-templates',
 		);
 
 		if ( ! empty( $partner_id ) ) {
@@ -391,6 +392,7 @@ class Ai_Builder_Plugin_Loader {
 		return array(
 			'ajax_url'                 => admin_url( 'admin-ajax.php' ),
 			'_ajax_nonce'              => wp_create_nonce( 'astra-sites' ),
+			'zipwp_auth_nonce'         => wp_create_nonce( 'zipwp-auth-nonce' ),
 			'adminUrl'                 => admin_url(),
 			'imageDir'                 => AI_BUILDER_URL . 'inc/assets/images/',
 			'supportLink'              => $support_link,
@@ -414,7 +416,9 @@ class Ai_Builder_Plugin_Loader {
 			'business_details'         => Ai_Builder_ZipWP_Integration::get_business_details(),
 			'skipFeatures'             => 'yes' === apply_filters( 'ai_builder_skip_features', 'no' ),
 			'show_premium_badge'       => 'yes' === apply_filters( 'ai_builder_show_premium_badge', 'yes' ),
+			'show_premium_templates'   => 'yes' === apply_filters( 'ai_builder_show_premium_templates', 'yes' ),
 			'parent_plugin'            => apply_filters( 'ai_builder_parent_plugin', 'wp-astra-sites' ),
+			'failed_sites'             => $this->get_failed_sites(),
 			'filtered_data'            => apply_filters(
 				'ai_builder_limit_exceeded_popup_strings',
 				array(
@@ -436,13 +440,37 @@ class Ai_Builder_Plugin_Loader {
 						$team_name,
 					),
 					'upgrade_text'      => __( 'Unlock Full Power', 'astra-sites' ),
-					'upgrade_url'       => 'https://app.zipwp.com/founders-deal',
+					'upgrade_url'       => 'https://app.zipwp.com/founders-deal?source=starter-templates',
 					'contact_url'       => $support_link,
 					'contact_text'      => __( 'Contact Support', 'astra-sites' ),
 				)
 			),
 			'default_website_language' => apply_filters( 'ai_builder_default_website_language', 'en' ),
+			'show_zip_plan'            => apply_filters( 'ai_builder_show_zip_plan_details', true ),
+			'hide_site_features'       => apply_filters( 'ai_builder_hidden_site_features', array() ),
 		);
+	}
+
+	/**
+	 * Get failed sites.
+	 *
+	 * @since 1.2.3
+	 *
+	 * @return array<int, array<string, mixed>>
+	 */
+	public function get_failed_sites() {
+
+		$failed_sites        = get_option( 'astra_sites_import_failed_sites', array() );
+		$active_failed_sites = array();
+		if ( is_array( $failed_sites ) ) {
+			foreach ( $failed_sites as $site ) {
+				if ( ! $site['is_expired'] ) {
+					$active_failed_sites[] = $site;
+				}
+			}
+		}
+
+		return $active_failed_sites;
 	}
 
 	/**

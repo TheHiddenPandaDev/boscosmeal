@@ -1,7 +1,7 @@
-<?php
+<?php // phpcs:disable
 if (! class_exists ( 'ISDCCConfirmationMessage' )) {
-	include_once $GLOBALS["REDSYS_API_PATH"] . "/Model/ISGenericXml.php";
-	include_once $GLOBALS["REDSYS_API_PATH"] . "/Model/ISRequestInterface.php";
+	include_once $GLOBALS["REDSYS_API_PATH"] . "/model/class-isgenericxml.php";
+	include_once $GLOBALS["REDSYS_API_PATH"] . "/model/ISRequestInterface.php";
 	
 	/**
 	 * @XML_ELEM=DATOSENTRADA
@@ -31,24 +31,24 @@ if (! class_exists ( 'ISDCCConfirmationMessage' )) {
 		 * @XML_ELEM=DS_MERCHANT_SESION
 		 */
 		private $sesion = null;
-		public function getOrder() {
+		public function get_order() {
 			return $this->order;
 		}
-		public function setOrder($order) {
+		public function set_order($order) {
 			$this->order = $order;
 			return $this;
 		}
-		public function getMerchant() {
+		public function get_merchant() {
 			return $this->merchant;
 		}
-		public function setMerchant($merchant) {
+		public function set_merchant($merchant) {
 			$this->merchant = $merchant;
 			return $this;
 		}
-		public function getTerminal() {
+		public function get_terminal() {
 			return $this->terminal;
 		}
-		public function setTerminal($terminal) {
+		public function set_terminal($terminal) {
 			$this->terminal = $terminal;
 			return $this;
 		}
@@ -68,9 +68,9 @@ if (! class_exists ( 'ISDCCConfirmationMessage' )) {
 		}
 		public function __toString() {
 			$string = "ISDCCConfirmationMessage{";
-			$string .= 'order: ' . $this->getOrder () . ', ';
-			$string .= 'merchant: ' . $this->getMerchant () . ', ';
-			$string .= 'terminal: ' . $this->getTerminal () . ', ';
+			$string .= 'order: ' . $this->get_order () . ', ';
+			$string .= 'merchant: ' . $this->get_merchant () . ', ';
+			$string .= 'terminal: ' . $this->get_terminal () . ', ';
 			$string .= 'currencyCode: ' . $this->getCurrencyCode () . ', ';
 			$string .= 'sesion: ' . $this->getSesion () . '';
 			return $string . "}";

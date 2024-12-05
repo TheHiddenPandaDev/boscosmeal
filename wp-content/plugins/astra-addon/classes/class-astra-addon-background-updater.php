@@ -50,6 +50,9 @@ if ( ! class_exists( 'Astra_Addon_Background_Updater' ) ) {
 			'4.7.0' => array(
 				'astra_addon_background_updater_4_7_0',
 			),
+			'4.8.4' => array(
+				'astra_addon_background_updater_4_8_4',
+			),
 		);
 
 		/**
@@ -176,12 +179,10 @@ if ( ! class_exists( 'Astra_Addon_Background_Updater' ) ) {
 
 			if ( wp_remote_retrieve_response_code( $result ) >= 300 ) {
 				return true;
-			} else {
-				set_transient( 'astra-addon-cron-test-ok', 1, 3600 );
-				return false;
 			}
 
-			return $migration_fallback;
+			set_transient( 'astra-addon-cron-test-ok', 1, 3600 );
+			return false;
 		}
 
 		/**

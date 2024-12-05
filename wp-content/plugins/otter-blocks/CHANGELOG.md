@@ -1,3 +1,26 @@
+##### [Version 3.0.7](https://github.com/Codeinwp/otter-blocks/compare/v3.0.6...v3.0.7) (2024-11-21)
+
+- Enhanced security
+
+##### [Version 3.0.6](https://github.com/Codeinwp/otter-blocks/compare/v3.0.5...v3.0.6) (2024-11-12)
+
+- Fixed issue where spaces couldnt be typed directly in the Form blocks Submit button
+- Updated dependencies
+
+##### [Version 3.0.5](https://github.com/Codeinwp/otter-blocks/compare/v3.0.4...v3.0.5) (2024-10-30)
+
+- Improve strings structure for translation workflow
+- Enhanced security
+- Update internal dependencies
+
+##### [Version 3.0.4](https://github.com/Codeinwp/otter-blocks/compare/v3.0.3...v3.0.4) (2024-10-08)
+
+- Fixed styling that was breaking Otters notice
+- Fixed PHP fatal error appearing in some edge cases
+- Fixed border width and border-radius not working for Button Group block
+- Enhanced security
+- Fixed an issue with the user survey display
+
 ##### [Version 3.0.3](https://github.com/Codeinwp/otter-blocks/compare/v3.0.2...v3.0.3) (2024-08-28)
 
 ### Bug Fixes

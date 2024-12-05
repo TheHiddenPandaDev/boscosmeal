@@ -1,9 +1,6 @@
 /* @type {import('tailwindcss').Config} */
 module.exports = {
-	content: [
-		'./inc/lib/onboarding/assets/src/**/*.{jsx,js}',
-		'./inc/lib/nps-survey/src/**/*.{jsx,js}',
-	],
+	content: [ './inc/lib/onboarding/assets/src/**/*.{jsx,js}' ],
 	theme: {
 		extend: {
 			colors: {
@@ -23,9 +20,11 @@ module.exports = {
 				'background-primary': '#FFFFFF',
 				'background-secondary': '#F3F4F6',
 				'background-tertiary': '#F0F0FF',
+				'container-background': '#F0F4FA',
 				'nps-button-background': '#2271B1',
 				'nps-placeholder-text': '#64748B',
 				'border-primary': '#D1D5DB',
+				'classic-button': '#2463EB',
 				'border-secondary': '#6B7280',
 				'border-tertiary': '#D8DFE9',
 				'border-nps-primary': '#E2E8F0',

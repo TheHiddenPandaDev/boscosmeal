@@ -24,13 +24,15 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		 * @var object Class object.
 		 * @access private
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
+		 * 
+		 * @return mixed Initialized object of class.
 		 */
 		public static function get_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;
@@ -48,14 +50,13 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 			add_filter( 'bsf_skip_braisntorm_menu', array( $this, 'skip_menu' ) );
 			add_filter( 'bsf_skip_author_registration', array( $this, 'skip_menu' ) );
 			add_filter( 'bsf_is_product_bundled', array( $this, 'remove_astra_pro_bundled_products' ), 20, 3 );
-			add_action( 'bsf_get_plugin_information', array( $this, 'plugin_information' ) );
+			add_action( 'bsf_get_plugin_information', array( $this, 'plugin_information' ) ); // @phpstan-ignore-line
 			add_filter( 'bsf_license_form_heading_astra-pro-sites', array( $this, 'license_form_titles' ), 10, 3 );
 			add_filter( 'bsf_registration_page_url_astra-pro-sites', array( $this, 'license_form_link' ) );
 			add_filter( 'bsf_product_activation_notice_astra-pro-sites', array( $this, 'activation_notice' ), 10, 3 );
 
 			add_filter( 'bsf_get_license_message_astra-pro-sites', array( $this, 'license_notice' ), 10 );
-
-			add_action( 'plugin_action_links_' . ASTRA_PRO_SITES_BASE, array( $this, 'license_form_and_links' ), 60 );
+			add_action( 'plugin_action_links_' . ASTRA_PRO_SITES_BASE, array( $this, 'license_form_and_links' ), 60 ); // @phpstan-ignore-line
 
 			add_action( 'bsf_activate_license_astra-pro-sites_after_success', array( $this, 'activate_or_deactivate_license' ) );
 			add_action( 'bsf_deactivate_license_astra-pro-sites_after_success', array( $this, 'activate_or_deactivate_license' ) );
@@ -68,7 +69,10 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		 * @return void
 		 */
 		public function activate_or_deactivate_license() {
-			Astra_Sites_Batch_Processing_Importer::get_instance()->set_license_page_builder();
+			if ( class_exists( 'Astra_Sites_Batch_Processing_Importer' ) ) {
+				// @phpstan-ignore-next-line
+				Astra_Sites_Batch_Processing_Importer::get_instance()->set_license_page_builder();
+			}
 		}
 
 		/**
@@ -78,8 +82,8 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		 * Set the default page builder ID to load it by default.
 		 *
 		 * @since 1.2.4
-		 * @param   mixed $links Plugin Action links.
-		 * @return  array        Filtered plugin action links.
+		 * @param mixed $links Plugin Action links.
+		 * @return array<int, string> Filtered plugin action links.
 		 */
 		public function license_form_and_links( $links = array() ) {
 
@@ -157,7 +161,7 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 			$bsf_core_version_file = realpath( dirname( __FILE__ ) . '/admin/bsf-core/version.yml' );
 
 			// Is file 'version.yml' exist?
-			if ( is_file( $bsf_core_version_file ) ) {
+			if ( is_string( $bsf_core_version_file ) && is_file( $bsf_core_version_file ) ) {
 				global $bsf_core_version, $bsf_core_path;
 
 				if ( null === $bsf_core_version ) {
@@ -166,7 +170,7 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 
 				$bsf_core_dir = realpath( dirname( __FILE__ ) . '/admin/bsf-core/' );
 				// @codingStandardsIgnoreStart
-				$version      = file_get_contents( $bsf_core_version_file );
+				$version      = (string)file_get_contents( $bsf_core_version_file );
 				// @codingStandardsIgnoreEnd
 
 				// Compare versions.
@@ -184,11 +188,11 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param  array  $product_parent  Array of parent product ids.
-		 * @param  String $bsf_product    Product ID or  Product init or Product name based on $search_by.
-		 * @param  String $search_by      Reference to search by id | init | name of the product.
+		 * @param  array<string, string> $product_parent  Array of parent product ids.
+		 * @param  String                $bsf_product    Product ID or  Product init or Product name based on $search_by.
+		 * @param  String                $search_by      Reference to search by id | init | name of the product.
 		 *
-		 * @return array                 Array of parent product ids.
+		 * @return array<string, string>                 Array of parent product ids.
 		 */
 		public function remove_astra_pro_bundled_products( $product_parent, $bsf_product, $search_by ) {
 
@@ -212,7 +216,7 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		 */
 		public function load() {
 			global $bsf_core_version, $bsf_core_path;
-			if ( is_file( realpath( $bsf_core_path . '/index.php' ) ) ) {
+			if ( is_file( (string) realpath( $bsf_core_path . '/index.php' ) ) ) {
 				include_once realpath( $bsf_core_path . '/index.php' );
 			}
 		}
@@ -224,8 +228,8 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param  array $brainstrom_products   Brainstorm Products.
-		 * @return array                        Brainstorm Products merged with Brainstorm Bundle Products.
+		 * @param  array<string, array<string, mixed>> $brainstrom_products   Brainstorm Products.
+		 * @return array<string, array<string, mixed>> Brainstorm Products merged with Brainstorm Bundle Products.
 		 */
 		public function plugin_information( $brainstrom_products = array() ) {
 
@@ -234,7 +238,7 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 			foreach ( $main_products as $single_product_key => $single_product ) {
 				foreach ( $single_product as $bundle_product_key => $bundle_product ) {
 
-					if ( is_object( $bundle_product ) ) {
+					if ( is_object( $bundle_product ) && isset( $bundle_product->type ) && isset( $bundle_product->slug ) ) {
 						$type = $bundle_product->type;
 						$slug = $bundle_product->slug;
 					} else {
@@ -243,7 +247,7 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 					}
 
 					// Add bundled plugin in installer list.
-					if ( 'plugin' === $type ) {
+					if ( isset( $slug ) && isset( $type ) && 'plugin' === $type ) {
 						$brainstrom_products['plugins'][ $slug ] = (array) $bundle_product;
 					}
 				}
@@ -292,8 +296,8 @@ if ( ! class_exists( 'Brainstorm_Update_Astra_Pro_Sites' ) ) :
 		/**
 		 * Skip Menu.
 		 *
-		 * @param array $products products.
-		 * @return array $products updated products.
+		 * @param array<int, string> $products products.
+		 * @return array<int, string> $products updated products.
 		 */
 		public function skip_menu( $products ) {
 

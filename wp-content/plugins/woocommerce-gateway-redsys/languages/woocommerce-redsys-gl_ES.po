@@ -147,7 +147,7 @@ msgid "Enable QR Codes, WooCommerce Redsys Gateway licence is needed"
 msgstr ""
 
 #: classes/class-redsys-qr-codes.php:245 classes/class-redsys-qr-codes.php:247
-msgid "User redsys.joseconti.com"
+msgid "User plugins.joseconti.com"
 msgstr ""
 
 #: classes/class-redsys-qr-codes.php:252
@@ -3659,7 +3659,7 @@ msgid "The order #%d has been cancelled. The order details:"
 msgstr ""
 
 #: includes/metabox/metaboxes.php:27
-msgid "Error-1: No user of redsys.joseconti.com in Settings"
+msgid "Error-1: No user of plugins.joseconti.com in Settings"
 msgstr ""
 
 #: includes/metabox/metaboxes.php:28
@@ -4120,7 +4120,7 @@ msgid "WooCommerce Servired/RedSys Spain Gateway"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://woo.com/products/redsys-gateway/"
+msgid "https://woocommerce.com/products/redsys-gateway/"
 msgstr ""
 
 #. Description of the plugin/theme

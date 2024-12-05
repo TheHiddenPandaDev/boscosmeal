@@ -66,6 +66,7 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 			add_action( 'wp', array( $this, 'customization_cart_page' ) );
 			add_action( 'wp', array( $this, 'woo_product_tabs_layout' ) );
 			add_action( 'wp', array( $this, 'modern_my_account_template' ) );
+			add_action( 'wp', array( $this, 'restrict_modern_cart' ), );
 
 			// Load WooCommerce shop page styles.
 			add_action( 'wp', array( $this, 'shop_page_styles' ) );
@@ -169,6 +170,9 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 
 			// Modify default WooCommerce checkout form fields arguments.
 			add_filter( 'woocommerce_form_field_args', array( $this, 'checkout_form_fields_args_customization' ), 10, 3 );
+
+			// Product Flip Image.
+			add_action( 'woocommerce_before_shop_loop_item_title', array( $this, 'product_flip_image' ), 10 );
 		}
 
 		/**
@@ -207,8 +211,8 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 		 * @since 3.9.0
 		 */
 		public function add_registration_link_text() {
-			$my_account_register_description_text = __astra_get_option( 'my-account-register-description-text', _x( '%astra%', 'Register Description', 'astra-addon' ) );
-			$my_account_register_text             = __astra_get_option( 'my-account-register-text', _x( '%astra%', 'Register Text', 'astra-addon' ) );
+			$my_account_register_description_text = astra_get_i18n_option( 'my-account-register-description-text', _x( '%astra%', 'Register Description', 'astra-addon' ) );
+			$my_account_register_text             = astra_get_i18n_option( 'my-account-register-text', _x( '%astra%', 'Register Text', 'astra-addon' ) );
 
 			printf(
 				'<p class="ast-woo-form-actions">
@@ -229,8 +233,8 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 		 * @since 3.9.0
 		 */
 		public function add_member_login_link_text() {
-			$my_account_login_description_text = __astra_get_option( 'my-account-login-description-text', _x( '%astra%', 'Login Description Text', 'astra-addon' ) );
-			$my_account_login_text             = __astra_get_option( 'my-account-login-text', _x( '%astra%', 'Login Text', 'astra-addon' ) );
+			$my_account_login_description_text = astra_get_i18n_option( 'my-account-login-description-text', _x( '%astra%', 'Login Description Text', 'astra-addon' ) );
+			$my_account_login_text             = astra_get_i18n_option( 'my-account-login-text', _x( '%astra%', 'Login Text', 'astra-addon' ) );
 
 			printf(
 				'<p class="ast-woo-form-actions">
@@ -454,6 +458,27 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 			register_sidebar(
 				$shop_filter_array
 			);
+		}
+
+		/**
+		 * Product Flip Image
+		 */
+		public function product_flip_image() {
+			/** @psalm-suppress InvalidGlobal */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
+			global $product;
+			/** @psalm-suppress InvalidGlobal */ // phpcs:ignore Generic.Commenting.DocComment.MissingShort
+
+			$hover_style = astra_get_option( 'shop-hover-style' );
+
+			if ( 'swap' === $hover_style ) {
+
+				$attachment_ids = $product->get_gallery_image_ids();
+
+				if ( $attachment_ids ) {
+					$image_size = apply_filters( 'single_product_archive_thumbnail_size', 'woocommerce_thumbnail' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+					echo apply_filters( 'astra_woocommerce_product_flip_image', wp_get_attachment_image( reset( $attachment_ids ), $image_size, false, array( 'class' => 'show-on-hover' ) ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				}
+			}
 		}
 
 		/**
@@ -1154,7 +1179,7 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 			?>
 				<div class="ast-single-product-extras">
 					<?php
-					$extras_text = __astra_get_option( 'single-product-extras-text', _x( '%astra%', 'Extras Title (Free shipping on orders over $50!)', 'astra-addon' ) );
+					$extras_text = astra_get_i18n_option( 'single-product-extras-text', _x( '%astra%', 'Extras Title (Free shipping on orders over $50!)', 'astra-addon' ) );
 
 					if ( $extras_text ) {
 						?>
@@ -1201,7 +1226,7 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 										}
 										if ( isset( $single['label'] ) ) {
 											$single['label'] = isset( $translatable_item_labels[ $key ] )
-												? __astra_get_string( $single['label'], $translatable_item_labels[ $key ] )
+												? astra_get_i18n_string( $single['label'], $translatable_item_labels[ $key ] )
 												: $single['label'];
 											echo esc_html( $single['label'] );
 										}
@@ -1506,6 +1531,15 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 					if ( '' !== $hover_style ) {
 						$classes[] = 'astra-woo-hover-' . $hover_style;
 					}
+				}
+			}
+
+			// Product image hover style classes.
+			if ( is_shop() || is_product_taxonomy() ) {
+				$hover_style = astra_get_option( 'shop-hover-style' );
+
+				if ( '' !== $hover_style ) {
+					$classes[] = 'astra-woo-hover-' . $hover_style;
 				}
 			}
 
@@ -2228,6 +2262,33 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 		}
 
 		/**
+		 * Function to Check if a specific Elementor widget is used on the cart page and remove Astra's modern cart action.
+		 *
+		 * @global WP_Post $post This is the current post object.
+		 * @return void
+		 */
+		public function restrict_modern_cart() {
+			if ( defined( 'ELEMENTOR_VERSION' ) ) {
+				global $post;
+				if ( ! empty( $post ) ) {
+					$elementor_data = get_post_meta( $post->ID, '_elementor_data', true );
+		
+					// Ensure $elementor_data is a string before calling json_decode
+					if ( is_string( $elementor_data ) && ! empty( $elementor_data ) ) {
+						$elementor_data = json_decode( $elementor_data, true );
+		
+						// Proceed if json_decode returns valid data (array or object)
+						if ( $elementor_data && astra_check_elementor_widget( $elementor_data, 'woocommerce-cart' ) ) {
+							if ( class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
+								remove_action( 'wp', array( self::get_instance(), 'modern_cart' ), 99 );
+							}
+						}
+					}
+				}
+			}
+		}
+
+		/**
 		 * Woocommece single product layouts.
 		 *
 		 * @since 3.9.0
@@ -2388,14 +2449,16 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 		 */
 		public function single_product_quantity_ajax_cart() {
 
-			$woo_header_cart_click_action = astra_get_option( 'woo-header-cart-click-action' );
+			$woo_cart_input_field = boolval( astra_get_option( 'woo-mini-cart-input-field-disable' ) );
 
-			add_filter(
-				'woocommerce_widget_cart_item_quantity',
-				array( $this, 'astra_addon_add_offcanvas_quantity_fields' ),
-				10,
-				3
-			);
+			if ( ! $woo_cart_input_field ) {
+				add_filter(
+					'woocommerce_widget_cart_item_quantity',
+					array( $this, 'astra_addon_add_offcanvas_quantity_fields' ),
+					10,
+					3
+				);
+			} 
 		}
 
 		/**
@@ -3067,22 +3130,32 @@ if ( ! class_exists( 'ASTRA_Ext_WooCommerce_Markup' ) ) {
 
 								$default_value = $product->get_default_attributes();
 								$active_class  = ( isset( $default_value[ $term->taxonomy ] ) && $term->slug === $default_value[ $term->taxonomy ] ) ? 'active' : '';
+		
+								// Adding a unique identifier based on the term slug
+								$unique_class = 'variation-' . esc_attr( $term->slug );
+								// Concatenate the classes, using trim to avoid any extra spaces
+								$ast_single_variation = 'ast-single-variation ' . trim( $active_class . ' ' . $unique_class );
 								?>
-									<div class="ast-single-variation <?php echo esc_attr( $active_class ); ?>" data-slug="<?php echo esc_attr( $term->slug ); ?>" >
-										<?php echo esc_html( apply_filters( 'astra_variation_option_name', $term->name, $term, $attribute, $product ) ); ?>
-									</div>
+								<div class="<?php echo esc_attr( $ast_single_variation ); ?>" data-slug="<?php echo esc_attr( $term->slug ); ?>">
+									<?php echo esc_html( apply_filters( 'astra_variation_option_name', $term->name, $term, $attribute, $product ) ); ?>
+								</div>
 								<?php
 							}
 						}
 					} else {
 						foreach ( $options as $option ) {
-							// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
+							// This handles < 2.4.0 backwards compatibility where text attributes were not sanitized.
 							$default_value = $product->get_default_attributes();
 							$active_class  = ( isset( $default_value[ strtolower( $attribute ) ] ) && $option === $default_value[ strtolower( $attribute ) ] ) ? 'active' : '';
+		
+							// Adding a unique identifier based on the option values.
+							$unique_class = 'variation-' . esc_attr( sanitize_title( $option ) );
+							// Concatenate the classes, using trim to avoid any extra spaces.
+							$ast_single_variation = 'ast-single-variation ' . trim( $active_class . ' ' . $unique_class );
 							?>
-								<div class="ast-single-variation <?php echo esc_attr( $active_class ); ?>" data-slug="<?php echo esc_attr( $option ); ?>" >
-									<?php echo esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ); ?>
-								</div>
+							<div class="<?php echo esc_attr( $ast_single_variation ); ?>" data-slug="<?php echo esc_attr( $option ); ?>">
+								<?php echo esc_html( apply_filters( 'woocommerce_variation_option_name', $option, null, $attribute, $product ) ); ?>
+							</div>
 							<?php
 						}
 					}

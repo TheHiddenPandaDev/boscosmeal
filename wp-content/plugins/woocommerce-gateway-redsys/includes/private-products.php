@@ -7,8 +7,8 @@
  * @since 16.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -113,7 +113,7 @@ function redsys_private_product_tab_panel() {
 					>
 					<?php echo esc_html( $user->user_email ); ?></option>
 				<?php } ?>
-				</select><?php echo wc_help_tip( __( 'Select user that will be allowed to see this product', 'woocommerce-redsys' ) ); ?>
+				</select><?php echo esc_html( wc_help_tip( __( 'Select user that will be allowed to see this product', 'woocommerce-redsys' ) ) ); ?>
 			</p>
 			<?php
 			wp_nonce_field( 'redsys_private_product', 'redsys_private_product_nonce' );

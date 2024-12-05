@@ -1,3 +1,18 @@
+v1.0.13 - 11-November-2024
+- Fix: Resolved an issue where the media library button text was incorrectly displayed in certain cases.
+
+v1.0.12 - 24-October-2024
+- Improvement: Removed the "Free Images" option from the WordPress media library where videos are expected.
+
+v1.0.11 - 01-October-2024
+- Improvement: Fixed broken UI components for Elementor and Beaver Builder.
+
+v1.0.10 - 23-September-2024
+- Improvement: UI/UX improvements.
+
+v1.0.9 - 11-September-2024
+- Fix: Resolved issue where image search results reset to default after applying filters.
+
 v1.0.8 - 15-August-2024
 - Improvement: Enhanced UI for better user experience.
 

@@ -3,6 +3,8 @@ import { useDispatch, useSelect } from '@wordpress/data';
 import { useNavigateSteps } from '../router';
 import { STORE_KEY } from '../store';
 import apiFetch from '@wordpress/api-fetch';
+import toast from 'react-hot-toast';
+import { toastBody } from '../helpers';
 
 const useBuildSiteController = () => {
 	const { nextStep } = useNavigateSteps();
@@ -26,12 +28,14 @@ const useBuildSiteController = () => {
 			selectedTemplateIsPremium,
 			templateList,
 		},
+		siteFeaturesData,
 	} = useSelect( ( select ) => {
-		const { getSiteFeatures, getAIStepData } = select( STORE_KEY );
-
+		const { getSiteFeaturesData, getSiteFeatures, getAIStepData } =
+			select( STORE_KEY );
 		return {
 			siteFeatures: getSiteFeatures(),
 			stepsData: getAIStepData(),
+			siteFeaturesData: getSiteFeaturesData(),
 		};
 	}, [] );
 
@@ -50,8 +54,8 @@ const useBuildSiteController = () => {
 		),
 		setPrevErrorAlertOpen = ( value ) =>
 			setPrevErrorAlert( { open: value } );
-	const selectedTemplateData = templateList.find(
-			( item ) => item.uuid === selectedTemplate
+	const selectedTemplateData = templateList?.find(
+			( item ) => item?.uuid === selectedTemplate
 		),
 		isEcommarceSite = selectedTemplateData?.features?.ecommerce === 'yes';
 
@@ -117,6 +121,7 @@ const useBuildSiteController = () => {
 		language,
 		images,
 		features,
+		featuresData,
 	} ) =>
 		await apiFetch( {
 			path: 'zipwp/v1/site',
@@ -134,6 +139,9 @@ const useBuildSiteController = () => {
 				language,
 				images,
 				site_features: features,
+				site_features_data: features?.includes( 'ecommerce' )
+					? featuresData
+					: {},
 			},
 		} );
 
@@ -148,11 +156,13 @@ const useBuildSiteController = () => {
 				if ( errorData && Object.values( errorData ).length > 0 ) {
 					return errorData;
 				}
+			} else {
+				throw new Error( response?.data?.data );
 			}
 
 			return {};
 		} catch ( error ) {
-			return {};
+			toast.error( toastBody( error ) );
 		}
 	};
 
@@ -252,8 +262,8 @@ const useBuildSiteController = () => {
 				language: siteLanguage,
 				images: selectedImages,
 				features: enabledFeatures,
+				featuresData: siteFeaturesData,
 			};
-
 			const previousError = await previousErrors();
 			if ( previousError && Object.values( previousError ).length > 0 ) {
 				setPrevErrorAlert( {

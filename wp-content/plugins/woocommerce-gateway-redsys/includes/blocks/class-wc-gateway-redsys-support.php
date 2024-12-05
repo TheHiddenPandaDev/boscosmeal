@@ -1,4 +1,10 @@
 <?php
+/**
+ * WC_Gateway_Redsys_Support class
+ *
+ * @package WooCommerce\Payments
+ */
+
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
 
 /**
@@ -27,15 +33,14 @@ final class WC_Gateway_Redsys_Support extends AbstractPaymentMethodType {
 	 */
 	public function initialize() {
 		$this->settings = get_option( 'woocommerce_redsys_settings', array() );
-
 	}
-	
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
-	    $this->log = new WC_Logger();
-        // Enganchar la función 'filtrar_metodos_de_pago_guardados' al filtro 'woocommerce_saved_payment_methods_list'
-        add_filter( 'woocommerce_saved_payment_methods_list', [ $this, 'filter_tokens' ], 10, 2 );
-    }
-
+		// Enganchar la función 'filtrar_metodos_de_pago_guardados' al filtro 'woocommerce_saved_payment_methods_list'.
+		add_filter( 'woocommerce_saved_payment_methods_list', array( $this, 'filter_tokens' ), 10, 2 );
+	}
 	/**
 	 * Returns if this payment method should be active. If false, the scripts will not be enqueued.
 	 *
@@ -44,14 +49,13 @@ final class WC_Gateway_Redsys_Support extends AbstractPaymentMethodType {
 	public function is_active() {
 		return WCRed()->is_gateway_enabled( 'redsys' );
 	}
-
 	/**
 	 * Returns an array of scripts/handles to be registered for this payment method.
 	 *
 	 * @return array
 	 */
 	public function get_payment_method_script_handles() {
-		$script_path       = '/assets/js/frontend/blocks.js';
+		$script_path       = 'assets/js/frontend/blocks.js';
 		$script_asset_path = REDSYS_PLUGIN_PATH_P . 'assets/js/frontend/blocks.asset.php';
 		$script_asset      = file_exists( $script_asset_path )
 			? require $script_asset_path
@@ -108,34 +112,32 @@ final class WC_Gateway_Redsys_Support extends AbstractPaymentMethodType {
 	/**
 	 * Filter the list of saved payment methods to only include tokens for the current payment method needed.
 	 *
-	 * @param array $list List of saved payment methods.
+	 * @param array $list_v List of saved payment methods.
 	 * @param int   $customer_id Customer ID.
 	 * @return array
 	 */
-	public function filter_tokens( $list, $customer_id ) {
+	public function filter_tokens( $list_v, $customer_id ) {
 		if ( is_checkout() ) {
-			$this->log->add( 'redsys', print_r( $list, true ) );
-	
-			foreach ( $list as $payment_method_type => &$tokens ) {
+			WCRed()->log( 'redsys', print_r( $list_v, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+			foreach ( $list_v as $payment_method_type => &$tokens ) {
 				foreach ( $tokens as $key => $token ) {
-					if ( $token['method']['gateway'] === 'redsys' ) {
+					if ( 'redsys' === $token['method']['gateway'] ) {
 						$token_type = WCRed()->get_token_type( $token['tokenId'] );
-						if ($this->is_subscription()) {
-							if ( $token_type !== 'R' ) {
-								unset( $tokens[$key] );
+						if ( $this->is_subscription() ) {
+							if ( 'R' !== $token_type ) {
+								unset( $tokens[ $key ] );
 							}
-						} else {
-							if ( $token_type === 'R' ) {
-								unset( $tokens[$key] );
-							}
+						} elseif ( 'R' === $token_type ) {
+							unset( $tokens[ $key ] );
 						}
 					}
 				}
 				$tokens = array_values( $tokens );
 			}
-			return $list;
+			return $list_v;
 		}
-		return $list;
+		return $list_v;
 	}
 	/**
 	 * Returns an array of key=>value pairs of data made available to the payment methods script.
@@ -156,13 +158,13 @@ final class WC_Gateway_Redsys_Support extends AbstractPaymentMethodType {
 		} elseif ( $this->is_preauth() ) {
 			$text              = __( 'We will preauthorize the Order and will be charge later when we know the final cost.', 'woocommerce-redsys' );
 			$text_filter       = apply_filters( 'redsys_text_preauth', $text );
-			$descripcion_final = $descripcion_final . ' ' . $text_filter;
+			$descripcion_final = $descripcion . ' ' . $text_filter;
 		} else {
 			$descripcion_final = $descripcion;
 		}
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'redsys' ) ) ) {
-			$logo_url   = WCRed()->get_redsys_option( 'logo', 'redsys' );
-			$icon       = apply_filters( 'woocommerce_redsys_icon', $logo_url );
+			$logo_url = WCRed()->get_redsys_option( 'logo', 'redsys' );
+			$icon     = apply_filters( 'woocommerce_redsys_icon', $logo_url );
 		} else {
 			$icon = apply_filters( 'woocommerce_redsys_icon', REDSYS_PLUGIN_URL_P . 'assets/images/visa-mastercard.svg' );
 		}
@@ -170,11 +172,13 @@ final class WC_Gateway_Redsys_Support extends AbstractPaymentMethodType {
 			$icon = false;
 		}
 		return array(
-			'title'       => WCRed()->get_redsys_option( 'title', 'redsys' ),
-			'description' => $descripcion_final,
-			'tokens'      => $tokens,
-			'icon'        => $icon,
-			'supports'    => array(
+			'enabled'           => $this->is_active(),
+			'title'             => WCRed()->get_redsys_option( 'title', 'redsys' ),
+			'description'       => $descripcion_final,
+			'logodisplayoption' => get_option( 'redsys_logo_display_option', 'right' ), // left", right, afterText, iconOnly.
+			'tokens'            => $tokens,
+			'icon'              => $icon,
+			'supports'          => array(
 				'products',
 				'tokenization',
 				'add_payment_method',
@@ -202,4 +206,3 @@ final class WC_Gateway_Redsys_Support extends AbstractPaymentMethodType {
 		);
 	}
 }
-

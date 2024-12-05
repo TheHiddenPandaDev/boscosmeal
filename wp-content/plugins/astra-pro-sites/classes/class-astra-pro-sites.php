@@ -20,28 +20,26 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 	class Astra_Pro_Sites {
 
 		/**
-		 * Instance of Astra_Pro_Sites
+		 * Instance
 		 *
 		 * @since 1.0.0
-		 * @var object class object.
+		 * @access private
+		 * @var object Class object.
 		 */
 		private static $instance = null;
 
 		/**
-		 * Instance of Astra_Pro_Sites.
+		 * Initiator
 		 *
 		 * @since 1.0.0
-		 *
-		 * @return object Class object.
+		 * @return mixed 
 		 */
 		public static function set_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
-
 			return self::$instance;
 		}
-
 		/**
 		 * Constructor.
 		 *
@@ -64,6 +62,8 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		 * Include Files.
 		 *
 		 * @since 1.0.7
+		 * 
+		 * @return void
 		 */
 		private static function includes() {
 			require_once ASTRA_PRO_SITES_DIR . 'classes/class-astra-pro-sites-update.php';
@@ -75,8 +75,8 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		 *
 		 * @since 1.0.5
 		 *
-		 * @param  array $args API request arguments.
-		 * @return arrray       Filtered API request params.
+		 * @param  array<string, string> $args API request arguments.
+		 * @return array<string, string>       Filtered API request params.
 		 */
 		public function api_request_params( $args = array() ) {
 
@@ -103,8 +103,8 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param  array $vars Localize variables.
-		 * @return array        Filtered localize variables.
+		 * @param  array<string, string> $vars Localize variables.
+		 * @return array<string, string>        Filtered localize variables.
 		 */
 		public function update_vars( $vars = array() ) {
 
@@ -118,6 +118,8 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		 * Loads textdomain for the plugin.
 		 *
 		 * @since 1.0.0
+		 * 
+		 * @return void
 		 */
 		public function load_textdomain() {
 			// Default languages directory.
@@ -132,13 +134,6 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 				$get_locale = get_user_locale();
 			}
 
-			/**
-			 * Language Locale for plugin
-			 *
-			 * @var $get_locale The locale to use.
-			 * Uses get_user_locale()` in WordPress 4.7 or greater,
-			 * otherwise uses `get_locale()`.
-			 */
 			$locale = apply_filters( 'plugin_locale', $get_locale, 'astra-sites' );
 			$mofile = sprintf( '%1$s-%2$s.mo', 'astra-sites', $locale );
 
@@ -166,6 +161,10 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		 */
 		public function admin_notices() {
 
+			if ( ! class_exists( 'Astra_Notices' ) ) {
+				return;
+			}
+
 			Astra_Notices::add_notice(
 				array(
 					'type'    => 'error',
@@ -176,7 +175,7 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 				)
 			);
 
-			add_action( 'plugin_action_links_' . ASTRA_PRO_SITES_BASE, array( $this, 'action_links' ) );
+			add_filter( 'plugin_action_links_' . ASTRA_PRO_SITES_BASE, array( $this, 'action_links' ) );
 		}
 
 
@@ -191,7 +190,7 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		private function deactivation_link( $slug = 'astra-sites' ) {
 
 			$deactivate_url = admin_url( 'plugins.php' );
-			if ( is_plugin_active_for_network( ASTRA_SITES_BASE ) ) {
+			if ( is_plugin_active_for_network( (string) ASTRA_SITES_BASE ) ) {
 				$deactivate_url = network_admin_url( 'plugins.php' );
 			}
 			return add_query_arg(
@@ -211,8 +210,8 @@ if ( ! class_exists( 'Astra_Pro_Sites' ) ) :
 		 *
 		 * @since 1.0.0
 		 *
-		 * @param   mixed $links Plugin Action links.
-		 * @return  array        Filtered plugin action links.
+		 * @param mixed $links Plugin Action links.
+		 * @return array<string, string>        Filtered plugin action links.
 		 */
 		public function action_links( $links = array() ) {
 

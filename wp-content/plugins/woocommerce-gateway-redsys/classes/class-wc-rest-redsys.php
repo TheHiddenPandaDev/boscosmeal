@@ -4,30 +4,26 @@
  *
  * @package WooCommerce Redsys Gateway
  * @since 13.0.0
- * @author José Conti.
- * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
- * @license GNU General Public License v3.0
- * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
- * @copyright 2013-2024 José Conti.
  */
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Class WC Rest Redsys
+ * Class WC_REST_Redsys
  */
 class WC_REST_Redsys {
 	/**
-	 * You can extend this class with
-	 * WP_REST_Controller / WC_REST_Controller / WC_REST_Products_V2_Controller / WC_REST_CRUD_Controller etc.
-	 * Found in packages/woocommerce-rest-api/src/Controllers/
+	 * Namespace for the API.
 	 *
 	 * @var string
 	 */
 	protected $namespace = 'wc/v3';
 
+	/**
+	 * Rest base for the API.
+	 *
+	 * @var string
+	 */
 	protected $rest_base = 'redsys'; // phpcs:ignore Squiz.Commenting.VariableComment.Missing
 
 	/**
@@ -37,9 +33,10 @@ class WC_REST_Redsys {
 	 *
 	 * @return array
 	 */
-	public function get_custom( $data ) {
+	public function get_custom( $data ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		return array( 'redsys' => 'Data' );
 	}
+
 	/**
 	 * Register the routes API for Redsys.
 	 */
@@ -50,22 +47,36 @@ class WC_REST_Redsys {
 			array(
 				'methods'             => 'GET',
 				'callback'            => array( $this, 'get_custom' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'check_permissions' ),
 			)
 		);
 	}
+
+	/**
+	 * Check permissions for the REST API request.
+	 *
+	 * @return bool
+	 */
+	public function check_permissions() {
+
+		if ( current_user_can( 'manage_woocommerce' ) ) {
+			return true;
+		}
+
+		return false;
+	}
 }
-add_filter( 'woocommerce_rest_api_get_rest_namespaces', 'redsys_custom_api' );
 
 /**
- * Add custom API
+ * Add custom API to WooCommerce REST namespaces.
  *
  * @param array $controllers Controllers.
  *
  * @return array
  */
-function redsys_custom_api( $controllers ) {
+function redsys_custom_api( $controllers ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 	$controllers['wc/v3']['redsys'] = 'WC_REST_Redsys';
 
 	return $controllers;
 }
+add_filter( 'woocommerce_rest_api_get_rest_namespaces', 'redsys_custom_api' );

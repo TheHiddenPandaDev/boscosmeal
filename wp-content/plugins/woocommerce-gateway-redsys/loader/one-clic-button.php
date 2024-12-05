@@ -6,8 +6,8 @@
  * @since 23.2.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -51,7 +51,6 @@ function redsys_get_customer_shipping_or_billing_zone() {
  */
 function redsys_calculate_shipping_costs_for_product( $product, $shipping_zone ) {
 	$costs = array();
-	$log   = new WC_Logger();
 
 	if ( ! is_a( $product, 'WC_Product' ) ) {
 		return $costs;
@@ -107,9 +106,9 @@ function redsys_calculate_shipping_costs_for_product( $product, $shipping_zone )
 					$label        = $rate->label;
 					$cost         = $rate->cost;
 					$label_base64 = base64_encode( $label ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
-					$log->add( 'redsys-pay', 'label: ' . $label );
-					$log->add( 'redsys-pay', 'cost: ' . $cost );
-					$log->add( 'redsys-pay', 'label_base64: ' . $label_base64 );
+					WCRed()->log( 'redsys-pay', 'label: ' . $label );
+					WCRed()->log( 'redsys-pay', 'cost: ' . $cost );
+					WCRed()->log( 'redsys-pay', 'label_base64: ' . $label_base64 );
 
 					$label_text            = wp_strip_all_tags( $label );
 					$cost_text             = $cost > 0 ? wc_price( $cost ) : __( 'Free', 'woocommerce' );
@@ -351,26 +350,34 @@ function redsys_enqueue_custom_scripts() {
 			array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'product_id' => get_the_ID(),
+				'nonce'      => wp_create_nonce( 'redsys_one_click_buy' ),
 			)
 		);
 	}
 }
 add_action( 'wp_enqueue_scripts', 'redsys_enqueue_custom_scripts' );
-	/**
-	 * Handle One Click Buy.
-	 */
+
+/**
+ * Handle One Click Buy.
+ */
 function redsys_handle_one_click_buy() {
 
-		$data       = array();
-		$product_id = intval( $_POST['product_id'] );
-		$qty        = intval( $_POST['qty'] );
-		$token      = sanitize_text_field( $_POST['token_id'] );
-		$order_id   = false;
-		$log        = new WC_Logger();
+		// Verify nonce.
+	if ( ! isset( $_POST['redsys_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['redsys_nonce'] ) ), 'redsys_one_click_buy' ) ) {
+		wp_send_json_error( array( 'message' => 'Nonce verification failed.' ) );
+		exit;
+	}
+
+	$data = array();
+
+	$product_id = isset( $_POST['product_id'] ) ? intval( $_POST['product_id'] ) : 0;
+	$qty        = isset( $_POST['qty'] ) ? intval( $_POST['qty'] ) : 1;
+	$token      = isset( $_POST['token_id'] ) ? sanitize_text_field( wp_unslash( $_POST['token_id'] ) ) : '';
+	$order_id   = false;
 
 	if ( ! empty( $_POST['billing_http_accept_headers'] ) ) {
-		$headers                = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_http_accept_headers'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
-		$data['_accept_haders'] = sanitize_text_field( $headers );
+		$headers                 = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_http_accept_headers'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
+		$data['_accept_headers'] = sanitize_text_field( $headers );
 	}
 	if ( ! empty( $_POST['billing_agente_navegador'] ) ) {
 		$agente                                  = base64_decode( sanitize_text_field( wp_unslash( $_POST['billing_agente_navegador'] ) ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
@@ -407,12 +414,12 @@ function redsys_handle_one_click_buy() {
 	} else {
 		$token_type = 'no';
 	}
-	$log->add( 'redsys-pay', 'token_type: ' . $token_type );
-	$log->add( 'redsys-pay', 'token: ' . $token );
-	$log->add( 'redsys-pay', 'shipping_method: ' . $shipping_method );
-	$log->add( 'redsys-pay', 'product_id: ' . $product_id );
-	$log->add( 'redsys-pay', 'qty: ' . $qty );
-	$log->add( 'redsys-pay', 'data: ' . print_r( $data, true ) );
+	WCRed()->log( 'redsys-pay', 'token_type: ' . $token_type );
+	WCRed()->log( 'redsys-pay', 'token: ' . $token );
+	WCRed()->log( 'redsys-pay', 'shipping_method: ' . $shipping_method );
+	WCRed()->log( 'redsys-pay', 'product_id: ' . $product_id );
+	WCRed()->log( 'redsys-pay', 'qty: ' . $qty );
+	WCRed()->log( 'redsys-pay', 'data: ' . print_r( $data, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 
 	$order_id = WCRed_pay()->create_order( get_current_user_id(), $product_id, $qty, $shipping_method );
 

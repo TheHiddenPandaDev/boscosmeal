@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable
 	if(!interface_exists('ISResponseInterface')){
 		interface ISResponseInterface{
 			public function setResult($code);

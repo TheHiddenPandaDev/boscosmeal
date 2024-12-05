@@ -32,7 +32,6 @@ class WC_Payments_Features {
 	const TOKENIZED_CART_PRB_FLAG_NAME          = '_wcpay_feature_tokenized_cart_prb';
 	const PAYMENT_OVERVIEW_WIDGET_FLAG_NAME     = '_wcpay_feature_payment_overview_widget';
 	const WOOPAY_GLOBAL_THEME_SUPPORT_FLAG_NAME = '_wcpay_feature_woopay_global_theme_support';
-	const EMBEDDED_KYC_FLAG_NAME                = '_wcpay_feature_embedded_kyc';
 
 	/**
 	 * Indicates whether card payments are enabled for this (Stripe) account.
@@ -74,15 +73,6 @@ class WC_Payments_Features {
 	 */
 	public static function is_customer_multi_currency_enabled() {
 		return '1' === get_option( '_wcpay_feature_customer_multi_currency', '1' );
-	}
-
-	/**
-	 * Checks whether Embedded KYC is enabled.
-	 *
-	 * @return bool
-	 */
-	public static function is_embedded_kyc_enabled(): bool {
-		return '1' === get_option( self::EMBEDDED_KYC_FLAG_NAME, '0' );
 	}
 
 	/**
@@ -310,6 +300,15 @@ class WC_Payments_Features {
 	}
 
 	/**
+	 * Checks whether the Payouts Rename Spotlight notice was dismissed.
+	 *
+	 * @return bool
+	 */
+	public static function is_payouts_rename_notice_dismissed(): bool {
+		return '1' === get_option( 'wcpay_payouts_rename_notice_dismissed', '0' );
+	}
+
+	/**
 	 * Checks whether the Stripe Billing feature is enabled.
 	 *
 	 * @return bool
@@ -397,7 +396,6 @@ class WC_Payments_Features {
 				'isDisputeIssuerEvidenceEnabled' => self::is_dispute_issuer_evidence_enabled(),
 				'isPaymentOverviewWidgetEnabled' => self::is_payment_overview_widget_ui_enabled(),
 				'isStripeEceEnabled'             => self::is_stripe_ece_enabled(),
-				'isEmbeddedKycEnabled'           => self::is_embedded_kyc_enabled(),
 			]
 		);
 	}

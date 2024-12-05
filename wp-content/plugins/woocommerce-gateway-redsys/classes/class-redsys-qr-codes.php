@@ -5,10 +5,9 @@
  * @package WooCommerce Redsys Gateway
  * @since 13.0.0
  * @author José Conti.
- * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -26,7 +25,7 @@ class Redsys_QR_Codes {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public static function init() {
@@ -39,8 +38,7 @@ class Redsys_QR_Codes {
 	 */
 	public function debug( $log ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug = new WC_Logger();
-			$debug->add( 'redsys-qr', $log );
+			WCRed()->log( 'redsys-qr', $log );
 		}
 	}
 	/**
@@ -55,7 +53,7 @@ class Redsys_QR_Codes {
 		}
 	}
 	/**
-	 * Return User redsys.joseconti.com
+	 * Return User plugins.joseconti.com
 	 */
 	public function user_redsys_jc() {
 		$redsys_qr_jc = get_option( 'redsys_qr_user_redsys_jc' );

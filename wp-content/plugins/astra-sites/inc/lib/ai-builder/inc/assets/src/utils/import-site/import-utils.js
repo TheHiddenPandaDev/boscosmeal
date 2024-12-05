@@ -115,7 +115,7 @@ export const getDemo = async ( id, storedState ) => {
 						'Fetching related demo failed.',
 						'ai-builder'
 					),
-					secondaryText: aiBuilderVars.ajax_request_failed_secondary,
+					secondaryText: aiBuilderVars?.ajax_request_failed_secondary,
 					errorCode: '',
 					errorText: error,
 					solutionText: '',
@@ -309,7 +309,7 @@ export const setColorPalettes = async ( palette ) => {
 	} );
 };
 
-export const setSiteTitle = async ( businessName ) => {
+export const setSiteTitle = async ( businessName, showSiteTitle ) => {
 	if ( ! businessName ) {
 		return;
 	}
@@ -319,6 +319,7 @@ export const setSiteTitle = async ( businessName ) => {
 	data.append( 'param', 'site-title' );
 	data.append( 'business-name', businessName );
 	data.append( '_ajax_nonce', aiBuilderVars._ajax_nonce );
+	data.append( 'show-site-title', showSiteTitle );
 
 	await fetch( ajaxurl, {
 		method: 'post',
@@ -377,26 +378,6 @@ export const checkFileSystemPermissions = async ( dispatch ) => {
 		console.error( error );
 	}
 };
-
-// export const generateAnalyticsLead = async (
-// 	tryAgainCount,
-// 	status,
-// 	templateId,
-// 	builder
-// ) => {
-// 	const importContent = new FormData();
-// 	importContent.append( 'action', 'astra-sites-generate-analytics-lead' );
-// 	importContent.append( 'status', status );
-// 	importContent.append( 'id', templateId );
-// 	importContent.append( 'try-again-count', tryAgainCount );
-// 	importContent.append( 'type', 'ai-builder' );
-// 	importContent.append( 'page-builder', builder );
-// 	importContent.append( '_ajax_nonce', aiBuilderVars._ajax_nonce );
-// 	await fetch( ajaxurl, {
-// 		method: 'post',
-// 		body: importContent,
-// 	} );
-// };
 
 export const setSiteLanguage = async ( siteLanguage = 'en_US' ) => {
 	if ( ! siteLanguage ) {

@@ -1,7 +1,7 @@
-<?php
+<?php // phpcs:disable
 if (! class_exists ( 'ISAuthenticationMessage' )) {
-	include_once $GLOBALS ["REDSYS_API_PATH"] . "/Model/ISGenericXml.php";
-	include_once $GLOBALS ["REDSYS_API_PATH"] . "/Model/ISRequestInterface.php";
+	include_once $GLOBALS ["REDSYS_API_PATH"] . "/model/class-isgenericxml.php";
+	include_once $GLOBALS ["REDSYS_API_PATH"] . "/model/ISRequestInterface.php";
 	
 	/**
 	 * @XML_ELEM=DATOSENTRADA
@@ -42,9 +42,9 @@ if (! class_exists ( 'ISAuthenticationMessage' )) {
 		/**
 		 * @XML_ELEM=DS_MERCHANT_TRANSACTIONTYPE
 		 */
-		private $transactionType;
+		private $transaction_type;
 
-		public function addEmvParameters($parameters){
+		public function add_emv_parameters($parameters){
 			if($this->emv==NULL)
 				$this->emv=array();
 
@@ -52,63 +52,63 @@ if (! class_exists ( 'ISAuthenticationMessage' )) {
 				$this->emv[$key]=$value;
 		}
 
-		public function addEmvParameter($name, $value){
+		public function add_emv_parameter($name, $value){
 			if($this->emv==NULL)
 				$this->emv=array();
 			
 			$this->emv[$name]=$value;
 		}
 		
-		public function getEmv(){
+		public function get_emv(){
 			if($this->emv==NULL)
 				return null;
 			
-			return json_encode($this->emv);
+			return wp_json_encode($this->emv);
 		}
-		public function setEmv($emv){
+		public function set_emv($emv){
 			$this->emv = $emv;
 			return $this;
 		}
-		public function getOrder() {
+		public function get_order() {
 			return $this->order;
 		}
-		public function setOrder($order) {
+		public function set_order($order) {
 			$this->order = $order;
 			return $this;
 		}
-		public function getAmount() {
+		public function get_amount() {
 			return $this->amount;
 		}
-		public function setAmount($amount) {
+		public function set_amount($amount) {
 			$this->amount = $amount;
 			return $this;
 		}
-		public function getCurrency() {
+		public function get_currency() {
 			return $this->currency;
 		}
-		public function setCurrency($currency) {
+		public function set_currency($currency) {
 			$this->currency = $currency;
 			return $this;
 		}
-		public function getMerchant() {
+		public function get_merchant() {
 			return $this->merchant;
 		}
-		public function setMerchant($merchant) {
+		public function set_merchant($merchant) {
 			$this->merchant = $merchant;
 			return $this;
 		}
-		public function getTerminal() {
+		public function get_terminal() {
 			return $this->terminal;
 		}
-		public function setTerminal($terminal) {
+		public function set_terminal($terminal) {
 			$this->terminal = $terminal;
 			return $this;
 		}
-		public function getTransactionType() {
-			return $this->transactionType;
+		public function get_tansaction_type() {
+			return $this->transaction_type;
 		}
-		public function setTransactionType($transactionType) {
-			$this->transactionType = $transactionType;
+		public function set_transaction_type($transaction_type) {
+			$this->transaction_type = $transaction_type;
 			return $this;
 		}
 	}

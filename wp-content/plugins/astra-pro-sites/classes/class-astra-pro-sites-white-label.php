@@ -18,29 +18,20 @@ if ( ! class_exists( 'Astra_Pro_Sites_White_Label' ) ) :
 		/**
 		 * Instance
 		 *
-		 * @since 1.0.0
-		 * @var object Class Object.
+		 * @since 4.0.4
 		 * @access private
+		 * @var object Class object.
 		 */
-		private static $instance;
-
-		/**
-		 * Member Variable
-		 *
-		 * @since 1.0.0
-		 * @var array branding
-		 * @access private
-		 */
-		private static $branding;
+		private static $instance = null;
 
 		/**
 		 * Initiator
 		 *
-		 * @since 1.0.0
-		 * @return object initialized object of class.
+		 * @since 4.0.4
+		 * @return mixed 
 		 */
 		public static function set_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;
@@ -68,6 +59,10 @@ if ( ! class_exists( 'Astra_Pro_Sites_White_Label' ) ) :
 		 */
 		public static function get_option( $type = '', $key = '', $default = null ) {
 
+			if ( ! class_exists( 'Astra_Ext_White_Label_Markup' ) ) {
+				return $default;
+			}
+
 			if ( ! is_callable( 'Astra_Ext_White_Label_Markup::get_white_label' ) ) {
 				return $default;
 			}
@@ -84,8 +79,8 @@ if ( ! class_exists( 'Astra_Pro_Sites_White_Label' ) ) :
 		/**
 		 * White labels the plugins page.
 		 *
-		 * @param array $plugins Plugins Array.
-		 * @return array
+		 * @param array<string, array<string, mixed>> $plugins Plugins Array.
+		 * @return array<string, array<string, mixed>>
 		 */
 		public function plugins_page( $plugins ) {
 

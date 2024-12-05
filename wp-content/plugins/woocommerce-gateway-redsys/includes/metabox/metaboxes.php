@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -32,7 +32,7 @@ function redsys_qr_get_error( $error ) {
 	 * Error-4 = No se puede conectar con la API, prueba de nuevo más tarde.
 	 */
 	$redsys_errors = array(
-		'Error-1' => __( 'Error-1: No user of redsys.joseconti.com in Settings', 'woocommerce-redsys' ),
+		'Error-1' => __( 'Error-1: No user of plugins.joseconti.com in Settings', 'woocommerce-redsys' ),
 		'Error-2' => __( 'Error-2: The user does not exist', 'woocommerce-redsys' ),
 		'Error-3' => __( 'Error-3: The user does not have an active account in', 'woocommerce-redsys' ),
 		'Error-4' => __( 'Error-4: Unable to connect to the API, try again later.', 'woocommerce-redsys' ),
@@ -265,11 +265,8 @@ add_action( 'woocommerce_process_product_meta', 'save_redsys_product' );
  *
  * @param Object $post_or_order_object Order Object.
  */
-function paygold_metabox( $post_or_order_object ) {
+function paygold_metabox( $post_or_order_object ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 
-	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		$debug = new WC_Logger();
-	}
 	$screen = wc_get_container()->get( CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
 		? wc_get_page_screen_id( 'shop-order' )
 		: 'shop_order';
@@ -284,17 +281,17 @@ function paygold_metabox( $post_or_order_object ) {
 		$order_id = sanitize_text_field( wp_unslash( $_GET['post'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 	}
 	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		$debug->add( 'metabox', '$order_id: ' . $order_id );
+		WCRed()->log( 'metabox', '$order_id: ' . $order_id );
 	}
 	if ( WCRed()->order_exist( $order_id ) ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug->add( 'metabox', 'Is shop_order' );
+			WCRed()->log( 'metabox', 'Is shop_order' );
 		}
 		$order   = WCRed()->get_order( $order_id );
 		$gateway = $order->get_payment_method();
 
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug->add( 'metabox', '$gateway: ' . $gateway );
+			WCRed()->log( 'metabox', '$gateway: ' . $gateway );
 		}
 
 		if ( WCRed()->is_gateway_enabled( 'paygold' ) && ! WCRed()->is_paid( $order_id ) && 'paygold' === $gateway ) {
@@ -307,20 +304,18 @@ function paygold_metabox( $post_or_order_object ) {
 				'core'
 			);
 		}
-	} else {
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug->add( 'metabox', 'Is NOT shop_order' );
-		}
+	} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+		WCRed()->log( 'metabox', 'Is NOT shop_order' );
 	}
 }
 add_action( 'add_meta_boxes', 'paygold_metabox' );
 
 /**
- * Add PayGold metabox content to order page
+ * Add PayGold metabox content to order page.
  *
  * @param Object $post Post Object.
  */
-function paygold_meta_box_content( $post ) {
+function paygold_meta_box_content( $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 
 	$check = 'off';
 	if ( WCRed()->check_soap( 'real' ) || ! function_exists( 'SimpleXMLElement' ) ) {
@@ -372,8 +367,7 @@ function paygold_meta_box_content( $post ) {
 function paygold_metabox_save( $order_id ) {
 
 	if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-		$debug = new WC_Logger();
-		$debug->add( 'metabox', 'arrive to $paygold_metabox_save' );
+		WCRed()->log( 'metabox', 'arrive to $paygold_metabox_save' );
 	}
 
 	if ( ! isset( $_POST['paygold_box_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['paygold_box_nonce'] ), 'paygold_meta_box_nonce' ) ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -394,9 +388,9 @@ function paygold_metabox_save( $order_id ) {
 		$type    = sanitize_text_field( wp_unslash( $_POST['select_paygold_type'] ) );
 		$send_to = sanitize_text_field( wp_unslash( $_POST['sms_email_send_paygold'] ) );
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug->add( 'metabox', '$order_id: ' . $order_id );
-			$debug->add( 'metabox', '$type: ' . $type );
-			$debug->add( 'metabox', '$send_to: ' . $send_to );
+			WCRed()->log( 'metabox', '$order_id: ' . $order_id );
+			WCRed()->log( 'metabox', '$type: ' . $type );
+			WCRed()->log( 'metabox', '$send_to: ' . $send_to );
 		}
 		$data   = array(
 			'user_id'     => '',

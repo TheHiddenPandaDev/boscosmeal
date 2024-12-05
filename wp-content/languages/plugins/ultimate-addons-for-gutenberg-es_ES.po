@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Spectra &#8211; WordPress Gutenberg Blocks - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2024-09-24 06:10:06+0000\n"
+"PO-Revision-Date: 2024-11-16 11:09:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,10 +11,422 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: Plugins - Spectra &#8211; WordPress Gutenberg Blocks - Stable (latest release)\n"
 
+#: classes/class-uagb-fse-fonts-compatibility.php:175
+#: classes/class-uagb-fse-fonts-compatibility.php:187
+msgid "normal"
+msgstr "normal"
+
+#: classes/class-uagb-admin.php:472 admin-core/assets/build/dashboard-app.js:1
+msgid "Upgrade Now"
+msgstr "Actualizar ahora"
+
+#: classes/class-uagb-admin.php:470
+msgid "Maximize your popup potential with Spectra Pro. Unlock enhanced features, intuitive design options, and increased conversions!"
+msgstr "Maximiza tu potencial de ventanas emergentes con Spectra Pro. Desbloquea funciones mejoradas, opciones de diseño intuitivas y ¡aumenta las conversiones!"
+
+#: classes/class-uagb-admin.php:469
+msgid "Want to do more with Popup Builder?"
+msgstr "¿Quieres hacer más cosas con Popup Builder?"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:319
+msgid "Shapes"
+msgstr "Formas"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3677
+msgid "Google Plus"
+msgstr "Google Plus"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3666
+msgid "Google Play"
+msgstr "Google Play"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3545
+msgid "Glide"
+msgstr "Glide"
+
+#: admin-core/inc/admin-menu.php:287
+msgid "Activating"
+msgstr "Activando"
+
+#: admin-core/inc/admin-menu.php:286
+msgid "Installed"
+msgstr "Instalado"
+
+#: admin-core/inc/admin-menu.php:285
+msgid "Installing"
+msgstr "Instalando"
+
+#: admin-core/inc/admin-menu.php:105
+msgid "Get Spectra Pro"
+msgstr "Consigue Spectra Pro"
+
 #: lib/gutenberg-templates/inc/block/dist/block.json
 msgctxt "block title"
 msgid "Spectra AI"
 msgstr "Spectra IA"
+
+#: lib/zip-ai/classes/sidebar-configurations.php:265
+msgid "You have no credits left."
+msgstr "No te quedan créditos."
+
+#: lib/zip-ai/classes/sidebar-configurations.php:264
+msgid "Invalid auth token."
+msgstr "Token de identificación no válido."
+
+#: lib/zip-ai/classes/sidebar-configurations.php:185
+msgid "The message array was not supplied"
+msgstr "No se ha proporcionado el array de mensajes"
+
+#: lib/zip-ai/classes/helper.php:269
+msgid "The ZipWP API server encountered an error."
+msgstr "El servidor API de ZipWP ha encontrado un error."
+
+#: lib/zip-ai/classes/helper.php:259
+msgid "The ZipWP API server is not responding."
+msgstr "El servidor API de ZipWP no responde."
+
+#: lib/zip-ai/classes/helper.php:235
+msgid "The ZipWP Token is not set."
+msgstr "El token de ZipWP no está configurado."
+
+#: lib/zip-ai/classes/helper.php:225
+msgid "The ZipWP Endpoint was not declared"
+msgstr "No se ha declarado la variable de ZipWP"
+
+#. translators: %1$s: HTML link start tag, %2$s: HTML link end tag.
+#: lib/zip-ai/classes/admin-configurations.php:513
+msgid "Thank you for using %1$sZip AI.%2$s"
+msgstr "Gracias por utilizar %1$sZip AI.%2$s"
+
+#: lib/gutenberg-templates/inc/traits/helper.php:264
+#: lib/zip-ai/classes/helper.php:206
+msgid "The Zip AI Middleware encountered an error."
+msgstr "Zip AI Middleware ha encontrado un error."
+
+#: lib/gutenberg-templates/inc/traits/helper.php:254
+#: lib/zip-ai/classes/helper.php:196
+msgid "The Zip AI Middleware is not responding."
+msgstr "Zip AI Middleware no responde."
+
+#: lib/gutenberg-templates/inc/traits/helper.php:232
+#: lib/zip-ai/classes/helper.php:161
+msgid "The Zip AI Auth Token is not set."
+msgstr "El token de identificación de Zip AI no está configurado."
+
+#: lib/gutenberg-templates/inc/traits/helper.php:222
+#: lib/zip-ai/classes/helper.php:151
+msgid "The Zip AI Endpoint was not declared"
+msgstr "No se ha declarado la variable de Zip AI"
+
+#. Translators: %s is API URL.
+#: lib/gutenberg-templates/inc/importer/template-kit-importer.php:56
+msgid "Invalid Request URL - %s"
+msgstr "URL de solicitud no válida - %s"
+
+#: lib/gutenberg-templates/inc/importer/plugin.php:810
+msgid "Something wrong"
+msgstr "Algo salió mal"
+
+#: lib/gutenberg-templates/inc/importer/plugin.php:767
+msgid "You are not allowed to perform this action."
+msgstr "No tienes permisos para realizar esta acción."
+
+#: lib/gutenberg-templates/inc/importer/plugin.php:269
+#: lib/gutenberg-templates/inc/importer/plugin.php:273
+#: lib/gutenberg-templates/inc/importer/plugin.php:436
+#: lib/zip-ai/classes/sidebar-configurations.php:250
+msgid "Something went wrong"
+msgstr "Algo salió mal"
+
+#: lib/gutenberg-templates/inc/importer/plugin.php:244
+#: lib/gutenberg-templates/inc/importer/plugin.php:292
+#: lib/gutenberg-templates/inc/importer/plugin.php:336
+#: lib/gutenberg-templates/inc/importer/plugin.php:360
+#: lib/gutenberg-templates/inc/importer/plugin.php:450
+#: lib/gutenberg-templates/inc/importer/plugin.php:798
+#: lib/gutenberg-templates/inc/importer/sync-library.php:319
+#: lib/gutenberg-templates/inc/importer/sync-library.php:446
+#: lib/gutenberg-templates/inc/importer/sync-library.php:471
+#: lib/gutenberg-templates/inc/importer/sync-library.php:514
+#: lib/gutenberg-templates/inc/importer/sync-library.php:805
+#: lib/gutenberg-templates/inc/importer/sync-library.php:840
+#: lib/gutenberg-templates/inc/importer/template-kit-importer.php:43
+#: lib/gutenberg-templates/inc/importer/template-kit-importer.php:109
+#: lib/gutenberg-templates/inc/traits/upgrade.php:33
+msgid "You are not allowed to perform this action"
+msgstr "No tienes permisos para realizar esta accion"
+
+#: lib/gutenberg-templates/inc/classes/ast-block-templates-notices.php:57
+msgid "Resolve file permission issue"
+msgstr "Resolver problema de permisos de archivo"
+
+#: lib/gutenberg-templates/inc/classes/ast-block-templates-notices.php:57
+msgid "Doc: "
+msgstr "Documento: "
+
+#: lib/gutenberg-templates/inc/classes/ast-block-templates-notices.php:53
+msgid "File Permissions Needed - Importing patterns, pages, and templates from Design Library requires proper file permissions. For guidance on resolving this issue and ensuring smooth importing processes, please refer to the accompanying documentation."
+msgstr "Se necesitan permisos de archivo - La importación de patrones, páginas y plantillas desde la biblioteca de diseño requiere permisos de archivo adecuados. Para resolver este problema y garantizar un proceso de importación sin problemas, consulta la documentación adjunta."
+
+#: lib/gutenberg-templates/inc/api/settings.php:182
+msgid "Sorry, settings are not saved."
+msgstr "Lo siento, no se han guardado los ajustes."
+
+#: lib/gutenberg-templates/inc/api/favorite.php:178
+msgid "Action failed"
+msgstr "Acción fallida"
+
+#: lib/gutenberg-templates/inc/api/blocks.php:93
+#: lib/gutenberg-templates/inc/api/category.php:93
+#: lib/gutenberg-templates/inc/api/description.php:112
+#: lib/gutenberg-templates/inc/api/favorite.php:135
+#: lib/gutenberg-templates/inc/api/images.php:113
+#: lib/gutenberg-templates/inc/api/keywords.php:107
+#: lib/gutenberg-templates/inc/api/page-description.php:117
+#: lib/gutenberg-templates/inc/api/revoke-access.php:95
+#: lib/gutenberg-templates/inc/api/settings.php:131
+#: lib/gutenberg-templates/inc/api/sites.php:93
+#: lib/gutenberg-templates/inc/classes/ast-block-templates-zipwp-api.php:138
+#: lib/gutenberg-templates/inc/classes/ast-block-templates-zipwp-api.php:197
+msgid "Nonce verification failed."
+msgstr "Falló la verificación del nonce."
+
+#: lib/gutenberg-templates/inc/api/blocks.php:70
+#: lib/gutenberg-templates/inc/api/category.php:70
+#: lib/gutenberg-templates/inc/api/description.php:92
+#: lib/gutenberg-templates/inc/api/do-it-later.php:69
+#: lib/gutenberg-templates/inc/api/favorite.php:96
+#: lib/gutenberg-templates/inc/api/images.php:93
+#: lib/gutenberg-templates/inc/api/initialize-setup.php:71
+#: lib/gutenberg-templates/inc/api/keywords.php:87
+#: lib/gutenberg-templates/inc/api/page-description.php:97
+#: lib/gutenberg-templates/inc/api/pages.php:74
+#: lib/gutenberg-templates/inc/api/revoke-access.php:74
+#: lib/gutenberg-templates/inc/api/settings.php:92
+#: lib/gutenberg-templates/inc/api/sites.php:70
+#: lib/gutenberg-templates/inc/classes/ast-block-templates-zipwp-api.php:77
+msgid "Sorry, you are not allowed to do that."
+msgstr "Lo siento, no tienes permisos para hacer eso."
+
+#: lib/class-uagb-ast-block-templates.php:65
+#: lib/gutenberg-templates/inc/importer/plugin.php:992
+#: lib/gutenberg-templates/dist/main.js:2
+msgid "Design Library"
+msgstr "Biblioteca de diseño"
+
+#: includes/blocks/slider/block.php:17
+msgid "Create a Slider."
+msgstr "Crea un carrusel."
+
+#: includes/blocks/slider-child/block.php:15
+msgid "Customize this slider as per your need."
+msgstr "Personaliza este carrusel en base a tus necesidades."
+
+#: includes/blocks/separator/block.php:17
+msgid "Add a modern separator to divide your page content with icon/text."
+msgstr "Añade un separador moderno para dividir el contenido de tu página con icono/texto."
+
+#: includes/blocks/popup-builder/block.php:17
+msgid "Create eye-catching popups that can be reused sitewide!"
+msgstr "¡Crea ventanas emergentes llamativas que se puedan reutilizar en todo el sitio web!"
+
+#: includes/blocks/loop-builder/block.php:17
+msgid "This block allows you to generate custom loop from different posts."
+msgstr "Este bloque te permite generar un loop personalizado a partir de distintas entradas."
+
+#: includes/blocks/loop-builder/block.php:16
+#: admin-core/assets/build/dashboard-app.js:1
+msgid "Loop Builder"
+msgstr "Maquetador del loop"
+
+#: includes/blocks/instagram-feed/block.php:17
+msgid "This block allows you to add Instagram Feeds."
+msgstr "Este bloque te permite añadir feeds de Instagram."
+
+#: includes/blocks/instagram-feed/block.php:16
+#: admin-core/assets/build/dashboard-app.js:1
+msgid "Instagram Feed"
+msgstr "Feed de Instagram"
+
+#: includes/blocks/icon/block.php:17
+msgid "Add stunning customizable icons to your website."
+msgstr "Añade impresionantes iconos personalizables a tu sitio web."
+
+#: includes/blocks/countdown/block.php:17
+msgid "This block allows you to add countdown timers."
+msgstr "Este bloque te permite añadir temporizadores de cuenta atrás."
+
+#: includes/blocks/countdown/block.php:16 dist/blocks-placeholder.js:14
+msgid "Countdown"
+msgstr "Cuenta atrás"
+
+#: includes/blocks/countdown/attributes.php:37
+msgid "SECONDS"
+msgstr "SEGUNDOS"
+
+#: includes/blocks/countdown/attributes.php:36
+msgid "MINUTES"
+msgstr "MINUTOS"
+
+#: includes/blocks/countdown/attributes.php:35
+msgid "HOURS"
+msgstr "HORAS"
+
+#: includes/blocks/countdown/attributes.php:34
+msgid "DAYS"
+msgstr "DÍAS"
+
+#: includes/blocks/animations-extension/block.php:14
+msgid "Add animations to Spectra blocks."
+msgstr "Añade animaciones a los bloques de Spectra."
+
+#: includes/blocks/animations-extension/block.php:13
+msgid "Animations Extension"
+msgstr "Extension de animaciones"
+
+#: classes/class-uagb-update.php:230
+msgid "Heads up!"
+msgstr "¡Atención!"
+
+#: classes/class-uagb-init-blocks.php:957
+msgid "Invalid request"
+msgstr "Petición no válida"
+
+#: classes/class-uagb-init-blocks.php:378
+#: classes/class-uagb-init-blocks.php:522
+msgid "User is not authenticated!"
+msgstr "¡El usuario no está identificado!"
+
+#: classes/class-uagb-init-blocks.php:119
+msgid "Popup Updated"
+msgstr "Ventana emergente actualizada"
+
+#: classes/class-uagb-init-blocks.php:118
+msgid "Popup Published"
+msgstr "Ventana emergente publicada"
+
+#: classes/class-uagb-init-blocks.php:117
+msgid "All Popups"
+msgstr "Todas las ventanas emergentes"
+
+#: classes/class-uagb-init-blocks.php:116
+msgid "No Popups in Trash"
+msgstr "Sin ventanas emergentes en la papelera"
+
+#: classes/class-uagb-init-blocks.php:115
+msgid "No Popups Found"
+msgstr "No se han encontrado ventanas emergentes"
+
+#: classes/class-uagb-init-blocks.php:114
+msgid "Search Popups"
+msgstr "Buscar ventanas emergentes"
+
+#: classes/class-uagb-init-blocks.php:113
+msgid "New Popup"
+msgstr "Nueva ventana emergente"
+
+#: classes/class-uagb-init-blocks.php:112
+msgid "Edit Popup"
+msgstr "Editar ventana emergente"
+
+#: classes/class-uagb-init-blocks.php:111
+msgid "Create New Popup"
+msgstr "Crear nueva ventana emergente"
+
+#: classes/class-uagb-init-blocks.php:110
+msgid "Create Popup"
+msgstr "Crear ventana emergente"
+
+#: classes/class-uagb-init-blocks.php:109
+msgid "View Popup"
+msgstr "Ver ventana emergente"
+
+#: classes/class-uagb-init-blocks.php:108
+msgctxt "singular"
+msgid "Spectra Popup"
+msgstr "Ventana emergente de Spectra"
+
+#: classes/class-uagb-init-blocks.php:107
+msgctxt "plural"
+msgid "Popup Builder"
+msgstr "Maquetador de ventanas emergentes"
+
+#: classes/class-uagb-fse-fonts-compatibility.php:651
+msgid "Successfully deleted font."
+msgstr "Fuente borrada correctamente."
+
+#: classes/class-uagb-fse-fonts-compatibility.php:625
+msgid "There was some error in deleting the font."
+msgstr "Ocurrió algún error al borrar la fuente."
+
+#: classes/class-uagb-fse-fonts-compatibility.php:169
+#: classes/class-uagb-fse-fonts-compatibility.php:181
+msgid "400"
+msgstr "400"
+
+#: classes/class-uagb-admin.php:405
+msgid "View Log"
+msgstr "Ver registro"
+
+#: classes/class-uagb-admin.php:405
+msgid "Your Spectra database is now up-to-date. Your website will continue to function as before."
+msgstr "Tu base de datos de Spectra ahora está actualizada. Tu web seguirá funcionando como antes."
+
+#: classes/class-uagb-admin.php:404
+msgid "Update Successful!"
+msgstr "¡Actualización correcta!"
+
+#: classes/class-uagb-admin.php:379
+msgid "Great! This should only take a few minutes. Thanks for hanging in there."
+msgstr "¡Genial» Esto solo debería tardar unos pocos minutos. Gracias por seguir ahí."
+
+#: classes/class-uagb-admin.php:378
+msgid "Spectra database update in progress"
+msgstr "Actualización de la base de datos de Spectra en curso"
+
+#: classes/class-uagb-admin.php:353
+msgid "Learn More About This"
+msgstr "Aprende más sobre esto"
+
+#: classes/class-uagb-admin.php:351
+msgid "Update Spectra Database"
+msgstr "Actualizar base de datos de Spectra"
+
+#: classes/class-uagb-admin.php:350
+msgid "To be on the safer side, please be sure to back up your site before updating."
+msgstr "Para mantenerte a salvo, por favor, asegúrate de hacer una copia de seguridad de tu sitio antes de actualizar."
+
+#: classes/class-uagb-admin.php:349
+msgid "We've detected that some of your pages were created with an older version of Spectra. To ensure your designs remain unaffected, we recommend updating the Spectra database now. Updating the Spectra database will not impact any other parts of your website."
+msgstr "Hemos detectado que algunas de tus páginas se crearon con una versión antigua de Spectra. Para que tus diseños no se vean afectados, te recomendamos que actualices ahora la base de datos de Spectra. La actualización de la base de datos de Spectra no afectará a ninguna otra parte de tu sitio web."
+
+#: classes/class-uagb-admin.php:348
+msgid "Spectra database update required"
+msgstr "Es necesario actualizar la base de datos de Spectra"
+
+#: classes/class-uagb-admin.php:306
+msgid "We're a small independent team passionate about creating plugins like this one. It would mean the world to us if you could spend just a minute to leave a 5-star review on WordPress' official website. Your support really helps us a lot!"
+msgstr "Somos un pequeño equipo independiente apasionado por crear plugins como éste. Significaría mucho para nosotros si dedicaras sólo un minuto a dejar una reseña de 5 estrellas en el sitio web oficial de WordPress. ¡Tu apoyo nos ayuda mucho!"
+
+#: classes/class-uagb-admin.php:305
+msgid "Wow! Spectra has helped you build over 5 pages!!"
+msgstr "¡Guau! ¡¡Spectra te ha ayudado a construir más de 5 páginas!!"
+
+#: classes/class-uagb-admin.php:129
+msgid "Log file not found."
+msgstr "Archivo de registro no encontrado."
+
+#: classes/class-uagb-admin.php:96
+msgid "Migration started successfully."
+msgstr "La migración se ha iniciado correctamente."
+
+#: classes/class-uagb-admin-helper.php:492
+msgid "Theme"
+msgstr "Tema"
+
+#: classes/class-uagb-admin-helper.php:485
+msgid "Full Site Editor's Global Styles"
+msgstr "Estilos globales del editor del sitio completo"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:5234
 msgid "Travel"
@@ -55,6 +467,10 @@ msgstr "Zhihu"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:5181
 msgid "Z"
 msgstr "Z"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:5170
+msgid "YouTube Square"
+msgstr "YouTube cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:5159
 msgid "YouTube"
@@ -111,6 +527,10 @@ msgstr "Líneas Xmarks"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:5016
 msgid "Xmark"
 msgstr "Xmark"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:5005
+msgid "Xing Square"
+msgstr "Xing cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4983
 msgid "Xbox"
@@ -239,6 +659,10 @@ msgstr "Espiga de trigo con exclamación en círculo"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4616
 msgid "Wheat Awn"
 msgstr "Toldo de trigo"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:4605
+msgid "WhatsApp Square"
+msgstr "WhatsApp cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4583
 msgid "Weixin (WeChat)"
@@ -372,6 +796,10 @@ msgstr "Virus"
 msgid "Vine"
 msgstr "Vine"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:4198
+msgid "Vimeo Square"
+msgstr "Vimeo cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4187
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4209
 msgid "Vimeo"
@@ -404,6 +832,10 @@ msgstr "Vial círculo check"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4099
 msgid "Vial"
 msgstr "Vial"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:4088
+msgid "Viadeo Square"
+msgstr "Viadeo cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:4077
 msgid "Viadeo"
@@ -681,6 +1113,10 @@ msgstr "U"
 msgid "Typo3"
 msgstr "Typo3"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:3291
+msgid "Twitter Square"
+msgstr "Twitter cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:3258
 msgid "Twitch"
 msgstr "Twitch"
@@ -700,6 +1136,10 @@ msgstr "Bajar"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:3214
 msgid "Turkish Lira Sign"
 msgstr "Signo de lira turca"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:3203
+msgid "Tumblr Square"
+msgstr "Tumblr cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:3181
 msgid "Tty"
@@ -1221,6 +1661,10 @@ msgstr "Símbolo esterlina"
 msgid "Steam Symbol"
 msgstr "Steam símbolo"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:1665
+msgid "Steam Square"
+msgstr "Steam cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:1654
 msgid "Steam"
 msgstr "Steam"
@@ -1256,6 +1700,10 @@ msgstr "Sello"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:1540
 msgid "Stairs"
 msgstr "Escaleras"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:1529
+msgid "Staff Aesculapius"
+msgstr "Vara de Escolapio"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:1518
 msgid "Stackpath"
@@ -1472,6 +1920,10 @@ msgstr "Muñeco de nieve"
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:879
 msgid "Snowflake"
 msgstr "Copo de nieve"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-3.php:863
+msgid "Snapchat Square"
+msgstr "Snapchat cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-3.php:852
 msgid "Snapchat"
@@ -1949,6 +2401,10 @@ msgstr "Registrado"
 msgid "Redhat"
 msgstr "Redhat"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:4606
+msgid "Reddit Square"
+msgstr "Reddit cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:4595
 msgid "reddit Alien"
 msgstr "Alien de reddit"
@@ -2213,6 +2669,10 @@ msgstr "Porción de pizza"
 msgid "Pix"
 msgstr "Pix"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:3826
+msgid "Pinterest Square"
+msgstr "Pinterest cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:3815
 msgid "Pinterest P"
 msgstr "Pinterest P"
@@ -2224,6 +2684,10 @@ msgstr "Píldoras"
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:3782
 msgid "Piggy Bank"
 msgstr "Hucha de cerdito"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:3771
+msgid "Pied Piper Square"
+msgstr "Pied Piper cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:3760
 msgid "Pied Piper PP Logo (Old)"
@@ -2505,6 +2969,10 @@ msgstr "Persona grupo"
 msgid "People Carry Box"
 msgstr "Persona cargando caja"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:2979
+msgid "People Arrows Left Right"
+msgstr "Personas flechas izquierda derecha"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:2968
 msgid "Pencil"
 msgstr "Lápiz"
@@ -2656,6 +3124,10 @@ msgstr "Pozo de petróleo"
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:2513
 msgid "Oil Can"
 msgstr "Bidón de aceite"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:2502
+msgid "Odnoklassniki Square"
+msgstr "Odnoklassniki cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:2480
 msgid "Octopus Deploy"
@@ -3233,6 +3705,10 @@ msgstr "Hoja"
 msgid "Layer Group"
 msgstr "Grupo de capas"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:720
+msgid "last.fm Square"
+msgstr "last.fm cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:709
 msgid "last.fm"
 msgstr "last.fm"
@@ -3345,6 +3821,10 @@ msgstr "Jarra detergente"
 msgid "jsFiddle"
 msgstr "jsFiddle"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:374
+msgid "Javascript (JS) Square"
+msgstr "Javascript (JS) cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:363
 msgid "JavaScript (JS)"
 msgstr "JavaScript (JS)"
@@ -3428,6 +3908,10 @@ msgstr "Intercom"
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:121
 msgid "InstaLOD"
 msgstr "InstaLOD"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-2.php:110
+msgid "Instagram Square"
+msgstr "Instagram cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:99
 msgid "Instagram"
@@ -3628,6 +4112,10 @@ msgstr "Reloj de arena inicio"
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:5000
 msgid "Hourglass End"
 msgstr "Reloj de arena fin"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:4989
+msgid "Hourglass Empty"
+msgstr "Reloj de arena vacío"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:4978
 msgid "Hourglass"
@@ -3969,6 +4457,10 @@ msgstr "Martillo"
 msgid "Hackerrank"
 msgstr "Hackerrank"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3941
+msgid "Hacker News Square"
+msgstr "Hacker News cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:3930
 msgid "Hacker News"
 msgstr "Hacker News"
@@ -4053,6 +4545,10 @@ msgstr "Gopuram"
 msgid "Google Wallet"
 msgstr "Google Wallet"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3699
+msgid "Google Plus Square"
+msgstr "Google Plus cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:3655
 msgid "Google Pay"
 msgstr "Google Pay"
@@ -4117,6 +4613,10 @@ msgstr "GitLab"
 msgid "GitKraken"
 msgstr "GitKraken"
 
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3468
+msgid "Github Square"
+msgstr "Github cuadrado"
+
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:3457
 msgid "Alternate GitHub"
 msgstr "Alternate GitHub"
@@ -4124,6 +4624,10 @@ msgstr "Alternate GitHub"
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:3446
 msgid "GitHub"
 msgstr "GitHub"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:3435
+msgid "Git Square"
+msgstr "Git cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:3424
 msgid "Git Alt"
@@ -4580,6 +5084,10 @@ msgstr "Fantasy Flight-games"
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:2048
 msgid "Fan"
 msgstr "Ventilador"
+
+#: blocks-config/uagb-controls/spectra-icons-v6-1.php:2037
+msgid "Facebook Square"
+msgstr "Facebook cuadrado"
 
 #: blocks-config/uagb-controls/spectra-icons-v6-1.php:2026
 msgid "Facebook Messenger"
@@ -7003,15 +7511,15 @@ msgstr "Maquetador de ventanas emergentes"
 
 #. translators: %1$s: Opening Strong Tag, %2$s: Closing Strong Tag, %3$s Anchor
 #. Tag with Star Symbol Codes.
-#: admin-core/inc/admin-menu.php:502
+#: admin-core/inc/admin-menu.php:531
 msgid "Enjoyed %1$sSpectra%2$s? Please leave us a %3$s rating. We really appreciate your support!"
 msgstr "¿Te ha gustado %1$sSpectra%2$s? Por favor, déjanos una valoración %3$s. ¡Apreciamos mucho tu apoyo!"
 
-#: admin-core/inc/admin-menu.php:172 admin-core/assets/build/dashboard-app.js:1
+#: admin-core/inc/admin-menu.php:184 admin-core/assets/build/dashboard-app.js:1
 msgid "AI Features"
 msgstr "Características con IA"
 
-#: admin-core/inc/admin-menu.php:148
+#: admin-core/inc/admin-menu.php:160
 msgid "Dashboard"
 msgstr "Escritorio"
 
@@ -7063,6 +7571,10 @@ msgstr "Este bloque te permite añadir un mensaje en una ventana emergente."
 msgid "Modal"
 msgstr "Ventana emergente"
 
+#: admin-core/inc/admin-menu.php:289 admin-core/assets/build/dashboard-app.js:5
+msgid "Activate"
+msgstr "Activar"
+
 #: blocks-config/popup-builder/class-uagb-popup-builder.php:264
 #: admin-core/assets/build/dashboard-app.js:5
 msgid "Popup"
@@ -7073,6 +7585,7 @@ msgid "This block lets you add a user register form."
 msgstr "Este bloque te permite añadir un formulario de registro de usuarios."
 
 #: includes/blocks/register/block.php:16
+#: admin-core/assets/build/dashboard-app.js:1
 msgid "Registration Form"
 msgstr "Formulario de registro"
 
@@ -7081,6 +7594,7 @@ msgid "This block lets you add a user login form."
 msgstr "Este bloque te permite añadir un formulario de acceso de usuarios."
 
 #: includes/blocks/login/block.php:16
+#: admin-core/assets/build/dashboard-app.js:1
 msgid "Login Form"
 msgstr "Formulario de acceso"
 
@@ -7104,7 +7618,7 @@ msgstr "Contador"
 msgid "Add Your Title Here…"
 msgstr "Añade aquí tu título…"
 
-#: classes/class-uagb-init-blocks.php:802
+#: classes/class-uagb-init-blocks.php:806
 msgid ""
 "Use custom class added in block's advanced settings to target your desired block. Examples:\n"
 "\t\t.my-class {text-align: center;} // my-class is a custom selector"
@@ -7196,6 +7710,10 @@ msgstr "Mapa de Google de"
 #: blocks-config/uagb-controls/spectra-icons-v6-2.php:176
 msgid "Italic"
 msgstr "Cursiva"
+
+#: admin-core/inc/admin-menu.php:100 admin-core/assets/build/dashboard-app.js:3
+msgid "Rollback"
+msgstr "Retroceder"
 
 #. translators: %s: PHP version
 #: ultimate-addons-for-gutenberg.php:40
@@ -7511,7 +8029,7 @@ msgstr "Spectra <p>Retroceso a versión anterior</p>"
 msgid "The %1$sSpectra%2$s plugin requires %1$sGutenberg%2$s plugin installed & activated."
 msgstr "El plugin %1$sSpectra%2$s requiere que el plugin %1$sGutenberg%2$s esté instalado y activo."
 
-#: classes/class-uagb-admin-helper.php:437
+#: classes/class-uagb-admin-helper.php:488
 msgid "Filter added through any 3rd Party Theme/Plugin."
 msgstr "Filtro añadido mediante otro tema/plugin de terceros."
 
@@ -7531,7 +8049,7 @@ msgid "Successfully saved data!"
 msgstr "¡Datos guardados correctamente!"
 
 #: admin-core/ajax/common-settings.php:180
-#: classes/class-uagb-init-blocks.php:1061
+#: classes/class-uagb-init-blocks.php:1065
 msgid "No post data found!"
 msgstr "¡No se han encontrado datos de la entrada!"
 
@@ -7548,10 +8066,10 @@ msgid "Sorry, you are not allowed to do this operation."
 msgstr "Lo siento, no tienes permisos para realizar esta operación."
 
 #. Plugin Name of the plugin
-#: ultimate-addons-for-gutenberg.php admin-core/inc/admin-menu.php:135
-#: admin-core/inc/admin-menu.php:136 admin-core/inc/admin-menu.php:147
-#: admin-core/inc/admin-menu.php:157 admin-core/inc/admin-menu.php:171
-#: admin-core/inc/admin-menu.php:182 admin-core/inc/admin-menu.php:261
+#: ultimate-addons-for-gutenberg.php admin-core/inc/admin-menu.php:147
+#: admin-core/inc/admin-menu.php:148 admin-core/inc/admin-menu.php:159
+#: admin-core/inc/admin-menu.php:169 admin-core/inc/admin-menu.php:183
+#: admin-core/inc/admin-menu.php:194 admin-core/inc/admin-menu.php:274
 #: classes/class-uagb-init-blocks.php:576
 msgid "Spectra"
 msgstr "Spectra"
@@ -7649,6 +8167,7 @@ msgid "Hidden"
 msgstr "Oculto"
 
 #: includes/blocks/forms/attributes.php:174
+#: includes/blocks/forms/frontend.js.php:50
 msgid "Please fill up the above captcha."
 msgstr "Por favor, completa el captcha de arriba."
 
@@ -7658,6 +8177,7 @@ msgstr "Ha ocurrido algún error al enviar el formulario. Por favor, revisa de n
 
 #: blocks-config/forms/class-uagb-forms.php:429
 #: includes/blocks/forms/attributes.php:70
+#: includes/blocks/forms/frontend.js.php:46
 msgid "Form Submission"
 msgstr "Envío del formulario"
 
@@ -7701,17 +8221,17 @@ msgstr "Título de la entrada"
 msgid "Content Timeline Child"
 msgstr "Cronología de contenidos hija"
 
-#: classes/class-uagb-admin.php:187
+#: classes/class-uagb-admin.php:196
 msgid "Error occurred, The version selected is invalid. Try selecting different version."
 msgstr "Ha ocurrido un error. La versión seleccionada no es válida. Prueba a seleccionar una versión diferente."
 
-#: classes/class-uagb-admin.php:174 classes/class-uagb-admin.php:205
+#: classes/class-uagb-admin.php:183 classes/class-uagb-admin.php:214
 #: admin-core/assets/build/dashboard-app.js:1
 #: admin-core/assets/build/dashboard-app.js:3
 msgid "Rollback to Previous Version"
 msgstr "Volver a una versión anterior"
 
-#: classes/class-uagb-admin.php:103 classes/class-uagb-admin.php:173
+#: classes/class-uagb-admin.php:112 classes/class-uagb-admin.php:182
 msgid "You do not have permission to access this page."
 msgstr "No tienes permisos para acceder a esta página."
 
@@ -7943,7 +8463,7 @@ msgstr "Escritorio"
 msgid "Link"
 msgstr "Enlace"
 
-#: admin-core/inc/admin-menu.php:97 admin-core/inc/admin-menu.php:183
+#: admin-core/inc/admin-menu.php:99 admin-core/inc/admin-menu.php:195
 #: admin-core/assets/build/dashboard-app.js:1
 msgid "Settings"
 msgstr "Ajustes"
@@ -7982,11 +8502,11 @@ msgid "Image"
 msgstr "Imagen"
 
 #: classes/class-uagb-fse-fonts-compatibility.php:165
-#: classes/class-uagb-init-blocks.php:717
+#: classes/class-uagb-init-blocks.php:721
 msgid "Default"
 msgstr "Por defecto"
 
-#: classes/class-uagb-init-blocks.php:861 classes/class-uagb-rest-api.php:318
+#: classes/class-uagb-init-blocks.php:865 classes/class-uagb-rest-api.php:318
 #: classes/class-uagb-rest-api.php:333
 msgid "None"
 msgstr "Ninguno"
@@ -8017,7 +8537,7 @@ msgstr "Nonce de WordPress no validado."
 msgid "Table of Contents"
 msgstr "Tabla de contenidos"
 
-#: classes/class-uagb-init-blocks.php:937
+#: classes/class-uagb-init-blocks.php:941
 msgid "You have not added any Gravity Forms yet."
 msgstr "Todavía no has añadido ningún formulario de Gravity Forms."
 
@@ -8033,12 +8553,12 @@ msgstr "Botón de marketing"
 msgid "Please select a valid Contact Form 7."
 msgstr "Por favor, selecciona un formulario válido de Contact Form 7."
 
-#: classes/class-uagb-init-blocks.php:904
+#: classes/class-uagb-init-blocks.php:908
 msgid "You have not added any Contact Form 7 yet."
 msgstr "Todavía no has añadido ningún formulario de Contact Form 7."
 
-#: classes/class-uagb-init-blocks.php:890
-#: classes/class-uagb-init-blocks.php:923
+#: classes/class-uagb-init-blocks.php:894
+#: classes/class-uagb-init-blocks.php:927
 msgid "Select Form"
 msgstr "Selecciona un formulario"
 
@@ -8051,7 +8571,7 @@ msgid "Blockquote"
 msgstr "Cita"
 
 #. translators: %s: html tags
-#: classes/class-uagb-admin.php:412
+#: classes/class-uagb-admin.php:424
 msgid "Spectra requires&nbsp;%3$sBlock Editor%4$s. You can change your editor settings to Block Editor from&nbsp;%1$shere%2$s. Plugin is currently NOT RUNNING."
 msgstr "Spectra necesita el&nbsp;%3$seditor de bloques%4$s. Puedes cambiar los ajustes de tu editor al editor de bloques desde&nbsp;%1$saquí%2$s. En este momento, el plugin NO ESTÁ EN FUNCIONAMIENTO."
 
@@ -8076,15 +8596,15 @@ msgstr "Columna"
 msgid "Advanced Columns"
 msgstr "Columnas avanzadas"
 
-#: classes/class-uagb-admin.php:299
+#: classes/class-uagb-admin.php:311
 msgid "I already did"
 msgstr "Ya lo he hecho"
 
-#: classes/class-uagb-admin.php:298
+#: classes/class-uagb-admin.php:310
 msgid "Nope, maybe later"
 msgstr "No, quizá más tarde"
 
-#: classes/class-uagb-admin.php:296
+#: classes/class-uagb-admin.php:308
 msgid "Ok, you deserve it"
 msgstr "Vale, lo mereces"
 
@@ -8141,7 +8661,11 @@ msgstr "Cronología de contenidos"
 msgid "Post Grid"
 msgstr "Cuadrícula de entradas"
 
-#: admin-core/inc/admin-menu.php:158
+#: admin-core/inc/admin-menu.php:288
+msgid "Activated"
+msgstr "Activo"
+
+#: admin-core/inc/admin-menu.php:170 admin-core/assets/build/dashboard-app.js:1
 msgid "Blocks"
 msgstr "Bloques"
 

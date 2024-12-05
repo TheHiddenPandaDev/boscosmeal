@@ -20,6 +20,7 @@ parameters:
 		- %rootDir%/../../php-stubs/wp-cli-stubs/wp-cli-i18n-stubs.php
 	bootstrapFiles:
 		- tests/php/stubs/elementor-stubs.php
+		- tests/php/stubs/astra-sites-external-stubs.php
 		- tests/php/stubs/astra-pro-sites-constants.php
 		- tests/php/stubs/astra-pro-sites-stubs.php
 		#- tests/php/stubs/zipai-stubs.php
@@ -30,7 +31,6 @@ parameters:
 		- class-brainstorm-update-astra-pro-sites.php
 		- classes
 		- inc/lib/onboarding
-		- inc/lib/nps-survey
 		- inc/lib/class-astra-sites-ast-block-templates.php
 		- inc/lib/class-astra-sites-zip-ai.php
 
@@ -38,6 +38,7 @@ parameters:
 		- node_modules
 		- wordpress
 		- vendor
+		- tests
 
 #    autoload_files:
 #        # Missing constants, function and class stubs

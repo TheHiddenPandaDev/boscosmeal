@@ -282,13 +282,18 @@ class Blocks_Animation {
 		$notice_html .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
 		$notice_html .= '<div class="notice-content">';
 
-		$notice_html .= '<img class="otter-preview" src="' . esc_url( BLOCKS_ANIMATION_URL . '/assets/images/welcome-notice.png' ) . '" alt="' . esc_attr__( 'Otter Blocks preview', 'otter-blocks' ) . '"/>';
+		$notice_html .= '<img class="otter-preview" style="max-height: 300px;" src="' . esc_url( BLOCKS_ANIMATION_URL . '/assets/images/welcome-notice.png' ) . '" alt="' . esc_attr__( 'Otter Blocks preview', 'otter-blocks' ) . '"/>';
 
 		$notice_html .= '<div class="notice-copy">';
 
 		$notice_html .= '<h1 class="notice-title">';
-		/* translators: %s: Otter Blocks */
-		$notice_html .= sprintf( __( 'Power Up Your Site with %1$s, %2$s, %3$s, and more!', 'otter-blocks' ), '<span>Add-on Blocks</span>', '<span>Enhanced Animations</span>', '<span>Visibility Conditions</span>' );
+		$notice_html .= sprintf(
+			/* translators: %1$s: Add-on Blocks, %2$s: Enhanced Animations, %3$s: Visibility Conditions */
+			__( 'Power Up Your Site with %1$s, %2$s, %3$s, and more!', 'otter-blocks' ), 
+			'<span>' . __( 'Add-on Blocks', 'otter-blocks' ) . '</span>', 
+			'<span>' . __( 'Enhanced Animations', 'otter-blocks' ) . '</span>', 
+			'<span>' . __( 'Visibility Conditions', 'otter-blocks' ) . '</span>' 
+		);
 
 		$notice_html .= '</h1>';
 

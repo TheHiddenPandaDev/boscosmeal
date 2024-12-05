@@ -9,7 +9,7 @@
  */
 
 /**
- * Bloque de imagen de visa y mastercard
+ * Bloque de imagen de visa, mastercard, Bizum, Diners, Discover, Maestro, UnionPay, GPay y Apple Pay.
  */
 function redsys_create_block_bloques_redsys_block_init() {
 	register_block_type(
@@ -111,6 +111,5 @@ function redsys_imagen_visa_mastercard_enqueue() {
 		'imagenVisaMastercard',
 		array( 'pluginUrl' => REDSYS_PLUGIN_URL_P )
 	);
-
 }
 add_action( 'enqueue_block_editor_assets', 'redsys_imagen_visa_mastercard_enqueue' );

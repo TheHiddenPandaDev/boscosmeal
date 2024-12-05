@@ -1,13 +1,65 @@
 *** Redsys Gateway Change Log ***
 
-2024.04.16 - version 25.0.2
+2024.11.12 - version 25.2.0
 
-* FIX: 1clic payment
+* NEW: InSite for Checkout Block with preauthorizartions, Subscripiton & pay with one clic.
+* NEW: Select all logo modes of payment methods from Redsys advanced (Checkout Block only).
+* UPDATE: Now the token with the highest ID is used for subscriptions.
+* UPDATE: Removed all code for multisite.
+* UPDATE: Improved performance functions.
+* FIX: Undefined variable.
+
+2024.11.07 - version 25.1.5
+
+* FIX: InSite
+
+2024.11.05 - version 25.1.4
+
+* FIX: Bizum redirection in Checkout Block.
+
+2024.11.04 - version 25.1.3
+
+* UPDATE: Added block control for execute some block functions.
+* UPDATE: Added block control in checkout submit.
+* UPDATE: Methods blocks are only loaded if are enabled.
+* FIX: Creation of dynamic property.
+
+2024.10.22 - version 25.1.2
+
+* FIX: Two paths for loading files.
+
+2024.10.22 - version 25.1.1
+
+* UPDATE: Updated wp_set_current_user() and wp_set_auth_cookie() to wc_set_customer_auth_cookie().
+* UPDATE: Code is Poetry
+* FIX: Undefined variable $final_notify_url (InSite).
+* FIX: Ds_Card_Number Email is always send if it's enabled.
+
+2024.10.17 - version 25.1.0
+
+* NEW: Filter redsys_order_number.
+* NEW: Apple Pay Express Checkout (Checkout Block) for virtual products.
+* NEW: New filter redsys_thankyou_page_text.
+* UPDATE: PHP 8.2 & 8.3 compatibility, many notices fixed.
+* UPDATE: New WooCommerce Debug API.
+* UPDATE: Updated URLs to WooCommerce.com and plugins.joseconti.com.
+* UPDATE: Updated Redsys Errors.
+* UPDATE: Code is Poetry.
+* FIXED: Problem with WordPress Multisite.
+* FIXED: A log always written with InSite.
+* FIXED: Bulk refunds in new installations.
+* FIXED: Variable products with SUMO Subscriptions.
+* FIXED: Preauthorizations could only be used if the one-click payment is active or if it’s an InSite subscription.
+* FIXED: Many PHP Warning:  Undefined.
+
+2024.04.16 - 25.0.2
+
+* FIXED: 1clic payment
 
 2024.03.14 - version 25.0.1
 
-* NEW: Ability to hide Chekout logos.
-* UPDATE: Declared compatibility with WooCommewrce 8.7
+* NEW: Ability to hide Checkout logos.
+* UPDATE: Declared compatibility with WooCommerce 8.7
 * UPDATE: Declared compatibility with WordPress 6.5
 * FIX: Under some circumstances, an error occurs when editing some pages.
 
@@ -33,7 +85,7 @@
 * UPDATE: Removed deprecatd CSS.
 * UPDATE: If the server takes too long to process the order, Apple Pay will report an error even if the payment is made correctly.
 * UPDATE: A query that used to be performed everywhere is now only executed on the front-end when necessary.
-* FIX: Undefined array key "wc_actions" class-redsys-advanced-setings.php
+* FIX: Undefined array key "wc_actions" class-redsys-advanced-settings.php
 * FIX: Many lines Undefined $order_id with Redsys redirection.
 * FIX: Under some circumstances, it redirects to Redsys even though the modal is active.
 * FIX: If SNI compatibility is enabled, it produces a security error in the redirection to Redsys.
@@ -44,7 +96,7 @@
 
 2024.02.05 - version 24.3.1
 
-* FIX: Fixed an issue where an error would occur if a purchase was made through Bizum in the checkoput while simultaneously creating an account.
+* FIX: Fixed an issue where an error would occur if a purchase was made through Bizum in the checkout while simultaneously creating an account.
 * FIX: Fatal error when Woo Subscriptions is not installed.
 
 2024.02.04 - version 24.3.0
@@ -69,7 +121,7 @@
 * UPDATE: Added more logs.
 * UPDATE: Temporal disabled Banner Live.
 * FIX: Some notices.
-* FIX: Undefined variable $all_redsys_data
+* FIX: Undefined variable $all_redsys_data.
 
 2023.11.26 - version 24.2.0
 
@@ -189,9 +241,9 @@
 
 2023.05.30 - version 21.0.0
 
-* NEW: Added catalan front translation for InSite.
-* NEW: Added galego front translation for InSite.
-* NEW: Added euskera front translation for InSite.
+* NEW: Added Catalan front translation for InSite.
+* NEW: Added Galician front translation for InSite.
+* NEW: Added Basque front translation for InSite.
 * NEW: Added Gutenberg Block for Credit Card Image.
 * NEW: Added Checkout Block for Bizum.
 * NEW: Added Checkout Block for PayGold.

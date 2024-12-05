@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -18,7 +18,205 @@ defined( 'ABSPATH' ) || exit;
  * Copyright: (C) 2013 - 2024 José Conti
  */
 class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
-	var $notify_url;
+
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $id ID of the gateway.
+	 */
+	public $id;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $icon Icon of the gateway.
+	 */
+	public $icon;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var bool $has_fields Whether the gateway has fields.
+	 */
+	public $has_fields;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $liveurl Live URL for the gateway.
+	 */
+	public $liveurl;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $testurl Test URL for the gateway.
+	 */
+	public $testurl;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $liveurlws Live URL for the web service.
+	 */
+	public $liveurlws;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $testurlws Test URL for the web service.
+	 */
+	public $testurlws;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $testsha256 Test SHA-256 key.
+	 */
+	public $testsha256;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $testmode Test mode setting.
+	 */
+	public $testmode;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $method_title Title of the payment method.
+	 */
+	public $method_title;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $method_description Description of the payment method.
+	 */
+	public $method_description;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var bool $not_use_https Whether to use HTTPS.
+	 */
+	public $not_use_https;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $notify_url Notification URL.
+	 */
+	public $notify_url;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $notify_url_not_https Notification URL without HTTPS.
+	 */
+	public $notify_url_not_https;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $title Title of the gateway.
+	 */
+	public $title;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $description Description of the gateway.
+	 */
+	public $description;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $customer Customer ID.
+	 */
+	public $customer;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $commercename Commerce name.
+	 */
+	public $commercename;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $terminal Terminal ID.
+	 */
+	public $terminal;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $secretsha256 Secret SHA-256 key.
+	 */
+	public $secretsha256;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $customtestsha256 Custom test SHA-256 key.
+	 */
+	public $customtestsha256;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $directdebitredsyslanguage Language for Direct Debit Redsys.
+	 */
+	public $directdebitredsyslanguage;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var bool $debug Debug mode.
+	 */
+	public $debug;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var bool $testforuser Test mode for user.
+	 */
+	public $testforuser;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var array $testforuserid User IDs for test mode.
+	 */
+	public $testforuserid;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $buttoncheckout Button text at checkout.
+	 */
+	public $buttoncheckout;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $butonbgcolor Button background color.
+	 */
+	public $butonbgcolor;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $butontextcolor Button text color.
+	 */
+	public $butontextcolor;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $descripredsys Description for Redsys.
+	 */
+	public $descripredsys;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var array $testshowgateway Users to show gateway in test mode.
+	 */
+	public $testshowgateway;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var string $log Log for the gateway.
+	 */
+	public $log;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var array $supports Supported features.
+	 */
+	public $supports;
+	/**
+	 * Constructor for the gateway.
+	 *
+	 * @var bool $enabled Whether the gateway is enabled.
+	 */
+	public $enabled;
 
 	/**
 	 * Constructor for the gateway.
@@ -27,12 +225,12 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function __construct() {
 
-		$this->id                   = 'directdebitredsys';
+		$this->id = 'directdebitredsys';
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'directdebitredsys' ) ) ) {
 			$logo_url   = WCRed()->get_redsys_option( 'logo', 'directdebitredsys' );
 			$this->icon = apply_filters( 'woocommerce_' . $this->id . '_iconn', $logo_url );
@@ -56,9 +254,6 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$this->init_settings();
 		// Define user set variables.
 		$this->title                     = WCRed()->get_redsys_option( 'title', 'directdebitredsys' );
-		$this->multisitesttings          = WCRed()->get_redsys_option( 'multisitesttings', 'directdebitredsys' );
-		$this->ownsetting                = WCRed()->get_redsys_option( 'ownsetting', 'directdebitredsys' );
-		$this->hideownsetting            = WCRed()->get_redsys_option( 'hideownsetting', 'directdebitredsys' );
 		$this->description               = WCRed()->get_redsys_option( 'description', 'directdebitredsys' );
 		$this->customer                  = WCRed()->get_redsys_option( 'customer', 'directdebitredsys' );
 		$this->commercename              = WCRed()->get_redsys_option( 'commercename', 'directdebitredsys' );
@@ -74,7 +269,49 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$this->butontextcolor            = WCRed()->get_redsys_option( 'butontextcolor', 'directdebitredsys' );
 		$this->descripredsys             = WCRed()->get_redsys_option( 'descripredsys', 'directdebitredsys' );
 		$this->testshowgateway           = WCRed()->get_redsys_option( 'testshowgateway', 'directdebitredsys' );
-		$this->log                       = new WC_Logger();
+		$this->supports                  = array(
+			'products',
+		);
+		$this->enabled                   = false;
+		$this->id                        = 'directdebitredsys';
+		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'directdebitredsys' ) ) ) {
+			$logo_url   = WCRed()->get_redsys_option( 'logo', 'directdebitredsys' );
+			$this->icon = apply_filters( 'woocommerce_' . $this->id . '_iconn', $logo_url );
+		} else {
+			$this->icon = apply_filters( 'woocommerce_' . $this->id . '_icon', REDSYS_PLUGIN_URL_P . 'assets/images/redsys.png' );
+		}
+		$this->has_fields           = false;
+		$this->liveurl              = 'https://sis.redsys.es/sis/realizarPago';
+		$this->testurl              = 'https://sis-t.redsys.es:25443/sis/realizarPago';
+		$this->liveurlws            = 'https://sis.redsys.es:443/sis/services/SerClsWSEntrada?wsdl';
+		$this->testurlws            = 'https://sis-t.redsys.es:25443/sis/services/SerClsWSEntrada?wsdl';
+		$this->testsha256           = 'sq7HjrUOBfKmC576ILgskD5srU870gJ7';
+		$this->testmode             = WCRed()->get_redsys_option( 'testmode', 'directdebitredsys' );
+		$this->method_title         = __( 'Direct Debit (by José Conti)', 'woocommerce-redsys' );
+		$this->method_description   = __( 'Direct Debit works redirecting customers to Direct Debit.', 'woocommerce-redsys' );
+		$this->not_use_https        = WCRed()->get_redsys_option( 'not_use_https', 'directdebitredsys' );
+		$this->notify_url           = add_query_arg( 'wc-api', 'WC_Gateway_' . $this->id, home_url( '/' ) );
+		$this->notify_url_not_https = str_replace( 'https:', 'http:', add_query_arg( 'wc-api', 'WC_Gateway_' . $this->id, home_url( '/' ) ) );
+		// Load the settings.
+		$this->init_form_fields();
+		$this->init_settings();
+		// Define user set variables.
+		$this->title                     = WCRed()->get_redsys_option( 'title', 'directdebitredsys' );
+		$this->description               = WCRed()->get_redsys_option( 'description', 'directdebitredsys' );
+		$this->customer                  = WCRed()->get_redsys_option( 'customer', 'directdebitredsys' );
+		$this->commercename              = WCRed()->get_redsys_option( 'commercename', 'directdebitredsys' );
+		$this->terminal                  = WCRed()->get_redsys_option( 'terminal', 'directdebitredsys' );
+		$this->secretsha256              = WCRed()->get_redsys_option( 'secretsha256', 'directdebitredsys' );
+		$this->customtestsha256          = WCRed()->get_redsys_option( 'customtestsha256', 'directdebitredsys' );
+		$this->directdebitredsyslanguage = WCRed()->get_redsys_option( 'directdebitredsyslanguage', 'directdebitredsys' );
+		$this->debug                     = WCRed()->get_redsys_option( 'debug', 'directdebitredsys' );
+		$this->testforuser               = WCRed()->get_redsys_option( 'testforuser', 'directdebitredsys' );
+		$this->testforuserid             = WCRed()->get_redsys_option( 'testforuserid', 'directdebitredsys' );
+		$this->buttoncheckout            = WCRed()->get_redsys_option( 'buttoncheckout', 'directdebitredsys' );
+		$this->butonbgcolor              = WCRed()->get_redsys_option( 'butonbgcolor', 'directdebitredsys' );
+		$this->butontextcolor            = WCRed()->get_redsys_option( 'butontextcolor', 'directdebitredsys' );
+		$this->descripredsys             = WCRed()->get_redsys_option( 'descripredsys', 'directdebitredsys' );
+		$this->testshowgateway           = WCRed()->get_redsys_option( 'testshowgateway', 'directdebitredsys' );
 		$this->supports                  = array(
 			'products',
 		);
@@ -95,7 +332,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function is_valid_for_use() {
@@ -113,7 +350,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function admin_options() {
@@ -196,27 +433,6 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'label'   => __( 'Enable Direct Debit', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'multisitesttings'          => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'hideownsetting'            => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'ownsetting'                => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
 			'title'                     => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
@@ -230,7 +446,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via Direct Debit you can pay with your Direct Debit account.', 'woocommerce-redsys' ),
 			),
-			'logo'                  => array(
+			'logo'                      => array(
 				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
@@ -345,7 +561,6 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			'debug'                     => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => __( 'Log Direct Debit events, such as notifications requests, inside <code>WooCommerce > Status > Logs > directdebit-{date}-{number}.log</code>', 'woocommerce-redsys' ),
@@ -355,23 +570,6 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 
 		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
 			$this->form_fields['directdebitredsyslanguage']['options'][ $redsyslanguage ] = $valor;
-		}
-		if ( ! is_multisite() ) {
-			unset( $this->form_fields['multisitesttings'] );
-			unset( $this->form_fields['ownsetting'] );
-			unset( $this->form_fields['hideownsetting'] );
-		} else {
-			if ( is_main_site() ) {
-				unset( $this->form_fields['ownsetting'] );
-			} else {
-				unset( $this->form_fields['multisitesttings'] );
-				unset( $this->form_fields['hideownsetting'] );
-				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
-				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
-				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
-					unset( $this->form_fields['ownsetting'] );
-				}
-			}
 		}
 	}
 	/**
@@ -386,11 +584,11 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$usertest_active = $this->testforuser;
 		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'directdebitredsys' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', '     Checking user test       ' );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', '/****************************/' );
+			WCRed()->log( 'directdebitredsys', '     Checking user test       ' );
+			WCRed()->log( 'directdebitredsys', '/****************************/' );
+			WCRed()->log( 'directdebitredsys', ' ' );
 		}
 
 		if ( 'yes' === $usertest_active ) {
@@ -398,66 +596,66 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			if ( ! empty( $selections ) ) {
 				foreach ( $selections as $user_id ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '   Checking user ' . $userid );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '  User in forach ' . $user_id );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', '   Checking user ' . $userid );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', '  User in forach ' . $user_id );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', ' ' );
 					}
 					if ( (string) $user_id === (string) $userid ) {
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'directdebitredsys', ' ' );
-							$this->log->add( 'directdebitredsys', '/****************************/' );
-							$this->log->add( 'directdebitredsys', '   Checking user test TRUE    ' );
-							$this->log->add( 'directdebitredsys', '/****************************/' );
-							$this->log->add( 'directdebitredsys', ' ' );
-							$this->log->add( 'directdebitredsys', ' ' );
-							$this->log->add( 'directdebitredsys', '/********************************************/' );
-							$this->log->add( 'directdebitredsys', '  User ' . $userid . ' is equal to ' . $user_id );
-							$this->log->add( 'directdebitredsys', '/********************************************/' );
-							$this->log->add( 'directdebitredsys', ' ' );
+							WCRed()->log( 'directdebitredsys', ' ' );
+							WCRed()->log( 'directdebitredsys', '/****************************/' );
+							WCRed()->log( 'directdebitredsys', '   Checking user test TRUE    ' );
+							WCRed()->log( 'directdebitredsys', '/****************************/' );
+							WCRed()->log( 'directdebitredsys', ' ' );
+							WCRed()->log( 'directdebitredsys', ' ' );
+							WCRed()->log( 'directdebitredsys', '/********************************************/' );
+							WCRed()->log( 'directdebitredsys', '  User ' . $userid . ' is equal to ' . $user_id );
+							WCRed()->log( 'directdebitredsys', '/********************************************/' );
+							WCRed()->log( 'directdebitredsys', ' ' );
 						}
 						return true;
 					}
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '  Checking user test continue ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', '  Checking user test continue ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', ' ' );
 					}
 					continue;
 				}
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '  Checking user test FALSE    ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '  Checking user test FALSE    ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				return false;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '  Checking user test FALSE    ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '  Checking user test FALSE    ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', '     User test Disabled.      ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/****************************/' );
+				WCRed()->log( 'directdebitredsys', '     User test Disabled.      ' );
+				WCRed()->log( 'directdebitredsys', '/****************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			return false;
 		}
@@ -474,20 +672,20 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->testmode ) {
 			if ( 'rd' === $type ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '          URL Test RD         ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '          URL Test RD         ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				$url = $this->testurl;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '          URL Test WS         ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '          URL Test WS         ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				$url = $this->testurlws;
 			}
@@ -496,43 +694,41 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			if ( $user_test ) {
 				if ( 'rd' === $type ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '          URL Test RD         ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', '          URL Test RD         ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', ' ' );
 					}
 					$url = $this->testurl;
 				} else {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '          URL Test WS         ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', ' ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', '          URL Test WS         ' );
+						WCRed()->log( 'directdebitredsys', '/****************************/' );
+						WCRed()->log( 'directdebitredsys', ' ' );
 					}
 					$url = $this->testurlws;
 				}
-			} else {
-				if ( 'rd' === $type ) {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '          URL Live RD         ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
-					}
-					$url = $this->liveurl;
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'directdebitredsys', ' ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', '          URL Live WS         ' );
-						$this->log->add( 'directdebitredsys', '/****************************/' );
-						$this->log->add( 'directdebitredsys', ' ' );
-					}
-					$url = $this->liveurlws;
+			} elseif ( 'rd' === $type ) {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '          URL Live RD         ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
+				$url = $this->liveurl;
+			} else {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '          URL Live WS         ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+				}
+				$url = $this->liveurlws;
 			}
 		}
 		return $url;
@@ -547,43 +743,43 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', '         SHA256 Test.         ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/****************************/' );
+				WCRed()->log( 'directdebitredsys', '         SHA256 Test.         ' );
+				WCRed()->log( 'directdebitredsys', '/****************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
-			$customtestsha256 = utf8_decode( $this->customtestsha256 );
+			$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 			if ( ! empty( $customtestsha256 ) ) {
 				$sha256 = $customtestsha256;
 			} else {
-				$sha256 = utf8_decode( $this->testsha256 );
+				$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		} else {
 			$user_test = $this->check_user_test_mode( $user_id );
 			if ( $user_test ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '      USER SHA256 Test.       ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '      USER SHA256 Test.       ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
-				$customtestsha256 = utf8_decode( $this->customtestsha256 );
+				$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 				if ( ! empty( $customtestsha256 ) ) {
 					$sha256 = $customtestsha256;
 				} else {
-					$sha256 = utf8_decode( $this->testsha256 );
+					$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', '     USER SHA256 NOT Test.    ' );
-					$this->log->add( 'directdebitredsys', '/****************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', '     USER SHA256 NOT Test.    ' );
+					WCRed()->log( 'directdebitredsys', '/****************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
-				$sha256 = utf8_decode( $this->secretsha256 );
+				$sha256 = mb_convert_encoding( $this->secretsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		}
 		return $sha256;
@@ -619,25 +815,25 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		}
 		// redsys Args.
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$miobj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$miobj->setParameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
-		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
-		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'D' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency_codes[ get_woocommerce_currency() ] );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$miobj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$miobj->set_parameter( 'DS_MERCHANT_URLKO', $returnfromredsys );
+		$miobj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gatewaylanguage );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$miobj->set_parameter( 'DS_MERCHANT_PAYMETHODS', 'D' );
 
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request      = '';
-		$params       = $miobj->createMerchantParameters();
-		$signature    = $miobj->createMerchantSignature( $secretsha256 );
+		$params       = $miobj->create_merchant_parameters();
+		$signature    = $miobj->create_merchant_signature( $secretsha256 );
 		$order_id_set = $transaction_id2;
 		set_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ), $secretsha256, 3600 );
 		$redsys_args = array(
@@ -646,20 +842,20 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			'Ds_Signature'          => $signature,
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'directdebitredsys', 'Helping to understand the encrypted code: ' );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $this->customer );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_CURRENCY' . $currency_codes[ get_woocommerce_currency() ] );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_MERCHANTURL: ' . $final_notify_url );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
-			$this->log->add( 'directdebitredsys', 'DS_MERCHANT_PAYMETHODS: D' );
+			WCRed()->log( 'directdebitredsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'directdebitredsys', 'Helping to understand the encrypted code: ' );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $this->customer );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_CURRENCY' . $currency_codes[ get_woocommerce_currency() ] );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_MERCHANTURL: ' . $final_notify_url );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_URLOK: ' . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_URLKO: ' . $returnfromredsys );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gatewaylanguage );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
+			WCRed()->log( 'directdebitredsys', 'DS_MERCHANT_PAYMETHODS: D' );
 		}
 		$redsys_args = apply_filters( 'woocommerce_redsys_args', $redsys_args );
 		return $redsys_args;
@@ -675,11 +871,11 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', '   Generating Redsys Form     ' );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', '/****************************/' );
+			WCRed()->log( 'directdebitredsys', '   Generating Redsys Form     ' );
+			WCRed()->log( 'directdebitredsys', '/****************************/' );
+			WCRed()->log( 'directdebitredsys', ' ' );
 		}
 
 		$order           = WCRed()->get_order( $order_id );
@@ -768,13 +964,13 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'directdebitredsys', 'HTTP Notification received 1: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( $usesecretsha256 ) {
@@ -782,81 +978,81 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', 'Signature from Redsys: ' . $remote_sign );
-				$this->log->add( 'directdebitredsys', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
-				$this->log->add( 'directdebitredsys', 'Secret SHA256 transcient: ' . $secretsha256 );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', 'Signature from Redsys: ' . $remote_sign );
+				WCRed()->log( 'directdebitredsys', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
+				WCRed()->log( 'directdebitredsys', 'Secret SHA256 transcient: ' . $secretsha256 );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$order_id = $mi_obj->getParameter( 'Ds_Order' );
-				$this->log->add( 'directdebitredsys', 'Order ID: ' . $order_id );
+				$order_id = $mi_obj->get_parameter( 'Ds_Order' );
+				WCRed()->log( 'directdebitredsys', 'Order ID: ' . $order_id );
 			}
 			$order           = WCRed()->get_order( $order2 );
 			$user_id         = $order->get_user_id();
 			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
 			if ( empty( $secretsha256 ) && ! $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', 'Using $usesecretsha256 Settings' );
-					$this->log->add( 'directdebitredsys', 'Secret SHA256 Settings: ' . $usesecretsha256 );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', 'Using $usesecretsha256 Settings' );
+					WCRed()->log( 'directdebitredsys', 'Secret SHA256 Settings: ' . $usesecretsha256 );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				$usesecretsha256 = $usesecretsha256;
 			} elseif ( $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', 'Using $secretsha256_meta Meta' );
-					$this->log->add( 'directdebitredsys', 'Secret SHA256 Meta: ' . $secretsha256_meta );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', 'Using $secretsha256_meta Meta' );
+					WCRed()->log( 'directdebitredsys', 'Secret SHA256 Meta: ' . $secretsha256_meta );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				$usesecretsha256 = $secretsha256_meta;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', 'Using $secretsha256 Transcient' );
-					$this->log->add( 'directdebitredsys', 'Secret SHA256 Transcient: ' . $secretsha256 );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', 'Using $secretsha256 Transcient' );
+					WCRed()->log( 'directdebitredsys', 'Secret SHA256 Transcient: ' . $secretsha256 );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				$usesecretsha256 = $secretsha256;
 			}
-			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'Received valid notification from Servired/RedSys' );
-					$this->log->add( 'directdebitredsys', $data );
+					WCRed()->log( 'directdebitredsys', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'directdebitredsys', $data );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'directdebitredsys', 'Received INVALID notification from Servired/RedSys' );
 				}
 				delete_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'directdebitredsys', ' HTTP Notification received 2: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( $_POST['Ds_MerchantCode'] === $this->customer ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'directdebitredsys', 'Received valid notification from Servired/RedSys' );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'Received INVALID notification from Servired/RedSys' );
-					$this->log->add( 'directdebitredsys', '$remote_sign: ' . $remote_sign );
-					$this->log->add( 'directdebitredsys', '$localsecret: ' . $localsecret );
+					WCRed()->log( 'directdebitredsys', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'directdebitredsys', '$remote_sign: ' . $remote_sign );
+					WCRed()->log( 'directdebitredsys', '$localsecret: ' . $localsecret );
 				}
 				return false;
 			}
@@ -883,11 +1079,11 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 	public function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', '      successful_request      ' );
-			$this->log->add( 'directdebitredsys', '/****************************/' );
-			$this->log->add( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', '/****************************/' );
+			WCRed()->log( 'directdebitredsys', '      successful_request      ' );
+			WCRed()->log( 'directdebitredsys', '/****************************/' );
+			WCRed()->log( 'directdebitredsys', ' ' );
 		}
 
 		$version     = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
@@ -895,11 +1091,11 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', '$version: ' . $version );
-			$this->log->add( 'directdebitredsys', '$data: ' . $data );
-			$this->log->add( 'directdebitredsys', '$remote_sign: ' . $remote_sign );
-			$this->log->add( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', '$version: ' . $version );
+			WCRed()->log( 'directdebitredsys', '$data: ' . $data );
+			WCRed()->log( 'directdebitredsys', '$remote_sign: ' . $remote_sign );
+			WCRed()->log( 'directdebitredsys', ' ' );
 		}
 
 		$mi_obj            = new WooRedsysAPI();
@@ -910,28 +1106,28 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$dscardnumber4     = '';
 		$dsexpiryyear      = '';
 		$dsexpirymonth     = '';
-		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
-		$response          = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$decodedata        = $mi_obj->decode_merchant_parameters( $data );
+		$localsecret       = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
+		$total             = $mi_obj->get_parameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->get_parameter( 'Ds_Order' );
+		$dscode            = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->get_parameter( 'Ds_Currency' );
+		$response          = $mi_obj->get_parameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->get_parameter( 'Ds_AuthorisationCode' );
+		$dsdate            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Date' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dshour            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Hour' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dstermnal         = $mi_obj->get_parameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->get_parameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->get_parameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->get_parameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype = $mi_obj->get_parameter( 'Ds_TransactionType' );
+		$dsmerchantidenti  = $mi_obj->get_parameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand       = $mi_obj->get_parameter( 'Ds_Card_Brand' );
+		$dsmechandata      = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dscargtype        = $mi_obj->get_parameter( 'Ds_Card_Type' );
+		$dserrorcode       = $mi_obj->get_parameter( 'Ds_ErrorCode' );
+		$dpaymethod        = $mi_obj->get_parameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
 		$response          = intval( $response );
 		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $ordermi ) );
 		$order1            = $ordermi;
@@ -939,30 +1135,30 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$order             = WCRed()->get_order( (int) $order2 );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', 'SHA256 Settings: ' . $usesecretsha256 );
-			$this->log->add( 'directdebitredsys', 'SHA256 Transcient: ' . $secretsha256 );
-			$this->log->add( 'directdebitredsys', 'decodeMerchantParameters: ' . $decodedata );
-			$this->log->add( 'directdebitredsys', 'createMerchantSignatureNotif: ' . $localsecret );
-			$this->log->add( 'directdebitredsys', 'Ds_Amount: ' . $total );
-			$this->log->add( 'directdebitredsys', 'Ds_Order: ' . $ordermi );
-			$this->log->add( 'directdebitredsys', 'Ds_MerchantCode: ' . $dscode );
-			$this->log->add( 'directdebitredsys', 'Ds_Currency: ' . $currency_code );
-			$this->log->add( 'directdebitredsys', 'Ds_Response: ' . $response );
-			$this->log->add( 'directdebitredsys', 'Ds_AuthorisationCode: ' . $id_trans );
-			$this->log->add( 'directdebitredsys', 'Ds_Date: ' . $dsdate );
-			$this->log->add( 'directdebitredsys', 'Ds_Hour: ' . $dshour );
-			$this->log->add( 'directdebitredsys', 'Ds_Terminal: ' . $dstermnal );
-			$this->log->add( 'directdebitredsys', 'Ds_MerchantData: ' . $dsmerchandata );
-			$this->log->add( 'directdebitredsys', 'Ds_SecurePayment: ' . $dssucurepayment );
-			$this->log->add( 'directdebitredsys', 'Ds_Card_Country: ' . $dscardcountry );
-			$this->log->add( 'directdebitredsys', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
-			$this->log->add( 'directdebitredsys', 'Ds_Card_Type: ' . $dscargtype );
-			$this->log->add( 'directdebitredsys', 'Ds_TransactionType: ' . $dstransactiontype );
-			$this->log->add( 'directdebitredsys', 'Ds_Merchant_Identifiers_Amount: ' . $response );
-			$this->log->add( 'directdebitredsys', 'Ds_Card_Brand: ' . $dscardbrand );
-			$this->log->add( 'directdebitredsys', 'Ds_MerchantData: ' . $dsmechandata );
-			$this->log->add( 'directdebitredsys', 'Ds_ErrorCode: ' . $dserrorcode );
-			$this->log->add( 'directdebitredsys', 'Ds_PayMethod: ' . $dpaymethod );
+			WCRed()->log( 'directdebitredsys', 'SHA256 Settings: ' . $usesecretsha256 );
+			WCRed()->log( 'directdebitredsys', 'SHA256 Transcient: ' . $secretsha256 );
+			WCRed()->log( 'directdebitredsys', 'decode_merchant_parameters: ' . $decodedata );
+			WCRed()->log( 'directdebitredsys', 'create_merchant_signature_notif: ' . $localsecret );
+			WCRed()->log( 'directdebitredsys', 'Ds_Amount: ' . $total );
+			WCRed()->log( 'directdebitredsys', 'Ds_Order: ' . $ordermi );
+			WCRed()->log( 'directdebitredsys', 'Ds_MerchantCode: ' . $dscode );
+			WCRed()->log( 'directdebitredsys', 'Ds_Currency: ' . $currency_code );
+			WCRed()->log( 'directdebitredsys', 'Ds_Response: ' . $response );
+			WCRed()->log( 'directdebitredsys', 'Ds_AuthorisationCode: ' . $id_trans );
+			WCRed()->log( 'directdebitredsys', 'Ds_Date: ' . $dsdate );
+			WCRed()->log( 'directdebitredsys', 'Ds_Hour: ' . $dshour );
+			WCRed()->log( 'directdebitredsys', 'Ds_Terminal: ' . $dstermnal );
+			WCRed()->log( 'directdebitredsys', 'Ds_MerchantData: ' . $dsmerchandata );
+			WCRed()->log( 'directdebitredsys', 'Ds_SecurePayment: ' . $dssucurepayment );
+			WCRed()->log( 'directdebitredsys', 'Ds_Card_Country: ' . $dscardcountry );
+			WCRed()->log( 'directdebitredsys', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
+			WCRed()->log( 'directdebitredsys', 'Ds_Card_Type: ' . $dscargtype );
+			WCRed()->log( 'directdebitredsys', 'Ds_TransactionType: ' . $dstransactiontype );
+			WCRed()->log( 'directdebitredsys', 'Ds_Merchant_Identifiers_Amount: ' . $response );
+			WCRed()->log( 'directdebitredsys', 'Ds_Card_Brand: ' . $dscardbrand );
+			WCRed()->log( 'directdebitredsys', 'Ds_MerchantData: ' . $dsmechandata );
+			WCRed()->log( 'directdebitredsys', 'Ds_ErrorCode: ' . $dserrorcode );
+			WCRed()->log( 'directdebitredsys', 'Ds_PayMethod: ' . $dpaymethod );
 		}
 
 		// refund.
@@ -970,16 +1166,16 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		if ( '3' === $dstransactiontype ) {
 			if ( 900 === $response ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'Response 900 (refund)' );
+					WCRed()->log( 'directdebitredsys', 'Response 900 (refund)' );
 				}
 				set_transient( $order->get_id() . '_redsys_refund', 'yes' );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'WCRed()->update_order_meta to "refund yes"' );
+					WCRed()->log( 'directdebitredsys', 'WCRed()->update_order_meta to "refund yes"' );
 				}
 				$status = $order->get_status();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'New Status in request: ' . $status );
+					WCRed()->log( 'directdebitredsys', 'New Status in request: ' . $status );
 				}
 				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
 				return;
@@ -998,7 +1194,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			if ( $order_total_compare !== $total ) {
 				// amount does not match.
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
+					WCRed()->log( 'directdebitredsys', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
 				// Put this order on-hold for manual checking.
 				/* translators: order an received are the amount */
@@ -1010,109 +1206,93 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			$dshour             = date( 'H:i', current_time( 'timestamp', 0 ) ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested,WordPress.DateTime.RestrictedFunctions.date_date
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', '      Saving Order Meta       ' );
-				$this->log->add( 'directdebitredsys', '/****************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/****************************/' );
+				WCRed()->log( 'directdebitredsys', '      Saving Order Meta       ' );
+				WCRed()->log( 'directdebitredsys', '/****************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			$data = array();
 			if ( ! empty( $order1 ) ) {
 				$data['_payment_order_number_redsys'] = $order1;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_payment_order_number_redsys saved: ' . $order1 );
+					WCRed()->log( 'directdebitredsys', '_payment_order_number_redsys saved: ' . $order1 );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_payment_order_number_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_payment_order_number_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( ! empty( $dsdate ) ) {
 				$data['_payment_date_redsys'] = $dsdate;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_payment_date_redsys saved: ' . $dsdate );
+					WCRed()->log( 'directdebitredsys', '_payment_date_redsys saved: ' . $dsdate );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_payment_date_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_payment_date_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( ! empty( $dsdate ) ) {
 				$data['_payment_terminal_redsys'] = $dstermnal;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_payment_terminal_redsys saved: ' . $dstermnal );
+					WCRed()->log( 'directdebitredsys', '_payment_terminal_redsys saved: ' . $dstermnal );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_payment_terminal_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_payment_terminal_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( ! empty( $dshour ) ) {
 				$data['_payment_hour_redsys'] = $dshour;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_payment_hour_redsys saved: ' . $dshour );
+					WCRed()->log( 'directdebitredsys', '_payment_hour_redsys saved: ' . $dshour );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_payment_hour_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_payment_hour_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( ! empty( $id_trans ) ) {
 				$data['_authorisation_code_redsys'] = $authorisation_code;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_authorisation_code_redsys saved: ' . $authorisation_code );
+					WCRed()->log( 'directdebitredsys', '_authorisation_code_redsys saved: ' . $authorisation_code );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_authorisation_code_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_authorisation_code_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( ! empty( $currency_code ) ) {
 				$data['_corruncy_code_redsys'] = $currency_code;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_corruncy_code_redsys saved: ' . $currency_code );
+					WCRed()->log( 'directdebitredsys', '_corruncy_code_redsys saved: ' . $currency_code );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_corruncy_code_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_corruncy_code_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( ! empty( $dscardcountry ) ) {
 				$data['_card_country_redsys'] = $dscardcountry;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_card_country_redsys saved: ' . $dscardcountry );
+					WCRed()->log( 'directdebitredsys', '_card_country_redsys saved: ' . $dscardcountry );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_card_country_redsys NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_card_country_redsys NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			// This meta is essential for later use.
 			if ( ! empty( $secretsha256 ) ) {
 				$data['_redsys_secretsha256'] = $secretsha256;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+					WCRed()->log( 'directdebitredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '_redsys_secretsha256 NOT SAVED!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '_redsys_secretsha256 NOT SAVED!!!' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			WCRed()->update_order_meta( $order->get_id(), $data );
 			// Payment completed.
@@ -1124,12 +1304,12 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', 'Payment complete.' );
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', 'Payment complete.' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			do_action( 'directdeb_post_payment_complete', $order->get_id() );
 		} else {
@@ -1148,18 +1328,18 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			}
 			if ( 'yes' === $this->debug ) {
 				if ( $ds_response_value ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', $ds_response_value );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', $ds_response_value );
 				}
 				if ( $ds_error_value ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', $ds_error_value );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', $ds_error_value );
 				}
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Order cancelled by Redsys Direct Debit', 'woocommerce-redsys' ) );
@@ -1193,28 +1373,28 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$secretsha256   = $this->get_redsys_sha256( $user_id );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', '/**************************/' );
-			$this->log->add( 'directdebitredsys', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', '/**************************/' );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', '/**************************/' );
+			WCRed()->log( 'directdebitredsys', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', '/**************************/' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
 		}
 		$transaction_type  = '3';
 		$secretsha256_meta = WCRed()->get_order_meta( $order_id, '_redsys_secretsha256', true );
 		if ( $secretsha256_meta ) {
 			$secretsha256 = $secretsha256_meta;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'directdebitredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'directdebitredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'directdebitredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		} else {
 			$secretsha256 = $secretsha256;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'directdebitredsys', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'directdebitredsys', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'directdebitredsys', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		}
 		if ( 'yes' === $this->not_use_https ) {
@@ -1228,71 +1408,69 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$currencycode      = WCRed()->get_order_meta( $order_id, '_corruncy_code_redsys', true );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', '**********************' );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'directdebitredsys', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'directdebitredsys', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
-			$this->log->add( 'directdebitredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'directdebitredsys', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', '**********************' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'directdebitredsys', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'directdebitredsys', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
+			WCRed()->log( 'directdebitredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'directdebitredsys', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
 
 		}
 
 		if ( ! empty( $currencycode ) ) {
 			$currency = $currencycode;
-		} else {
-			if ( ! empty( $currency_codes ) ) {
-				$currency = $currency_codes[ get_woocommerce_currency() ];
-			}
+		} elseif ( ! empty( $currency_codes ) ) {
+			$currency = $currency_codes[ get_woocommerce_currency() ];
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
-		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', '*********************************' );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $this->customer );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
-			$this->log->add( 'directdebitredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'directdebitredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'directdebitredsys', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
-			$this->log->add( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', '*********************************' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $this->customer );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, 'directdebitredsys' ) ) );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
+			WCRed()->log( 'directdebitredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'directdebitredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'directdebitredsys', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
+			WCRed()->log( 'directdebitredsys', ' ' );
 		}
 
 		$version   = 'HMAC_SHA256_V1';
 		$request   = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$redsys_adr,
@@ -1310,11 +1488,11 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'directdebitredsys', '*********************************' );
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'directdebitredsys', '*********************************' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
 			return $post_arg;
 		}
@@ -1330,12 +1508,12 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 		$order        = WCRed()->get_order( (int) $order_id );
 		$order_refund = get_transient( $order->get_id() . '_redsys_refund' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
-			$this->log->add( 'directdebitredsys', '*****************************************' );
-			$this->log->add( 'directdebitredsys', ' ' );
-			$this->log->add( 'directdebitredsys', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
-			$this->log->add( 'directdebitredsys', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
+			WCRed()->log( 'directdebitredsys', '*****************************************' );
+			WCRed()->log( 'directdebitredsys', ' ' );
+			WCRed()->log( 'directdebitredsys', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
+			WCRed()->log( 'directdebitredsys', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
 		}
 		if ( 'yes' === $order_refund ) {
 			return true;
@@ -1358,7 +1536,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 
 		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'directdebitredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'directdebitredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}
 		if ( ! $amount ) {
 			$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
@@ -1368,14 +1546,14 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 
 		if ( ! empty( $transaction_id ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'directdebitredsys', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
+				WCRed()->log( 'directdebitredsys', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
 
 			$refund_asked = $this->ask_for_refund( $order_id, $transaction_id, $order_total_sign );
 
 			if ( is_wp_error( $refund_asked ) ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'directdebitredsys', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
+					WCRed()->log( 'directdebitredsys', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
 				}
 				return new WP_Error( 'error', $refund_asked->get_error_message() );
 			}
@@ -1383,57 +1561,57 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
 			do {
 				sleep( 5 );
 				$result = $this->check_redsys_refund( $order_id );
-				$x++;
+				++$x;
 			} while ( $x <= 20 && false === $result );
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'directdebitredsys', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/********************************/' );
-				$this->log->add( 'directdebitredsys', '  Refund complete by Redsys   ' );
-				$this->log->add( 'directdebitredsys', '/********************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/********************************/' );
+				WCRed()->log( 'directdebitredsys', '  Refund complete by Redsys   ' );
+				WCRed()->log( 'directdebitredsys', '/********************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			if ( 'yes' === $this->debug && ! $result ) {
-				$this->log->add( 'directdebitredsys', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'directdebitredsys', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
 			}
 			if ( $result ) {
 				delete_transient( $order->get_id() . '_redsys_refund' );
 				return true;
 			} else {
 				if ( 'yes' === $this->debug && $result ) {
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'directdebitredsys', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
-					$this->log->add( 'directdebitredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', ' ' );
-					$this->log->add( 'directdebitredsys', '/******************************************/' );
-					$this->log->add( 'directdebitredsys', '  The final has come, this story has ended  ' );
-					$this->log->add( 'directdebitredsys', '/******************************************/' );
-					$this->log->add( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'directdebitredsys', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
+					WCRed()->log( 'directdebitredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', ' ' );
+					WCRed()->log( 'directdebitredsys', '/******************************************/' );
+					WCRed()->log( 'directdebitredsys', '  The final has come, this story has ended  ' );
+					WCRed()->log( 'directdebitredsys', '/******************************************/' );
+					WCRed()->log( 'directdebitredsys', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'directdebitredsys', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
-				$this->log->add( 'directdebitredsys', ' ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'directdebitredsys', '/******************************************/' );
-				$this->log->add( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
+				WCRed()->log( 'directdebitredsys', ' ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'directdebitredsys', '/******************************************/' );
+				WCRed()->log( 'directdebitredsys', ' ' );
 			}
 			return new WP_Error( 'error', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
 		}
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function warning_checkout_test_mode_directdebit() {
@@ -1509,7 +1687,7 @@ class WC_Gateway_Direct_Debit_Redsys extends WC_Payment_Gateway {
  *
  * @param array $methods WooCommerce payment methods.
  */
-function woocommerce_add_gateway_directdebit_redsys( $methods ) {
+function woocommerce_add_gateway_directdebit_redsys( $methods ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 		$methods[] = 'WC_Gateway_Direct_Debit_Redsys';
 		return $methods;
 }

@@ -42,6 +42,7 @@ class Main {
 		if ( ! function_exists( 'is_wpcom_vip' ) ) {
 			add_filter( 'upload_mimes', array( $this, 'allow_meme_types' ), PHP_INT_MAX ); // phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.upload_mimes
 			add_filter( 'wp_handle_upload_prefilter', array( $this, 'check_svg_and_sanitize' ) );
+			add_filter( 'wp_handle_sideload_prefilter', array( $this, 'check_svg_and_sanitize' ) );
 			add_filter( 'wp_check_filetype_and_ext', array( $this, 'fix_mime_type_json_svg' ), 75, 3 );
 			add_filter( 'wp_generate_attachment_metadata', array( $this, 'generate_svg_attachment_metadata' ), PHP_INT_MAX, 2 );
 		}
@@ -175,6 +176,10 @@ class Main {
 			'text-transform',
 			'transform',
 		);
+		// Return $props if $attr is not an array, addressing a specific edge case.
+		if ( ! is_array( $attr ) ) {
+			return $props;
+		}
 
 		$list = array_merge( $props, $attr );
 
@@ -394,6 +399,10 @@ class Main {
 					'otter-blocks'
 				);
 			}
+
+			$path_info     = pathinfo( $file['name'] );
+			$unique_suffix = '-' . substr( md5( uniqid() ), 0, 6 );
+			$file['name']  = $path_info['filename'] . $unique_suffix . '.' . $path_info['extension'];
 		}
 
 		return $file;
@@ -570,7 +579,7 @@ class Main {
 			'location'         => 'otter',
 			'logo'             => esc_url_raw( OTTER_BLOCKS_URL . 'assets/images/logo-alt.png' ),
 			'has_upgrade_menu' => ! DEFINED( 'OTTER_PRO_VERSION' ),
-			'upgrade_link'     => tsdk_utmify( Pro::get_url(), 'editor', Pro::get_reference() ),
+			'upgrade_link'     => tsdk_translate_link( tsdk_utmify( Pro::get_url(), 'editor', Pro::get_reference() ) ),
 			'upgrade_text'     => __( 'Get Otter Pro', 'otter-blocks' ),
 		);
 	}

@@ -14,7 +14,7 @@ if ( ! defined( 'ASTRA_SITES_NAME' ) ) {
 }
 
 if ( ! defined( 'ASTRA_SITES_VER' ) ) {
-	define( 'ASTRA_SITES_VER', '4.4.2' );
+	define( 'ASTRA_SITES_VER', '4.4.8' );
 }
 
 if ( ! defined( 'ASTRA_SITES_FILE' ) ) {
@@ -61,15 +61,19 @@ if ( ! class_exists( 'BSF_Analytics_Loader' ) ) {
 	require_once ASTRA_SITES_DIR . 'admin/bsf-analytics/class-bsf-analytics-loader.php';
 }
 
-$bsf_analytics = BSF_Analytics_Loader::get_instance();
+if ( class_exists( 'BSF_Analytics_Loader' ) && is_callable( 'BSF_Analytics_Loader::get_instance' ) ) {
+	$bsf_analytics = BSF_Analytics_Loader::get_instance();
+	$bsf_analytics->set_entity(
+		array(
+			'bsf' => array(
+				'product_name'    => 'Premium Starter Templates',
+				'path'            => ASTRA_SITES_DIR . 'admin/bsf-analytics',
+				'author'          => 'Brainstorm Force',
+				'time_to_display' => '+24 hours',
+			),
+		)
+	);
+}
 
-$bsf_analytics->set_entity(
-	array(
-		'bsf' => array(
-			'product_name'    => 'Premium Starter Templates',
-			'path'            => ASTRA_SITES_DIR . 'admin/bsf-analytics',
-			'author'          => 'Brainstorm Force',
-			'time_to_display' => '+24 hours',
-		),
-	)
-);
+
+

@@ -6,8 +6,8 @@
  * @since 24.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -23,14 +23,61 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 */
 class WC_Gateway_Redsys_License {
 
-	private $api_url                  = '';
-	private $api_data                 = array();
-	private $slug                     = '';
-	private $name                     = '';
-	private $version                  = '';
-	private $wp_override              = false;
-	private $prefix                   = '';
-	private $hide_menu_after_activate = true;
+	/**
+	 * API URL.
+	 *
+	 * @var string $api_url
+	 */
+	public $api_url;
+
+	/**
+	 * Data for the API request.
+	 *
+	 * @var array $api_data
+	 */
+	public $api_data;
+
+	/**
+	 * Slug identifier.
+	 *
+	 * @var string $slug
+	 */
+	public $slug;
+
+	/**
+	 * Name of the item.
+	 *
+	 * @var string $name
+	 */
+	public $name;
+
+	/**
+	 * Version of the item.
+	 *
+	 * @var string $version
+	 */
+	public $version;
+
+	/**
+	 * Whether WordPress overrides default behavior.
+	 *
+	 * @var bool $wp_override
+	 */
+	public $wp_override;
+
+	/**
+	 * Prefix used for custom actions or filters.
+	 *
+	 * @var string $prefix
+	 */
+	public $prefix;
+
+	/**
+	 * Whether to hide the menu after activation.
+	 *
+	 * @var bool $hide_menu_after_activate
+	 */
+	public $hide_menu_after_activate;
 
 	/**
 	 * Class constructor.
@@ -92,16 +139,29 @@ class WC_Gateway_Redsys_License {
 
 		$plugin_title = ! empty( $plugin_data['Name'] ) ? $plugin_data['Name'] : '';
 
-			ob_start(); ?>
-				<div id="message" class="error">
-				<p><strong><?php echo esc_html( $plugin_title ); ?> v<?php echo esc_html( $this->version ); ?></strong><?php esc_html_e( 'plugin almost ready. You must enter valid', 'woocoomerce-redsys' ); ?> <a href="<?php echo get_admin_url() . 'admin.php?page=' . $this->menu_slug; ?>"><?php esc_html_e( 'License Key', 'woocoomerce-redsys' ); ?></a> <?php esc_html_e( 'for it to work.', 'woocoomerce-redsys' ); ?></p>
-				</div>
-				<?php
-				$new_content = ob_get_contents();
+		ob_start(); ?>
+			<div id="message" class="error">
+				<p><strong><?php echo esc_html( $plugin_title ); ?> v<?php echo esc_html( $this->version ); ?></strong><?php esc_html_e( 'plugin almost ready. You must enter valid', 'woocoomerce-redsys' ); ?> <a href="<?php echo esc_url( get_admin_url() . 'admin.php?page=' . esc_attr( $this->menu_slug ) ); ?>"><?php esc_html_e( 'License Key', 'woocoomerce-redsys' ); ?></a> <?php esc_html_e( 'for it to work.', 'woocoomerce-redsys' ); ?></p>
+			</div>
+		<?php
+		$new_content = ob_get_contents();
+		ob_end_clean();
 
-				ob_end_clean();
+		// Define las etiquetas y atributos permitidos.
+		$allowed_tags = array(
+			'div'    => array(
+				'id'    => array(),
+				'class' => array(),
+			),
+			'p'      => array(),
+			'strong' => array(),
+			'a'      => array(
+				'href' => array(),
+			),
+		);
 
-				echo $new_content;
+		// Usar wp_kses con el conjunto de etiquetas permitidas.
+		echo wp_kses( $new_content, $allowed_tags );
 	}
 	/**
 	 * Clear transients
@@ -110,7 +170,7 @@ class WC_Gateway_Redsys_License {
 	 * @param mixed $plugin plugin data.
 	 * @return mixed
 	 */
-	public function upgrader_pre_install( $return, $plugin ) {
+	public function upgrader_pre_install( $return, $plugin ) { // phpcs:ignore Universal.NamingConventions.NoReservedKeywordParameterNames.returnFound
 		if ( is_wp_error( $return ) ) { // Bypass.
 			return $return;
 		}
@@ -150,7 +210,7 @@ class WC_Gateway_Redsys_License {
 		$license = get_option( $this->prefix . '_license_key' );
 		$license = empty( $license ) ? '' : $license;
 
-		$license = ! empty( $_POST[ "{$this->prefix}_license_key" ] ) ? $_POST[ "{$this->prefix}_license_key" ] : $license;
+		$license = ! empty( $_POST[ "{$this->prefix}_license_key" ] ) ? $_POST[ "{$this->prefix}_license_key" ] : $license; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.MissingUnslash,WordPress.Security.ValidatedSanitizedInput.InputNotSanitized,WordPress.Security.NonceVerification.Missing
 
 		$message = $this->activate_license();
 
@@ -161,13 +221,13 @@ class WC_Gateway_Redsys_License {
 			<h2>
 			<?php
 			// translators: %s: plugin name.
-			printf( esc_html__( '%s License Activation', 'woocommerce-redsys' ), $this->menu_title );
+			printf( esc_html__( '%s License Activation', 'woocommerce-redsys' ), esc_html( $this->menu_title ) );
 			?>
 				</h2>
 	
 			<?php if ( ! empty( $message ) ) { ?>
 				<div class="error">
-					<p><?php echo $message; ?></p>
+					<p><?php echo esc_html( $message ); ?></p>
 				</div>
 				<?php
 			}
@@ -180,7 +240,7 @@ class WC_Gateway_Redsys_License {
 			<?php } ?>
 	
 			<form method="post" action="">
-				<input type="hidden" name="page" value="<?php echo $this->menu_slug; ?>">
+				<input type="hidden" name="page" value="<?php echo esc_attr( $this->menu_slug ); ?>">
 				<?php wp_nonce_field( "{$this->prefix}_license_activation", md5( "{$this->prefix}_license_activation" . $this->menu_slug . get_current_user() ) ); ?>
 				<table class="form-table">
 					<tbody>
@@ -189,8 +249,8 @@ class WC_Gateway_Redsys_License {
 						<?php esc_html_e( 'License Key' ); ?>
 						</th>
 						<td>
-							<input id="license_key" name="<?php echo $this->prefix; ?>_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $license ); ?>" />
-							<label class="description" for="license_key"><?php _e( 'Enter your license key' ); ?></label>
+							<input id="license_key" name="<?php echo esc_attr( $this->prefix ); ?>_license_key" type="text" class="regular-text" value="<?php echo esc_attr( $license ); ?>" />
+							<label class="description" for="license_key"><?php esc_html_e( 'Enter your license key', 'woocommerce-redsys' ); ?></label>
 						</td>
 					</tr>
 					</tbody>
@@ -214,7 +274,7 @@ class WC_Gateway_Redsys_License {
 			}
 
 			// retrieve the license from the database.
-			$license = $_POST[ "{$this->prefix}_license_key" ];
+			$license = sanitize_text_field( wp_unslash( $_POST[ "{$this->prefix}_license_key" ] ) );
 			update_option( $this->prefix . '_license_key', $license );
 
 			$url    = get_site_url( get_current_blog_id() );
@@ -259,9 +319,13 @@ class WC_Gateway_Redsys_License {
 			}
 
 			// Can set debug mode by $_GET "activation_debug" by "true".
-			if ( isset( $_GET['activation_debug'] ) && 'true' == $_GET['activation_debug'] ) {
-				var_dump( $args );
-				var_dump( $response );
+			if ( isset( $_GET['activation_debug'] ) && 'true' === $_GET['activation_debug'] ) {
+				error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					print_r( $args, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				);
+				error_log( // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+					print_r( $response, true ) // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				);
 				exit;
 			}
 
@@ -290,7 +354,7 @@ class WC_Gateway_Redsys_License {
 				$redirect = $this->successful_activation_redirect();
 			}
 
-			wp_redirect( $redirect );
+			wp_safe_redirect( $redirect );
 			exit();
 
 		}
@@ -380,7 +444,7 @@ class WC_Gateway_Redsys_License {
 		$slug = explode( '/', $this->slug );
 		$slug = $slug[0];
 
-		if ( ! isset( $_args->slug ) || ( $_args->slug != $slug ) ) {
+		if ( ! isset( $_args->slug ) || ( $_args->slug !== $slug ) ) {
 			return $_data;
 		}
 
@@ -426,15 +490,16 @@ class WC_Gateway_Redsys_License {
 	 * @param array $args plugin data.
 	 * @return void
 	 */
-	public function in_plugin_update_message( $args ) {
-
+	public function in_plugin_update_message( $args ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found
 		$license = get_option( $this->prefix . '_license_key' );
 		$salt    = get_option( $this->prefix . '_license_salt' );
 
 		$transient_name         = md5( $this->slug . 'plugin_update_info' );
 		$transient_version_info = get_site_transient( $transient_name );
+
+		// Fetch version info if not in cache.
 		if ( empty( $transient_version_info ) ) {
-			$version_info                          = $this->api_request(
+			$version_info = $this->api_request(
 				'plugin_latest_version',
 				array(
 					'license'         => $license,
@@ -443,49 +508,58 @@ class WC_Gateway_Redsys_License {
 					'salt'            => $salt,
 				)
 			);
-			$this->update_requested[ $this->slug ] = $version_info;
 			set_site_transient( $transient_name, $version_info, 12 * HOUR_IN_SECONDS );
 		} else {
 			$version_info = $transient_version_info;
 		}
 
+		// Verify we have valid version info.
 		if ( false !== $version_info && is_object( $version_info ) && isset( $version_info->new_version ) ) {
-			// show update version block if new version > then current.
 			if ( version_compare( $this->version, $version_info->new_version, '<' ) && ! empty( $version_info->is_major ) ) {
 
-				$upgrade_notice = '<span class="' . esc_attr( $this->name ) . '_plugin_upgrade_notice"> ';
-
+				// Sanitize the content of major_log.
 				if ( ! empty( $version_info->major_log ) ) {
-					$upgrade_notice .= $version_info->major_log;
+					// Strip all tags for extra safety.
+					$sanitized_major_log = wp_kses(
+						wp_strip_all_tags( $version_info->major_log ),
+						array(
+							'span'   => array(
+								'class' => array(),
+							),
+							'strong' => array(),
+							'em'     => array(),
+						)
+					);
 				} else {
-					$upgrade_notice .= "{$version_info->new_version} is a major update, and we highly recommend creating a full backup of your site before updating. ";
+					$sanitized_major_log = esc_html( "{$version_info->new_version} is a major update. It is recommended to create a full backup of your site before updating." );
 				}
 
-				$upgrade_notice .= '</span>';
+				$upgrade_notice = '<span class="' . esc_attr( $this->name ) . '_plugin_upgrade_notice">' . $sanitized_major_log . '</span>';
 
+				// Output separated CSS and content.
 				echo '<style type="text/css">
-						.' . esc_attr( $this->name ) . '_plugin_upgrade_notice {
-							font-weight: 400;
-							color: #fff;
-							background: #d53221;
-							padding: 1em;
-							margin: 9px 0;
-							display: block;
-							box-sizing: border-box;
-							-webkit-box-sizing: border-box;
-							-moz-box-sizing: border-box;
-						}
-						.' . esc_attr( $this->name ) . '_plugin_upgrade_notice:before {
-							content: "\f348";
-							display: inline-block;
-							font: 400 18px/1 dashicons;
-							speak: none;
-							margin: 0 8px 0 -2px;
-							-webkit-font-smoothing: antialiased;
-							-moz-osx-font-smoothing: grayscale;
-							vertical-align: top;
-						}
-					</style>' . wp_kses_post( $upgrade_notice );
+				.' . esc_attr( $this->name ) . '_plugin_upgrade_notice {
+					font-weight: 400;
+					color: #fff;
+					background: #d53221;
+					padding: 1em;
+					margin: 9px 0;
+					display: block;
+					box-sizing: border-box;
+					-webkit-box-sizing: border-box;
+					-moz-box-sizing: border-box;
+				}
+				.' . esc_attr( $this->name ) . '_plugin_upgrade_notice:before {
+					content: "\f348";
+					display: inline-block;
+					font: 400 18px/1 dashicons;
+					speak: none;
+					margin: 0 8px 0 -2px;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+					vertical-align: top;
+				}
+			</style>' . wp_kses_post( $upgrade_notice );
 			}
 		}
 	}
@@ -551,12 +625,12 @@ class WC_Gateway_Redsys_License {
 
 		$data = array_merge( $this->api_data, $_data );
 
-		if ( $data['slug'] != $this->slug ) {
+		if ( $data['slug'] !== $this->slug ) {
 			return false;
 		}
 
-		if ( $this->api_url == trailingslashit( home_url() ) ) {
-			return false; // Don't allow a plugin to ping itself
+		if ( trailingslashit( home_url() ) === $this->api_url ) {
+			return false; // Don't allow a plugin to ping itself.
 		}
 
 		$url    = get_site_url( get_current_blog_id() );
@@ -598,7 +672,7 @@ class WC_Gateway_Redsys_License {
 			$request->download_link = $this->extend_download_url( $request->download_link, $data );
 		}
 
-		if ( 'plugin_information' == $_action ) {
+		if ( 'plugin_information' === $_action ) {
 			if ( $request && isset( $request->sections ) ) {
 				$request->sections = maybe_unserialize( $request->sections );
 			} else {
@@ -606,7 +680,7 @@ class WC_Gateway_Redsys_License {
 					'plugins_api_failed',
 					sprintf(
 					/* translators: %s: support forums URL */
-						__( 'An unexpected error occurred. Something may be wrong with ' . $this->api_url . ' or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ),
+						__( 'An unexpected error occurred. Something may be wrong with ' . $this->api_url . ' or this server&#8217;s configuration. If you continue to have problems, please try the <a href="%s">support forums</a>.' ), // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
 						__( 'https://wordpress.org/support/' )
 					),
 					wp_remote_retrieve_body( $request )

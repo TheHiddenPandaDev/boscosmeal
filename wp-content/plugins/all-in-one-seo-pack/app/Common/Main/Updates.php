@@ -218,6 +218,15 @@ class Updates {
 			$this->deprecateBreadcrumbsEnabledSetting();
 		}
 
+		if ( version_compare( $lastActiveVersion, '4.7.4', '<' ) ) {
+			$this->addWritingAssistantTables();
+			aioseo()->access->addCapabilities();
+		}
+
+		if ( version_compare( $lastActiveVersion, '4.7.5', '<' ) ) {
+			$this->cancelScheduledSitemapPings();
+		}
+
 		do_action( 'aioseo_run_updates', $lastActiveVersion );
 
 		// Always clear the cache if the last active version is different from our current.
@@ -932,7 +941,7 @@ class Updates {
 	 * @return void
 	 */
 	private function migrateUserContactMethods() {
-		$userMetaTableName = aioseo()->core->db->prefix . 'usermeta';
+		$userMetaTableName = aioseo()->core->db->db->usermeta;
 
 		aioseo()->core->db->execute(
 			"UPDATE `$userMetaTableName`
@@ -1696,5 +1705,78 @@ class Updates {
 		}
 
 		aioseo()->options->deprecated->breadcrumbs->enable = false;
+	}
+
+	/**
+	 * Add tables for Writing Assistant.
+	 *
+	 * @since 4.7.4
+	 *
+	 * @return void
+	 */
+	private function addWritingAssistantTables() {
+		$db             = aioseo()->core->db->db;
+		$charsetCollate = '';
+
+		if ( ! empty( $db->charset ) ) {
+			$charsetCollate .= "DEFAULT CHARACTER SET {$db->charset}";
+		}
+		if ( ! empty( $db->collate ) ) {
+			$charsetCollate .= " COLLATE {$db->collate}";
+		}
+
+		if ( ! aioseo()->core->db->tableExists( 'aioseo_writing_assistant_posts' ) ) {
+			$tableName = $db->prefix . 'aioseo_writing_assistant_posts';
+
+			aioseo()->core->db->execute(
+				"CREATE TABLE {$tableName} (
+					`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					`post_id` bigint(20) unsigned DEFAULT NULL,
+					`keyword_id` bigint(20) unsigned DEFAULT NULL,
+					`content_analysis_hash` VARCHAR(40) DEFAULT NULL,
+					`content_analysis` text DEFAULT NULL,
+					`created` datetime NOT NULL,
+					`updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+					PRIMARY KEY (id),
+					UNIQUE KEY ndx_aioseo_writing_assistant_posts_post_id (post_id),
+					KEY ndx_aioseo_writing_assistant_posts_keyword_id (keyword_id)
+				) {$charsetCollate};"
+			);
+		}
+
+		if ( ! aioseo()->core->db->tableExists( 'aioseo_writing_assistant_keywords' ) ) {
+			$tableName = $db->prefix . 'aioseo_writing_assistant_keywords';
+
+			aioseo()->core->db->execute(
+				"CREATE TABLE {$tableName} (
+					`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+					`uuid` varchar(40) NOT NULL,
+					`keyword` varchar(255) NOT NULL,
+					`country` varchar(10) NOT NULL DEFAULT 'us',
+					`language` varchar(10) NOT NULL DEFAULT 'en',
+					`progress` tinyint(3) DEFAULT 0,
+					`keywords` mediumtext NULL,
+					`competitors` mediumtext NULL,
+					`created` datetime NOT NULL,
+					`updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+					PRIMARY KEY (id),
+					UNIQUE KEY ndx_aioseo_writing_assistant_keywords_uuid (uuid),
+					KEY ndx_aioseo_writing_assistant_keywords_keyword (keyword)
+				) {$charsetCollate};"
+			);
+		}
+	}
+
+	/**
+	 * Cancels all outstanding sitemap ping actions.
+	 * This is needed because we've removed the Ping class.
+	 *
+	 * @since 4.7.5
+	 *
+	 * @return void
+	 */
+	private function cancelScheduledSitemapPings() {
+		as_unschedule_all_actions( 'aioseo_sitemap_ping' );
+		as_unschedule_all_actions( 'aioseo_sitemap_ping_recurring' );
 	}
 }

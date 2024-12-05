@@ -1,6 +1,6 @@
-<?php
+<?php // phpcs:disable
 if (! class_exists ( 'ISDCCElement' )) {
-	include_once $GLOBALS["REDSYS_API_PATH"] . "/Model/ISGenericXml.php";
+	include_once $GLOBALS["REDSYS_API_PATH"] . "/model/class-isgenericxml.php";
 	
 	/**
 	 * @XML_ELEM=DCC
@@ -40,10 +40,10 @@ if (! class_exists ( 'ISDCCElement' )) {
 		 * @XML_ELEM=checked
 		 */
 		private $checked;
-		public function getCurrency() {
+		public function get_currency() {
 			return $this->currency;
 		}
-		public function setCurrency($currency) {
+		public function set_currency($currency) {
 			$this->currency = $currency;
 			return $this;
 		}
@@ -82,21 +82,21 @@ if (! class_exists ( 'ISDCCElement' )) {
 			$this->checked = $checked;
 			return $this;
 		}
-		public function getAmount() {
+		public function get_amount() {
 			return $this->amount;
 		}
-		public function setAmount($amount) {
+		public function set_amount($amount) {
 			$this->amount = $amount;
 			return $this;
 		}
 		public function __toString() {
 			$string = "ISDCCElement{";
-			$string .= 'currency: ' . $this->getCurrency () . ', ';
+			$string .= 'currency: ' . $this->get_currency () . ', ';
 			$string .= 'currencyString: ' . $this->getCurrencyString () . ', ';
 			$string .= 'currencyCode: ' . $this->getCurrencyCode () . ', ';
 			$string .= 'changeRate: ' . $this->getChangeRate () . ', ';
 			$string .= 'changeDate: ' . $this->getChangeDate () . ', ';
-			$string .= 'amount: ' . $this->getAmount () . ', ';
+			$string .= 'amount: ' . $this->get_amount () . ', ';
 			$string .= 'checked: ' . $this->getChecked () . '';
 			return $string . "}";
 		}

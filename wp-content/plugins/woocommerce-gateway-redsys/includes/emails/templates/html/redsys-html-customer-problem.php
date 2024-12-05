@@ -6,8 +6,8 @@
  * @since 1.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -23,17 +23,17 @@ $orderw      = new wc_order( $orderw_id );
 $ds_error    = WCRed()->get_order_meta( $orderw->get_id(), '_redsys_error_payment_ds_error_value', true );
 $ds_response = WCRed()->get_order_meta( $orderw->get_id(), '_redsys_error_payment_ds_response_value', true );
 ?>
-<p><?php printf( esc_html__( 'The order #%d has been cancelled. Order Details:', 'woocommerce-redsys' ), esc_html__( $orderw->get_order_number() ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?></p>
+<p><?php printf( esc_html__( 'The order #%d has been cancelled. Order Details:', 'woocommerce-redsys' ), esc_html( $orderw->get_order_number() ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?></p>
 
 <?php
 if ( $ds_error ) {
 	?>
-	<p><?php printf( esc_html__( 'The error was: #%d, Order Details: ', 'woocommerce-redsys' ), esc_html__( $ds_error ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?></p>
+	<p><?php printf( esc_html__( 'The error was: #%d, Order Details: ', 'woocommerce-redsys' ), esc_html( $ds_error ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?></p>
 	<?php
 }
 if ( $ds_response ) {
 	?>
-	<p><?php printf( esc_html__( 'The error was: #%d, Order Details: ', 'woocommerce-redsys' ), esc_html__( $ds_response ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?></p>
+	<p><?php printf( esc_html__( 'The error was: #%d, Order Details: ', 'woocommerce-redsys' ), esc_html( $ds_response ) ); // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment ?></p>
 	<?php
 }
 

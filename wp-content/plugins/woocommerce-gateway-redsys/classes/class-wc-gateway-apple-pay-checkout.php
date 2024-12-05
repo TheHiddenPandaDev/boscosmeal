@@ -6,8 +6,8 @@
  * @since 23.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -22,13 +22,263 @@ defined( 'ABSPATH' ) || exit;
  */
 class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 
-	var $notify_url;
+	/**
+	 * The ID of the gateway.
+	 *
+	 * @var string
+	 */
+	public $id;
+
+	/**
+	 * The icon of the gateway.
+	 *
+	 * @var string
+	 */
+	public $icon;
+
+	/**
+	 * Indicates if the gateway has fields.
+	 *
+	 * @var bool
+	 */
+	public $has_fields;
+
+	/**
+	 * The live URL for the gateway.
+	 *
+	 * @var string
+	 */
+	public $liveurl;
+
+	/**
+	 * The test URL for the gateway.
+	 *
+	 * @var string
+	 */
+	public $testurl;
+
+	/**
+	 * The test SHA256 for the gateway.
+	 *
+	 * @var string
+	 */
+	public $testsha256;
+
+	/**
+	 * Indicates if the gateway is in test mode.
+	 *
+	 * @var bool
+	 */
+	public $testmode;
+
+	/**
+	 * The title of the gateway.
+	 *
+	 * @var string
+	 */
+	public $method_title;
+
+	/**
+	 * The description of the gateway.
+	 *
+	 * @var string
+	 */
+	public $method_description;
+
+	/**
+	 * Indicates if the gateway does not use HTTPS.
+	 *
+	 * @var bool
+	 */
+	public $not_use_https;
+
+	/**
+	 * The notify URL for the gateway.
+	 *
+	 * @var string
+	 */
+	public $notify_url;
+
+	/**
+	 * The notify URL without HTTPS for the gateway.
+	 *
+	 * @var string
+	 */
+	public $notify_url_not_https;
+
+	/**
+	 * The merchant ID for the gateway.
+	 *
+	 * @var string
+	 */
+	public $g_merchant_id;
+
+	/**
+	 * The XPay type for the gateway.
+	 *
+	 * @var string
+	 */
+	public $xpay_type;
+
+	/**
+	 * The XPay origin for the gateway.
+	 *
+	 * @var string
+	 */
+	public $xpay_origen;
+
+	/**
+	 * The title of the gateway.
+	 *
+	 * @var string
+	 */
+	public $title;
+
+	/**
+	 * The description of the gateway.
+	 *
+	 * @var string
+	 */
+	public $description;
+
+	/**
+	 * The customer for the gateway.
+	 *
+	 * @var string
+	 */
+	public $customer;
+
+	/**
+	 * The commerce name for the gateway.
+	 *
+	 * @var string
+	 */
+	public $commercename;
+
+	/**
+	 * The terminal for the gateway.
+	 *
+	 * @var string
+	 */
+	public $terminal;
+
+	/**
+	 * The secret SHA256 for the gateway.
+	 *
+	 * @var string
+	 */
+	public $secretsha256;
+
+	/**
+	 * The custom test SHA256 for the gateway.
+	 *
+	 * @var string
+	 */
+	public $customtestsha256;
+
+	/**
+	 * The Redsys language for the gateway.
+	 *
+	 * @var string
+	 */
+	public $redsyslanguage;
+
+	/**
+	 * Indicates if the gateway is in debug mode.
+	 *
+	 * @var bool
+	 */
+	public $debug;
+
+	/**
+	 * Indicates if the gateway is for testing purposes.
+	 *
+	 * @var bool
+	 */
+	public $testforuser;
+
+	/**
+	 * The user ID for testing purposes.
+	 *
+	 * @var int
+	 */
+	public $testforuserid;
+
+	/**
+	 * The checkout button text for the gateway.
+	 *
+	 * @var string
+	 */
+	public $buttoncheckout;
+
+	/**
+	 * The button background color for the gateway.
+	 *
+	 * @var string
+	 */
+	public $butonbgcolor;
+
+	/**
+	 * The button text color for the gateway.
+	 *
+	 * @var string
+	 */
+	public $butontextcolor;
+
+	/**
+	 * The description of the gateway for Redsys.
+	 *
+	 * @var string
+	 */
+	public $descripredsys;
+
+	/**
+	 * Indicates if the gateway should be shown for testing purposes.
+	 *
+	 * @var bool
+	 */
+	public $testshowgateway;
+
+	/**
+	 * The merchant ID PEM for the gateway.
+	 *
+	 * @var string
+	 */
+	public $merchant_id_pem;
+
+	/**
+	 * The merchant ID key for the gateway.
+	 *
+	 * @var string
+	 */
+	public $merchant_id_key;
+
+	/**
+	 * The log for the gateway.
+	 *
+	 * @var string
+	 */
+	public $log;
+
+	/**
+	 * The supported features for the gateway.
+	 *
+	 * @var array
+	 */
+	public $supports;
+
+	/**
+	 * Indicates if the gateway is enabled.
+	 *
+	 * @var bool
+	 */
+	public $enabled;
 
 	/**
 	 * Constructor
 	 */
 	public function __construct() {
-		$this->id                   = 'applepayredsys';
+		$this->id = 'applepayredsys';
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'applepayredsys' ) ) ) {
 			$logo_url   = WCRed()->get_redsys_option( 'logo', 'applepayredsys' );
 			$this->icon = apply_filters( 'woocommerce_' . $this->id . '_iconn', $logo_url );
@@ -53,9 +303,6 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$this->xpay_type        = 'Apple';
 		$this->xpay_origen      = 'WEB';
 		$this->title            = WCRed()->get_redsys_option( 'title', 'applepayredsys' );
-		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'applepayredsys' );
-		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'applepayredsys' );
-		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'applepayredsys' );
 		$this->description      = WCRed()->get_redsys_option( 'description', 'applepayredsys' );
 		$this->customer         = WCRed()->get_redsys_option( 'customer', 'applepayredsys' );
 		$this->commercename     = WCRed()->get_redsys_option( 'commercename', 'applepayredsys' );
@@ -73,7 +320,6 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$this->testshowgateway  = WCRed()->get_redsys_option( 'testshowgateway', 'applepayredsys' );
 		$this->merchant_id_pem  = WCRed()->get_redsys_option( 'merchant_id_pem', 'applepayredsys' );
 		$this->merchant_id_key  = WCRed()->get_redsys_option( 'merchant_id_key', 'applepayredsys' );
-		$this->log              = new WC_Logger();
 		$this->supports         = array(
 			'products',
 			'refunds',
@@ -193,27 +439,6 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 				'label'   => __( 'Enable Apple Pay', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'multisitesttings' => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'hideownsetting'   => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'ownsetting'       => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
 			'title'            => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
@@ -227,7 +452,7 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via Apple Pay With your Apple ID.', 'woocommerce-redsys' ),
 			),
-			'logo'                  => array(
+			'logo'             => array(
 				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
@@ -332,29 +557,11 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			'debug'            => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => __( 'Log Apple Pay events, such as notifications requests, inside <code>WooCommerce > Status > Logs > applepayredsys-{date}-{number}.log</code>', 'woocommerce-redsys' ),
 			),
 		);
-		if ( ! is_multisite() ) {
-			unset( $this->form_fields['multisitesttings'] );
-			unset( $this->form_fields['ownsetting'] );
-			unset( $this->form_fields['hideownsetting'] );
-		} else {
-			if ( is_main_site() ) {
-				unset( $this->form_fields['ownsetting'] );
-			} else {
-				unset( $this->form_fields['multisitesttings'] );
-				unset( $this->form_fields['hideownsetting'] );
-				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
-				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
-				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
-					unset( $this->form_fields['ownsetting'] );
-				}
-			}
-		}
 	}
 	/**
 	 * Check if this gateway is enabled in test mode for a user
@@ -368,11 +575,11 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$usertest_active = $this->testforuser;
 		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'applepayredsys' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', '/****************************/' );
-			$this->log->add( 'applepayredsys', '     Checking user test       ' );
-			$this->log->add( 'applepayredsys', '/****************************/' );
-			$this->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', '/****************************/' );
+			WCRed()->log( 'applepayredsys', '     Checking user test       ' );
+			WCRed()->log( 'applepayredsys', '/****************************/' );
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 
 		if ( 'yes' === $usertest_active ) {
@@ -380,66 +587,66 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			if ( ! empty( $selections ) ) {
 				foreach ( $selections as $user_id ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '   Checking user ' . $userid );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '  User in forach ' . $user_id );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', '   Checking user ' . $userid );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', '  User in forach ' . $user_id );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', ' ' );
 					}
 					if ( (string) $user_id === (string) $userid ) {
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'applepayredsys', ' ' );
-							$this->log->add( 'applepayredsys', '/****************************/' );
-							$this->log->add( 'applepayredsys', '   Checking user test TRUE    ' );
-							$this->log->add( 'applepayredsys', '/****************************/' );
-							$this->log->add( 'applepayredsys', ' ' );
-							$this->log->add( 'applepayredsys', ' ' );
-							$this->log->add( 'applepayredsys', '/********************************************/' );
-							$this->log->add( 'applepayredsys', '  User ' . $userid . ' is equal to ' . $user_id );
-							$this->log->add( 'applepayredsys', '/********************************************/' );
-							$this->log->add( 'applepayredsys', ' ' );
+							WCRed()->log( 'applepayredsys', ' ' );
+							WCRed()->log( 'applepayredsys', '/****************************/' );
+							WCRed()->log( 'applepayredsys', '   Checking user test TRUE    ' );
+							WCRed()->log( 'applepayredsys', '/****************************/' );
+							WCRed()->log( 'applepayredsys', ' ' );
+							WCRed()->log( 'applepayredsys', ' ' );
+							WCRed()->log( 'applepayredsys', '/********************************************/' );
+							WCRed()->log( 'applepayredsys', '  User ' . $userid . ' is equal to ' . $user_id );
+							WCRed()->log( 'applepayredsys', '/********************************************/' );
+							WCRed()->log( 'applepayredsys', ' ' );
 						}
 						return true;
 					}
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '  Checking user test continue ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', '  Checking user test continue ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', ' ' );
 					}
 					continue;
 				}
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', '  Checking user test FALSE    ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '  Checking user test FALSE    ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				return false;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', '  Checking user test FALSE    ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '  Checking user test FALSE    ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', '/****************************/' );
-				$this->log->add( 'applepayredsys', '     User test Disabled.      ' );
-				$this->log->add( 'applepayredsys', '/****************************/' );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', '/****************************/' );
+				WCRed()->log( 'applepayredsys', '     User test Disabled.      ' );
+				WCRed()->log( 'applepayredsys', '/****************************/' );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 			return false;
 		}
@@ -457,20 +664,20 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		if ( 'yes' === $this->testmode ) {
 			if ( 'rd' === $type ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', '          URL Test RD         ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '          URL Test RD         ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				$url = $this->testurl;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', '          URL Test WS         ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '          URL Test WS         ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				$url = $this->testurlws;
 			}
@@ -479,95 +686,94 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			if ( $user_test ) {
 				if ( 'rd' === $type ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '          URL Test RD         ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', '          URL Test RD         ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', ' ' );
 					}
 					$url = $this->testurl;
 				} else {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '          URL Test WS         ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', ' ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', '          URL Test WS         ' );
+						WCRed()->log( 'applepayredsys', '/****************************/' );
+						WCRed()->log( 'applepayredsys', ' ' );
 					}
 					$url = $this->testurlws;
 				}
-			} else {
-				if ( 'rd' === $type ) {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '          URL Live RD         ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
-					$url = $this->liveurl;
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', '          URL Live WS         ' );
-						$this->log->add( 'applepayredsys', '/****************************/' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
-					$url = $this->liveurlws;
+			} elseif ( 'rd' === $type ) {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '          URL Live RD         ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
+				$url = $this->liveurl;
+			} else {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '          URL Live WS         ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
+				}
+				$url = $this->liveurlws;
 			}
 		}
 		return $url;
 	}
 	/**
-	 * Get redsys SHA256
+	 * Get the SHA256 key based on the user and test mode.
 	 *
 	 * @param int $user_id User ID.
-	 *
-	 * @return string
+	 * @return string The SHA256 key.
 	 */
 	public function get_redsys_sha256( $user_id ) {
-
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', '/****************************/' );
-				$this->log->add( 'applepayredsys', '         SHA256 Test.         ' );
-				$this->log->add( 'applepayredsys', '/****************************/' );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', '/****************************/' );
+				WCRed()->log( 'applepayredsys', '         SHA256 Test.         ' );
+				WCRed()->log( 'applepayredsys', '/****************************/' );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
-			$customtestsha256 = utf8_decode( $this->customtestsha256 );
+
+			$customtestsha256 = $this->customtestsha256 ? mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' ) : '';
 			if ( ! empty( $customtestsha256 ) ) {
 				$sha256 = $customtestsha256;
 			} else {
-				$sha256 = utf8_decode( $this->testsha256 );
+				$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		} else {
 			$user_test = $this->check_user_test_mode( $user_id );
 			if ( $user_test ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', '      USER SHA256 Test.       ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '      USER SHA256 Test.       ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
-				$customtestsha256 = utf8_decode( $this->customtestsha256 );
+
+				$customtestsha256 = $this->customtestsha256 ? mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' ) : '';
 				if ( ! empty( $customtestsha256 ) ) {
 					$sha256 = $customtestsha256;
 				} else {
-					$sha256 = utf8_decode( $this->testsha256 );
+					$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', '     USER SHA256 NOT Test.    ' );
-					$this->log->add( 'applepayredsys', '/****************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', '     USER SHA256 NOT Test.    ' );
+					WCRed()->log( 'applepayredsys', '/****************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
-				$sha256 = utf8_decode( $this->secretsha256 );
+
+				$sha256 = mb_convert_encoding( $this->secretsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		}
 		return $sha256;
@@ -634,40 +840,40 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			$gpay_data_send = apply_filters( 'apple_modify_data_to_send', $gpay_data_send );
 
 			if ( 'yes' === $redsys->debug ) {
-				$redsys->log->add( 'applepayredsys', ' ' );
-				$redsys->log->add( 'applepayredsys', 'Using filter gpay_modify_data_to_send' );
-				$redsys->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', 'Using filter gpay_modify_data_to_send' );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 		}
 
 		if ( 'yes' === $redsys->debug ) {
-			$redsys->log->add( 'applepayredsys', ' ' );
-			$redsys->log->add( 'applepayredsys', 'Data sent to Gpay, $gpay_data_send: ' . print_r( $gpay_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$redsys->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', 'Data sent to Gpay, $gpay_data_send: ' . print_r( $gpay_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 
 		// redsys Args.
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $gpay_data_send['order_total_sign'] );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $gpay_data_send['transaction_id2'] );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $gpay_data_send['customer'] );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $gpay_data_send['currency'] );
-		$miobj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $gpay_data_send['transaction_type'] );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $gpay_data_send['DSMerchantTerminal'] );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTURL', $gpay_data_send['final_notify_url'] );
-		$miobj->setParameter( 'DS_MERCHANT_URLOK', $gpay_data_send['url_ok'] );
-		$miobj->setParameter( 'DS_MERCHANT_URLKO', $gpay_data_send['returnfromredsys'] );
-		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gpay_data_send['gatewaylanguage'] );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $gpay_data_send['product_description'] ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $gpay_data_send['merchant_name'] );
-		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'xpay' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $gpay_data_send['order_total_sign'] );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $gpay_data_send['transaction_id2'] );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $gpay_data_send['customer'] );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $gpay_data_send['currency'] );
+		$miobj->set_parameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $gpay_data_send['transaction_type'] );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $gpay_data_send['DSMerchantTerminal'] );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $gpay_data_send['final_notify_url'] );
+		$miobj->set_parameter( 'DS_MERCHANT_URLOK', $gpay_data_send['url_ok'] );
+		$miobj->set_parameter( 'DS_MERCHANT_URLKO', $gpay_data_send['returnfromredsys'] );
+		$miobj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $gpay_data_send['gatewaylanguage'] );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $gpay_data_send['product_description'] ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $gpay_data_send['merchant_name'] );
+		$miobj->set_parameter( 'DS_MERCHANT_PAYMETHODS', 'xpay' );
 
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request      = '';
-		$params       = $miobj->createMerchantParameters();
-		$signature    = $miobj->createMerchantSignature( $gpay_data_send['secretsha256'] );
+		$params       = $miobj->create_merchant_parameters();
+		$signature    = $miobj->create_merchant_signature( $gpay_data_send['secretsha256'] );
 		$order_id_set = $gpay_data_send['transaction_id2'];
 		set_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ), $gpay_data_send['secretsha256'], 3600 );
 		$redsys_args = array(
@@ -676,21 +882,21 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			'Ds_Signature'          => $signature,
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'applepayredsys', 'Helping to understand the encrypted code: ' );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_AMOUNT: ' . $gpay_data_send['order_total_sign'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_ORDER: ' . $gpay_data_send['transaction_id2'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $gpay_data_send['customer'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_CURRENCY' . $gpay_data_send['currency'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $gpay_data_send['transaction_type'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_TERMINAL: ' . $gpay_data_send['DSMerchantTerminal'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_MERCHANTURL: ' . $gpay_data_send['final_notify_url'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_URLOK: ' . $gpay_data_send['url_ok'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_URLKO: ' . $gpay_data_send['returnfromredsys'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gpay_data_send['gatewaylanguage'] );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $gpay_data_send['product_description'] ) );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_PAYMETHODS: xpay' );
+			WCRed()->log( 'applepayredsys', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'applepayredsys', 'Helping to understand the encrypted code: ' );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_AMOUNT: ' . $gpay_data_send['order_total_sign'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_ORDER: ' . $gpay_data_send['transaction_id2'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $gpay_data_send['name'] ) . ' ' . WCRed()->clean_data( $gpay_data_send['lastname'] ) );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $gpay_data_send['customer'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_CURRENCY' . $gpay_data_send['currency'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $gpay_data_send['transaction_type'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_TERMINAL: ' . $gpay_data_send['DSMerchantTerminal'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_MERCHANTURL: ' . $gpay_data_send['final_notify_url'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_URLOK: ' . $gpay_data_send['url_ok'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_URLKO: ' . $gpay_data_send['returnfromredsys'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $gpay_data_send['gatewaylanguage'] );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $gpay_data_send['product_description'] ) );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_PAYMETHODS: xpay' );
 		}
 		/**
 		 * Filter hook to allow 3rd parties to add more fields to the form
@@ -715,32 +921,52 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	 * Process the payment and return the result
 	 *
 	 * @param int $order_id Order ID.
+	 *
 	 * @return array
+	 * @throws Exception Exception.
 	 */
 	public function process_payment( $order_id ) {
 
-		$order                   = WCRed()->get_order( $order_id );
-		$currency_codes          = WCRed()->get_currencies();
-		$transaction_id2         = WCRed()->prepare_order_number( $order_id );
-		$order_total_sign        = WCRed()->redsys_amount_format( $order->get_total() );
-		$transaction_type        = '0';
-		$user_id                 = $order->get_user_id();
-		$secretsha256            = $this->get_redsys_sha256( $user_id );
-		$customer                = $this->customer;
-		$url_ok                  = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
-		$product_description     = WCRed()->product_description( $order, $this->id );
-		$merchant_name           = $this->commercename;
-		$currency                = $currency_codes[ get_woocommerce_currency() ];
-		$name                    = WCRed()->get_order_meta( $order_id, '_billing_first_name', true );
-		$lastname                = WCRed()->get_order_meta( $order_id, '_billing_last_name', true );
-		$apple_referencia_redsys = $_POST['apple-referencia-redsys'];
-		$ds_xpay_data            = $_POST['apple-token-redsys'];
-		$g_merchant_id           = $this->g_merchant_id;
-		$ds_xpay_type            = $this->xpay_type;
-		$ds_xpay_origen          = $this->xpay_origen;
-		$dsmerchantterminal      = $this->terminal;
+		$order               = WCRed()->get_order( $order_id );
+		$currency_codes      = WCRed()->get_currencies();
+		$transaction_id2     = WCRed()->prepare_order_number( $order_id );
+		$order_total_sign    = WCRed()->redsys_amount_format( $order->get_total() );
+		$transaction_type    = '0';
+		$user_id             = $order->get_user_id();
+		$secretsha256        = $this->get_redsys_sha256( $user_id );
+		$customer            = $this->customer;
+		$url_ok              = add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) );
+		$product_description = WCRed()->product_description( $order, $this->id );
+		$merchant_name       = $this->commercename;
+		$currency            = $currency_codes[ get_woocommerce_currency() ];
+		$name                = WCRed()->get_order_meta( $order_id, '_billing_first_name', true );
+		$lastname            = WCRed()->get_order_meta( $order_id, '_billing_last_name', true );
+		if ( isset( $_POST['apple-referencia-redsys'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$apple_referencia_redsys = sanitize_text_field( wp_unslash( $_POST['apple-referencia-redsys'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		} else {
+			$apple_referencia_redsys = '';
+		}
+		if ( isset( $_POST['apple-token-redsys'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$ds_xpay_data = sanitize_text_field( wp_unslash( $_POST['apple-token-redsys'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		} else {
+			$ds_xpay_data = '';
+		}
+		$g_merchant_id                = $this->g_merchant_id;
+		$ds_xpay_type                 = $this->xpay_type;
+		$ds_xpay_origen               = $this->xpay_origen;
+		$dsmerchantterminal           = $this->terminal;
+		$ds_xpay_data_meta            = WCRed()->get_order_meta( $order_id, '_apple_token_redsys', true );
+		$apple_referencia_redsys_meta = WCRed()->get_order_meta( $order_id, '_apple_referencia_redsys', true );
 
-		update_option( $apple_referencia_redsys, $order_id );
+		if ( $ds_xpay_data_meta ) {
+			$ds_xpay_data = $ds_xpay_data_meta;
+		}
+		if ( $apple_referencia_redsys_meta ) {
+			$apple_referencia_redsys = $apple_referencia_redsys_meta;
+		}
+
+		WCRed()->update_order_meta( $order_id, $data );
+		set_transient( $apple_referencia_redsys, $order_id, 3600 );
 
 		if ( 'yes' === $this->testmode ) {
 			$redsys_adr = $this->testurl;
@@ -749,44 +975,44 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		}
 
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $customer );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
-		$miobj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $product_description ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $merchant_name );
-		$miobj->setParameter( 'DS_XPAYDATA', $ds_xpay_data );
-		$miobj->setParameter( 'DS_XPAYTYPE', $ds_xpay_type );
-		$miobj->setParameter( 'DS_XPAYORIGEN', $ds_xpay_origen );
-		$miobj->setParameter( 'DS_MERCHANT_DIRECTPAYMENT', 'TRUE' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $order_total_sign );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id2 );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $customer );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $dsmerchantterminal );
+		$miobj->set_parameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $product_description ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $merchant_name );
+		$miobj->set_parameter( 'DS_XPAYDATA', $ds_xpay_data );
+		$miobj->set_parameter( 'DS_XPAYTYPE', $ds_xpay_type );
+		$miobj->set_parameter( 'DS_XPAYORIGEN', $ds_xpay_origen );
+		$miobj->set_parameter( 'DS_MERCHANT_DIRECTPAYMENT', 'TRUE' );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', '$apple_referencia_redsys: ' . $apple_referencia_redsys );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_CURRENCY: ' . $currency );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $customer );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
-			$this->log->add( 'applepayredsys', 'DS_XPAYDATA: ' . $ds_xpay_data );
-			$this->log->add( 'applepayredsys', 'DS_XPAYTYPE: ' . $ds_xpay_type );
-			$this->log->add( 'applepayredsys', 'DS_XPAYORIGEN: ' . $ds_xpay_origen );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_DIRECTPAYMENT: TRUE' );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $product_description ) );
-			$this->log->add( 'applepayredsys', 'DS_MERCHANT_MERCHANTNAME: ' . $merchant_name );
-			$this->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', '$apple_referencia_redsys: ' . $apple_referencia_redsys );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_AMOUNT: ' . $order_total_sign );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_CURRENCY: ' . $currency );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_MERCHANTCODE: ' . $customer );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_ORDER: ' . $transaction_id2 );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_TERMINAL: ' . $dsmerchantterminal );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $transaction_type );
+			WCRed()->log( 'applepayredsys', 'DS_XPAYDATA: ' . $ds_xpay_data );
+			WCRed()->log( 'applepayredsys', 'DS_XPAYTYPE: ' . $ds_xpay_type );
+			WCRed()->log( 'applepayredsys', 'DS_XPAYORIGEN: ' . $ds_xpay_origen );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_DIRECTPAYMENT: TRUE' );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $name ) . ' ' . WCRed()->clean_data( $lastname ) );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $product_description ) );
+			WCRed()->log( 'applepayredsys', 'DS_MERCHANT_MERCHANTNAME: ' . $merchant_name );
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request       = '';
-		$params        = $miobj->createMerchantParameters();
-		$signature     = $miobj->createMerchantSignature( $secretsha256 );
+		$params        = $miobj->create_merchant_parameters();
+		$signature     = $miobj->create_merchant_signature( $secretsha256 );
 		$version       = 'HMAC_SHA256_V1';
 		$response      = wp_remote_post(
 			$redsys_adr,
@@ -806,19 +1032,19 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$result        = json_decode( $response_body, true );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', 'Response from Redsys: ' . print_r( $result, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', 'Response from Redsys: ' . print_r( $result, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 		if ( $result['Ds_MerchantParameters'] ) {
 			$version     = $result['Ds_SignatureVersion']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$data        = $result['Ds_MerchantParameters']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign = $result['Ds_Signature']; // phpcs:ignore WordPress.Security.NonceVerification.Missing
-			$decodec     = $miobj->decodeMerchantParameters( $data );
+			$decodec     = $miobj->decode_merchant_parameters( $data );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', '$decodec: ' . $decodec );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', '$decodec: ' . $decodec );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 			$decocec_json = json_decode( $decodec, true );
 			if ( '0000' === $decocec_json['Ds_Response'] ) {
@@ -830,67 +1056,57 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 				$data = array();
 				$order->payment_complete();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'payment_complete 1' );
+					WCRed()->log( 'applepayredsys', 'payment_complete 1' );
 				}
 				if ( ! empty( $transaction_id2 ) ) {
 					$data['_payment_order_number_redsys'] = $transaction_id2;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', '_payment_order_number_redsys saved: ' . $transaction_id2 );
+						WCRed()->log( 'applepayredsys', '_payment_order_number_redsys saved: ' . $transaction_id2 );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '_payment_order_number_redsys NOT SAVED!!!' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '_payment_order_number_redsys NOT SAVED!!!' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				if ( ! empty( $dsmerchantterminal ) ) {
 					$data['_payment_terminal_redsys'] = $dsmerchantterminal;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', '_payment_terminal_redsys saved: ' . $dsmerchantterminal );
+						WCRed()->log( 'applepayredsys', '_payment_terminal_redsys saved: ' . $dsmerchantterminal );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '_payment_terminal_redsys NOT SAVED!!!' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '_payment_terminal_redsys NOT SAVED!!!' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				if ( ! empty( $ds_authorisation_code ) ) {
 					$data['_authorisation_code_redsys'] = $ds_authorisation_code;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', '_authorisation_code_redsys saved: ' . $ds_authorisation_code );
+						WCRed()->log( 'applepayredsys', '_authorisation_code_redsys saved: ' . $ds_authorisation_code );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '_authorisation_code_redsys NOT SAVED!!!' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '_authorisation_code_redsys NOT SAVED!!!' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				if ( ! empty( $currency ) ) {
 					$data['_corruncy_code_redsys'] = $currency;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', '_corruncy_code_redsys saved: ' . $currency );
+						WCRed()->log( 'applepayredsys', '_corruncy_code_redsys saved: ' . $currency );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '_corruncy_code_redsys NOT SAVED!!!' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '_corruncy_code_redsys NOT SAVED!!!' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				if ( ! empty( $secretsha256 ) ) {
 					$data['_redsys_secretsha256'] = $secretsha256;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
+						WCRed()->log( 'applepayredsys', '_redsys_secretsha256 saved: ' . $secretsha256 );
 					}
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'applepayredsys', ' ' );
-						$this->log->add( 'applepayredsys', '_redsys_secretsha256 NOT SAVED!!!' );
-						$this->log->add( 'applepayredsys', ' ' );
-					}
+				} elseif ( 'yes' === $this->debug ) {
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '_redsys_secretsha256 NOT SAVED!!!' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				WCRed()->update_order_meta( $order->get_id(), $data );
 				do_action( $this->id . '_post_payment_complete', $order->get_id() );
@@ -903,14 +1119,27 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		}
 		if ( isset( $result['errorCode'] ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', 'Error: ' . $result['errorCode'] );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', 'Error: ' . $result['errorCode'] );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 			$error = WCRed()->get_error( $result['errorCode'] );
 			do_action( $this->id . '_post_payment_error', $order->get_id(), $error );
-			$order->add_order_note( __( 'There was an Errro: ', 'woocommerce-redsys' ) . $error );
+			$order->add_order_note( __( 'Error en el pago: ', 'woocommerce-redsys' ) . $error );
+
+			// Manejar el error para el bloque de checkout.
 			wc_add_notice( $error, 'error' );
+			wp_send_json_error(
+				array(
+					'message'   => $error,
+					'result'    => 'failure',
+					'errorCode' => $result['errorCode'],
+				)
+			);
+			return array(
+				'result'   => 'failure',
+				'messages' => $error,
+			);
 		}
 	}
 	/**
@@ -928,7 +1157,7 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	public function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'applepayredsys', 'HTTP Notification received 1: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) || ! isset( $_POST['Ds_Signature'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -939,64 +1168,64 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', 'Signature from Redsys: ' . $remote_sign );
-				$this->log->add( 'applepayredsys', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
-				$this->log->add( 'applepayredsys', 'Secret SHA256 transcient: ' . $secretsha256 );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', 'Signature from Redsys: ' . $remote_sign );
+				WCRed()->log( 'applepayredsys', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
+				WCRed()->log( 'applepayredsys', 'Secret SHA256 transcient: ' . $secretsha256 );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$order_id = $mi_obj->getParameter( 'Ds_Order' );
-				$this->log->add( 'applepayredsys', 'Order ID: ' . $order_id );
+				$order_id = $mi_obj->get_parameter( 'Ds_Order' );
+				WCRed()->log( 'applepayredsys', 'Order ID: ' . $order_id );
 			}
 			$order           = WCRed()->get_order( $order2 );
 			$user_id         = $order->get_user_id();
 			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
 			if ( empty( $secretsha256 ) && ! $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', 'Using $usesecretsha256 Settings' );
-					$this->log->add( 'applepayredsys', 'Secret SHA256 Settings: ' . $usesecretsha256 );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', 'Using $usesecretsha256 Settings' );
+					WCRed()->log( 'applepayredsys', 'Secret SHA256 Settings: ' . $usesecretsha256 );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				$usesecretsha256 = $usesecretsha256;
 			} elseif ( $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', 'Using $secretsha256_meta Meta' );
-					$this->log->add( 'applepayredsys', 'Secret SHA256 Meta: ' . $secretsha256_meta );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', 'Using $secretsha256_meta Meta' );
+					WCRed()->log( 'applepayredsys', 'Secret SHA256 Meta: ' . $secretsha256_meta );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				$usesecretsha256 = $secretsha256_meta;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', 'Using $secretsha256 Transcient' );
-					$this->log->add( 'applepayredsys', 'Secret SHA256 Transcient: ' . $secretsha256 );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', 'Using $secretsha256 Transcient' );
+					WCRed()->log( 'applepayredsys', 'Secret SHA256 Transcient: ' . $secretsha256 );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				$usesecretsha256 = $secretsha256;
 			}
-			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'Received valid notification from Servired/RedSys' );
-					$this->log->add( 'applepayredsys', $data );
+					WCRed()->log( 'applepayredsys', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'applepayredsys', $data );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'applepayredsys', 'Received INVALID notification from Servired/RedSys' );
 				}
 				delete_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 				return false;
@@ -1006,26 +1235,26 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'applepayredsys', 'HTTP Notification received 2: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( $ds_merchant_code === $this->customer ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'applepayredsys', 'Received valid notification from Servired/RedSys' );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'Received INVALID notification from Servired/RedSys' );
-					$this->log->add( 'applepayredsys', '$remote_sign: ' . $remote_sign );
-					$this->log->add( 'applepayredsys', '$localsecret: ' . $localsecret );
+					WCRed()->log( 'applepayredsys', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'applepayredsys', '$remote_sign: ' . $remote_sign );
+					WCRed()->log( 'applepayredsys', '$localsecret: ' . $localsecret );
 				}
 				return false;
 			}
@@ -1038,7 +1267,7 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	public function check_ipn_response() {
 
 		@ob_clean(); // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-		if ( isset( $_GET['checkout-price'] ) ) {
+		if ( isset( $_GET['checkout-price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			WC()->frontend_includes();
 			if ( null === WC()->cart && function_exists( 'wc_load_cart' ) ) {
 				wc_load_cart();
@@ -1064,11 +1293,11 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	public function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', '/****************************/' );
-			$this->log->add( 'applepayredsys', '      successful_request      ' );
-			$this->log->add( 'applepayredsys', '/****************************/' );
-			$this->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', '/****************************/' );
+			WCRed()->log( 'applepayredsys', '      successful_request      ' );
+			WCRed()->log( 'applepayredsys', '/****************************/' );
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 
 		if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_Signature'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -1080,11 +1309,11 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', '$version: ' . $version );
-			$this->log->add( 'applepayredsys', '$data: ' . $data );
-			$this->log->add( 'applepayredsys', '$remote_sign: ' . $remote_sign );
-			$this->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', '$version: ' . $version );
+			WCRed()->log( 'applepayredsys', '$data: ' . $data );
+			WCRed()->log( 'applepayredsys', '$remote_sign: ' . $remote_sign );
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 
 		$mi_obj            = new WooRedsysAPI();
@@ -1095,28 +1324,28 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$dscardnumber4     = '';
 		$dsexpiryyear      = '';
 		$dsexpirymonth     = '';
-		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
-		$response          = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$decodedata        = $mi_obj->decode_merchant_parameters( $data );
+		$localsecret       = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
+		$total             = $mi_obj->get_parameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->get_parameter( 'Ds_Order' );
+		$dscode            = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->get_parameter( 'Ds_Currency' );
+		$response          = $mi_obj->get_parameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->get_parameter( 'Ds_AuthorisationCode' );
+		$dsdate            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Date' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dshour            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Hour' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dstermnal         = $mi_obj->get_parameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->get_parameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->get_parameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->get_parameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype = $mi_obj->get_parameter( 'Ds_TransactionType' );
+		$dsmerchantidenti  = $mi_obj->get_parameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand       = $mi_obj->get_parameter( 'Ds_Card_Brand' );
+		$dsmechandata      = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dscargtype        = $mi_obj->get_parameter( 'Ds_Card_Type' );
+		$dserrorcode       = $mi_obj->get_parameter( 'Ds_ErrorCode' );
+		$dpaymethod        = $mi_obj->get_parameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
 		$response          = intval( $response );
 		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
 		$order1            = $ordermi;
@@ -1124,46 +1353,46 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$order             = WCRed()->get_order( (int) $order2 );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', 'SHA256 Settings: ' . $usesecretsha256 );
-			$this->log->add( 'applepayredsys', 'SHA256 Transcient: ' . $secretsha256 );
-			$this->log->add( 'applepayredsys', 'decodeMerchantParameters: ' . $decodedata );
-			$this->log->add( 'applepayredsys', 'createMerchantSignatureNotif: ' . $localsecret );
-			$this->log->add( 'applepayredsys', 'Ds_Amount: ' . $total );
-			$this->log->add( 'applepayredsys', 'Ds_Order: ' . $ordermi );
-			$this->log->add( 'applepayredsys', 'Ds_MerchantCode: ' . $dscode );
-			$this->log->add( 'applepayredsys', 'Ds_Currency: ' . $currency_code );
-			$this->log->add( 'applepayredsys', 'Ds_Response: ' . $response );
-			$this->log->add( 'applepayredsys', 'Ds_AuthorisationCode: ' . $id_trans );
-			$this->log->add( 'applepayredsys', 'Ds_Date: ' . $dsdate );
-			$this->log->add( 'applepayredsys', 'Ds_Hour: ' . $dshour );
-			$this->log->add( 'applepayredsys', 'Ds_Terminal: ' . $dstermnal );
-			$this->log->add( 'applepayredsys', 'Ds_MerchantData: ' . $dsmerchandata );
-			$this->log->add( 'applepayredsys', 'Ds_SecurePayment: ' . $dssucurepayment );
-			$this->log->add( 'applepayredsys', 'Ds_Card_Country: ' . $dscardcountry );
-			$this->log->add( 'applepayredsys', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
-			$this->log->add( 'applepayredsys', 'Ds_Card_Type: ' . $dscargtype );
-			$this->log->add( 'applepayredsys', 'Ds_TransactionType: ' . $dstransactiontype );
-			$this->log->add( 'applepayredsys', 'Ds_Merchant_Identifiers_Amount: ' . $response );
-			$this->log->add( 'applepayredsys', 'Ds_Card_Brand: ' . $dscardbrand );
-			$this->log->add( 'applepayredsys', 'Ds_MerchantData: ' . $dsmechandata );
-			$this->log->add( 'applepayredsys', 'Ds_ErrorCode: ' . $dserrorcode );
-			$this->log->add( 'applepayredsys', 'Ds_PayMethod: ' . $dpaymethod );
+			WCRed()->log( 'applepayredsys', 'SHA256 Settings: ' . $usesecretsha256 );
+			WCRed()->log( 'applepayredsys', 'SHA256 Transcient: ' . $secretsha256 );
+			WCRed()->log( 'applepayredsys', 'decode_merchant_parameters: ' . $decodedata );
+			WCRed()->log( 'applepayredsys', 'create_merchant_signature_notif: ' . $localsecret );
+			WCRed()->log( 'applepayredsys', 'Ds_Amount: ' . $total );
+			WCRed()->log( 'applepayredsys', 'Ds_Order: ' . $ordermi );
+			WCRed()->log( 'applepayredsys', 'Ds_MerchantCode: ' . $dscode );
+			WCRed()->log( 'applepayredsys', 'Ds_Currency: ' . $currency_code );
+			WCRed()->log( 'applepayredsys', 'Ds_Response: ' . $response );
+			WCRed()->log( 'applepayredsys', 'Ds_AuthorisationCode: ' . $id_trans );
+			WCRed()->log( 'applepayredsys', 'Ds_Date: ' . $dsdate );
+			WCRed()->log( 'applepayredsys', 'Ds_Hour: ' . $dshour );
+			WCRed()->log( 'applepayredsys', 'Ds_Terminal: ' . $dstermnal );
+			WCRed()->log( 'applepayredsys', 'Ds_MerchantData: ' . $dsmerchandata );
+			WCRed()->log( 'applepayredsys', 'Ds_SecurePayment: ' . $dssucurepayment );
+			WCRed()->log( 'applepayredsys', 'Ds_Card_Country: ' . $dscardcountry );
+			WCRed()->log( 'applepayredsys', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
+			WCRed()->log( 'applepayredsys', 'Ds_Card_Type: ' . $dscargtype );
+			WCRed()->log( 'applepayredsys', 'Ds_TransactionType: ' . $dstransactiontype );
+			WCRed()->log( 'applepayredsys', 'Ds_Merchant_Identifiers_Amount: ' . $response );
+			WCRed()->log( 'applepayredsys', 'Ds_Card_Brand: ' . $dscardbrand );
+			WCRed()->log( 'applepayredsys', 'Ds_MerchantData: ' . $dsmechandata );
+			WCRed()->log( 'applepayredsys', 'Ds_ErrorCode: ' . $dserrorcode );
+			WCRed()->log( 'applepayredsys', 'Ds_PayMethod: ' . $dpaymethod );
 		}
 
 		// refund.
 		if ( '3' === $dstransactiontype ) {
 			if ( 900 === $response ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'Response 900 (refund)' );
+					WCRed()->log( 'applepayredsys', 'Response 900 (refund)' );
 				}
 				set_transient( $order->get_id() . '_redsys_refund', 'yes' );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'WCRed()->update_order_meta to "refund yes"' );
+					WCRed()->log( 'applepayredsys', 'WCRed()->update_order_meta to "refund yes"' );
 				}
 				$status = $order->get_status();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', 'New Status in request: ' . $status );
+					WCRed()->log( 'applepayredsys', 'New Status in request: ' . $status );
 				}
 				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
 				return;
@@ -1190,28 +1419,28 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$secretsha256   = $this->get_redsys_sha256( $user_id );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', '/**************************/' );
-			$this->log->add( 'applepayredsys', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', '/**************************/' );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', '/**************************/' );
+			WCRed()->log( 'applepayredsys', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', '/**************************/' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
 		}
 		$transaction_type  = '3';
 		$secretsha256_meta = WCRed()->get_order_meta( $order_id, '_redsys_secretsha256', true );
 		if ( $secretsha256_meta ) {
 			$secretsha256 = $secretsha256_meta;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'applepayredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'applepayredsys', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'applepayredsys', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		} else {
 			$secretsha256 = $secretsha256;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'applepayredsys', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'applepayredsys', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'applepayredsys', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		}
 		if ( 'yes' === $this->not_use_https ) {
@@ -1230,71 +1459,69 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', '**********************' );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'applepayredsys', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'applepayredsys', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
-			$this->log->add( 'applepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'applepayredsys', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
-			$this->log->add( 'applepayredsys', __( 'FUC : ', 'woocommerce-redsys' ) . $order_fuc );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', '**********************' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'applepayredsys', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'applepayredsys', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
+			WCRed()->log( 'applepayredsys', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'applepayredsys', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
+			WCRed()->log( 'applepayredsys', __( 'FUC : ', 'woocommerce-redsys' ) . $order_fuc );
 		}
 
 		if ( ! empty( $currencycode ) ) {
 			$currency = $currencycode;
-		} else {
-			if ( ! empty( $currency_codes ) ) {
-				$currency = $currency_codes[ get_woocommerce_currency() ];
-			}
+		} elseif ( ! empty( $currency_codes ) ) {
+			$currency = $currency_codes[ get_woocommerce_currency() ];
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
-		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', '*********************************' );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $order_fuc );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
-			$this->log->add( 'applepayredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'applepayredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'applepayredsys', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
-			$this->log->add( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', '*********************************' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $order_fuc );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
+			WCRed()->log( 'applepayredsys', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'applepayredsys', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'applepayredsys', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
+			WCRed()->log( 'applepayredsys', ' ' );
 		}
 
 		$version   = 'HMAC_SHA256_V1';
 		$request   = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$redsys_adr,
@@ -1312,11 +1539,11 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'applepayredsys', '*********************************' );
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'applepayredsys', '*********************************' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
 			return $post_arg;
 		}
@@ -1333,12 +1560,12 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 		$order        = WCRed()->get_order( (int) $order_id );
 		$order_refund = get_transient( $order->get_id() . '_redsys_refund' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
-			$this->log->add( 'applepayredsys', '*****************************************' );
-			$this->log->add( 'applepayredsys', ' ' );
-			$this->log->add( 'applepayredsys', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
-			$this->log->add( 'applepayredsys', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
+			WCRed()->log( 'applepayredsys', '*****************************************' );
+			WCRed()->log( 'applepayredsys', ' ' );
+			WCRed()->log( 'applepayredsys', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
+			WCRed()->log( 'applepayredsys', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
 		}
 		if ( 'yes' === $order_refund ) {
 			return true;
@@ -1361,7 +1588,7 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 
 		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'applepayredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'applepayredsys', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}
 		if ( ! $amount ) {
 			$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
@@ -1371,14 +1598,14 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 
 		if ( ! empty( $transaction_id ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
+				WCRed()->log( 'applepayredsys', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
 
 			$refund_asked = $this->ask_for_refund( $order_id, $transaction_id, $order_total_sign );
 
 			if ( is_wp_error( $refund_asked ) ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'applepayredsys', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
+					WCRed()->log( 'applepayredsys', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
 				}
 				return new WP_Error( 'error', $refund_asked->get_error_message() );
 			}
@@ -1386,50 +1613,50 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 			do {
 				sleep( 5 );
 				$result = $this->check_redsys_refund( $order_id );
-				$x++;
+				++$x;
 			} while ( $x <= 20 && false === $result );
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'applepayredsys', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', '/********************************/' );
-				$this->log->add( 'applepayredsys', '  Refund complete by Redsys   ' );
-				$this->log->add( 'applepayredsys', '/********************************/' );
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', '/******************************************/' );
-				$this->log->add( 'applepayredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'applepayredsys', '/******************************************/' );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', '/********************************/' );
+				WCRed()->log( 'applepayredsys', '  Refund complete by Redsys   ' );
+				WCRed()->log( 'applepayredsys', '/********************************/' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', '/******************************************/' );
+				WCRed()->log( 'applepayredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'applepayredsys', '/******************************************/' );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 			if ( 'yes' === $this->debug && ! $result ) {
-				$this->log->add( 'applepayredsys', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'applepayredsys', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
 			}
 			if ( $result ) {
 				delete_transient( $order->get_id() . '_redsys_refund' );
 				return true;
 			} else {
 				if ( 'yes' === $this->debug && $result ) {
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'applepayredsys', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
-					$this->log->add( 'applepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', ' ' );
-					$this->log->add( 'applepayredsys', '/******************************************/' );
-					$this->log->add( 'applepayredsys', '  The final has come, this story has ended  ' );
-					$this->log->add( 'applepayredsys', '/******************************************/' );
-					$this->log->add( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'applepayredsys', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
+					WCRed()->log( 'applepayredsys', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', ' ' );
+					WCRed()->log( 'applepayredsys', '/******************************************/' );
+					WCRed()->log( 'applepayredsys', '  The final has come, this story has ended  ' );
+					WCRed()->log( 'applepayredsys', '/******************************************/' );
+					WCRed()->log( 'applepayredsys', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'applepayredsys', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
-				$this->log->add( 'applepayredsys', ' ' );
-				$this->log->add( 'applepayredsys', '/******************************************/' );
-				$this->log->add( 'applepayredsys', '  The final has come, this story has ended  ' );
-				$this->log->add( 'applepayredsys', '/******************************************/' );
-				$this->log->add( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
+				WCRed()->log( 'applepayredsys', ' ' );
+				WCRed()->log( 'applepayredsys', '/******************************************/' );
+				WCRed()->log( 'applepayredsys', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'applepayredsys', '/******************************************/' );
+				WCRed()->log( 'applepayredsys', ' ' );
 			}
 			return new WP_Error( 'error', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
 		}
@@ -1510,26 +1737,53 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	 */
 	public function load_apple_pay_js( $price = false ) {
 		if ( is_checkout() && WCRed()->is_gateway_enabled( 'applepayredsys' ) ) {
-			$store_country = wc_get_base_location()['country'];
-			$time          = time();
+			$store_country        = wc_get_base_location()['country'];
+			$time                 = time();
+			$using_checkout_block = WCRed()->checkout_use_block(); // Verifica si se usa el bloque de checkout.
+
+			// Desregistrar el script existente si es necesario.
 			wp_deregister_script( 'applepay-redsys' );
-			wp_register_script( 'redsys-external-applepay-js', 'https://applepay.cdn-apple.com/jsapi/v1.1.0/apple-pay-sdk.js', array(), $time, false );
-			wp_register_script( 'applepay-redsys', esc_url( REDSYS_PLUGIN_URL_P ) . 'assets/js/applepay-redsys.js', array( 'jquery', 'redsys-external-applepay-js' ), $time, false );
+
+			// Selecciona el script de JS basado en si se está utilizando el bloque de checkout o no.
+			$applepay_script_filename = $using_checkout_block ? 'applepay-redsys-block.js' : 'applepay-redsys.js';
+
+			// Registrar los scripts necesarios.
+			wp_register_script( 'redsys-external-applepay-js', 'https://applepay.cdn-apple.com/jsapi/1.latest/apple-pay-sdk.js', array(), $time, false );
+			wp_register_script( 'applepay-redsys', esc_url( REDSYS_PLUGIN_URL_P ) . 'assets/js/' . $applepay_script_filename, array( 'jquery', 'redsys-external-applepay-js' ), $time, false );
+
+			// Crear un nonce para la seguridad en las solicitudes AJAX.
+			$nonce = wp_create_nonce( 'applepay_redsys_nonce' );
+
+			// Obtener el total del carrito.
+			$total           = WC()->cart->get_total( 'edit' ); // Retorna el total sin formatear.
+			$formatted_total = number_format( floatval( $total ), 2, '.', '' );
+
+			// Datos a pasar al script JavaScript.
 			$script_data_array = array(
 				'merchantId'   => $this->g_merchant_id,
 				'merchantName' => WCRed()->clean_data( $this->commercename ),
 				'url_site'     => get_site_url(),
 				'countryCode'  => $store_country,
 				'currencyCode' => get_woocommerce_currency(),
+				'ajax_url'     => admin_url( 'admin-ajax.php' ),
+				'nonce'        => $nonce,
+				'cart_total'   => $formatted_total, // Incluye el monto del carrito.
 			);
+
+			// Logs para depuración.
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', '$script_data_array: ' . print_r( $script_data_array, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'applepayredsys', '$script_data_array: ' . print_r( $script_data_array, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
+
+			// Localizar el script con los datos necesarios.
 			wp_localize_script( 'applepay-redsys', 'apple_redsys', $script_data_array );
+
+			// Encolar los scripts.
 			wp_enqueue_script( 'redsys-external-applepay-js' );
 			wp_enqueue_script( 'applepay-redsys' );
 		}
 	}
+
 	/**
 	 * Save fields to checkout (Gpay).
 	 *
@@ -1537,10 +1791,18 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	 */
 	public function save_field_update_order_meta( $order_id ) {
 
-		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) && 'applepayredsys' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
+		if ( isset( $_POST['woocommerce-process-checkout-nonce'] ) &&
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['woocommerce-process-checkout-nonce'] ) ), 'woocommerce-process_checkout' ) &&
+			isset( $_POST['payment_method'] ) &&
+			'applepayredsys' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
+
+			// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'applepayredsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'applepayredsys', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
+
+			$data = array(); // Inicializa el array antes de llenarlo con los valores.
+
 			if ( ! empty( $_POST['apple-token-redsys'] ) ) {
 				$apple_token                 = sanitize_text_field( wp_unslash( $_POST['apple-token-redsys'] ) );
 				$data['_apple_token_redsys'] = sanitize_text_field( $apple_token );
@@ -1549,37 +1811,60 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 				$referencia_apple                 = sanitize_text_field( wp_unslash( $_POST['apple-referencia-redsys'] ) );
 				$data['_apple_referencia_redsys'] = sanitize_text_field( $referencia_apple );
 			}
-			WCRed()->update_order_meta( $order_id, $data );
+
+			// Asegurarse de que $data no esté vacío antes de llamar a update_order_meta.
+			if ( ! empty( $data ) ) {
+				WCRed()->update_order_meta( $order_id, $data );
+			}
 		}
 	}
 	/**
 	 * Handle_ajax_request_applepay function.
 	 */
 	public static function handle_ajax_request_applepay() {
-		$log            = new WC_Logger();
-		$apple          = new WC_Gateway_Apple_Pay_Checkout();
-		$validation_url = $_POST['validationURL'];
-		$log->add( 'applepayredsys', 'validationURL: ' . $validation_url );
-		$domain = $_SERVER['HTTP_HOST'];
-		$log->add( 'applepayredsys', 'domain: ' . $domain );
-		$data                = array(
+
+		// Sanitiza la URL de validación.
+		$validation_url = isset( $_POST['validationURL'] ) ? esc_url_raw( wp_unslash( $_POST['validationURL'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( empty( $validation_url ) ) {
+			wp_send_json_error( array( 'error' => 'Validation URL is missing or invalid' ) );
+			wp_die();
+		}
+
+		WCRed()->log( 'applepayredsys', 'validationURL: ' . $validation_url );
+
+		$apple  = new WC_Gateway_Apple_Pay_Checkout();
+		$domain = sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
+		WCRed()->log( 'applepayredsys', 'domain: ' . $domain );
+
+		$data = array(
 			'merchantIdentifier' => $apple->g_merchant_id,
 			'displayName'        => $apple->commercename,
 			'initiative'         => 'web',
 			'initiativeContext'  => $domain,
 		);
-		$custom_curl_options = function( $handle, $r, $url ) {
-			$log   = new WC_Logger();
+
+		$custom_curl_options = function ( $handle, $r, $url ) {
 			$apple = new WC_Gateway_Apple_Pay_Checkout();
 			$pem   = $apple->merchant_id_pem;
 			$key   = $apple->merchant_id_key;
-			$log->add( 'applepayredsys', 'pem: ' . $pem );
-			$log->add( 'applepayredsys', 'key: ' . $key );
-			curl_setopt( $handle, CURLOPT_SSLCERT, $pem ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
-			curl_setopt( $handle, CURLOPT_SSLKEY, $key ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+			WCRed()->log( 'applepayredsys', 'pem: ' . $pem );
+			WCRed()->log( 'applepayredsys', 'key: ' . $key );
+
+			// Utiliza los parámetros $r y $url de alguna manera para evitar la advertencia.
+			if ( is_array( $r ) && ! empty( $url ) ) {
+				// Puedes registrar $r y $url en el log para usarlos.
+				WCRed()->log( 'applepayredsys', 'Request data: ' . print_r( $r, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'applepayredsys', 'Request URL: ' . $url );
+
+				curl_setopt( $handle, CURLOPT_SSLCERT, $pem ); // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+				curl_setopt( $handle, CURLOPT_SSLKEY, $key );  // phpcs:ignore WordPress.WP.AlternativeFunctions.curl_curl_setopt
+			}
+
 			return $handle;
 		};
+
 		add_filter( 'http_api_curl', $custom_curl_options, 10, 3 );
+
 		$response = wp_remote_post(
 			$validation_url,
 			array(
@@ -1590,13 +1875,378 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 				'body'    => wp_json_encode( $data ),
 			)
 		);
+
 		remove_filter( 'http_api_curl', $custom_curl_options, 10, 3 );
-		$log->add( 'applepayredsys', 'Response Code: ' . wp_remote_retrieve_response_code( $response ) );
-		$log->add( 'applepayredsys', 'Response Message: ' . wp_remote_retrieve_response_message( $response ) );
+
+		WCRed()->log( 'applepayredsys', 'Response Code: ' . wp_remote_retrieve_response_code( $response ) );
+		WCRed()->log( 'applepayredsys', 'Response Message: ' . wp_remote_retrieve_response_message( $response ) );
+
 		if ( is_wp_error( $response ) ) {
-			echo wp_json_encode( array( 'error' => $response->get_error_message() ) );
+			wp_send_json_error( array( 'error' => $response->get_error_message() ) );
 		} else {
-			echo $response['body'];
+			wp_send_json_success( json_decode( $response['body'], true ) );
+		}
+
+		wp_die();
+	}
+	/**
+	 * Handle_ajax_request_applepay function.
+	 */
+	public static function handle_update_checkout_address() {
+
+		$apple = new WC_Gateway_Apple_Pay_Checkout();
+
+		// Log the start of the function.
+		WCRed()->log( 'applepayredsys', 'función handle_update_checkout_address() - INICIO' );
+
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'applepay_redsys_nonce' ) ) {
+			WCRed()->log( 'applepayredsys', 'Nonce verification failed' );
+			wp_die( 'La verificación de seguridad ha fallado' );
+		}
+
+		WCRed()->log( 'applepayredsys', 'Datos de $_POST: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+		if ( isset( $_POST['order_id'] ) ) {
+			$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) );
+			WCRed()->log( 'applepayredsys', 'Order ID: ' . $order_id );
+			$order = WCRed()->get_order( $order_id );
+		} else {
+			wp_die( 'No se ha proporcionado un ID de pedido' );
+		}
+
+		WCRed()->log( 'applepayredsys', 'Nonce Verificado' );
+
+		$shipping_address = array();
+		$billing_address  = array();
+
+		// Process each field and log each update.
+		if ( isset( $_POST['first_name'] ) ) {
+			$first_name = sanitize_text_field( wp_unslash( $_POST['first_name'] ) );
+			WCRed()->log( 'applepayredsys', 'First Name: ' . $first_name );
+			WC()->customer->set_billing_first_name( $first_name );
+			WC()->customer->set_shipping_first_name( $first_name );
+			$shipping_address['first_name'] = $first_name;
+			$billing_address['first_name']  = $first_name;
+		}
+
+		if ( isset( $_POST['last_name'] ) ) {
+			$last_name = sanitize_text_field( wp_unslash( $_POST['last_name'] ) );
+			WCRed()->log( 'applepayredsys', 'Last Name: ' . $last_name );
+			WC()->customer->set_billing_last_name( $last_name );
+			WC()->customer->set_shipping_last_name( $last_name );
+			$shipping_address['last_name'] = $last_name;
+			$billing_address['last_name']  = $last_name;
+		}
+
+		if ( isset( $_POST['email'] ) ) {
+			$email = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+			WCRed()->log( 'applepayredsys', 'Email: ' . $email );
+			WC()->customer->set_billing_email( $email );
+			WC()->customer->set_shipping_email( $email );
+			$shipping_address['email'] = $email;
+			$billing_address['email']  = $email;
+		}
+
+		if ( isset( $_POST['phone'] ) ) {
+			$phone = sanitize_text_field( wp_unslash( $_POST['phone'] ) );
+			WCRed()->log( 'applepayredsys', 'Phone: ' . $phone );
+			WC()->customer->set_billing_phone( $phone );
+			WC()->customer->set_shipping_phone( $phone );
+			$shipping_address['phone'] = $phone;
+			$billing_address['phone']  = $phone;
+		}
+
+		if ( isset( $_POST['address_1'] ) ) {
+			$address_1 = sanitize_text_field( wp_unslash( $_POST['address_1'] ) );
+			WCRed()->log( 'applepayredsys', 'Address 1: ' . $address_1 );
+			WC()->customer->set_billing_address_1( $address_1 );
+			WC()->customer->set_shipping_address_1( $address_1 );
+			$shipping_address['address_1'] = $address_1;
+			$billing_address['address_1']  = $address_1;
+		}
+
+		if ( isset( $_POST['address_2'] ) ) {
+			$address_2 = sanitize_text_field( wp_unslash( $_POST['address_2'] ) );
+			WCRed()->log( 'applepayredsys', 'Address 2: ' . $address_2 );
+			WC()->customer->set_billing_address_2( $address_2 );
+			WC()->customer->set_shipping_address_2( $address_2 );
+			$shipping_address['address_2'] = $address_2;
+			$billing_address['address_2']  = $address_2;
+		}
+
+		if ( isset( $_POST['city'] ) ) {
+			$city = sanitize_text_field( wp_unslash( $_POST['city'] ) );
+			WCRed()->log( 'applepayredsys', 'City: ' . $city );
+			WC()->customer->set_billing_city( $city );
+			WC()->customer->set_shipping_city( $city );
+			$shipping_address['city'] = $city;
+			$billing_address['city']  = $city;
+		}
+
+		if ( isset( $_POST['postcode'] ) ) {
+			$postcode = sanitize_text_field( wp_unslash( $_POST['postcode'] ) );
+			WCRed()->log( 'applepayredsys', 'Postcode: ' . $postcode );
+			WC()->customer->set_billing_postcode( $postcode );
+			WC()->customer->set_shipping_postcode( $postcode );
+			$shipping_address['postcode'] = $postcode;
+			$billing_address['postcode']  = $postcode;
+		}
+
+		if ( isset( $_POST['state'] ) ) {
+			$state = sanitize_text_field( wp_unslash( $_POST['state'] ) );
+			WCRed()->log( 'applepayredsys', 'State: ' . $state );
+			WC()->customer->set_billing_state( $state );
+			WC()->customer->set_shipping_state( $state );
+			$shipping_address['state'] = $state;
+			$billing_address['state']  = $state;
+		}
+
+		if ( isset( $_POST['country'] ) ) {
+			$country = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+			WCRed()->log( 'applepayredsys', 'Country: ' . $country );
+			WC()->customer->set_billing_country( $country );
+			WC()->customer->set_shipping_country( $country );
+			$shipping_address['country'] = $country;
+			$billing_address['country']  = $country;
+		}
+
+		// Save customer data.
+		WC()->customer->save();
+		$order->set_address( $billing_address, 'billing' );
+		$order->set_address( $shipping_address, 'shipping' );
+		$order->save();
+
+		// Log the final addresses.
+		WCRed()->log( 'applepayredsys', 'Billing Address: ' . print_r( $billing_address, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+		WCRed()->log( 'applepayredsys', 'Shipping Address: ' . print_r( $shipping_address, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+		$needs_shipping = WC()->cart->needs_shipping();
+		$total          = (string) $order->get_total();
+		WCRed()->log( 'applepayredsys', 'Total: ' . $total );
+
+		wp_send_json_success(
+			array(
+				'success'        => true,
+				'total'          => $total,
+				'needs_shipping' => $needs_shipping,
+			)
+		);
+	}
+
+	/**
+	 * Save all order data from Apple Pay.
+	 *
+	 * @since 25.1.0
+	 */
+	public static function save_all_order_data_applepay() {
+
+		WCRed()->log( 'applepayredsys', 'Iniciando save_all_order_data_applepay()' );
+
+		// Verificar nonce para seguridad.
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'applepay_redsys_nonce' ) ) {
+			WCRed()->log( 'applepayredsys', 'Fallo en la verificación del nonce' );
+			wp_send_json_error( 'Nonce verification failed.' );
+			wp_die();
+		}
+
+		// Log $_POST completo para revisar los datos.
+		WCRed()->log( 'applepayredsys', 'Datos de $_POST: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+		// Obtener y sanitizar 'order_id'.
+		$order_id = isset( $_POST['order_id'] ) ? intval( sanitize_text_field( wp_unslash( $_POST['order_id'] ) ) ) : 0;
+
+		WCRed()->log( 'applepayredsys', 'Order ID recibido: ' . $order_id );
+
+		if ( ! $order_id ) {
+			WCRed()->log( 'applepayredsys', 'ID de pedido no proporcionado.' );
+			wp_send_json_error( 'ID de pedido no proporcionado.' );
+			wp_die();
+		}
+
+		// Obtener el objeto del pedido.
+		$order = wc_get_order( $order_id );
+		if ( ! $order ) {
+			WCRed()->log( 'applepayredsys', 'Pedido no válido. ID de pedido: ' . $order_id );
+			wp_send_json_error( 'Pedido no válido.' );
+			wp_die();
+		}
+
+		WCRed()->log( 'applepayredsys', 'Pedido encontrado: ' . $order->get_id() );
+
+		// Obtener y sanitizar datos de Apple Pay.
+		$apple_referencia_redsys = isset( $_POST['apple_referencia_redsys'] ) ? sanitize_text_field( wp_unslash( $_POST['apple_referencia_redsys'] ) ) : '';
+		$apple_token_redsys      = isset( $_POST['apple_token_redsys'] ) ? sanitize_text_field( wp_unslash( $_POST['apple_token_redsys'] ) ) : '';
+
+		WCRed()->log( 'applepayredsys', 'Apple Referencia Redsys: ' . $apple_referencia_redsys );
+		WCRed()->log( 'applepayredsys', 'Apple Token Redsys: ' . $apple_token_redsys );
+
+		if ( empty( $apple_referencia_redsys ) || empty( $apple_token_redsys ) ) {
+			WCRed()->log( 'applepayredsys', 'Faltan datos de Apple Pay.' );
+			wp_send_json_error( array( 'message' => 'Faltan datos de Apple Pay.' ) );
+			wp_die();
+		}
+
+		// Guardar los metadatos de Apple Pay en la orden.
+		$order->update_meta_data( '_apple_referencia_redsys', $apple_referencia_redsys );
+		$order->update_meta_data( '_apple_token_redsys', $apple_token_redsys );
+
+		WCRed()->log( 'applepayredsys', 'Metadatos de Apple Pay guardados.' );
+
+		// Procesar los datos de facturación y envío desde los arrays `shippingData` y `billingData`.
+		$shipping_data = isset( $_POST['shippingData'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['shippingData'] ) ) : array();
+		$billing_data  = isset( $_POST['billingData'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_POST['billingData'] ) ) : array();
+
+		// Procesar dirección de envío.
+		$shipping_address = array(
+			'first_name' => isset( $shipping_data['first_name'] ) ? $shipping_data['first_name'] : '',
+			'last_name'  => isset( $shipping_data['last_name'] ) ? $shipping_data['last_name'] : '',
+			'email'      => isset( $shipping_data['email'] ) ? $shipping_data['email'] : '',
+			'phone'      => isset( $shipping_data['phone'] ) ? $shipping_data['phone'] : '',
+			'address_1'  => isset( $shipping_data['address_1'] ) ? $shipping_data['address_1'] : '',
+			'address_2'  => isset( $shipping_data['address_2'] ) ? $shipping_data['address_2'] : '',
+			'city'       => isset( $shipping_data['city'] ) ? $shipping_data['city'] : '',
+			'state'      => isset( $shipping_data['state'] ) ? $shipping_data['state'] : '',
+			'postcode'   => isset( $shipping_data['postcode'] ) ? $shipping_data['postcode'] : '',
+			'country'    => isset( $shipping_data['country'] ) ? $shipping_data['country'] : '',
+		);
+
+		// Procesar dirección de facturación.
+		$billing_address = array(
+			'first_name' => isset( $billing_data['first_name'] ) ? $billing_data['first_name'] : '',
+			'last_name'  => isset( $billing_data['last_name'] ) ? $billing_data['last_name'] : '',
+			'email'      => isset( $billing_data['email'] ) ? $billing_data['email'] : '',
+			'phone'      => isset( $billing_data['phone'] ) ? $billing_data['phone'] : '',
+			'address_1'  => isset( $billing_data['address_1'] ) ? $billing_data['address_1'] : '',
+			'address_2'  => isset( $billing_data['address_2'] ) ? $billing_data['address_2'] : '',
+			'city'       => isset( $billing_data['city'] ) ? $billing_data['city'] : '',
+			'state'      => isset( $billing_data['state'] ) ? $billing_data['state'] : '',
+			'postcode'   => isset( $billing_data['postcode'] ) ? $billing_data['postcode'] : '',
+			'country'    => isset( $billing_data['country'] ) ? $billing_data['country'] : '',
+		);
+
+		// Si faltan datos de facturación, copiar los de envío y viceversa.
+		foreach ( $shipping_address as $key => $value ) {
+			if ( empty( $billing_address[ $key ] ) ) {
+				$billing_address[ $key ] = $value;
+			}
+		}
+
+		foreach ( $billing_address as $key => $value ) {
+			if ( empty( $shipping_address[ $key ] ) ) {
+				$shipping_address[ $key ] = $value;
+			}
+		}
+
+		WCRed()->log( 'applepayredsys', 'Dirección de envío procesada: ' . print_r( $shipping_address, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+		WCRed()->log( 'applepayredsys', 'Dirección de facturación procesada: ' . print_r( $billing_address, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+		// Guardar las direcciones en el pedido.
+		if ( ! empty( $billing_address ) ) {
+			$order->set_address( $billing_address, 'billing' );
+			WCRed()->log( 'applepayredsys', 'Dirección de facturación guardada.' );
+		}
+		if ( ! empty( $shipping_address ) ) {
+			$order->set_address( $shipping_address, 'shipping' );
+			WCRed()->log( 'applepayredsys', 'Dirección de envío guardada.' );
+		}
+
+		// Asociar el pedido a un usuario existente o al usuario autenticado.
+		if ( is_user_logged_in() ) {
+			$user_id = get_current_user_id();
+			$order->set_customer_id( $user_id );
+			WCRed()->log( 'applepayredsys', 'Asignado al usuario autenticado con ID: ' . $user_id );
+		} else {
+			$email_billing  = $billing_address['email'] ?? '';
+			$email_shipping = $shipping_address['email'] ?? '';
+
+			if ( ! empty( $email_billing ) && email_exists( $email_billing ) ) {
+				$user_id = email_exists( $email_billing );
+				$order->set_customer_id( $user_id );
+				WCRed()->log( 'applepayredsys', 'Asignado al usuario con correo de facturación: ' . $email_billing );
+			} elseif ( ! empty( $email_shipping ) && email_exists( $email_shipping ) ) {
+				$user_id = email_exists( $email_shipping );
+				$order->set_customer_id( $user_id );
+				WCRed()->log( 'applepayredsys', 'Asignado al usuario con correo de envío: ' . $email_shipping );
+			} else {
+				$account_creation_enabled = 'yes' === get_option( 'woocommerce_enable_signup_and_login_from_checkout' );
+
+				if ( $account_creation_enabled && ! empty( $email_billing ) ) {
+					$username        = sanitize_user( current( explode( '@', $email_billing ) ) );
+					$random_password = wp_generate_password( 12, false );
+					$user_id         = wp_create_user( $username, $random_password, $email_billing );
+
+					if ( ! is_wp_error( $user_id ) ) {
+						$order->set_customer_id( $user_id );
+						WCRed()->log( 'applepayredsys', 'Nuevo usuario creado con ID: ' . $user_id );
+
+						// Guardar los datos de facturación y envío en el perfil del usuario.
+						update_user_meta( $user_id, 'billing_first_name', $billing_address['first_name'] );
+						update_user_meta( $user_id, 'billing_last_name', $billing_address['last_name'] );
+						update_user_meta( $user_id, 'billing_address_1', $billing_address['address_1'] );
+						update_user_meta( $user_id, 'billing_address_2', $billing_address['address_2'] );
+						update_user_meta( $user_id, 'billing_city', $billing_address['city'] );
+						update_user_meta( $user_id, 'billing_postcode', $billing_address['postcode'] );
+						update_user_meta( $user_id, 'billing_country', $billing_address['country'] );
+						update_user_meta( $user_id, 'billing_state', $billing_address['state'] );
+						update_user_meta( $user_id, 'billing_email', $billing_address['email'] );
+						update_user_meta( $user_id, 'billing_phone', $billing_address['phone'] );
+
+						update_user_meta( $user_id, 'shipping_first_name', $shipping_address['first_name'] );
+						update_user_meta( $user_id, 'shipping_last_name', $shipping_address['last_name'] );
+						update_user_meta( $user_id, 'shipping_address_1', $shipping_address['address_1'] );
+						update_user_meta( $user_id, 'shipping_address_2', $shipping_address['address_2'] );
+						update_user_meta( $user_id, 'shipping_city', $shipping_address['city'] );
+						update_user_meta( $user_id, 'shipping_postcode', $shipping_address['postcode'] );
+						update_user_meta( $user_id, 'shipping_country', $shipping_address['country'] );
+						update_user_meta( $user_id, 'shipping_state', $shipping_address['state'] );
+						update_user_meta( $user_id, 'shipping_phone', $shipping_address['phone'] );
+
+						WCRed()->log( 'applepayredsys', 'Datos de facturación y envío guardados en el perfil del usuario.' );
+						wc_set_customer_auth_cookie( $user_id );
+						WCRed()->log( 'applepayredsys', 'Usuario autenticado automáticamente: ' . $user_id );
+					} else {
+						WCRed()->log( 'applepayredsys', 'Error al crear el usuario: ' . print_r( $user_id->get_error_message(), true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+					}
+				}
+			}
+		}
+
+		// Asignar el método de pago.
+		$order->set_payment_method( 'applepay_redsys' );
+		$order->set_payment_method_title( 'Apple Pay' );
+		WCRed()->log( 'applepayredsys', 'Método de pago asignado: Apple Pay' );
+
+		// Guardar el pedido y los cambios.
+		$order->save();
+		WCRed()->log( 'applepayredsys', 'Pedido guardado correctamente.' );
+
+		// Responder con éxito.
+		wp_send_json_success( 'Pedido actualizado correctamente.' );
+		wp_die();
+	}
+
+
+
+	/**
+	 * Check payment status.
+	 *
+	 * @since 23.0.0
+	 *
+	 * @return void
+	 */
+	public static function check_payment_status() {
+		$apple_referencia_redsys = sanitize_text_field( wp_unslash( $_POST['apple_referencia_redsys'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+
+		// Recuperar el ID del pedido usando la referencia.
+		$order_id = get_transient( $apple_referencia_redsys );
+
+		if ( $order_id ) {
+			$order        = wc_get_order( $order_id );
+			$order_status = $order->get_status();
+
+			wp_send_json( array( 'status' => $order_status ) );
+		} else {
+			wp_send_json( null );
 		}
 		wp_die();
 	}
@@ -1607,21 +2257,138 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
 	 *
 	 * @return void
 	 */
-	public static function check_payment_status() {
-		$apple_referencia_redsys = $_POST['apple_referencia_redsys'];
-
-		// Recuperar el ID del pedido usando la referencia.
-		$order_id = get_option( $apple_referencia_redsys );
-
-		if ( $order_id ) {
-			$order        = wc_get_order( $order_id );
-			$order_status = $order->get_status();
-			delete_option( $apple_referencia_redsys );
-
-			wp_send_json( array( 'status' => $order_status ) );
-		} else {
-			wp_send_json( null );
+	public static function pay_order_applepay() {
+		// Verificar nonce para seguridad.
+		if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'applepay_redsys_nonce' ) ) {
+			wp_send_json_error( array( 'message' => 'Nonce verification failed.' ) );
+			wp_die();
 		}
+
+		// Sanitizar y obtener los datos del POST.
+		$apple_referencia_redsys = isset( $_POST['apple_referencia_redsys'] ) ? sanitize_text_field( wp_unslash( $_POST['apple_referencia_redsys'] ) ) : '';
+		$order_id                = isset( $_POST['order_id'] ) ? sanitize_text_field( wp_unslash( $_POST['order_id'] ) ) : '';
+
+		// Instanciar la clase del gateway de Apple Pay.
+		$apple_pay = new WC_Gateway_Apple_Pay_Checkout();
+
+		// Procesar el pago.
+		$result = $apple_pay->process_payment( $order_id );
+
+		// Registrar logs para depuración.
+		WCRed()->log( 'applepayredsys', '$apple_referencia_redsys: ' . $apple_referencia_redsys );
+		WCRed()->log( 'applepayredsys', '$order_id: ' . $order_id );
+		WCRed()->log( 'applepayredsys', '$result: ' . print_r( $result, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+
+		// Comprobar el resultado y responder adecuadamente.
+		if ( isset( $result['result'] ) && 'success' === $result['result'] ) {
+			// Pago exitoso, enviar respuesta con redirect para redireccionar al frontend.
+			wp_send_json_success(
+				array(
+					'message'  => 'Pago realizado correctamente.',
+					'redirect' => $result['redirect'],
+				)
+			);
+		} else {
+			// Manejar el error en el pago.
+			wp_send_json_error(
+				array(
+					'message' => 'Error procesando el pago.',
+					'details' => isset( $result['errorCode'] ) ? WCRed()->get_error( $result['errorCode'] ) : 'Error desconocido.',
+				)
+			);
+		}
+
+		wp_die(); // Finalizar la ejecución del script.
+	}
+
+
+	/**
+	 * Check order status.
+	 *
+	 * @since 23.0.0
+	 *
+	 * @return void
+	 */
+	public static function check_order_status_applepay() {
+		$order_id = sanitize_text_field( wp_unslash( $_POST['order_id'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+		$order    = wc_get_order( $order_id );
+		$status   = $order->get_status();
+		wp_send_json_success( $status );
+		wp_die();
+	}
+	/**
+	 * Check order status.
+	 *
+	 * @since 25.1.0
+	 *
+	 * @return void
+	 */
+	public function validate_merchant() {
+		// Verificar nonce si lo usas.
+		check_ajax_referer( 'applepay_redsys_nonce', 'nonce' );
+
+		$validation_url = isset( $_POST['validationURL'] ) ? esc_url_raw( wp_unslash( $_POST['validationURL'] ) ) : '';
+
+		if ( empty( $validation_url ) ) {
+			wp_send_json_error( 'URL de validación no proporcionada.' );
+		}
+
+		// Realiza una solicitud a la validationURL para obtener el merchant session.
+		$response = wp_remote_post(
+			$validation_url,
+			array(
+				'body'    => wp_json_encode(
+					array(
+						'merchantIdentifier' => $this->g_merchant_id, // Asegúrate de tener esta variable definida.
+						'displayName'        => $this->commercename,        // Asegúrate de tener esta variable definida.
+						'initiative'         => 'web',
+						'initiativeContext'  => get_site_url(),
+					)
+				),
+				'headers' => array(
+					'Content-Type' => 'application/json',
+				),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			wp_send_json_error( 'Error al validar el comerciante: ' . $response->get_error_message() );
+		}
+
+		$body = wp_remote_retrieve_body( $response );
+		$data = json_decode( $body, true );
+
+		if ( 'OK' === $data['status'] && isset( $data['status'] ) ) {
+			wp_send_json_success( array( 'data' => $data ) );
+		} else {
+			wp_send_json_error( 'Validación del comerciante fallida: ' . $body );
+		}
+
+		wp_die();
+	}
+	/**
+	 * Get the checkout price.
+	 *
+	 * @since 25.1.0
+	 *
+	 * @return void
+	 */
+	public function get_checkout_price() {
+		// Verificar nonce si lo usas.
+		check_ajax_referer( 'applepay_redsys_nonce', 'nonce' );
+
+		// Obtener el total del carrito.
+		$total = WC()->cart->get_total( 'edit' ); // Retorna el total sin formatear.
+
+		// Quitar cualquier símbolo de moneda y formatear a 'XX.XX'.
+		$formatted_total = number_format( floatval( $total ), 2, '.', '' );
+
+		if ( $formatted_total ) {
+			wp_send_json_success( array( 'total' => $formatted_total ) );
+		} else {
+			wp_send_json_error( 'No se pudo obtener el total del carrito.' );
+		}
+
 		wp_die();
 	}
 }
@@ -1630,7 +2397,7 @@ class WC_Gateway_Apple_Pay_Checkout extends WC_Payment_Gateway {
  *
  * @param array $methods WooCommerce payment methods.
  */
-function woocommerce_add_gateway_applepay_redsys( $methods ) {
+function woocommerce_add_gateway_applepay_redsys( $methods ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 	$methods[] = 'WC_Gateway_Apple_Pay_Checkout';
 	return $methods;
 }

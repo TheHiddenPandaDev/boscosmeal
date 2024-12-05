@@ -6,8 +6,8 @@
  * @since 24.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -24,7 +24,6 @@ class Redsys_Pay_One_Clic {
 	 * Contructor.
 	 */
 	public function __construct() {
-		$this->log = new WC_Logger();
 	}
 	/**
 	 * Get Billing Address
@@ -87,9 +86,10 @@ class Redsys_Pay_One_Clic {
 	/**
 	 * Create Subscription For Order
 	 *
-	 * @param int $order_id Order ID.
-	 * @param int $product_id Product ID.
-	 * @param int $user_id User ID.
+	 * @param int    $order_id Order ID.
+	 * @param int    $product_id Product ID.
+	 * @param int    $user_id User ID.
+	 * @param string $initial_status Initial Status.
 	 */
 	public function create_subscription_for_order( $order_id, $product_id, $user_id, $initial_status = 'on-hold' ) {
 		// Verificar si WooCommerce Subscriptions está activo.
@@ -167,12 +167,12 @@ class Redsys_Pay_One_Clic {
 	 */
 	public function create_order( $user_id, $product_id, $qty, $shipping_method = '', $gateway_id = 'redsys' ) {
 
-		$this->log->add( 'redsys-pay', 'create_order' );
-		$this->log->add( 'redsys-pay', 'user_id: ' . $user_id );
-		$this->log->add( 'redsys-pay', 'product_id: ' . $product_id );
-		$this->log->add( 'redsys-pay', 'qty: ' . $qty );
-		$this->log->add( 'redsys-pay', 'gateway_id: ' . $gateway_id );
-		$this->log->add( 'redsys-pay', 'shipping_method: ' . $shipping_method );
+		WCRed()->log( 'redsys-pay', 'create_order' );
+		WCRed()->log( 'redsys-pay', 'user_id: ' . $user_id );
+		WCRed()->log( 'redsys-pay', 'product_id: ' . $product_id );
+		WCRed()->log( 'redsys-pay', 'qty: ' . $qty );
+		WCRed()->log( 'redsys-pay', 'gateway_id: ' . $gateway_id );
+		WCRed()->log( 'redsys-pay', 'shipping_method: ' . $shipping_method );
 
 		if ( ! is_user_logged_in() ) {
 			return false;
@@ -191,7 +191,7 @@ class Redsys_Pay_One_Clic {
 		$gateways = WC()->payment_gateways->payment_gateways();
 		$order->set_payment_method( $gateways[ $gateway_id ] );
 
-		$this->log->add( 'redsys-pay', 'shipping_method: ' . $shipping_method );
+		WCRed()->log( 'redsys-pay', 'shipping_method: ' . $shipping_method );
 
 		if ( ! empty( $shipping_method ) ) {
 			list($method_id, $encoded_label, $cost_cents) = explode( '-', $shipping_method );
@@ -199,9 +199,9 @@ class Redsys_Pay_One_Clic {
 			$label = base64_decode( $encoded_label ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			$cost  = floatval( $cost_cents ) / 100; // Convierte los centavos a formato decimal.
 
-			$this->log->add( 'redsys-pay', 'method_id: ' . $method_id );
-			$this->log->add( 'redsys-pay', 'label: ' . $label );
-			$this->log->add( 'redsys-pay', 'cost: ' . $cost );
+			WCRed()->log( 'redsys-pay', 'method_id: ' . $method_id );
+			WCRed()->log( 'redsys-pay', 'label: ' . $label );
+			WCRed()->log( 'redsys-pay', 'cost: ' . $cost );
 
 			// Se asume que $method_id tiene el formato 'method:instance_id'.
 			list($method, $instance_id) = explode( ':', $method_id );
@@ -242,14 +242,14 @@ class Redsys_Pay_One_Clic {
 		$token_type = 'C';
 
 		if ( 'yes' === $gateway->debug ) {
-			$gateway->log->add( 'redsys', 'Order bigger 0' );
+			WCRed()->log( 'redsys', 'Order bigger 0' );
 		}
 		$token_type = get_transient( $order_id . '_redsys_token_type' );
 		if ( 'R' === $token_type ) {
 			$result = $gateway->pay_with_token_r( $order_id, $token );
 			if ( $result ) {
 				if ( 'yes' === $gateway->debug ) {
-					$gateway->log->add( 'redsys', 'Pago mediante token CORRECTO' );
+					WCRed()->log( 'redsys', 'Pago mediante token CORRECTO' );
 				}
 				$this->update_subscription_status( $order_id, 'active' );
 				return array(
@@ -258,9 +258,16 @@ class Redsys_Pay_One_Clic {
 				);
 			} else {
 				if ( 'yes' === $gateway->debug ) {
-					$gateway->log->add( 'redsys', 'Pago mediante token FALLIDO' );
+					WCRed()->log( 'redsys', 'Pago mediante token FALLIDO' );
 				}
 				$error = 'We are having trouble charging the card, please try another one';
+				/**
+				 * Redsys_post_payment_error.
+				 *
+				 * @param int    $order_id Order ID.
+				 * @param string $error Error.
+				 * @since 23.0.0
+				 */
 				do_action( 'redsys_post_payment_error', $order->get_id(), $error );
 				wc_add_notice( 'We are having trouble charging the card, please try another one. ', 'error' );
 			}
@@ -268,7 +275,7 @@ class Redsys_Pay_One_Clic {
 			$result = $gateway->pay_with_token_c( $order_id, $token );
 			if ( 'success' === $result ) {
 				if ( 'yes' === $gateway->debug ) {
-					$gateway->log->add( 'redsys', '$result: success' );
+					WCRed()->log( 'redsys', '$result: success' );
 				}
 				return array(
 					'result'   => 'success',
@@ -276,7 +283,7 @@ class Redsys_Pay_One_Clic {
 				);
 			} elseif ( 'ChallengeRequest' === $result ) {
 				if ( 'yes' === $gateway->debug ) {
-					$gateway->log->add( 'redsys', '$result: ChallengeRequest' );
+					WCRed()->log( 'redsys', '$result: ChallengeRequest' );
 				}
 				return array(
 					'result'   => 'success',
@@ -284,8 +291,8 @@ class Redsys_Pay_One_Clic {
 				);
 			} elseif ( 'threeDSMethodURL' === $result ) {
 				if ( 'yes' === $gateway->debug ) {
-					$gateway->log->add( 'redsys', '$result: threeDSMethodURL' );
-					$gateway->log->add( 'redsys', '$gateway->notify_url: ' . $gateway->notify_url );
+					WCRed()->log( 'redsys', '$result: threeDSMethodURL' );
+					WCRed()->log( 'redsys', '$gateway->notify_url: ' . $gateway->notify_url );
 				}
 				return array(
 					'result'   => 'success',
@@ -300,6 +307,6 @@ class Redsys_Pay_One_Clic {
  *
  * @return Redsys_Pay_One_Clic
  */
-function WCRed_pay() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid
+function WCRed_pay() { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.FunctionNameInvalid,Universal.Files.SeparateFunctionsFromOO.Mixed
 	return new Redsys_Pay_One_Clic();
 }

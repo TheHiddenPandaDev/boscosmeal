@@ -6,8 +6,8 @@
  * @since 21.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -18,7 +18,265 @@ defined( 'ABSPATH' ) || exit;
  * WC_Gateway_Bizum_Checkout_Redsys Class.
  */
 class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
-	var $notify_url;
+
+	/**
+	 * The ID of the gateway.
+	 *
+	 * @var string
+	 */
+	public $id;
+
+	/**
+	 * Indicates if the gateway has fields on the checkout form.
+	 *
+	 * @var bool
+	 */
+	public $has_fields;
+
+	/**
+	 * The live URL for making payments.
+	 *
+	 * @var string
+	 */
+	public $liveurl;
+
+	/**
+	 * The test URL for making payments.
+	 *
+	 * @var string
+	 */
+	public $testurl;
+
+	/**
+	 * The live URL for the web service.
+	 *
+	 * @var string
+	 */
+	public $liveurlws;
+
+	/**
+	 * The test URL for the web service.
+	 *
+	 * @var string
+	 */
+	public $testurlws;
+
+	/**
+	 * The test URL for checking Bizum.
+	 *
+	 * @var string
+	 */
+	public $checkbizumtesturl;
+
+	/**
+	 * The live URL for checking Bizum.
+	 *
+	 * @var string
+	 */
+	public $checkbizum;
+
+	/**
+	 * The test URL for checking Bizum payments.
+	 *
+	 * @var string
+	 */
+	public $checkbizumtesturlpay;
+
+	/**
+	 * The live URL for checking Bizum payments.
+	 *
+	 * @var string
+	 */
+	public $checkbizumpay;
+
+	/**
+	 * The test SHA256 for testing purposes.
+	 *
+	 * @var string
+	 */
+	public $testsha256;
+
+	/**
+	 * The test mode for the gateway.
+	 *
+	 * @var string
+	 */
+	public $testmode;
+
+	/**
+	 * The title of the gateway.
+	 *
+	 * @var string
+	 */
+	public $method_title;
+
+	/**
+	 * The description of the gateway.
+	 *
+	 * @var string
+	 */
+	public $method_description;
+
+	/**
+	 * Indicates if HTTPS is not used.
+	 *
+	 * @var bool
+	 */
+	public $not_use_https;
+
+	/**
+	 * The notify URL for the gateway.
+	 *
+	 * @var string
+	 */
+	public $notify_url;
+
+	/**
+	 * The notify URL for the gateway without HTTPS.
+	 *
+	 * @var string
+	 */
+	public $notify_url_not_https;
+
+	/**
+	 * The title of the gateway.
+	 *
+	 * @var string
+	 */
+	public $title;
+
+	/**
+	 * The description of the gateway.
+	 *
+	 * @var string
+	 */
+	public $description;
+
+	/**
+	 * The customer name for the gateway.
+	 *
+	 * @var string
+	 */
+	public $customer;
+
+	/**
+	 * The transaction limit for the gateway.
+	 *
+	 * @var string
+	 */
+	public $transactionlimit;
+
+	/**
+	 * The commerce name for the gateway.
+	 *
+	 * @var string
+	 */
+	public $commercename;
+
+	/**
+	 * The terminal for the gateway.
+	 *
+	 * @var string
+	 */
+	public $terminal;
+
+	/**
+	 * The secret SHA256 for the gateway.
+	 *
+	 * @var string
+	 */
+	public $secretsha256;
+
+	/**
+	 * The custom test SHA256 for testing purposes.
+	 *
+	 * @var string
+	 */
+	public $customtestsha256;
+
+	/**
+	 * The language for the gateway.
+	 *
+	 * @var string
+	 */
+	public $redsyslanguage;
+
+	/**
+	 * Indicates if debug mode is enabled.
+	 *
+	 * @var bool
+	 */
+	public $debug;
+
+	/**
+	 * Indicates if the gateway is for testing a specific user.
+	 *
+	 * @var bool
+	 */
+	public $testforuser;
+
+	/**
+	 * The user ID for testing a specific user.
+	 *
+	 * @var int
+	 */
+	public $testforuserid;
+
+	/**
+	 * The button text for checkout.
+	 *
+	 * @var string
+	 */
+	public $buttoncheckout;
+
+	/**
+	 * The background color for the button.
+	 *
+	 * @var string
+	 */
+	public $butonbgcolor;
+
+	/**
+	 * The text color for the button.
+	 *
+	 * @var string
+	 */
+	public $butontextcolor;
+
+	/**
+	 * The description for the gateway.
+	 *
+	 * @var string
+	 */
+	public $descripredsys;
+
+	/**
+	 * Indicates if the gateway should be shown in the test mode.
+	 *
+	 * @var bool
+	 */
+	public $testshowgateway;
+
+	/**
+	 * The log for the gateway.
+	 *
+	 * @var string
+	 */
+	public $log;
+
+	/**
+	 * The supported features for the gateway.
+	 *
+	 * @var array
+	 */
+	public $supports;
+
+	/**
+	 * Indicates if the gateway is enabled.
+	 *
+	 * @var bool
+	 */
+	public $enabled;
 
 	/**
 	 * Constructor for the gateway.
@@ -27,7 +285,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 
-		$this->id                   = 'bizumcheckout';
+		$this->id = 'bizumcheckout';
 		if ( ! empty( WCRed()->get_redsys_option( 'logo', 'bizumcheckout' ) ) ) {
 			$logo_url   = WCRed()->get_redsys_option( 'logo', 'bizumcheckout' );
 			$this->icon = apply_filters( 'woocommerce_' . $this->id . '_iconn', $logo_url );
@@ -55,9 +313,6 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$this->init_settings();
 		// Define user set variables.
 		$this->title            = WCRed()->get_redsys_option( 'title', 'bizumcheckout' );
-		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'bizumcheckout' );
-		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'bizumcheckout' );
-		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'bizumcheckout' );
 		$this->description      = WCRed()->get_redsys_option( 'description', 'bizumcheckout' );
 		$this->customer         = WCRed()->get_redsys_option( 'customer', 'bizumcheckout' );
 		$this->transactionlimit = WCRed()->get_redsys_option( 'transactionlimit', 'bizumcheckout' );
@@ -74,7 +329,6 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$this->butontextcolor   = WCRed()->get_redsys_option( 'butontextcolor', 'bizumcheckout' );
 		$this->descripredsys    = WCRed()->get_redsys_option( 'descripredsys', 'bizumcheckout' );
 		$this->testshowgateway  = WCRed()->get_redsys_option( 'testshowgateway', 'bizumcheckout' );
-		$this->log              = new WC_Logger();
 		$this->supports         = array(
 			'products',
 			'refunds',
@@ -86,16 +340,17 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		add_action( 'woocommerce_before_checkout_form', array( $this, 'warning_checkout_test_mode_bizum' ) );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'save_field_update_order_meta' ) );
 		// Temporalmente desactivado mientras doy con el problema en esta función que ha dejado de funcionar.
-		// add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_bizum' ) );
+		// add_filter( 'woocommerce_available_payment_gateways', array( $this, 'disable_bizum' ) );.
 		add_filter( 'woocommerce_available_payment_gateways', array( $this, 'show_payment_method' ) );
 		// La siguiente línea carga el JS para el iframe. Por si algun dia deja Bizum estar en un iframe
-		// add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );
+		// add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );.
 
 		// Payment listener/API hook.
 		add_action( 'woocommerce_api_wc_gateway_' . $this->id, array( $this, 'check_ipn_response' ) );
 		add_action( 'woocommerce_after_checkout_form', array( $this, 'custom_jquery_checkout' ) );
+		 // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
 		// add_action( 'wp_ajax_verificar_estado_pago', array( $this, 'verificar_estado_pago_ajax' ) );
-		// add_action( 'wp_ajax_nopriv_verificar_estado_pago', array( $this, 'verificar_estado_pago_ajax' ) );
+		// add_action( 'wp_ajax_nopriv_verificar_estado_pago', array( $this, 'verificar_estado_pago_ajax' ) );.
 
 		if ( ! $this->is_valid_for_use() ) {
 			$this->enabled = false;
@@ -200,27 +455,6 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 				'label'   => __( 'Enable Bizum', 'woocommerce-redsys' ),
 				'default' => 'no',
 			),
-			'multisitesttings' => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'hideownsetting'   => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'ownsetting'       => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
 			'title'            => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
 				'type'        => 'text',
@@ -234,7 +468,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 				'description' => __( 'This controls the description which the user sees during checkout.', 'woocommerce-redsys' ),
 				'default'     => __( 'Pay via Bizum you can pay with your Bizum account.', 'woocommerce-redsys' ),
 			),
-			'logo'                  => array(
+			'logo'             => array(
 				'title'       => __( 'Gateway logo at checkout', 'woocommerce-redsys' ),
 				'type'        => 'text',
 				'description' => __( 'Add link to image logo for Gateway at checkout.', 'woocommerce-redsys' ),
@@ -355,7 +589,6 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			'debug'            => array(
 				'title'       => __( 'Debug Log', 'woocommerce-redsys' ),
 				'type'        => 'checkbox',
-				'label'       => __( 'Running in test mode', 'woocommerce-redsys' ),
 				'label'       => __( 'Enable logging', 'woocommerce-redsys' ),
 				'default'     => 'no',
 				'description' => __( 'Log Bizum events, such as notifications requests, inside <code>WooCommerce > Status > Logs > bizum-{date}-{number}.log</code>', 'woocommerce-redsys' ),
@@ -365,23 +598,6 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 
 		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
 			$this->form_fields['redsyslanguage']['options'][ $redsyslanguage ] = $valor;
-		}
-		if ( ! is_multisite() ) {
-			unset( $this->form_fields['multisitesttings'] );
-			unset( $this->form_fields['ownsetting'] );
-			unset( $this->form_fields['hideownsetting'] );
-		} else {
-			if ( is_main_site() ) {
-				unset( $this->form_fields['ownsetting'] );
-			} else {
-				unset( $this->form_fields['multisitesttings'] );
-				unset( $this->form_fields['hideownsetting'] );
-				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
-				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
-				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
-					unset( $this->form_fields['ownsetting'] );
-				}
-			}
 		}
 	}
 	/**
@@ -418,27 +634,27 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		 */
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', '$order_id: ' . $order_id );
-			$this->log->add( 'bizumcheckout', '$fuc: ' . $fuc );
-			$this->log->add( 'bizumcheckout', '$terminal: ' . $terminal );
-			$this->log->add( 'bizumcheckout', '$currency: ' . $currency );
-			$this->log->add( 'bizumcheckout', '$amount: ' . $amount );
-			$this->log->add( 'bizumcheckout', '$phone: ' . $phone );
-			$this->log->add( 'bizumcheckout', '$resturl: ' . $resturl );
+			WCRed()->log( 'bizumcheckout', '$order_id: ' . $order_id );
+			WCRed()->log( 'bizumcheckout', '$fuc: ' . $fuc );
+			WCRed()->log( 'bizumcheckout', '$terminal: ' . $terminal );
+			WCRed()->log( 'bizumcheckout', '$currency: ' . $currency );
+			WCRed()->log( 'bizumcheckout', '$amount: ' . $amount );
+			WCRed()->log( 'bizumcheckout', '$phone: ' . $phone );
+			WCRed()->log( 'bizumcheckout', '$resturl: ' . $resturl );
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $order_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $fuc );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_BIZUM_MOBILENUMBER', $phone );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $order_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $fuc );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_BIZUM_MOBILENUMBER', $phone );
 
 		$version   = 'HMAC_SHA256_V1';
 		$post_arg  = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$resturl,
@@ -456,22 +672,24 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'bizumcheckout', '*********************************' );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'bizumcheckout', '*********************************' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
-			// return $post_arg;
+			 // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+			// return $post_arg;.
 		}
 		$response_body       = wp_remote_retrieve_body( $post_arg );
 		$json_decode_params  = json_decode( $response_body ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$merchant_parameters = $json_decode_params->Ds_MerchantParameters; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( 'yes' === $this->debug ) {
-			// $this->log->add( 'bizumcheckout', '$post_arg: ' . print_r( $post_arg, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			// $this->log->add( 'bizumcheckout', '$response_body: ' . $response_body );
-			// $this->log->add( 'bizumcheckout', '$json_decode_params: ' . print_r( $json_decode_params, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'bizumcheckout', '$merchant_parameters: ' . $merchant_parameters ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			 // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+			// WCRed()->log( 'bizumcheckout', '$post_arg: ' . print_r( $post_arg, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r.
+			// WCRed()->log( 'bizumcheckout', '$response_body: ' . $response_body );
+			// WCRed()->log( 'bizumcheckout', '$json_decode_params: ' . print_r( $json_decode_params, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r.
+			WCRed()->log( 'bizumcheckout', '$merchant_parameters: ' . $merchant_parameters ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 
 		/**
@@ -481,41 +699,41 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		 * Ds_RtpDescription
 		 */
 
-		$mi_obj->decodeMerchantParameters( $merchant_parameters );
-		$ds_rtpstatus      = $mi_obj->getParameter( 'Ds_RtpStatus' );
-		$ds_rtpresponse    = $mi_obj->getParameter( 'Ds_RtpResponse' );
-		$ds_rtpdescription = $mi_obj->getParameter( 'Ds_RtpDescription' );
+		$mi_obj->decode_merchant_parameters( $merchant_parameters );
+		$ds_rtpstatus      = $mi_obj->get_parameter( 'Ds_RtpStatus' );
+		$ds_rtpresponse    = $mi_obj->get_parameter( 'Ds_RtpResponse' );
+		$ds_rtpdescription = $mi_obj->get_parameter( 'Ds_RtpDescription' );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', '$ds_rtpstatus: ' . $ds_rtpstatus );
-			$this->log->add( 'bizumcheckout', '$ds_rtpresponse: ' . $ds_rtpresponse );
-			$this->log->add( 'bizumcheckout', '$ds_rtpdescription: ' . $ds_rtpdescription );
+			WCRed()->log( 'bizumcheckout', '$ds_rtpstatus: ' . $ds_rtpstatus );
+			WCRed()->log( 'bizumcheckout', '$ds_rtpresponse: ' . $ds_rtpresponse );
+			WCRed()->log( 'bizumcheckout', '$ds_rtpdescription: ' . $ds_rtpdescription );
 		}
 
 		if ( 'OK' === $ds_rtpstatus && 'BIZ00000' === $ds_rtpresponse ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'Es Bizum Rest' );
+				WCRed()->log( 'bizumcheckout', 'Es Bizum Rest' );
 			}
 			$order->add_order_note( __( 'The payment via Bizum must be authenticated through the bank\'s app.', 'woocommerce-redsys' ) );
 			return 'rest';
 		}
 		if ( 'KO' === $ds_rtpstatus && 'BIZ00000' === $ds_rtpresponse ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'Es Bizum Redirección' );
+				WCRed()->log( 'bizumcheckout', 'Es Bizum Redirección' );
 			}
 			$order->add_order_note( __( 'The customer has been redirected to the Bizum page.', 'woocommerce-redsys' ) );
 			return 'redirect';
 		}
 		if ( 'KO' === $ds_rtpstatus && ( 'BIZ00209' === $ds_rtpresponse || 'BIZ00009' === $ds_rtpresponse ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'No tiene Bizum' );
+				WCRed()->log( 'bizumcheckout', 'No tiene Bizum' );
 			}
 			$order->add_order_note( __( 'The user has selected Bizum as the payment method but does not have Bizum associated with their phone number.', 'woocommerce-redsys' ) );
 			return false;
 		}
 		if ( $ds_rtpdescription ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'Ha habido un error: ' . $ds_rtpdescription );
+				WCRed()->log( 'bizumcheckout', 'Ha habido un error: ' . $ds_rtpdescription );
 			}
 			return $ds_rtpdescription;
 		}
@@ -565,34 +783,33 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		 */
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', '$order_id: ' . $order_id );
-			$this->log->add( 'bizumcheckout', '$fuc: ' . $fuc );
-			$this->log->add( 'bizumcheckout', '$terminal: ' . $terminal );
-			$this->log->add( 'bizumcheckout', '$currency: ' . $currency );
-			$this->log->add( 'bizumcheckout', '$amount: ' . $amount );
-			$this->log->add( 'bizumcheckout', '$phone: ' . $phone );
-			$this->log->add( 'bizumcheckout', '$resturl: ' . $resturl );
-			$this->log->add( 'bizumcheckout', 'Transaction Typme: 0' );
-			$this->log->add( 'bizumcheckout', 'Pay Method: z' );
-			$this->log->add( 'bizumcheckout', '$final_notify_url: ' . $final_notify_url );
+			WCRed()->log( 'bizumcheckout', '$order_id: ' . $order_id );
+			WCRed()->log( 'bizumcheckout', '$fuc: ' . $fuc );
+			WCRed()->log( 'bizumcheckout', '$terminal: ' . $terminal );
+			WCRed()->log( 'bizumcheckout', '$currency: ' . $currency );
+			WCRed()->log( 'bizumcheckout', '$amount: ' . $amount );
+			WCRed()->log( 'bizumcheckout', '$phone: ' . $phone );
+			WCRed()->log( 'bizumcheckout', '$resturl: ' . $resturl );
+			WCRed()->log( 'bizumcheckout', 'Transaction Typme: 0' );
+			WCRed()->log( 'bizumcheckout', 'Pay Method: z' );
+			WCRed()->log( 'bizumcheckout', '$final_notify_url: ' . $final_notify_url );
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $order_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $fuc );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', '0' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'z' );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$mi_obj->setParameter( 'DS_MERCHANT_BIZUM_MOBILENUMBER', $phone );
-
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $order_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $fuc );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', '0' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_PAYMETHODS', 'z' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$mi_obj->set_parameter( 'DS_MERCHANT_BIZUM_MOBILENUMBER', $phone );
 
 		$version   = 'HMAC_SHA256_V1';
 		$post_arg  = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$resturl,
@@ -610,19 +827,20 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'bizumcheckout', '*********************************' );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'bizumcheckout', '*********************************' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
-			// return $post_arg;
+			 // phpcs:ignore Squiz.PHP.CommentedOutCode.Found
+			// return $post_arg;.
 		}
 		$response_body       = wp_remote_retrieve_body( $post_arg );
 		$json_decode_params  = json_decode( $response_body ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		$merchant_parameters = $json_decode_params->Ds_MerchantParameters; // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', '$merchant_parameters: ' . $merchant_parameters ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'bizumcheckout', '$merchant_parameters: ' . $merchant_parameters ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 
 		/**
@@ -632,47 +850,47 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		 * Ds_RtpDescription
 		 */
 
-		$mi_obj->decodeMerchantParameters( $merchant_parameters );
-		$ds_amount             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ds_currency           = $mi_obj->getParameter( 'Ds_Currency' );
-		$ds_order              = $mi_obj->getParameter( 'Ds_Order' );
-		$ds_merchantcode       = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$ds_terminal           = $mi_obj->getParameter( 'Ds_Terminal' );
-		$ds_response           = $mi_obj->getParameter( 'Ds_Response' );
-		$ds_authorisationcode  = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$ds_transactiontype    = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$ds_securepayment      = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$ds_language           = $mi_obj->getParameter( 'Ds_Language' );
-		$ds_merchantdata       = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$ds_processedpaymethod = $mi_obj->getParameter( 'Ds_ProcessedPayMethod' );
-		$ds_rtpresponse        = $mi_obj->getParameter( 'Ds_RtpResponse' );
-		$ds_rtpdescription     = $mi_obj->getParameter( 'Ds_RtpDescription' );
+		$mi_obj->decode_merchant_parameters( $merchant_parameters );
+		$ds_amount             = $mi_obj->get_parameter( 'Ds_Amount' );
+		$ds_currency           = $mi_obj->get_parameter( 'Ds_Currency' );
+		$ds_order              = $mi_obj->get_parameter( 'Ds_Order' );
+		$ds_merchantcode       = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+		$ds_terminal           = $mi_obj->get_parameter( 'Ds_Terminal' );
+		$ds_response           = $mi_obj->get_parameter( 'Ds_Response' );
+		$ds_authorisationcode  = $mi_obj->get_parameter( 'Ds_AuthorisationCode' );
+		$ds_transactiontype    = $mi_obj->get_parameter( 'Ds_TransactionType' );
+		$ds_securepayment      = $mi_obj->get_parameter( 'Ds_SecurePayment' );
+		$ds_language           = $mi_obj->get_parameter( 'Ds_Language' );
+		$ds_merchantdata       = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$ds_processedpaymethod = $mi_obj->get_parameter( 'Ds_ProcessedPayMethod' );
+		$ds_rtpresponse        = $mi_obj->get_parameter( 'Ds_RtpResponse' );
+		$ds_rtpdescription     = $mi_obj->get_parameter( 'Ds_RtpDescription' );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', '$ds_amount: ' . $ds_amount );
-			$this->log->add( 'bizumcheckout', '$ds_currency: ' . $ds_currency );
-			$this->log->add( 'bizumcheckout', '$ds_order: ' . $ds_order );
-			$this->log->add( 'bizumcheckout', '$ds_merchantcode: ' . $ds_merchantcode );
-			$this->log->add( 'bizumcheckout', '$ds_terminal: ' . $ds_terminal );
-			$this->log->add( 'bizumcheckout', '$ds_response: ' . $ds_response );
-			$this->log->add( 'bizumcheckout', '$ds_authorisationcode: ' . $ds_authorisationcode );
-			$this->log->add( 'bizumcheckout', '$ds_transactiontype: ' . $ds_transactiontype );
-			$this->log->add( 'bizumcheckout', '$ds_securepayment: ' . $ds_securepayment );
-			$this->log->add( 'bizumcheckout', '$ds_language: ' . $ds_language );
-			$this->log->add( 'bizumcheckout', '$ds_merchantdata: ' . $ds_merchantdata );
-			$this->log->add( 'bizumcheckout', '$ds_processedpaymethod: ' . $ds_processedpaymethod );
-			$this->log->add( 'bizumcheckout', '$ds_rtpresponse: ' . $ds_rtpresponse );
-			$this->log->add( 'bizumcheckout', '$ds_rtpdescription: ' . $ds_rtpdescription );
+			WCRed()->log( 'bizumcheckout', '$ds_amount: ' . $ds_amount );
+			WCRed()->log( 'bizumcheckout', '$ds_currency: ' . $ds_currency );
+			WCRed()->log( 'bizumcheckout', '$ds_order: ' . $ds_order );
+			WCRed()->log( 'bizumcheckout', '$ds_merchantcode: ' . $ds_merchantcode );
+			WCRed()->log( 'bizumcheckout', '$ds_terminal: ' . $ds_terminal );
+			WCRed()->log( 'bizumcheckout', '$ds_response: ' . $ds_response );
+			WCRed()->log( 'bizumcheckout', '$ds_authorisationcode: ' . $ds_authorisationcode );
+			WCRed()->log( 'bizumcheckout', '$ds_transactiontype: ' . $ds_transactiontype );
+			WCRed()->log( 'bizumcheckout', '$ds_securepayment: ' . $ds_securepayment );
+			WCRed()->log( 'bizumcheckout', '$ds_language: ' . $ds_language );
+			WCRed()->log( 'bizumcheckout', '$ds_merchantdata: ' . $ds_merchantdata );
+			WCRed()->log( 'bizumcheckout', '$ds_processedpaymethod: ' . $ds_processedpaymethod );
+			WCRed()->log( 'bizumcheckout', '$ds_rtpresponse: ' . $ds_rtpresponse );
+			WCRed()->log( 'bizumcheckout', '$ds_rtpdescription: ' . $ds_rtpdescription );
 		}
 
 		if ( '9998' === (string) $ds_response ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'Waiting Authorization' );
+				WCRed()->log( 'bizumcheckout', 'Waiting Authorization' );
 			}
 			return 'waiting_authorisation';
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'Somethog Happened: ' . $ds_response );
+				WCRed()->log( 'bizumcheckout', 'Somethog Happened: ' . $ds_response );
 			}
 			return $ds_response;
 		}
@@ -737,11 +955,11 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$usertest_active = $this->testforuser;
 		$selections      = (array) WCRed()->get_redsys_option( 'testforuserid', 'bizumcheckout' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', '/****************************/' );
-			$this->log->add( 'bizumcheckout', '     Checking user test       ' );
-			$this->log->add( 'bizumcheckout', '/****************************/' );
-			$this->log->add( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', '/****************************/' );
+			WCRed()->log( 'bizumcheckout', '     Checking user test       ' );
+			WCRed()->log( 'bizumcheckout', '/****************************/' );
+			WCRed()->log( 'bizumcheckout', ' ' );
 		}
 
 		if ( 'yes' === $usertest_active ) {
@@ -749,66 +967,66 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			if ( ! empty( $selections ) ) {
 				foreach ( $selections as $user_id ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '   Checking user ' . $userid );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '  User in forach ' . $user_id );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', '   Checking user ' . $userid );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', '  User in forach ' . $user_id );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', ' ' );
 					}
 					if ( (string) $user_id === (string) $userid ) {
 						if ( 'yes' === $this->debug ) {
-							$this->log->add( 'bizumcheckout', ' ' );
-							$this->log->add( 'bizumcheckout', '/****************************/' );
-							$this->log->add( 'bizumcheckout', '   Checking user test TRUE    ' );
-							$this->log->add( 'bizumcheckout', '/****************************/' );
-							$this->log->add( 'bizumcheckout', ' ' );
-							$this->log->add( 'bizumcheckout', ' ' );
-							$this->log->add( 'bizumcheckout', '/********************************************/' );
-							$this->log->add( 'bizumcheckout', '  User ' . $userid . ' is equal to ' . $user_id );
-							$this->log->add( 'bizumcheckout', '/********************************************/' );
-							$this->log->add( 'bizumcheckout', ' ' );
+							WCRed()->log( 'bizumcheckout', ' ' );
+							WCRed()->log( 'bizumcheckout', '/****************************/' );
+							WCRed()->log( 'bizumcheckout', '   Checking user test TRUE    ' );
+							WCRed()->log( 'bizumcheckout', '/****************************/' );
+							WCRed()->log( 'bizumcheckout', ' ' );
+							WCRed()->log( 'bizumcheckout', ' ' );
+							WCRed()->log( 'bizumcheckout', '/********************************************/' );
+							WCRed()->log( 'bizumcheckout', '  User ' . $userid . ' is equal to ' . $user_id );
+							WCRed()->log( 'bizumcheckout', '/********************************************/' );
+							WCRed()->log( 'bizumcheckout', ' ' );
 						}
 						return true;
 					}
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '  Checking user test continue ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', '  Checking user test continue ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', ' ' );
 					}
 					continue;
 				}
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '  Checking user test FALSE    ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '  Checking user test FALSE    ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				return false;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '  Checking user test FALSE    ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '  Checking user test FALSE    ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/****************************/' );
-				$this->log->add( 'bizumcheckout', '     User test Disabled.      ' );
-				$this->log->add( 'bizumcheckout', '/****************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/****************************/' );
+				WCRed()->log( 'bizumcheckout', '     User test Disabled.      ' );
+				WCRed()->log( 'bizumcheckout', '/****************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			return false;
 		}
@@ -829,11 +1047,11 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			if ( ! empty( $limit ) && $limit > 0 ) {
 				$result = $limit - $total;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '$total: ' . $total );
-					$this->log->add( 'bizumcheckout', '$limit: ' . $limit );
-					$this->log->add( 'bizumcheckout', '$result: ' . $result );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '$total: ' . $total );
+					WCRed()->log( 'bizumcheckout', '$limit: ' . $limit );
+					WCRed()->log( 'bizumcheckout', '$result: ' . $result );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				if ( $result > 0 ) {
 					return $available_gateways;
@@ -857,20 +1075,20 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->testmode ) {
 			if ( 'rd' === $type ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '          URL Test RD         ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '          URL Test RD         ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				$url = $this->testurl;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '          URL Test WS         ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '          URL Test WS         ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				$url = $this->testurlws;
 			}
@@ -879,95 +1097,94 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			if ( $user_test ) {
 				if ( 'rd' === $type ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '          URL Test RD         ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', '          URL Test RD         ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', ' ' );
 					}
 					$url = $this->testurl;
 				} else {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '          URL Test WS         ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', ' ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', '          URL Test WS         ' );
+						WCRed()->log( 'bizumcheckout', '/****************************/' );
+						WCRed()->log( 'bizumcheckout', ' ' );
 					}
 					$url = $this->testurlws;
 				}
-			} else {
-				if ( 'rd' === $type ) {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '          URL Live RD         ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
-					}
-					$url = $this->liveurl;
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'bizumcheckout', ' ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', '          URL Live WS         ' );
-						$this->log->add( 'bizumcheckout', '/****************************/' );
-						$this->log->add( 'bizumcheckout', ' ' );
-					}
-					$url = $this->liveurlws;
+			} elseif ( 'rd' === $type ) {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '          URL Live RD         ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
+				$url = $this->liveurl;
+			} else {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '          URL Live WS         ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+				}
+				$url = $this->liveurlws;
 			}
 		}
 		return $url;
 	}
 	/**
-	 * Get redsys SHA256
+	 * Get the SHA256 key based on the user and test mode.
 	 *
 	 * @param int $user_id User ID.
-	 *
-	 * @return string
+	 * @return string The SHA256 key.
 	 */
 	public function get_redsys_sha256( $user_id ) {
-
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/****************************/' );
-				$this->log->add( 'bizumcheckout', '         SHA256 Test.         ' );
-				$this->log->add( 'bizumcheckout', '/****************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/****************************/' );
+				WCRed()->log( 'bizumcheckout', '         SHA256 Test.         ' );
+				WCRed()->log( 'bizumcheckout', '/****************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
-			$customtestsha256 = utf8_decode( $this->customtestsha256 );
+
+			$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 			if ( ! empty( $customtestsha256 ) ) {
 				$sha256 = $customtestsha256;
 			} else {
-				$sha256 = utf8_decode( $this->testsha256 );
+				$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		} else {
 			$user_test = $this->check_user_test_mode( $user_id );
 			if ( $user_test ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '      USER SHA256 Test.       ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '      USER SHA256 Test.       ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
-				$customtestsha256 = utf8_decode( $this->customtestsha256 );
+
+				$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 				if ( ! empty( $customtestsha256 ) ) {
 					$sha256 = $customtestsha256;
 				} else {
-					$sha256 = utf8_decode( $this->testsha256 );
+					$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '     USER SHA256 NOT Test.    ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '     USER SHA256 NOT Test.    ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
-				$sha256 = utf8_decode( $this->secretsha256 );
+
+				$sha256 = mb_convert_encoding( $this->secretsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		}
 		return $sha256;
@@ -1039,41 +1256,41 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			$bizum_data_send = apply_filters( 'bizum_modify_data_to_send', $bizum_data_send );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', 'Using filter bizum_modify_data_to_send' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', 'Using filter bizum_modify_data_to_send' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', 'Data sent to Bizum, $bizum_data_send: ' . print_r( $bizum_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', 'Data sent to Bizum, $bizum_data_send: ' . print_r( $bizum_data_send, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'bizumcheckout', ' ' );
 		}
 
 		// redsys Args.
 		$miobj = new WooRedsysAPI();
-		$miobj->setParameter( 'DS_MERCHANT_AMOUNT', $bizum_data_send['order_total_sign'] );
-		$miobj->setParameter( 'DS_MERCHANT_ORDER', $bizum_data_send['transaction_id2'] );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $bizum_data_send['customer'] );
-		$miobj->setParameter( 'DS_MERCHANT_CURRENCY', $bizum_data_send['currency'] );
-		$miobj->setParameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $bizum_data_send['name'] ) . ' ' . WCRed()->clean_data( $bizum_data_send['lastname'] ) );
-		$miobj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $bizum_data_send['transaction_type'] );
-		$miobj->setParameter( 'DS_MERCHANT_TERMINAL', $bizum_data_send['DSMerchantTerminal'] );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTURL', $bizum_data_send['final_notify_url'] );
-		$miobj->setParameter( 'DS_MERCHANT_URLOK', $bizum_data_send['url_ok'] );
-		$miobj->setParameter( 'DS_MERCHANT_URLKO', $bizum_data_send['returnfromredsys'] );
-		$miobj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $bizum_data_send['gatewaylanguage'] );
-		$miobj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $bizum_data_send['product_description'] ) );
-		$miobj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $bizum_data_send['merchant_name'] );
-		$miobj->setParameter( 'DS_MERCHANT_BIZUM_MOBILENUMBER', $phone );
-		$miobj->setParameter( 'DS_MERCHANT_PAYMETHODS', 'z' );
+		$miobj->set_parameter( 'DS_MERCHANT_AMOUNT', $bizum_data_send['order_total_sign'] );
+		$miobj->set_parameter( 'DS_MERCHANT_ORDER', $bizum_data_send['transaction_id2'] );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $bizum_data_send['customer'] );
+		$miobj->set_parameter( 'DS_MERCHANT_CURRENCY', $bizum_data_send['currency'] );
+		$miobj->set_parameter( 'DS_MERCHANT_TITULAR', WCRed()->clean_data( $bizum_data_send['name'] ) . ' ' . WCRed()->clean_data( $bizum_data_send['lastname'] ) );
+		$miobj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $bizum_data_send['transaction_type'] );
+		$miobj->set_parameter( 'DS_MERCHANT_TERMINAL', $bizum_data_send['DSMerchantTerminal'] );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $bizum_data_send['final_notify_url'] );
+		$miobj->set_parameter( 'DS_MERCHANT_URLOK', $bizum_data_send['url_ok'] );
+		$miobj->set_parameter( 'DS_MERCHANT_URLKO', $bizum_data_send['returnfromredsys'] );
+		$miobj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', $bizum_data_send['gatewaylanguage'] );
+		$miobj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( $bizum_data_send['product_description'] ) );
+		$miobj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $bizum_data_send['merchant_name'] );
+		$miobj->set_parameter( 'DS_MERCHANT_BIZUM_MOBILENUMBER', $phone );
+		$miobj->set_parameter( 'DS_MERCHANT_PAYMETHODS', 'z' );
 
 		$version = 'HMAC_SHA256_V1';
 		// Se generan los parámetros de la petición.
 		$request      = '';
-		$params       = $miobj->createMerchantParameters();
-		$signature    = $miobj->createMerchantSignature( $bizum_data_send['secretsha256'] );
+		$params       = $miobj->create_merchant_parameters();
+		$signature    = $miobj->create_merchant_signature( $bizum_data_send['secretsha256'] );
 		$order_id_set = $bizum_data_send['transaction_id2'];
 		set_transient( 'redsys_signature_' . sanitize_text_field( $order_id_set ), $bizum_data_send['secretsha256'], 3600 );
 		$redsys_args = array(
@@ -1082,21 +1299,21 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			'Ds_Signature'          => $signature,
 		);
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$this->log->add( 'bizumcheckout', 'Helping to understand the encrypted code: ' );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_AMOUNT: ' . $bizum_data_send['order_total_sign'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_ORDER: ' . $bizum_data_send['transaction_id2'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $bizum_data_send['name'] ) . ' ' . WCRed()->clean_data( $bizum_data_send['lastname'] ) );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_MERCHANTCODE: ' . $bizum_data_send['customer'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_CURRENCY' . $bizum_data_send['currency'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $bizum_data_send['transaction_type'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_TERMINAL: ' . $bizum_data_send['DSMerchantTerminal'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_MERCHANTURL: ' . $bizum_data_send['final_notify_url'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_URLOK: ' . $bizum_data_send['url_ok'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_URLKO: ' . $bizum_data_send['returnfromredsys'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $bizum_data_send['gatewaylanguage'] );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $bizum_data_send['product_description'] ) );
-			$this->log->add( 'bizumcheckout', 'DS_MERCHANT_PAYMETHODS: z' );
+			WCRed()->log( 'bizumcheckout', 'Generating payment form for order ' . $order->get_order_number() . '. Sent data: ' . print_r( $redsys_args, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'bizumcheckout', 'Helping to understand the encrypted code: ' );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_AMOUNT: ' . $bizum_data_send['order_total_sign'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_ORDER: ' . $bizum_data_send['transaction_id2'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_TITULAR: ' . WCRed()->clean_data( $bizum_data_send['name'] ) . ' ' . WCRed()->clean_data( $bizum_data_send['lastname'] ) );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_MERCHANTCODE: ' . $bizum_data_send['customer'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_CURRENCY' . $bizum_data_send['currency'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_TRANSACTIONTYPE: ' . $bizum_data_send['transaction_type'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_TERMINAL: ' . $bizum_data_send['DSMerchantTerminal'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_MERCHANTURL: ' . $bizum_data_send['final_notify_url'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_URLOK: ' . $bizum_data_send['url_ok'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_URLKO: ' . $bizum_data_send['returnfromredsys'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_CONSUMERLANGUAGE: ' . $bizum_data_send['gatewaylanguage'] );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_PRODUCTDESCRIPTION: ' . WCRed()->clean_data( $bizum_data_send['product_description'] ) );
+			WCRed()->log( 'bizumcheckout', 'DS_MERCHANT_PAYMETHODS: z' );
 		}
 		/**
 		 * Filter hook to allow 3rd parties to add more fields to the form
@@ -1118,11 +1335,11 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		global $woocommerce;
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', '/****************************/' );
-			$this->log->add( 'bizumcheckout', '   Generating Redsys Form     ' );
-			$this->log->add( 'bizumcheckout', '/****************************/' );
-			$this->log->add( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', '/****************************/' );
+			WCRed()->log( 'bizumcheckout', '   Generating Redsys Form     ' );
+			WCRed()->log( 'bizumcheckout', '/****************************/' );
+			WCRed()->log( 'bizumcheckout', ' ' );
 		}
 
 		$order           = WCRed()->get_order( $order_id );
@@ -1174,9 +1391,9 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$order     = WCRed()->get_order( $order_id );
 		$phone     = WCRed()->get_order_meta( $order_id, '_bizum_phone', true );
 		$parent_id = $order->get_parent_id();
-		if ( $parent_id != 0 ) {
+		if ( 0 !== $parent_id ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', '$parent_id: ' . $parent_id );
+				WCRed()->log( 'bizumcheckout', '$parent_id: ' . $parent_id );
 			}
 			$phone_parent         = WCRed()->get_order_meta( $parent_id, '_bizum_phone', true );
 			$data['_bizum_phone'] = sanitize_text_field( $phone_parent );
@@ -1188,9 +1405,9 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', 'process_payment' );
-			$this->log->add( 'bizumcheckout', '$order_id: ' . $order_id );
-			$this->log->add( 'bizumcheckout', '$order: ' . $order );
+			WCRed()->log( 'bizumcheckout', 'process_payment' );
+			WCRed()->log( 'bizumcheckout', '$order_id: ' . $order_id );
+			WCRed()->log( 'bizumcheckout', '$order: ' . $order );
 		}
 
 		if ( 'yes' === $this->not_use_https ) {
@@ -1245,7 +1462,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	public function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'bizumcheckout', 'HTTP Notification received 1: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) || ! isset( $_POST['Ds_Signature'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -1256,64 +1473,64 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', 'Signature from Redsys: ' . $remote_sign );
-				$this->log->add( 'bizumcheckout', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
-				$this->log->add( 'bizumcheckout', 'Secret SHA256 transcient: ' . $secretsha256 );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', 'Signature from Redsys: ' . $remote_sign );
+				WCRed()->log( 'bizumcheckout', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
+				WCRed()->log( 'bizumcheckout', 'Secret SHA256 transcient: ' . $secretsha256 );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$order_id = $mi_obj->getParameter( 'Ds_Order' );
-				$this->log->add( 'bizumcheckout', 'Order ID: ' . $order_id );
+				$order_id = $mi_obj->get_parameter( 'Ds_Order' );
+				WCRed()->log( 'bizumcheckout', 'Order ID: ' . $order_id );
 			}
 			$order           = WCRed()->get_order( $order2 );
 			$user_id         = $order->get_user_id();
 			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
 			if ( empty( $secretsha256 ) && ! $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', 'Using $usesecretsha256 Settings' );
-					$this->log->add( 'bizumcheckout', 'Secret SHA256 Settings: ' . $usesecretsha256 );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', 'Using $usesecretsha256 Settings' );
+					WCRed()->log( 'bizumcheckout', 'Secret SHA256 Settings: ' . $usesecretsha256 );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				$usesecretsha256 = $usesecretsha256;
 			} elseif ( $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', 'Using $secretsha256_meta Meta' );
-					$this->log->add( 'bizumcheckout', 'Secret SHA256 Meta: ' . $secretsha256_meta );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', 'Using $secretsha256_meta Meta' );
+					WCRed()->log( 'bizumcheckout', 'Secret SHA256 Meta: ' . $secretsha256_meta );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				$usesecretsha256 = $secretsha256_meta;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', 'Using $secretsha256 Transcient' );
-					$this->log->add( 'bizumcheckout', 'Secret SHA256 Transcient: ' . $secretsha256 );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', 'Using $secretsha256 Transcient' );
+					WCRed()->log( 'bizumcheckout', 'Secret SHA256 Transcient: ' . $secretsha256 );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				$usesecretsha256 = $secretsha256;
 			}
-			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'Received valid notification from Servired/RedSys' );
-					$this->log->add( 'bizumcheckout', $data );
+					WCRed()->log( 'bizumcheckout', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'bizumcheckout', $data );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'bizumcheckout', 'Received INVALID notification from Servired/RedSys' );
 				}
 				delete_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 				return false;
@@ -1323,26 +1540,26 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'bizumcheckout', 'HTTP Notification received 2: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( $ds_merchant_code === $this->customer ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'bizumcheckout', 'Received valid notification from Servired/RedSys' );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'Received INVALID notification from Servired/RedSys' );
-					$this->log->add( 'bizumcheckout', '$remote_sign: ' . $remote_sign );
-					$this->log->add( 'bizumcheckout', '$localsecret: ' . $localsecret );
+					WCRed()->log( 'bizumcheckout', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'bizumcheckout', '$remote_sign: ' . $remote_sign );
+					WCRed()->log( 'bizumcheckout', '$localsecret: ' . $localsecret );
 				}
 				return false;
 			}
@@ -1356,7 +1573,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	public function check_bizum_payment( $order_id ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', 'Checking Payment: check_bizum_payment( $order_id ) $order_id: ' . $order_id );
+			WCRed()->log( 'bizumcheckout', 'Checking Payment: check_bizum_payment( $order_id ) $order_id: ' . $order_id );
 		}
 
 		$i = 0;
@@ -1364,7 +1581,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			$order        = WCRed()->get_order( $order_id );
 			$order_status = get_transient( $order->get_id() . '_bizum_payment' );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'get_trasient( $order->get_id() ."_bizum_payment" ): ' . $order_status );
+				WCRed()->log( 'bizumcheckout', 'get_trasient( $order->get_id() ."_bizum_payment" ): ' . $order_status );
 			}
 			if ( 'yes' === $order_status ) {
 				return 'paid';
@@ -1376,7 +1593,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 				return 'cancelled';
 			}
 			sleep( 5 );
-			$i++;
+			++$i;
 		}
 	}
 	/**
@@ -1471,11 +1688,12 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 				<!DOCTYPE html>
 				<html>
 					<head>
-						<title>Esperando Autenticación</title>
-						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-						<script>'
-						. $script . // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-						'</script>
+						<title>Esperando Autenticación</title>';
+						// phpcs:ignore WordPress.WP.EnqueuedResources.NonEnqueuedScript
+				echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>';
+				echo '<script>';
+				echo $script;// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				echo '</script>
 						<style type="text/css">
 							html, body {
 								align-items: center;
@@ -1553,13 +1771,13 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 				}
 				$result = $this->bizum_payment_rest( $order, $phone );
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', '   Bizum Payment Rest     ' );
-					$this->log->add( 'bizumcheckout', '/****************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', 'Result: ' . $result );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', '   Bizum Payment Rest     ' );
+					WCRed()->log( 'bizumcheckout', '/****************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', 'Result: ' . $result );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				exit();
 			}
@@ -1579,11 +1797,11 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	public function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', '/****************************/' );
-			$this->log->add( 'bizumcheckout', '      successful_request      ' );
-			$this->log->add( 'bizumcheckout', '/****************************/' );
-			$this->log->add( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', '/****************************/' );
+			WCRed()->log( 'bizumcheckout', '      successful_request      ' );
+			WCRed()->log( 'bizumcheckout', '/****************************/' );
+			WCRed()->log( 'bizumcheckout', ' ' );
 		}
 
 		if ( ! isset( $_POST['Ds_SignatureVersion'] ) || ! isset( $_POST['Ds_Signature'] ) || ! isset( $_POST['Ds_MerchantParameters'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
@@ -1595,11 +1813,11 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', '$version: ' . $version );
-			$this->log->add( 'bizumcheckout', '$data: ' . $data );
-			$this->log->add( 'bizumcheckout', '$remote_sign: ' . $remote_sign );
-			$this->log->add( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', '$version: ' . $version );
+			WCRed()->log( 'bizumcheckout', '$data: ' . $data );
+			WCRed()->log( 'bizumcheckout', '$remote_sign: ' . $remote_sign );
+			WCRed()->log( 'bizumcheckout', ' ' );
 		}
 
 		$mi_obj            = new WooRedsysAPI();
@@ -1610,28 +1828,28 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$dscardnumber4     = '';
 		$dsexpiryyear      = '';
 		$dsexpirymonth     = '';
-		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
-		$response          = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$decodedata        = $mi_obj->decode_merchant_parameters( $data );
+		$localsecret       = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
+		$total             = $mi_obj->get_parameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->get_parameter( 'Ds_Order' );
+		$dscode            = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->get_parameter( 'Ds_Currency' );
+		$response          = $mi_obj->get_parameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->get_parameter( 'Ds_AuthorisationCode' );
+		$dsdate            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Date' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dshour            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Hour' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dstermnal         = $mi_obj->get_parameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->get_parameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->get_parameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->get_parameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype = $mi_obj->get_parameter( 'Ds_TransactionType' );
+		$dsmerchantidenti  = $mi_obj->get_parameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand       = $mi_obj->get_parameter( 'Ds_Card_Brand' );
+		$dsmechandata      = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dscargtype        = $mi_obj->get_parameter( 'Ds_Card_Type' );
+		$dserrorcode       = $mi_obj->get_parameter( 'Ds_ErrorCode' );
+		$dpaymethod        = $mi_obj->get_parameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
 		$response          = intval( $response );
 		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_text_field( $ordermi ) );
 		$order1            = $ordermi;
@@ -1639,46 +1857,46 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$order             = WCRed()->get_order( (int) $order2 );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', 'SHA256 Settings: ' . $usesecretsha256 );
-			$this->log->add( 'bizumcheckout', 'SHA256 Transcient: ' . $secretsha256 );
-			$this->log->add( 'bizumcheckout', 'decodeMerchantParameters: ' . $decodedata );
-			$this->log->add( 'bizumcheckout', 'createMerchantSignatureNotif: ' . $localsecret );
-			$this->log->add( 'bizumcheckout', 'Ds_Amount: ' . $total );
-			$this->log->add( 'bizumcheckout', 'Ds_Order: ' . $ordermi );
-			$this->log->add( 'bizumcheckout', 'Ds_MerchantCode: ' . $dscode );
-			$this->log->add( 'bizumcheckout', 'Ds_Currency: ' . $currency_code );
-			$this->log->add( 'bizumcheckout', 'Ds_Response: ' . $response );
-			$this->log->add( 'bizumcheckout', 'Ds_AuthorisationCode: ' . $id_trans );
-			$this->log->add( 'bizumcheckout', 'Ds_Date: ' . $dsdate );
-			$this->log->add( 'bizumcheckout', 'Ds_Hour: ' . $dshour );
-			$this->log->add( 'bizumcheckout', 'Ds_Terminal: ' . $dstermnal );
-			$this->log->add( 'bizumcheckout', 'Ds_MerchantData: ' . $dsmerchandata );
-			$this->log->add( 'bizumcheckout', 'Ds_SecurePayment: ' . $dssucurepayment );
-			$this->log->add( 'bizumcheckout', 'Ds_Card_Country: ' . $dscardcountry );
-			$this->log->add( 'bizumcheckout', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
-			$this->log->add( 'bizumcheckout', 'Ds_Card_Type: ' . $dscargtype );
-			$this->log->add( 'bizumcheckout', 'Ds_TransactionType: ' . $dstransactiontype );
-			$this->log->add( 'bizumcheckout', 'Ds_Merchant_Identifiers_Amount: ' . $response );
-			$this->log->add( 'bizumcheckout', 'Ds_Card_Brand: ' . $dscardbrand );
-			$this->log->add( 'bizumcheckout', 'Ds_MerchantData: ' . $dsmechandata );
-			$this->log->add( 'bizumcheckout', 'Ds_ErrorCode: ' . $dserrorcode );
-			$this->log->add( 'bizumcheckout', 'Ds_PayMethod: ' . $dpaymethod );
+			WCRed()->log( 'bizumcheckout', 'SHA256 Settings: ' . $usesecretsha256 );
+			WCRed()->log( 'bizumcheckout', 'SHA256 Transcient: ' . $secretsha256 );
+			WCRed()->log( 'bizumcheckout', 'decode_merchant_parameters: ' . $decodedata );
+			WCRed()->log( 'bizumcheckout', 'create_merchant_signature_notif: ' . $localsecret );
+			WCRed()->log( 'bizumcheckout', 'Ds_Amount: ' . $total );
+			WCRed()->log( 'bizumcheckout', 'Ds_Order: ' . $ordermi );
+			WCRed()->log( 'bizumcheckout', 'Ds_MerchantCode: ' . $dscode );
+			WCRed()->log( 'bizumcheckout', 'Ds_Currency: ' . $currency_code );
+			WCRed()->log( 'bizumcheckout', 'Ds_Response: ' . $response );
+			WCRed()->log( 'bizumcheckout', 'Ds_AuthorisationCode: ' . $id_trans );
+			WCRed()->log( 'bizumcheckout', 'Ds_Date: ' . $dsdate );
+			WCRed()->log( 'bizumcheckout', 'Ds_Hour: ' . $dshour );
+			WCRed()->log( 'bizumcheckout', 'Ds_Terminal: ' . $dstermnal );
+			WCRed()->log( 'bizumcheckout', 'Ds_MerchantData: ' . $dsmerchandata );
+			WCRed()->log( 'bizumcheckout', 'Ds_SecurePayment: ' . $dssucurepayment );
+			WCRed()->log( 'bizumcheckout', 'Ds_Card_Country: ' . $dscardcountry );
+			WCRed()->log( 'bizumcheckout', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
+			WCRed()->log( 'bizumcheckout', 'Ds_Card_Type: ' . $dscargtype );
+			WCRed()->log( 'bizumcheckout', 'Ds_TransactionType: ' . $dstransactiontype );
+			WCRed()->log( 'bizumcheckout', 'Ds_Merchant_Identifiers_Amount: ' . $response );
+			WCRed()->log( 'bizumcheckout', 'Ds_Card_Brand: ' . $dscardbrand );
+			WCRed()->log( 'bizumcheckout', 'Ds_MerchantData: ' . $dsmechandata );
+			WCRed()->log( 'bizumcheckout', 'Ds_ErrorCode: ' . $dserrorcode );
+			WCRed()->log( 'bizumcheckout', 'Ds_PayMethod: ' . $dpaymethod );
 		}
 
 		// refund.
 		if ( '3' === $dstransactiontype ) {
 			if ( 900 === $response ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'Response 900 (refund)' );
+					WCRed()->log( 'bizumcheckout', 'Response 900 (refund)' );
 				}
 				set_transient( $order->get_id() . '_redsys_refund', 'yes' );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'WCRed()->update_order_meta to "refund yes"' );
+					WCRed()->log( 'bizumcheckout', 'WCRed()->update_order_meta to "refund yes"' );
 				}
 				$status = $order->get_status();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'New Status in request: ' . $status );
+					WCRed()->log( 'bizumcheckout', 'New Status in request: ' . $status );
 				}
 				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
 				return;
@@ -1697,7 +1915,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			if ( $order_total_compare !== $total ) {
 				// amount does not match.
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
+					WCRed()->log( 'bizumcheckout', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
 				// Put this order on-hold for manual checking.
 				/* translators: order an received are the amount */
@@ -1707,121 +1925,103 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			$authorisation_code = $id_trans;
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/****************************/' );
-				$this->log->add( 'bizumcheckout', '      Saving Order Meta       ' );
-				$this->log->add( 'bizumcheckout', '/****************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/****************************/' );
+				WCRed()->log( 'bizumcheckout', '      Saving Order Meta       ' );
+				WCRed()->log( 'bizumcheckout', '/****************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			$data = array();
 			if ( ! empty( $order1 ) ) {
 				$data['_payment_order_number_redsys'] = $order1;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_payment_order_number_redsys saved: ' . $order1 );
+					WCRed()->log( 'bizumcheckout', '_payment_order_number_redsys saved: ' . $order1 );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_payment_order_number_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_payment_order_number_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $dsdate ) ) {
 				$data['_payment_date_redsys'] = $dsdate;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_payment_date_redsys saved: ' . $dsdate );
+					WCRed()->log( 'bizumcheckout', '_payment_date_redsys saved: ' . $dsdate );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_payment_date_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_payment_date_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $dsdate ) ) {
 				$data['_payment_terminal_redsys'] = $dstermnal;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_payment_terminal_redsys saved: ' . $dstermnal );
+					WCRed()->log( 'bizumcheckout', '_payment_terminal_redsys saved: ' . $dstermnal );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_payment_terminal_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_payment_terminal_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $dshour ) ) {
 				$data['_payment_hour_redsys'] = $dshour;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_payment_hour_redsys saved: ' . $dshour );
+					WCRed()->log( 'bizumcheckout', '_payment_hour_redsys saved: ' . $dshour );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_payment_hour_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_payment_hour_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $id_trans ) ) {
 				$data['_authorisation_code_redsys'] = $authorisation_code;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_authorisation_code_redsys saved: ' . $authorisation_code );
+					WCRed()->log( 'bizumcheckout', '_authorisation_code_redsys saved: ' . $authorisation_code );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_authorisation_code_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_authorisation_code_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $currency_code ) ) {
 				$data['_corruncy_code_redsys'] = $currency_code;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_corruncy_code_redsys saved: ' . $currency_code );
+					WCRed()->log( 'bizumcheckout', '_corruncy_code_redsys saved: ' . $currency_code );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_corruncy_code_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_corruncy_code_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $dscardcountry ) ) {
 				$data['_card_country_redsys'] = $dscardcountry;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_card_country_redsys saved: ' . $dscardcountry );
+					WCRed()->log( 'bizumcheckout', '_card_country_redsys saved: ' . $dscardcountry );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_card_country_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_card_country_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			// This meta is essential for later use.
 			if ( ! empty( $secretsha256 ) ) {
 				$data['_redsys_secretsha256'] = $secretsha256;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_redsys_secretsha256 saved: ' . $secretsha256 );
+					WCRed()->log( 'bizumcheckout', '_redsys_secretsha256 saved: ' . $secretsha256 );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_redsys_secretsha256 NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_redsys_secretsha256 NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( ! empty( $dscode ) ) {
 				$data['_order_fuc_redsys'] = $dscode;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '_order_fuc_redsys: ' . $dscode );
+					WCRed()->log( 'bizumcheckout', '_order_fuc_redsys: ' . $dscode );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '_order_fuc_redsys NOT SAVED!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '_order_fuc_redsys NOT SAVED!!!' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			WCRed()->update_order_meta( $order->get_id(), $data );
 			// Payment completed.
@@ -1832,12 +2032,12 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			set_transient( $order->get_id() . '_bizum_payment', 'yes', 3600 );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'Payment complete.' );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', '  The final has come, this story has ended  ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', 'Payment complete.' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			do_action( 'bizum_post_payment_complete', $order->get_id() );
 		} else {
@@ -1859,18 +2059,18 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			WCRed()->update_order_meta( $order->get_id(), $data );
 			if ( 'yes' === $this->debug ) {
 				if ( $ds_response_value ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', $ds_response_value );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', $ds_response_value );
 				}
 				if ( $ds_error_value ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', $ds_error_value );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', $ds_error_value );
 				}
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', '  The final has come, this story has ended  ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Order cancelled by Redsys Bizum', 'woocommerce-redsys' ) );
@@ -1912,28 +2112,28 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$secretsha256   = $this->get_redsys_sha256( $user_id );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', '/**************************/' );
-			$this->log->add( 'bizumcheckout', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', '/**************************/' );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', '/**************************/' );
+			WCRed()->log( 'bizumcheckout', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', '/**************************/' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
 		}
 		$transaction_type  = '3';
 		$secretsha256_meta = WCRed()->get_order_meta( $order_id, '_redsys_secretsha256', true );
 		if ( $secretsha256_meta ) {
 			$secretsha256 = $secretsha256_meta;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'bizumcheckout', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'bizumcheckout', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'bizumcheckout', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		} else {
 			$secretsha256 = $secretsha256;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'bizumcheckout', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'bizumcheckout', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'bizumcheckout', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		}
 		if ( 'yes' === $this->not_use_https ) {
@@ -1952,71 +2152,69 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', '**********************' );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'bizumcheckout', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'bizumcheckout', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
-			$this->log->add( 'bizumcheckout', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'bizumcheckout', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
-			$this->log->add( 'bizumcheckout', __( 'FUC : ', 'woocommerce-redsys' ) . $order_fuc );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', '**********************' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'bizumcheckout', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'bizumcheckout', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
+			WCRed()->log( 'bizumcheckout', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'bizumcheckout', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
+			WCRed()->log( 'bizumcheckout', __( 'FUC : ', 'woocommerce-redsys' ) . $order_fuc );
 		}
 
 		if ( ! empty( $currencycode ) ) {
 			$currency = $currencycode;
-		} else {
-			if ( ! empty( $currency_codes ) ) {
-				$currency = $currency_codes[ get_woocommerce_currency() ];
-			}
+		} elseif ( ! empty( $currency_codes ) ) {
+			$currency = $currency_codes[ get_woocommerce_currency() ];
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
-		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $order_fuc );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', '*********************************' );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $order_fuc );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
-			$this->log->add( 'bizumcheckout', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'bizumcheckout', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'bizumcheckout', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
-			$this->log->add( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', '*********************************' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $order_fuc );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
+			WCRed()->log( 'bizumcheckout', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'bizumcheckout', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'bizumcheckout', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
+			WCRed()->log( 'bizumcheckout', ' ' );
 		}
 
 		$version   = 'HMAC_SHA256_V1';
 		$request   = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$redsys_adr,
@@ -2034,11 +2232,11 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'bizumcheckout', '*********************************' );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'bizumcheckout', '*********************************' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
 			return $post_arg;
 		}
@@ -2055,12 +2253,12 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		$order        = WCRed()->get_order( (int) $order_id );
 		$order_refund = get_transient( $order->get_id() . '_redsys_refund' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
-			$this->log->add( 'bizumcheckout', '*****************************************' );
-			$this->log->add( 'bizumcheckout', ' ' );
-			$this->log->add( 'bizumcheckout', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
-			$this->log->add( 'bizumcheckout', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
+			WCRed()->log( 'bizumcheckout', '*****************************************' );
+			WCRed()->log( 'bizumcheckout', ' ' );
+			WCRed()->log( 'bizumcheckout', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
+			WCRed()->log( 'bizumcheckout', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
 		}
 		if ( 'yes' === $order_refund ) {
 			return true;
@@ -2083,7 +2281,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 
 		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'bizumcheckout', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'bizumcheckout', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}
 		if ( ! $amount ) {
 			$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
@@ -2093,14 +2291,14 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 
 		if ( ! empty( $transaction_id ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
+				WCRed()->log( 'bizumcheckout', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
 
 			$refund_asked = $this->ask_for_refund( $order_id, $transaction_id, $order_total_sign );
 
 			if ( is_wp_error( $refund_asked ) ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
+					WCRed()->log( 'bizumcheckout', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
 				}
 				return new WP_Error( 'error', $refund_asked->get_error_message() );
 			}
@@ -2108,50 +2306,50 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 			do {
 				sleep( 5 );
 				$result = $this->check_redsys_refund( $order_id );
-				$x++;
+				++$x;
 			} while ( $x <= 20 && false === $result );
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'bizumcheckout', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/********************************/' );
-				$this->log->add( 'bizumcheckout', '  Refund complete by Redsys   ' );
-				$this->log->add( 'bizumcheckout', '/********************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', '  The final has come, this story has ended  ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/********************************/' );
+				WCRed()->log( 'bizumcheckout', '  Refund complete by Redsys   ' );
+				WCRed()->log( 'bizumcheckout', '/********************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			if ( 'yes' === $this->debug && ! $result ) {
-				$this->log->add( 'bizumcheckout', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'bizumcheckout', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
 			}
 			if ( $result ) {
 				delete_transient( $order->get_id() . '_redsys_refund' );
 				return true;
 			} else {
 				if ( 'yes' === $this->debug && $result ) {
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'bizumcheckout', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
-					$this->log->add( 'bizumcheckout', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', ' ' );
-					$this->log->add( 'bizumcheckout', '/******************************************/' );
-					$this->log->add( 'bizumcheckout', '  The final has come, this story has ended  ' );
-					$this->log->add( 'bizumcheckout', '/******************************************/' );
-					$this->log->add( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'bizumcheckout', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
+					WCRed()->log( 'bizumcheckout', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', ' ' );
+					WCRed()->log( 'bizumcheckout', '/******************************************/' );
+					WCRed()->log( 'bizumcheckout', '  The final has come, this story has ended  ' );
+					WCRed()->log( 'bizumcheckout', '/******************************************/' );
+					WCRed()->log( 'bizumcheckout', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'bizumcheckout', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
-				$this->log->add( 'bizumcheckout', ' ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', '  The final has come, this story has ended  ' );
-				$this->log->add( 'bizumcheckout', '/******************************************/' );
-				$this->log->add( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
+				WCRed()->log( 'bizumcheckout', ' ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'bizumcheckout', '/******************************************/' );
+				WCRed()->log( 'bizumcheckout', ' ' );
 			}
 			return new WP_Error( 'error', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
 		}
@@ -2236,8 +2434,8 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 		} else {
 			$final_notify_url = $this->notify_url;
 		}
-		if ( isset( $_GET['order_id'] ) && isset( $_GET['method'] ) && ! empty( $_GET['order_id'] && 'bizum' === $_GET['method'] ) ) {
-			$order_id     = sanitize_text_field( wp_unslash( $_GET['order_id'] ) );
+		if ( isset( $_GET['order_id'] ) && isset( $_GET['method'] ) && ! empty( $_GET['order_id'] && 'bizum' === $_GET['method'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			$order_id     = sanitize_text_field( wp_unslash( $_GET['order_id'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			$url          = $final_notify_url;
 			$current_page = get_permalink( wc_get_page_id( 'checkout' ) );
 			$order        = WCRed()->get_order( $order_id );
@@ -2354,33 +2552,47 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	 */
 	public function save_field_update_order_meta( $order_id ) {
 
-		if ( 'bizumcheckout' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) {
+		// Verificar si el índice 'payment_method' está definido.
+		if ( isset( $_POST['payment_method'] ) && 'bizumcheckout' === sanitize_text_field( wp_unslash( $_POST['payment_method'] ) ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$order   = WCRed()->get_order( $order_id );
 			$user_id = $order->get_user_id();
 			$data    = array();
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'bizumcheckout', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-				$this->log->add( 'bizumcheckout', '$order_id: ' . $order_id ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-				$this->log->add( 'bizumcheckout', '$order: ' . $order ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'bizumcheckout', 'HTTP $_POST checkout received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'bizumcheckout', '$order_id: ' . $order_id );
+				WCRed()->log( 'bizumcheckout', '$order: ' . $order );
 			}
-			if ( ! empty( $_POST['_bizum_phone'] ) ) {
+
+			// Verificar si el índice '_bizum_phone' está definido y no está vacío.
+			if ( ! empty( $_POST['_bizum_phone'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '$_POST["_bizum_phone"]: ' . $_POST['_bizum_phone'] );
+					$bizum_phone = sanitize_text_field( wp_unslash( $_POST['_bizum_phone'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+					WCRed()->log( 'bizumcheckout', '$_POST["_bizum_phone"]: ' . $bizum_phone );
 				}
-				$phone                = sanitize_text_field( wp_unslash( $_POST['_bizum_phone'] ) );
+
+				$phone = sanitize_text_field( wp_unslash( $_POST['_bizum_phone'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
+
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '$phone: ' . $phone );
+					WCRed()->log( 'bizumcheckout', '$phone: ' . $phone );
 				}
+
+				// Asegurarse de que el número de teléfono comienza con un '+' (si no, se añade el prefijo por defecto '+34').
 				if ( strpos( $phone, '+' ) !== 0 ) {
 					$phone = '+34' . $phone;
 				}
+
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'bizumcheckout', '$phone: ' . $phone );
+					WCRed()->log( 'bizumcheckout', '$phone con prefijo: ' . $phone );
 				}
+
 				$data['_bizum_phone'] = sanitize_text_field( $phone );
 			}
-			WCRed()->update_order_meta( $order_id, $data );
+
+			// Solo actualizamos los metadatos si hay datos que guardar.
+			if ( ! empty( $data ) ) {
+				WCRed()->update_order_meta( $order_id, $data );
+			}
 		}
 	}
 	/**
@@ -2388,20 +2600,20 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 	 */
 	public static function verificar_estado_pago_ajax() {
 		// Verificar si se ha proporcionado el ID del pedido.
-		if ( isset( $_POST['order_id'] ) ) {
-			$order_id = intval( $_POST['order_id'] ); // Convertir el ID del pedido a entero.
+		if ( isset( $_POST['order_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$order_id = intval( $_POST['order_id'] ); // phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$bizum    = new WC_Gateway_Bizum_Checkout_Redsys();
 			$paid     = get_transient( $order_id . '_bizum_payment' );
 			if ( 'yes' === $bizum->debug ) {
 				$bizum = new WC_Gateway_Bizum_Checkout_Redsys();
-				$bizum->log->add( 'bizumcheckout', '$order_id: ' . $order_id );
+				WCRed()->log( 'bizumcheckout', '$order_id: ' . $order_id );
 			}
 
 			// Verificar si el pedido ha sido pagado.
 			if ( 'yes' === $paid ) {
 				// Redirigir al usuario a la página de agradecimiento de WooCommerce.
 				if ( 'yes' === $bizum->debug ) {
-					$bizum->log->add( 'bizumcheckout', 'El pedido ha sido pagado' );
+					WCRed()->log( 'bizumcheckout', 'El pedido ha sido pagado' );
 				}
 				$order = WCRed()->get_order( $order_id );
 				wp_send_json_success( $bizum->get_return_url( $order ) );
@@ -2409,28 +2621,26 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
 				$urlbase = wc_get_checkout_url();
 				$url     = $urlbase . '?errorbizum=true&error=' . $paid;
 				if ( 'yes' === $bizum->debug ) {
-					$bizum->log->add( 'bizumcheckout', 'Ha habido un error en el pago: ' . $paid );
-					$bizum->log->add( 'bizumcheckout', 'wc_get_checkout_url(): ' . $url );
+					WCRed()->log( 'bizumcheckout', 'Ha habido un error en el pago: ' . $paid );
+					WCRed()->log( 'bizumcheckout', 'wc_get_checkout_url(): ' . $url );
+				}
+				wp_send_json_error( $url );
+				// Verificar si ha pasado el tiempo límite de comprobación (7 minutos).(84 iteraciones * 5 segundos cada una = 7 minutos).
+			} elseif ( $_POST['count'] >= 84 ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
+				// Redirigir al usuario a la página de checkout.
+				$url = wc_get_checkout_url();
+				if ( 'yes' === $bizum->debug ) {
+					WCRed()->log( 'bizumcheckout', 'Han pasado los 7 minutos' );
+					WCRed()->log( 'bizumcheckout', 'wc_get_checkout_url(): ' . $url );
 				}
 				wp_send_json_error( $url );
 			} else {
-				// Verificar si ha pasado el tiempo límite de comprobación (7 minutos).
-				if ( $_POST['count'] >= 84 ) { // (84 iteraciones * 5 segundos cada una = 7 minutos)
-					// Redirigir al usuario a la página de checkout
-					$url = wc_get_checkout_url();
-					if ( 'yes' === $bizum->debug ) {
-						$bizum->log->add( 'bizumcheckout', 'Han pasado los 7 minutos' );
-						$bizum->log->add( 'bizumcheckout', 'wc_get_checkout_url(): ' . $url );
-					}
-					wp_send_json_error( $url );
-				} else {
-					// Si aún no ha pasado el tiempo límite, esperar 5 segundos y realizar otra comprobación.
-					if ( 'yes' === $bizum->debug ) {
-						$bizum->log->add( 'bizumcheckout', 'Aún  no está pagado' );
-					}
-					sleep( 5 );
-					wp_send_json_error( 'continue' );
+				// Si aún no ha pasado el tiempo límite, esperar 5 segundos y realizar otra comprobación.
+				if ( 'yes' === $bizum->debug ) {
+					WCRed()->log( 'bizumcheckout', 'Aún  no está pagado' );
 				}
+				sleep( 5 );
+				wp_send_json_error( 'continue' );
 			}
 		}
 		wp_die();
@@ -2441,7 +2651,7 @@ class WC_Gateway_Bizum_Checkout_Redsys extends WC_Payment_Gateway {
  *
  * @param array $methods WooCommerce payment methods.
  */
-function woocommerce_add_gateway_bizum_checkout_redsys( $methods ) {
+function woocommerce_add_gateway_bizum_checkout_redsys( $methods ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 		$methods[] = 'WC_Gateway_Bizum_Checkout_Redsys';
 		return $methods;
 }

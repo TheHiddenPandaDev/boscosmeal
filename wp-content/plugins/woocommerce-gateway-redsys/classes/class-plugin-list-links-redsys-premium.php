@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -55,13 +55,12 @@ class Plugin_List_Links_Redsys_Premium {
 		}
 
 		$row_meta = array(
-			'docs'    => '<a href="' . esc_url( apply_filters( 'redsys_docs_url', 'https://redsys.joseconti.com/guias/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin documentation', 'woocommerce-redsys' ) . '">' . esc_html__( 'Docs', 'woocommerce-redsys' ) . '</a>',
-			'apidocs' => '<a href="' . esc_url( apply_filters( 'redsys_apidocs_url', 'https://redsys.joseconti.com/api-woocommerce-redsys-gateway/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin API docs', 'woocommerce-redsys' ) . '">' . esc_html__( 'API docs', 'woocommerce-redsys' ) . '</a>',
-			'support' => '<a href="' . esc_url( apply_filters( 'redsys_support_url', 'https://woo.com/es/my-account/contact-support/' ) ) . '" aria-label="' . esc_attr__( 'Open a Support Ticket', 'woocommerce-redsys' ) . '">' . esc_html__( 'Open a Support Ticket', 'woocommerce-redsys' ) . '</a>',
+			'docs'    => '<a href="' . esc_url( apply_filters( 'redsys_docs_url', 'https://plugins.joseconti.com/guias/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin documentation', 'woocommerce-redsys' ) . '">' . esc_html__( 'Docs', 'woocommerce-redsys' ) . '</a>', // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			'apidocs' => '<a href="' . esc_url( apply_filters( 'redsys_apidocs_url', 'https://plugins.joseconti.com/api-woocommerce-redsys-gateway/' ) ) . '" aria-label="' . esc_attr__( 'View Plugin API docs', 'woocommerce-redsys' ) . '">' . esc_html__( 'API docs', 'woocommerce-redsys' ) . '</a>', // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
+			'support' => '<a href="' . esc_url( apply_filters( 'redsys_support_url', 'https://woocommerce.com/es/my-account/contact-support/' ) ) . '" aria-label="' . esc_attr__( 'Open a Support Ticket', 'woocommerce-redsys' ) . '">' . esc_html__( 'Open a Support Ticket', 'woocommerce-redsys' ) . '</a>', // phpcs:ignore WooCommerce.Commenting.CommentHooks.MissingHookComment
 		);
 
 		return array_merge( $links, $row_meta );
 	}
-
 }
 return new Plugin_List_Links_Redsys_Premium();

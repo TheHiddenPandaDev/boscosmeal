@@ -6,8 +6,8 @@
  * @since 2.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -150,8 +150,6 @@ function redsys_return_dsresponse() {
 		'0913' => 'Pedido repetido',
 		'0944' => 'Sesión Incorrecta',
 		'0950' => 'Operación de devolución no permitida',
-		'9912' => 'Emisor no disponible',
-		'0912' => 'Emisor no disponible',
 		'101'  => 'Tarjeta caducada',
 		'102'  => 'Tarjeta en excepción transitoria o bajo sospecha de fraude',
 		'106'  => 'Intentos de PIN excedidos',

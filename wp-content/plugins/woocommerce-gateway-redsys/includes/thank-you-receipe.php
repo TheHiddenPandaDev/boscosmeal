@@ -6,8 +6,8 @@
  * @since 10.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -33,13 +33,18 @@ function redsys_show_recipe_auth( $text, $order ) {
 			$hour                = WCRed()->get_order_hour( $order_id );
 			$fuc                 = WCRed()->get_redsys_option( 'customer', 'redsys' );
 			$commerce_name       = WCRed()->get_redsys_option( 'commercename', 'redsys' );
-			$textthabks          = __( 'Thanks for your purchase, the details of your transaction are: ', 'woocommerce-redsys' ) . '<br />';
-			$textthabks         .= __( 'Website: ', 'woocommerce-redsys' ) . $website . '<br />';
-			$textthabks         .= __( 'FUC: ', 'woocommerce-redsys' ) . $fuc . '<br />';
-			$textthabks         .= __( 'Authorization Number: ', 'woocommerce-redsys' ) . $numero_autorizacion . '<br />';
-			$textthabks         .= __( 'Commmerce Name: ', 'woocommerce-redsys' ) . $commerce_name . '<br />';
-			$textthabks         .= __( 'Date: ', 'woocommerce-redsys' ) . $date . '<br />';
-			$textthabks         .= __( 'Hour: ', 'woocommerce-redsys' ) . $hour . '<br />';
+
+			$textthabks  = __( 'Thanks for your purchase, the details of your transaction are: ', 'woocommerce-redsys' ) . '<br />';
+			$textthabks .= __( 'Website: ', 'woocommerce-redsys' ) . $website . '<br />';
+			$textthabks .= __( 'FUC: ', 'woocommerce-redsys' ) . $fuc . '<br />';
+			$textthabks .= __( 'Authorization Number: ', 'woocommerce-redsys' ) . $numero_autorizacion . '<br />';
+			$textthabks .= __( 'Commerce Name: ', 'woocommerce-redsys' ) . $commerce_name . '<br />';
+			$textthabks .= __( 'Date: ', 'woocommerce-redsys' ) . $date . '<br />';
+			$textthabks .= __( 'Hour: ', 'woocommerce-redsys' ) . $hour . '<br />';
+
+			// Añadir filtro para que los usuarios puedan modificar el texto.
+			$textthabks = apply_filters( 'redsys_thankyou_page_text', $textthabks, $order_id );
+
 			return $text . '<br />' . $textthabks;
 		} else {
 			return $text;

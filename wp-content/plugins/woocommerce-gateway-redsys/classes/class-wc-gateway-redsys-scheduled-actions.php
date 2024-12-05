@@ -7,8 +7,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -31,16 +31,20 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 		add_action( 'resdys_clean_tokens', array( $this, 'redsys_clean_tokens_action' ) );
 		add_action( 'resdys_send_expired_cards', array( $this, 'send_expired_credit_card_email_action' ) );
 		add_action( 'redsys_remove_expired_card', array( $this, 'remove_expired_card_action' ) );
+		add_action( 'woocommerce_order_status_checkout-draft_to_pending', array( $this, 'redsys_cancel_expired_orders_event' ) );
+		add_action( 'woocommerce_checkout_order_processed', array( $this, 'redsys_cancel_expired_orders_event' ) );
+		add_action( 'redsys_cancel_expired_orders', array( $this, 'cancel_expired_orders' ) );
 	}
 	/**
 	 * Debug
 	 *
-	 * @param string $log Log.
+	 * @param string $message Log.
 	 */
-	public function debug( $log ) {
+	public function debug( $message ) {
 		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-			$debug = new WC_Logger();
-			$debug->add( 'redsys-scheduled-actions', $log );
+			$debug = wc_get_logger();
+			$level = 'info';
+			$debug->log( $level, $message, array( 'source' => 'redsys-scheduled-actions' ) );
 		}
 	}
 	/**
@@ -64,12 +68,38 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 		}
 	}
 	/**
+	 * Cancel failed pending order event
+	 *
+	 * @param int $order_id Order ID.
+	 *
+	 * @return void
+	 */
+	public function redsys_cancel_expired_orders_event( $order_id ) {
+		// Check if cancellation is enabled.
+		if ( 'yes' === get_option( 'redsys_cancel_enabled' ) ) {
+			$order_id = absint( $order_id );
+			// Get the order object.
+			$order = wc_get_order( $order_id );
+
+			// Ensure the order is in pending status before scheduling the event.
+			if ( $order && 'pending' === $order->get_status() ) {
+				// Check if the event is already scheduled.
+				if ( ! wp_next_scheduled( 'redsys_cancel_expired_orders', array( $order_id ) ) ) {
+					// Get the cancellation time from settings.
+					$cancel_time = absint( get_option( 'redsys_cancel_time', 1200 ) ); // Default to 1200 seconds (20 minutes)
+					// Schedule the event with the specified cancellation time.
+					wp_schedule_single_event( time() + $cancel_time, 'redsys_cancel_expired_orders', array( $order_id ) );
+				}
+			}
+		}
+	}
+	/**
 	 * Clean transients
 	 */
 	public function redsys_clean_transients_action() {
 		global $wpdb;
 
-		$expired = $wpdb->get_col( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout%' AND option_value < UNIX_TIMESTAMP()" );
+		$expired = $wpdb->get_col( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '_transient_timeout%' AND option_value < UNIX_TIMESTAMP()" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		foreach ( $expired as $transient ) {
 			$key = str_replace( '_transient_timeout_', '', $transient );
 			delete_transient( $key );
@@ -82,7 +112,7 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 	public function redsys_clean_tokens_action() {
 		global $wpdb;
 
-		$texids = $wpdb->get_col( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '%txnid_%'" );
+		$texids = $wpdb->get_col( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE '%txnid_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 		foreach ( $texids as $texid ) {
 			$key = str_replace( 'txnid_', '', $texid );
 			$this->debug( 'Texid_id: ' . $key );
@@ -103,7 +133,7 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 	/**
 	 * Send email to users with expired cards
 	 */
-	function send_expired_credit_card_email_action() {
+	public function send_expired_credit_card_email_action() {
 		global $wpdb;
 
 		$this->debug( 'Function send_expired_credit_card_email_action' );
@@ -115,22 +145,25 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 
 		$tokens_table    = $wpdb->prefix . 'woocommerce_payment_tokens';
 		$tokenmeta_table = $wpdb->prefix . 'woocommerce_payment_tokenmeta';
+		$current_year    = gmdate( 'Y' );
+		$current_month   = gmdate( 'm' );
 
-		$current_year  = date( 'Y' );
-		$current_month = date( 'm' );
-
-		$results = $wpdb->get_results(
+		$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
 				"SELECT token.user_id
-				FROM {$tokens_table} AS token
-				INNER JOIN {$tokenmeta_table} AS expiry_year ON token.token_id = expiry_year.payment_token_id
-				INNER JOIN {$tokenmeta_table} AS expiry_month ON token.token_id = expiry_month.payment_token_id
-				WHERE expiry_year.meta_key = 'expiry_year' AND expiry_year.meta_value = %d
-				AND expiry_month.meta_key = 'expiry_month' AND expiry_month.meta_value = %d",
+			FROM %s AS token
+			INNER JOIN %s AS expiry_year ON token.token_id = expiry_year.payment_token_id
+			INNER JOIN %s AS expiry_month ON token.token_id = expiry_month.payment_token_id
+			WHERE expiry_year.meta_key = 'expiry_year' AND expiry_year.meta_value = %d
+			AND expiry_month.meta_key = 'expiry_month' AND expiry_month.meta_value = %d",
+				$tokens_table,
+				$tokenmeta_table,
+				$tokenmeta_table,
 				$current_year,
 				$current_month
 			)
 		);
+
 		$this->debug( 'print_r $results: ' . print_r( $results, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		// Si hay tarjetas caducadas, envía un correo a cada usuario.
 		if ( ! empty( $results ) ) {
@@ -183,7 +216,7 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 	/**
 	 * Clean tokens
 	 */
-	function remove_expired_card_action() {
+	public function remove_expired_card_action() {
 		global $wpdb;
 
 		$this->debug( 'Function remove_expired_card_action' );
@@ -195,22 +228,25 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 
 		$tokens_table    = $wpdb->prefix . 'woocommerce_payment_tokens';
 		$tokenmeta_table = $wpdb->prefix . 'woocommerce_payment_tokenmeta';
+		$current_year    = gmdate( 'Y' );
+		$current_month   = gmdate( 'm' );
 
-		$current_year  = date( 'Y' );
-		$current_month = date( 'm' );
-
-		$results = $wpdb->get_results(
+		$results = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching
 			$wpdb->prepare(
 				"SELECT token.token_id, token.user_id
-				FROM {$tokens_table} AS token
-				INNER JOIN {$tokenmeta_table} AS expiry_year ON token.token_id = expiry_year.payment_token_id
-				INNER JOIN {$tokenmeta_table} AS expiry_month ON token.token_id = expiry_month.payment_token_id
+				FROM %s AS token
+				INNER JOIN %s AS expiry_year ON token.token_id = expiry_year.payment_token_id
+				INNER JOIN %s AS expiry_month ON token.token_id = expiry_month.payment_token_id
 				WHERE expiry_year.meta_key = 'expiry_year' AND expiry_year.meta_value <= %d
 				AND expiry_month.meta_key = 'expiry_month' AND expiry_month.meta_value < %d",
+				$tokens_table,
+				$tokenmeta_table,
+				$tokenmeta_table,
 				$current_year,
 				$current_month
 			)
 		);
+
 		$this->debug( 'print_r $results: ' . print_r( $results, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		// Si hay tarjetas caducadas, envía un correo a cada usuario.
 		if ( ! empty( $results ) ) {
@@ -253,6 +289,21 @@ class WC_Gateway_Redsys_Scheduled_Actions {
 					$this->debug( 'Token removed' );
 				}
 			}
+		}
+	}
+	/**
+	 * Cancel expired orders
+	 *
+	 * @param int $order_id Order ID.
+	 *
+	 * @return void
+	 */
+	public function cancel_expired_orders( $order_id ) {
+		$order_id = absint( $order_id );
+		wp_clear_scheduled_hook( 'redsys_cancel_expired_orders', array( $order_id ) );
+		$order = wc_get_order( $order_id );
+		if ( $order && 'pending' === $order->get_status() ) {
+			$order->update_status( 'cancelled', __( 'Pending order cancelled after the specified time', 'woocommerce-redsys' ) );
 		}
 	}
 }

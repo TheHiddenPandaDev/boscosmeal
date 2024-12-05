@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable
 if ( ! class_exists( 'ISAnnotation' ) ) {
 	class ISAnnotation {
 

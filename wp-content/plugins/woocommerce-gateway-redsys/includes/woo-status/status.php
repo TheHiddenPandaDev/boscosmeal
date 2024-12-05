@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -28,8 +28,7 @@ function redsys_register_preauthorized_status() {
 			'public'                    => true,
 			'show_in_admin_status_list' => true,
 			'show_in_admin_all_list'    => true,
-			'show_in_admin_status_list' => true, // show count All (12) , Completed (9) , Awaiting shipment (2) ...
-			'label_count'               => _n_noop( __( 'Preauthorized <span class="count">(%s)</span>', 'woocommerce-redsys' ), __( 'Preauthorized <span class="count">(%s)</span>', 'woocommerce-redsys' ) ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+			'label_count'               => _n_noop( 'Preauthorized <span class="count">(%s)</span>', 'Preauthorized <span class="count">(%s)</span>' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		)
 	);
 }
@@ -47,8 +46,7 @@ function redsys_register_resident_payment_status() {
 			'public'                    => true,
 			'show_in_admin_status_list' => true,
 			'show_in_admin_all_list'    => true,
-			'show_in_admin_status_list' => true, // show count All (12) , Completed (9) , Awaiting shipment (2) ...
-			'label_count'               => _n_noop( __( 'Resident Payment <span class="count">(%s)</span>', 'woocommerce-redsys' ), __( 'Resident Payments <span class="count">(%s)</span>', 'woocommerce-redsys' ) ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+			'label_count'               => _n_noop( 'Resident Payment <span class="count">(%s)</span>', 'Resident Payments <span class="count">(%s)</span>' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		)
 	);
 }
@@ -66,8 +64,7 @@ function redsys_register_pending_bank_transfer_payment_status() {
 			'public'                    => true,
 			'show_in_admin_status_list' => true,
 			'show_in_admin_all_list'    => true,
-			'show_in_admin_status_list' => true, // show count All (12) , Completed (9) , Awaiting shipment (2) ...
-			'label_count'               => _n_noop( __( 'Pending Redsys Bank Transfer <span class="count">(%s)</span>', 'woocommerce-redsys' ), __( 'Pending Redsys Bank Transfer <span class="count">(%s)</span>', 'woocommerce-redsys' ) ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+			'label_count'               => _n_noop( 'Pending Redsys Bank Transfer <span class="count">(%s)</span>', 'Pending Redsys Bank Transfer <span class="count">(%s)</span>' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		)
 	);
 }
@@ -85,8 +82,7 @@ function redsys_register_pending_payment_status() {
 			'public'                    => true,
 			'show_in_admin_status_list' => true,
 			'show_in_admin_all_list'    => true,
-			'show_in_admin_status_list' => true, // show count All (12) , Completed (9) , Awaiting shipment (2) ...
-			'label_count'               => _n_noop( __( 'Pending Redsys Payment <span class="count">(%s)</span>', 'woocommerce-redsys' ), __( 'Pending Redsys Payment <span class="count">(%s)</span>', 'woocommerce-redsys' ) ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
+			'label_count'               => _n_noop( 'Pending Redsys Payment <span class="count">(%s)</span>', 'Pending Redsys Payments <span class="count">(%s)</span>' ), // phpcs:ignore WordPress.WP.I18n.MissingTranslatorsComment
 		)
 	);
 }

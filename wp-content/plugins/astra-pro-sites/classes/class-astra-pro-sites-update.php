@@ -18,19 +18,19 @@ if ( ! class_exists( 'Astra_Pro_Sites_Update' ) ) :
 		 * Instance
 		 *
 		 * @access private
-		 * @var object Class object.
+		 * @var mixed Class object.
 		 * @since 1.0.0
 		 */
-		private static $instance;
+		private static $instance = null;
 
 		/**
 		 * Initiator
 		 *
 		 * @since 1.0.0
-		 * @return object initialized object of class.
+		 * @return mixed initialized object of class.
 		 */
 		public static function set_instance() {
-			if ( ! isset( self::$instance ) ) {
+			if ( null === self::$instance ) {
 				self::$instance = new self();
 			}
 			return self::$instance;

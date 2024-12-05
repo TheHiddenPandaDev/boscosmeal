@@ -6,8 +6,8 @@
  * @since 1.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -50,11 +50,11 @@ if ( ! defined( 'REDSYS_CHECK_WOO_CONNECTION' ) ) {
 }
 
 if ( ! defined( 'REDSYS_POST_PSD2_URL' ) ) {
-	define( 'REDSYS_POST_PSD2_URL', 'https://redsys.joseconti.com/2019/09/05/redsys-y-psd2-o-sca/' );
+	define( 'REDSYS_POST_PSD2_URL', 'https://plugins.joseconti.com/2019/09/05/redsys-y-psd2-o-sca/' );
 }
 
 if ( ! defined( 'REDSYS_INSTALL_URL_P' ) ) {
-	define( 'REDSYS_INSTALL_URL_P', 'https://redsys.joseconti.com/primeros-pasos-con-redsys-y-woocommerce/' );
+	define( 'REDSYS_INSTALL_URL_P', 'https://plugins.joseconti.com/primeros-pasos-con-redsys-y-woocommerce/' );
 }
 
 if ( ! defined( 'REDSYS_TELEGRAM_SIGNUP_P' ) ) {
@@ -62,15 +62,15 @@ if ( ! defined( 'REDSYS_TELEGRAM_SIGNUP_P' ) ) {
 }
 
 if ( ! defined( 'REDSYS_REVIEW_P' ) ) {
-	define( 'REDSYS_REVIEW_P', 'https://woo.com/products/redsys-gateway/' );
+	define( 'REDSYS_REVIEW_P', 'https://woocommerce.com/products/redsys-gateway/' );
 }
 
 if ( ! defined( 'REDSYS_TICKET' ) ) {
-	define( 'REDSYS_TICKET', 'https://woo.com/my-account/contact-support/' );
+	define( 'REDSYS_TICKET', 'https://woocommerce.com/my-account/contact-support/' );
 }
 
 if ( ! defined( 'REDSYS_ADD_LICENSE' ) ) {
-	define( 'REDSYS_ADD_LICENSE', 'https://redsys.joseconti.com/product/plugin-woocommerce-redsys-gateway/' );
+	define( 'REDSYS_ADD_LICENSE', 'https://plugins.joseconti.com/product/plugin-woocommerce-redsys-gateway/' );
 }
 
 if ( ! defined( 'REDSYS_PRODUCT_ID_WOO' ) ) {

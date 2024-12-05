@@ -1,12 +1,12 @@
-<?php
+<?php // phpcs:disable
 
 if ( ! class_exists( 'ISDCCConfirmationService' ) ) {
-	include_once $GLOBALS['REDSYS_API_PATH'] . '/Service/ISOperationService.php';
-	include_once $GLOBALS['REDSYS_API_PATH'] . '/Model/Impl/ISRequestElement.php';
-	include_once $GLOBALS['REDSYS_API_PATH'] . '/Model/Impl/ISResponseMessage.php';
-	include_once $GLOBALS['REDSYS_API_PATH'] . '/Model/Impl/ISDCCResponseMessage.php';
-	include_once $GLOBALS['REDSYS_API_PATH'] . '/Utils/ISSignatureUtils.php';
-	include_once $GLOBALS['REDSYS_API_PATH'] . '/Constants/ISConstants.php';
+	include_once $GLOBALS['REDSYS_API_PATH'] . '/service/ISOperationService.php';
+	include_once $GLOBALS['REDSYS_API_PATH'] . '/model/impl/class-isrequestelement.php';
+	include_once $GLOBALS['REDSYS_API_PATH'] . '/model/impl/ISResponseMessage.php';
+	include_once $GLOBALS['REDSYS_API_PATH'] . '/model/impl/ISDCCResponseMessage.php';
+	include_once $GLOBALS['REDSYS_API_PATH'] . '/utils/ISSignatureUtils.php';
+	include_once $GLOBALS['REDSYS_API_PATH'] . '/constants/class-isconstants.php';
 
 	class ISDCCConfirmationService extends ISOperationService {
 		function __construct( $signatureKey, $env ) {
@@ -16,53 +16,53 @@ if ( ! class_exists( 'ISDCCConfirmationService' ) ) {
 		public function createRequestMessage( $message ) {
 			if ( $message !== null ) {
 				$req = new ISRequestElement();
-				$req->setDatosEntrada( $message );
+				$req->set_datos_entrada( $message );
 
-				$tagDE = $message->toXml();
+				$tagDE = $message->to_xml();
 
 				$signatureUtils = new ISSignatureUtils();
-				$localSignature = $signatureUtils->createMerchantSignatureHostToHost( $this->getSignatureKey(), $tagDE );
-				$req->setSignature( $localSignature );
+				$localSignature = $signatureUtils->create_merchant_signature_host_to_host( $this->getSignatureKey(), $tagDE );
+				$req->set_signature( $localSignature );
 
-				return $req->toXml();
+				return $req->to_xml();
 			}
 			return '';
 		}
 
 		public function createResponseMessage( $trataPeticionResponse ) {
 			$response = new ISResponseMessage();
-			$response->parseXml( $trataPeticionResponse );
-			ISLogger::debug( 'Received ' . ISLogger::beautifyXML( $response->toXml() ) );
+			$response->parse_xml( $trataPeticionResponse );
+			ISLogger::debug( 'Received ' . ISLogger::beautifyXML( $response->to_xml() ) );
 
-			$acsElem = $response->getTagContent( ISConstants::$RESPONSE_ACS_URL_TAG, $trataPeticionResponse );
+			$acsElem = $response->get_tag_content( ISConstants::$response_acs_url_tag, $trataPeticionResponse );
 
 			if ( $acsElem !== null && strlen( $acsElem ) ) {
-				if ( $response->getApiCode() !== ISConstants::$RESP_CODE_OK
+				if ( $response->getApiCode() !== ISConstants::$resp_code_ok
 					|| ! $this->checkSignature( $response->getOperation() ) ) {
-					$response->setResult( ISConstants::$RESP_LITERAL_KO );
+					$response->setResult( ISConstants::$rest_literal_ko );
 				} else {
-					$response->setResult( ISConstants::$RESP_LITERAL_AUT );
+					$response->setResult( ISConstants::$resp_literal_aut );
 				}
 			} else {
 				$response = new ISResponseMessage();
-				$response->parseXml( $trataPeticionResponse );
-				$transType = $response->getTransactionType();
-				if ( $response->getApiCode() !== ISConstants::$RESP_CODE_OK
+				$response->parse_xml( $trataPeticionResponse );
+				$transType = $response->get_tansaction_type();
+				if ( $response->getApiCode() !== ISConstants::$resp_code_ok
 						|| ! $this->checkSignature( $response->getOperation() ) ) {
-					$response->setResult( ISConstants::$RESP_LITERAL_KO );
+					$response->setResult( ISConstants::$rest_literal_ko );
 				} else {
 					switch ( (int) $response->getOperation()->getResponseCode() ) {
-						case ISConstants::$AUTHORIZATION_OK:
-							$response->setResult( $transType == ISConstants::$AUTHORIZATION || $transType == ISConstants::$PREAUTHORIZATION );
+						case ISConstants::$authorization_ok:
+							$response->setResult( $transType == ISConstants::$authorization || $transType == ISConstants::$preauthorization );
 							break;
-						case ISConstants::$CONFIRMATION_OK:
-							$response->setResult( $transType == ISConstants::$CONFIRMATION || $transType == ISConstants::$REFUND );
+						case ISConstants::$confirmation_ok:
+							$response->setResult( $transType == ISConstants::$confirmation || $transType == ISConstants::$refund );
 							break;
-						case ISConstants::$CANCELLATION_OK:
+						case ISConstants::$cancelation_ok:
 							$response->setResult( $transType == ISConstants::CANCELLATION );
 							break;
 						default:
-							$response->setResult( ISConstants::$RESP_LITERAL_KO );
+							$response->setResult( ISConstants::$rest_literal_ko );
 					}
 				}
 			}
@@ -72,7 +72,7 @@ if ( ! class_exists( 'ISDCCConfirmationService' ) ) {
 
 		public function unMarshallResponseMessage( $message ) {
 			$response = new ISDCCResponseMessage();
-			$response->parseXml( $message );
+			$response->parse_xml( $message );
 			return $response;
 		}
 	}

@@ -6,8 +6,8 @@
  * @since 13.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -18,7 +18,251 @@ defined( 'ABSPATH' ) || exit;
  * Copyright: (C) 2013 - 2024 José Conti
  */
 class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
-	var $notify_url;
+
+	/**
+	 * Identificador del gateway.
+	 *
+	 * @var string $id
+	 */
+	public $id;
+
+	/**
+	 * Icono del gateway.
+	 *
+	 * @var string $icon
+	 */
+	public $icon;
+
+	/**
+	 * URL del servicio web en producción.
+	 *
+	 * @var string $liveurlws
+	 */
+	public $liveurlws;
+
+	/**
+	 * Título del método de pago.
+	 *
+	 * @var string $method_title
+	 */
+	public $method_title;
+
+	/**
+	 * Descripción del método de pago.
+	 *
+	 * @var string $method_description
+	 */
+	public $method_description;
+
+	/**
+	 * Indica si no se debe usar HTTPS.
+	 *
+	 * @var bool $not_use_https
+	 */
+	public $not_use_https;
+
+	/**
+	 * URL de notificación.
+	 *
+	 * @var string $notify_url
+	 */
+	public $notify_url;
+
+	/**
+	 * URL de notificación sin HTTPS.
+	 *
+	 * @var string $notify_url_not_https
+	 */
+	public $notify_url_not_https;
+
+	/**
+	 * Título del método de pago mostrado al cliente.
+	 *
+	 * @var string $title
+	 */
+	public $title;
+
+	/**
+	 * Descripción del método de pago mostrado al cliente.
+	 *
+	 * @var string $description
+	 */
+	public $description;
+
+	/**
+	 * Información del cliente.
+	 *
+	 * @var string $customer
+	 */
+	public $customer;
+
+	/**
+	 * Grupo de comerciantes.
+	 *
+	 * @var string $merchantgroup
+	 */
+	public $merchantgroup;
+
+	/**
+	 * Límite de transacción.
+	 *
+	 * @var float $transactionlimit
+	 */
+	public $transactionlimit;
+
+	/**
+	 * Nombre del comercio.
+	 *
+	 * @var string $commercename
+	 */
+	public $commercename;
+
+	/**
+	 * Terminal del comercio.
+	 *
+	 * @var string $terminal
+	 */
+	public $terminal;
+
+	/**
+	 * Clave secreta SHA-256.
+	 *
+	 * @var string $secretsha256
+	 */
+	public $secretsha256;
+
+	/**
+	 * Clave secreta de prueba SHA-256.
+	 *
+	 * @var string $customtestsha256
+	 */
+	public $customtestsha256;
+
+	/**
+	 * Idioma de Redsys.
+	 *
+	 * @var string $redsyslanguage
+	 */
+	public $redsyslanguage;
+
+	/**
+	 * Modo de depuración.
+	 *
+	 * @var bool $debug
+	 */
+	public $debug;
+
+	/**
+	 * Prueba para el usuario.
+	 *
+	 * @var bool $testforuser
+	 */
+	public $testforuser;
+
+	/**
+	 * ID de usuario para pruebas.
+	 *
+	 * @var int $testforuserid
+	 */
+	public $testforuserid;
+
+	/**
+	 * Botón de checkout.
+	 *
+	 * @var string $buttoncheckout
+	 */
+	public $buttoncheckout;
+
+	/**
+	 * Color de fondo del botón.
+	 *
+	 * @var string $butonbgcolor
+	 */
+	public $butonbgcolor;
+
+	/**
+	 * Color del texto del botón.
+	 *
+	 * @var string $butontextcolor
+	 */
+	public $butontextcolor;
+
+	/**
+	 * Descripción de Redsys.
+	 *
+	 * @var string $descripredsys
+	 */
+	public $descripredsys;
+
+	/**
+	 * Mostrar gateway en modo de prueba.
+	 *
+	 * @var bool $testshowgateway
+	 */
+	public $testshowgateway;
+
+	/**
+	 * Mostrar en checkout.
+	 *
+	 * @var bool $showcheckout
+	 */
+	public $showcheckout;
+
+	/**
+	 * Asunto del mensaje.
+	 *
+	 * @var string $subject
+	 */
+	public $subject;
+
+	/**
+	 * Expiración.
+	 *
+	 * @var string $expiration
+	 */
+	public $expiration;
+
+	/**
+	 * Mensaje SMS.
+	 *
+	 * @var string $sms
+	 */
+	public $sms;
+
+	/**
+	 * Acciones en bloque.
+	 *
+	 * @var array $bulkactions
+	 */
+	public $bulkactions;
+
+	/**
+	 * Modo de prueba.
+	 *
+	 * @var bool $testmode
+	 */
+	public $testmode;
+
+	/**
+	 * Registro de logs.
+	 *
+	 * @var bool $log
+	 */
+	public $log;
+
+	/**
+	 * Funcionalidades soportadas.
+	 *
+	 * @var array $supports
+	 */
+	public $supports;
+
+	/**
+	 * Indica si el método de pago está habilitado.
+	 *
+	 * @var bool $enabled
+	 */
+	public $enabled;
 
 	/**
 	 * Constructor for the gateway.
@@ -27,7 +271,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function __construct() {
@@ -51,9 +295,6 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$this->init_settings();
 		// Define user set variables.
 		$this->title            = WCRed()->get_redsys_option( 'title', 'paygold' );
-		$this->multisitesttings = WCRed()->get_redsys_option( 'multisitesttings', 'paygold' );
-		$this->ownsetting       = WCRed()->get_redsys_option( 'ownsetting', 'paygold' );
-		$this->hideownsetting   = WCRed()->get_redsys_option( 'hideownsetting', 'paygold' );
 		$this->description      = WCRed()->get_redsys_option( 'description', 'paygold' );
 		$this->customer         = WCRed()->get_redsys_option( 'customer', 'paygold' );
 		$this->merchantgroup    = WCRed()->get_redsys_option( 'merchantgroup', 'paygold' );
@@ -77,7 +318,6 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$this->sms              = WCRed()->get_redsys_option( 'sms', 'paygold' );
 		$this->bulkactions      = WCRed()->get_redsys_option( 'bulkactions', 'paygold' );
 		$this->testmode         = 'no';
-		$this->log              = new WC_Logger();
 		$this->supports         = array(
 			'products',
 			// 'refunds',
@@ -99,7 +339,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function is_valid_for_use() {
@@ -117,7 +357,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function admin_options() {
@@ -165,7 +405,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function init_form_fields() {
@@ -211,27 +451,6 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				'type'    => 'checkbox',
 				'label'   => __( 'Show PayGold in the checkout. By default, PayGold is not shown in the checkout page.', 'woocommerce-redsys' ),
 				'default' => 'no',
-			),
-			'multisitesttings' => array(
-				'title'       => __( 'Use in Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Use this setting around all Network', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'hideownsetting'   => array(
-				'title'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Hide "NOT use Network" in subsites', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
-			),
-			'ownsetting'       => array(
-				'title'       => __( 'NOT use Network', 'woocommerce-redsys' ),
-				'type'        => 'checkbox',
-				'label'       => __( 'Do NOT use Network settings. Use settings of this page', 'woocommerce-redsys' ),
-				'description' => '',
-				'default'     => 'no',
 			),
 			'title'            => array(
 				'title'       => __( 'Title', 'woocommerce-redsys' ),
@@ -369,23 +588,6 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		foreach ( $redsyslanguages as $redsyslanguage => $valor ) {
 			$this->form_fields['redsyslanguage']['options'][ $redsyslanguage ] = $valor;
 		}
-		if ( ! is_multisite() ) {
-			unset( $this->form_fields['multisitesttings'] );
-			unset( $this->form_fields['ownsetting'] );
-			unset( $this->form_fields['hideownsetting'] );
-		} else {
-			if ( is_main_site() ) {
-				unset( $this->form_fields['ownsetting'] );
-			} else {
-				unset( $this->form_fields['multisitesttings'] );
-				unset( $this->form_fields['hideownsetting'] );
-				$globalsettings = WCRed()->get_redsys_option( 'multisitesttings', $this->id );
-				$hide           = WCRed()->get_redsys_option( 'hideownsetting', $this->id );
-				if ( 'yes' === $hide || 'yes' !== $globalsettings ) {
-					unset( $this->form_fields['ownsetting'] );
-				}
-			}
-		}
 	}
 	/**
 	 * Send Link Paygold
@@ -394,12 +596,12 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 */
 	public function send_link_paygold( $order_id ) {
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '/*************************/' );
-			$this->log->add( 'paygold', '  Asking for PayGold Link ' );
-			$this->log->add( 'paygold', '/*************************/' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '$order_id: ' . $order_id );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '/*************************/' );
+			WCRed()->log( 'paygold', '  Asking for PayGold Link ' );
+			WCRed()->log( 'paygold', '/*************************/' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '$order_id: ' . $order_id );
 		}
 
 		WCRed()->update_order_meta( $order, '_paygold_link', $link );
@@ -419,11 +621,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				if ( ! empty( $limit ) && $limit > 0 ) {
 					$result = $limit - $total;
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '$total: ' . $total );
-						$this->log->add( 'paygold', '$limit: ' . $limit );
-						$this->log->add( 'paygold', '$result: ' . $result );
-						$this->log->add( 'paygold', ' ' );
+						WCRed()->log( 'paygold', ' ' );
+						WCRed()->log( 'paygold', '$total: ' . $total );
+						WCRed()->log( 'paygold', '$limit: ' . $limit );
+						WCRed()->log( 'paygold', '$result: ' . $result );
+						WCRed()->log( 'paygold', ' ' );
 					}
 					if ( $result > 0 ) {
 						return $available_gateways;
@@ -458,20 +660,20 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		if ( 'yes' === $this->testmode ) {
 			if ( 'rd' === $type ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '          URL Test RD         ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', '          URL Test RD         ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
 				$url = $this->testurl;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '          URL Test WS         ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', '          URL Test WS         ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
 				$url = $this->testurlws;
 			}
@@ -480,43 +682,41 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			if ( $user_test ) {
 				if ( 'rd' === $type ) {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', '          URL Test RD         ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
+						WCRed()->log( 'paygold', ' ' );
+						WCRed()->log( 'paygold', '/****************************/' );
+						WCRed()->log( 'paygold', '          URL Test RD         ' );
+						WCRed()->log( 'paygold', '/****************************/' );
+						WCRed()->log( 'paygold', ' ' );
 					}
 					$url = $this->testurl;
 				} else {
 					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', '          URL Test WS         ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
+						WCRed()->log( 'paygold', ' ' );
+						WCRed()->log( 'paygold', '/****************************/' );
+						WCRed()->log( 'paygold', '          URL Test WS         ' );
+						WCRed()->log( 'paygold', '/****************************/' );
+						WCRed()->log( 'paygold', ' ' );
 					}
 					$url = $this->testurlws;
 				}
-			} else {
-				if ( 'rd' === $type ) {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', '          URL Live RD         ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
-					}
-					$url = $this->liveurl;
-				} else {
-					if ( 'yes' === $this->debug ) {
-						$this->log->add( 'paygold', ' ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', '          URL Live WS         ' );
-						$this->log->add( 'paygold', '/****************************/' );
-						$this->log->add( 'paygold', ' ' );
-					}
-					$url = $this->liveurlws;
+			} elseif ( 'rd' === $type ) {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', '          URL Live RD         ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
+				$url = $this->liveurl;
+			} else {
+				if ( 'yes' === $this->debug ) {
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', '          URL Live WS         ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', ' ' );
+				}
+				$url = $this->liveurlws;
 			}
 		}
 		return $url;
@@ -530,43 +730,43 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 
 		if ( 'yes' === $this->testmode ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', '         SHA256 Test.         ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/****************************/' );
+				WCRed()->log( 'paygold', '         SHA256 Test.         ' );
+				WCRed()->log( 'paygold', '/****************************/' );
+				WCRed()->log( 'paygold', ' ' );
 			}
-			$customtestsha256 = utf8_decode( $this->customtestsha256 );
+			$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 			if ( ! empty( $customtestsha256 ) ) {
 				$sha256 = $customtestsha256;
 			} else {
-				$sha256 = utf8_decode( $this->testsha256 );
+				$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		} else {
 			$user_test = false;
 			if ( $user_test ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '      USER SHA256 Test.       ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', '      USER SHA256 Test.       ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
-				$customtestsha256 = utf8_decode( $this->customtestsha256 );
+				$customtestsha256 = mb_convert_encoding( $this->customtestsha256, 'ISO-8859-1', 'UTF-8' );
 				if ( ! empty( $customtestsha256 ) ) {
 					$sha256 = $customtestsha256;
 				} else {
-					$sha256 = utf8_decode( $this->testsha256 );
+					$sha256 = mb_convert_encoding( $this->testsha256, 'ISO-8859-1', 'UTF-8' );
 				}
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', '     USER SHA256 NOT Test.    ' );
-					$this->log->add( 'paygold', '/****************************/' );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', '     USER SHA256 NOT Test.    ' );
+					WCRed()->log( 'paygold', '/****************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
-				$sha256 = utf8_decode( $this->secretsha256 );
+				$sha256 = mb_convert_encoding( $this->secretsha256, 'ISO-8859-1', 'UTF-8' );
 			}
 		}
 		return $sha256;
@@ -579,11 +779,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	public function process_payment( $order_id ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', '         Process Payment       ' );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '/****************************/' );
+			WCRed()->log( 'paygold', '         Process Payment       ' );
+			WCRed()->log( 'paygold', '/****************************/' );
+			WCRed()->log( 'paygold', ' ' );
 		}
 
 		$order                           = WCRed()->get_order( $order_id );
@@ -633,25 +833,25 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$ds_merchant_group = '';
 		}
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', '$order_id: ' . $order_id );
-			$this->log->add( 'paygold', '$user_id: ' . $user_id );
-			$this->log->add( 'paygold', '$url_ok: ' . $url_ok );
-			$this->log->add( 'paygold', '$order_total_sign: ' . $order_total_sign );
-			$this->log->add( 'paygold', '$orderid2: ' . $orderid2 );
-			$this->log->add( 'paygold', '$customer: ' . $customer );
-			$this->log->add( 'paygold', '$transaction_type: ' . $transaction_type );
-			$this->log->add( 'paygold', '$currency: ' . $currency );
-			$this->log->add( 'paygold', '$secretsha256: ' . $secretsha256 );
-			$this->log->add( 'paygold', '$product_description: ' . $product_description );
-			$this->log->add( 'paygold', '$merchant_name: ' . $merchant_name );
-			$this->log->add( 'paygold', '$redsys_adr: ' . $redsys_adr );
-			$this->log->add( 'paygold', '$ds_merchant_terminal: ' . $ds_merchant_terminal );
-			$this->log->add( 'paygold', '$ds_merchant_group: ' . $ds_merchant_group );
-			$this->log->add( 'paygold', '$customermail: ' . $customermail );
-			$this->log->add( 'paygold', '$p2f_xmldata: ' . $p2f_xmldata );
-			$this->log->add( 'paygold', '$final_notify_url: ' . $final_notify_url );
-			$this->log->add( 'paygold', '$expiration: ' . $expiration );
-			$this->log->add( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '$order_id: ' . $order_id );
+			WCRed()->log( 'paygold', '$user_id: ' . $user_id );
+			WCRed()->log( 'paygold', '$url_ok: ' . $url_ok );
+			WCRed()->log( 'paygold', '$order_total_sign: ' . $order_total_sign );
+			WCRed()->log( 'paygold', '$orderid2: ' . $orderid2 );
+			WCRed()->log( 'paygold', '$customer: ' . $customer );
+			WCRed()->log( 'paygold', '$transaction_type: ' . $transaction_type );
+			WCRed()->log( 'paygold', '$currency: ' . $currency );
+			WCRed()->log( 'paygold', '$secretsha256: ' . $secretsha256 );
+			WCRed()->log( 'paygold', '$product_description: ' . $product_description );
+			WCRed()->log( 'paygold', '$merchant_name: ' . $merchant_name );
+			WCRed()->log( 'paygold', '$redsys_adr: ' . $redsys_adr );
+			WCRed()->log( 'paygold', '$ds_merchant_terminal: ' . $ds_merchant_terminal );
+			WCRed()->log( 'paygold', '$ds_merchant_group: ' . $ds_merchant_group );
+			WCRed()->log( 'paygold', '$customermail: ' . $customermail );
+			WCRed()->log( 'paygold', '$p2f_xmldata: ' . $p2f_xmldata );
+			WCRed()->log( 'paygold', '$final_notify_url: ' . $final_notify_url );
+			WCRed()->log( 'paygold', '$expiration: ' . $expiration );
+			WCRed()->log( 'paygold', ' ' );
 		}
 
 		$datos_entrada  = '<DATOSENTRADA>';
@@ -672,17 +872,17 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$xml  = '<REQUEST>';
 		$xml .= $datos_entrada;
 		$xml .= '<DS_SIGNATUREVERSION>HMAC_SHA256_V1</DS_SIGNATUREVERSION>';
-		$xml .= '<DS_SIGNATURE>' . $mi_obj->createMerchantSignatureHostToHost( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
+		$xml .= '<DS_SIGNATURE>' . $mi_obj->create_merchant_signature_host_to_host( $secretsha256, $datos_entrada ) . '</DS_SIGNATURE>';
 		$xml .= '</REQUEST>';
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', '          The XML             ' );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', $xml );
-			$this->log->add( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '/****************************/' );
+			WCRed()->log( 'paygold', '          The XML             ' );
+			WCRed()->log( 'paygold', '/****************************/' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', $xml );
+			WCRed()->log( 'paygold', ' ' );
 		}
 		$cliente  = new SoapClient( $redsys_adr );
 		$response = $cliente->trataPeticion( array( 'datoEntrada' => $xml ) );
@@ -699,13 +899,13 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		}
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', 'XML Response: ' . $xml_retorno->asXML() );
-			$this->log->add( 'paygold', '$codigo: ' . $codigo );
-			$this->log->add( 'paygold', '$redsys_order: ' . $redsys_order );
-			$this->log->add( 'paygold', '$terminal: ' . $terminal );
-			$this->log->add( 'paygold', '$response: ' . $response );
-			$this->log->add( 'paygold', '$urlpago2fases: ' . $urlpago2fases );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', 'XML Response: ' . $xml_retorno->asXML() );
+			WCRed()->log( 'paygold', '$codigo: ' . $codigo );
+			WCRed()->log( 'paygold', '$redsys_order: ' . $redsys_order );
+			WCRed()->log( 'paygold', '$terminal: ' . $terminal );
+			WCRed()->log( 'paygold', '$response: ' . $response );
+			WCRed()->log( 'paygold', '$urlpago2fases: ' . $urlpago2fases );
 		}
 
 		if ( ( 0 === (int) $codigo ) && ( 9998 === (int) $response ) ) {
@@ -716,8 +916,8 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		} else {
 			$error = WCRed()->get_error_by_code( $codigo );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', 'There was an error, and the error is: ' . $error );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', 'There was an error, and the error is: ' . $error );
 			}
 			wc_add_notice( 'We are having trouble sending the link, please try again. The error was: ' . $error, 'error' );
 		}
@@ -728,13 +928,13 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	 **/
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	public function check_ipn_request_is_valid() {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'paygold', 'HTTP Notification received 1: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 		}
 		$usesecretsha256 = $this->secretsha256;
 		if ( $usesecretsha256 ) {
@@ -742,13 +942,13 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$data             = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$remote_sign      = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$mi_obj           = new WooRedsysAPI();
-			$decodec          = $mi_obj->decodeMerchantParameters( $data );
-			$order_id         = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code = $mi_obj->getParameter( 'Ds_MerchantCode' );
-			$ds_merchant_iden = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
+			$decodec          = $mi_obj->decode_merchant_parameters( $data );
+			$order_id         = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+			$ds_merchant_iden = $mi_obj->get_parameter( 'Ds_Merchant_Identifier' );
 			if ( $ds_merchant_iden ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Is add Method' );
+					WCRed()->log( 'paygold', 'Is add Method' );
 				}
 				return true;
 			}
@@ -758,55 +958,55 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', 'Signature from Redsys: ' . $remote_sign );
-				$this->log->add( 'paygold', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
-				$this->log->add( 'paygold', 'Secret SHA256 transcient: ' . $secretsha256 );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', 'Signature from Redsys: ' . $remote_sign );
+				WCRed()->log( 'paygold', 'Name transient remote: redsys_signature_' . sanitize_title( $order_id ) );
+				WCRed()->log( 'paygold', 'Secret SHA256 transcient: ' . $secretsha256 );
+				WCRed()->log( 'paygold', ' ' );
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$order_id = $mi_obj->getParameter( 'Ds_Order' );
-				$this->log->add( 'paygold', 'Order ID: ' . $order_id );
+				$order_id = $mi_obj->get_parameter( 'Ds_Order' );
+				WCRed()->log( 'paygold', 'Order ID: ' . $order_id );
 			}
 			$order           = WCRed()->get_order( $order2 );
 			$user_id         = $order->get_user_id();
 			$usesecretsha256 = $this->get_redsys_sha256( $user_id );
 			if ( empty( $secretsha256 ) && ! $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', 'Using $usesecretsha256 Settings' );
-					$this->log->add( 'paygold', 'Secret SHA256 Settings: ' . $usesecretsha256 );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', 'Using $usesecretsha256 Settings' );
+					WCRed()->log( 'paygold', 'Secret SHA256 Settings: ' . $usesecretsha256 );
+					WCRed()->log( 'paygold', ' ' );
 				}
 				$usesecretsha256 = $usesecretsha256;
 			} elseif ( $secretsha256_meta ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', 'Using $secretsha256_meta Meta' );
-					$this->log->add( 'paygold', 'Secret SHA256 Meta: ' . $secretsha256_meta );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', 'Using $secretsha256_meta Meta' );
+					WCRed()->log( 'paygold', 'Secret SHA256 Meta: ' . $secretsha256_meta );
+					WCRed()->log( 'paygold', ' ' );
 				}
 				$usesecretsha256 = $secretsha256_meta;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', 'Using $secretsha256 Transcient' );
-					$this->log->add( 'paygold', 'Secret SHA256 Transcient: ' . $secretsha256 );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', 'Using $secretsha256 Transcient' );
+					WCRed()->log( 'paygold', 'Secret SHA256 Transcient: ' . $secretsha256 );
+					WCRed()->log( 'paygold', ' ' );
 				}
 				$usesecretsha256 = $secretsha256;
 			}
-			$localsecret = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
+			$localsecret = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
 			if ( $localsecret === $remote_sign ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Received valid notification from Servired/RedSys' );
-					$this->log->add( 'paygold', $data );
+					WCRed()->log( 'paygold', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'paygold', $data );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'paygold', 'Received INVALID notification from Servired/RedSys' );
 				}
 				delete_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 				return false;
@@ -816,26 +1016,26 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$data              = sanitize_text_field( wp_unslash( $_POST['Ds_MerchantParameters'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$remote_sign       = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$mi_obj            = new WooRedsysAPI();
-			$decodec           = $mi_obj->decodeMerchantParameters( $data );
-			$order_id          = $mi_obj->getParameter( 'Ds_Order' );
-			$ds_merchant_code  = $mi_obj->getParameter( 'Ds_MerchantCode' );
+			$decodec           = $mi_obj->decode_merchant_parameters( $data );
+			$order_id          = $mi_obj->get_parameter( 'Ds_Order' );
+			$ds_merchant_code  = $mi_obj->get_parameter( 'Ds_MerchantCode' );
 			$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $order_id ) );
 			$order1            = $order_id;
 			$order2            = WCRed()->clean_order_number( $order1 );
 			$secretsha256_meta = WCRed()->get_order_meta( $order2, '_redsys_secretsha256', true );
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', 'HTTP Notification received: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'paygold', 'HTTP Notification received 2: ' . print_r( $_POST, true ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing,WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 			if ( $ds_merchant_code === $this->customer ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Received valid notification from Servired/RedSys' );
+					WCRed()->log( 'paygold', 'Received valid notification from Servired/RedSys' );
 				}
 				return true;
 			} else {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Received INVALID notification from Servired/RedSys' );
-					$this->log->add( 'paygold', '$remote_sign: ' . $remote_sign );
-					$this->log->add( 'paygold', '$localsecret: ' . $localsecret );
+					WCRed()->log( 'paygold', 'Received INVALID notification from Servired/RedSys' );
+					WCRed()->log( 'paygold', '$remote_sign: ' . $remote_sign );
+					WCRed()->log( 'paygold', '$localsecret: ' . $localsecret );
 				}
 				return false;
 			}
@@ -859,7 +1059,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	}
 	/**
 	 * Package: WooCommerce Redsys Gateway
-	 * Plugin URI: https://woo.com/products/redsys-gateway/
+	 * Plugin URI: https://woocommerce.com/products/redsys-gateway/
 	 * Copyright: (C) 2013 - 2024 José Conti
 	 */
 	/**
@@ -870,11 +1070,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 	public function successful_request( $posted ) {
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', '      successful_request      ' );
-			$this->log->add( 'paygold', '/****************************/' );
-			$this->log->add( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '/****************************/' );
+			WCRed()->log( 'paygold', '      successful_request      ' );
+			WCRed()->log( 'paygold', '/****************************/' );
+			WCRed()->log( 'paygold', ' ' );
 		}
 
 		$version     = sanitize_text_field( wp_unslash( $_POST['Ds_SignatureVersion'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
@@ -882,11 +1082,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$remote_sign = sanitize_text_field( wp_unslash( $_POST['Ds_Signature'] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated,WordPress.Security.NonceVerification.Missing
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '$version: ' . $version );
-			$this->log->add( 'paygold', '$data: ' . $data );
-			$this->log->add( 'paygold', '$remote_sign: ' . $remote_sign );
-			$this->log->add( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '$version: ' . $version );
+			WCRed()->log( 'paygold', '$data: ' . $data );
+			WCRed()->log( 'paygold', '$remote_sign: ' . $remote_sign );
+			WCRed()->log( 'paygold', ' ' );
 		}
 
 		$mi_obj            = new WooRedsysAPI();
@@ -897,30 +1097,30 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$dscardnumber4     = '';
 		$dsexpiryyear      = '';
 		$dsexpirymonth     = '';
-		$decodedata        = $mi_obj->decodeMerchantParameters( $data );
-		$localsecret       = $mi_obj->createMerchantSignatureNotif( $usesecretsha256, $data );
-		$total             = $mi_obj->getParameter( 'Ds_Amount' );
-		$ordermi           = $mi_obj->getParameter( 'Ds_Order' );
-		$dscode            = $mi_obj->getParameter( 'Ds_MerchantCode' );
-		$currency_code     = $mi_obj->getParameter( 'Ds_Currency' );
-		$response          = $mi_obj->getParameter( 'Ds_Response' );
-		$id_trans          = $mi_obj->getParameter( 'Ds_AuthorisationCode' );
-		$dsdate            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Date' ) );
-		$dshour            = htmlspecialchars_decode( $mi_obj->getParameter( 'Ds_Hour' ) );
-		$dstermnal         = $mi_obj->getParameter( 'Ds_Terminal' );
-		$dsmerchandata     = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$dssucurepayment   = $mi_obj->getParameter( 'Ds_SecurePayment' );
-		$dscardcountry     = $mi_obj->getParameter( 'Ds_Card_Country' );
-		$dsconsumercountry = $mi_obj->getParameter( 'Ds_ConsumerLanguage' );
-		$dstransactiontype = $mi_obj->getParameter( 'Ds_TransactionType' );
-		$dsmerchantidenti  = $mi_obj->getParameter( 'Ds_Merchant_Identifier' );
-		$dscardbrand       = $mi_obj->getParameter( 'Ds_Card_Brand' );
-		$dsmechandata      = $mi_obj->getParameter( 'Ds_MerchantData' );
-		$card_txnid        = $mi_obj->getParameter( 'Ds_Merchant_Cof_Txnid' );
-		$dscargtype        = $mi_obj->getParameter( 'Ds_Card_Type' );
-		$expiry_date       = $mi_obj->getParameter( 'Ds_ExpiryDate' );
-		$dserrorcode       = $mi_obj->getParameter( 'Ds_ErrorCode' );
-		$dpaymethod        = $mi_obj->getParameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
+		$decodedata        = $mi_obj->decode_merchant_parameters( $data );
+		$localsecret       = $mi_obj->create_merchant_signature_notif( $usesecretsha256, $data );
+		$total             = $mi_obj->get_parameter( 'Ds_Amount' );
+		$ordermi           = $mi_obj->get_parameter( 'Ds_Order' );
+		$dscode            = $mi_obj->get_parameter( 'Ds_MerchantCode' );
+		$currency_code     = $mi_obj->get_parameter( 'Ds_Currency' );
+		$response          = $mi_obj->get_parameter( 'Ds_Response' );
+		$id_trans          = $mi_obj->get_parameter( 'Ds_AuthorisationCode' );
+		$dsdate            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Date' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dshour            = htmlspecialchars_decode( $mi_obj->get_parameter( 'Ds_Hour' ), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+		$dstermnal         = $mi_obj->get_parameter( 'Ds_Terminal' );
+		$dsmerchandata     = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$dssucurepayment   = $mi_obj->get_parameter( 'Ds_SecurePayment' );
+		$dscardcountry     = $mi_obj->get_parameter( 'Ds_Card_Country' );
+		$dsconsumercountry = $mi_obj->get_parameter( 'Ds_ConsumerLanguage' );
+		$dstransactiontype = $mi_obj->get_parameter( 'Ds_TransactionType' );
+		$dsmerchantidenti  = $mi_obj->get_parameter( 'Ds_Merchant_Identifier' );
+		$dscardbrand       = $mi_obj->get_parameter( 'Ds_Card_Brand' );
+		$dsmechandata      = $mi_obj->get_parameter( 'Ds_MerchantData' );
+		$card_txnid        = $mi_obj->get_parameter( 'Ds_Merchant_Cof_Txnid' );
+		$dscargtype        = $mi_obj->get_parameter( 'Ds_Card_Type' );
+		$expiry_date       = $mi_obj->get_parameter( 'Ds_ExpiryDate' );
+		$dserrorcode       = $mi_obj->get_parameter( 'Ds_ErrorCode' );
+		$dpaymethod        = $mi_obj->get_parameter( 'Ds_PayMethod' ); // D o R, D: Domiciliacion, R: Transferencia. Si se paga por Iupay o TC, no se utiliza.
 		$response          = intval( $response );
 		$secretsha256      = get_transient( 'redsys_signature_' . sanitize_title( $ordermi ) );
 		$order1            = $ordermi;
@@ -929,38 +1129,38 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$order  = WCRed()->get_order( (int) $order2 );
 		}
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', 'SHA256 Settings: ' . $usesecretsha256 );
-			$this->log->add( 'paygold', 'SHA256 Transcient: ' . $secretsha256 );
-			$this->log->add( 'paygold', 'decodeMerchantParameters: ' . $decodedata );
-			$this->log->add( 'paygold', 'createMerchantSignatureNotif: ' . $localsecret );
-			$this->log->add( 'paygold', 'Ds_Amount: ' . $total );
-			$this->log->add( 'paygold', 'Ds_Order: ' . $ordermi );
-			$this->log->add( 'paygold', 'Ds_MerchantCode: ' . $dscode );
-			$this->log->add( 'paygold', 'Ds_Currency: ' . $currency_code );
-			$this->log->add( 'paygold', 'Ds_Response: ' . $response );
-			$this->log->add( 'paygold', 'Ds_AuthorisationCode: ' . $id_trans );
-			$this->log->add( 'paygold', 'Ds_Date: ' . $dsdate );
-			$this->log->add( 'paygold', 'Ds_Hour: ' . $dshour );
-			$this->log->add( 'paygold', 'Ds_Terminal: ' . $dstermnal );
-			$this->log->add( 'paygold', 'Ds_MerchantData: ' . $dsmerchandata );
-			$this->log->add( 'paygold', 'Ds_SecurePayment: ' . $dssucurepayment );
-			$this->log->add( 'paygold', 'Ds_Card_Country: ' . $dscardcountry );
-			$this->log->add( 'paygold', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
-			$this->log->add( 'paygold', 'Ds_Card_Type: ' . $dscargtype );
-			$this->log->add( 'paygold', 'Ds_TransactionType: ' . $dstransactiontype );
-			$this->log->add( 'paygold', 'Ds_Merchant_Identifiers_Amount: ' . $response );
-			$this->log->add( 'paygold', 'Ds_Merchant_Identifier: ' . $dsmerchantidenti );
-			$this->log->add( 'paygold', 'Ds_Card_Brand: ' . $dscardbrand );
-			$this->log->add( 'paygold', 'Ds_MerchantData: ' . $dsmechandata );
-			$this->log->add( 'paygold', 'Ds_Merchant_Cof_Txnid: ' . $card_txnid );
-			$this->log->add( 'paygold', 'Ds_ErrorCode: ' . $dserrorcode );
-			$this->log->add( 'paygold', 'Ds_PayMethod: ' . $dpaymethod );
+			WCRed()->log( 'paygold', 'SHA256 Settings: ' . $usesecretsha256 );
+			WCRed()->log( 'paygold', 'SHA256 Transcient: ' . $secretsha256 );
+			WCRed()->log( 'paygold', 'decode_merchant_parameters: ' . $decodedata );
+			WCRed()->log( 'paygold', 'create_merchant_signature_notif: ' . $localsecret );
+			WCRed()->log( 'paygold', 'Ds_Amount: ' . $total );
+			WCRed()->log( 'paygold', 'Ds_Order: ' . $ordermi );
+			WCRed()->log( 'paygold', 'Ds_MerchantCode: ' . $dscode );
+			WCRed()->log( 'paygold', 'Ds_Currency: ' . $currency_code );
+			WCRed()->log( 'paygold', 'Ds_Response: ' . $response );
+			WCRed()->log( 'paygold', 'Ds_AuthorisationCode: ' . $id_trans );
+			WCRed()->log( 'paygold', 'Ds_Date: ' . $dsdate );
+			WCRed()->log( 'paygold', 'Ds_Hour: ' . $dshour );
+			WCRed()->log( 'paygold', 'Ds_Terminal: ' . $dstermnal );
+			WCRed()->log( 'paygold', 'Ds_MerchantData: ' . $dsmerchandata );
+			WCRed()->log( 'paygold', 'Ds_SecurePayment: ' . $dssucurepayment );
+			WCRed()->log( 'paygold', 'Ds_Card_Country: ' . $dscardcountry );
+			WCRed()->log( 'paygold', 'Ds_ConsumerLanguage: ' . $dsconsumercountry );
+			WCRed()->log( 'paygold', 'Ds_Card_Type: ' . $dscargtype );
+			WCRed()->log( 'paygold', 'Ds_TransactionType: ' . $dstransactiontype );
+			WCRed()->log( 'paygold', 'Ds_Merchant_Identifiers_Amount: ' . $response );
+			WCRed()->log( 'paygold', 'Ds_Merchant_Identifier: ' . $dsmerchantidenti );
+			WCRed()->log( 'paygold', 'Ds_Card_Brand: ' . $dscardbrand );
+			WCRed()->log( 'paygold', 'Ds_MerchantData: ' . $dsmechandata );
+			WCRed()->log( 'paygold', 'Ds_Merchant_Cof_Txnid: ' . $card_txnid );
+			WCRed()->log( 'paygold', 'Ds_ErrorCode: ' . $dserrorcode );
+			WCRed()->log( 'paygold', 'Ds_PayMethod: ' . $dpaymethod );
 		}
 
 		if ( $dsmerchantidenti ) {
 			$token_type = get_transient( $ordermi . '_add_method_type_subcription' );
 			$user_id    = get_transient( $ordermi . '_user_id_token' );
-			$dscargtype = $mi_obj->getParameter( 'Ds_Card_Type' );
+			$dscargtype = $mi_obj->get_parameter( 'Ds_Card_Type' );
 			if ( ! empty( $expiry_date ) ) {
 				$dsexpiryyear  = '20' . substr( $expiry_date, 0, 2 );
 				$dsexpirymonth = substr( $expiry_date, -2 );
@@ -996,16 +1196,16 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		if ( '3' === $dstransactiontype ) {
 			if ( 900 === $response ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Response 900 (refund)' );
+					WCRed()->log( 'paygold', 'Response 900 (refund)' );
 				}
 				set_transient( $order->get_id() . '_redsys_refund', 'yes' );
 
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'WCRed()->update_order_meta to "refund yes"' );
+					WCRed()->log( 'paygold', 'WCRed()->update_order_meta to "refund yes"' );
 				}
 				$status = $order->get_status();
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'New Status in request: ' . $status );
+					WCRed()->log( 'paygold', 'New Status in request: ' . $status );
 				}
 				$order->add_order_note( __( 'Order Payment refunded by Redsys', 'woocommerce-redsys' ) );
 				return;
@@ -1024,7 +1224,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			if ( $order_total_compare !== $total ) {
 				// amount does not match.
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
+					WCRed()->log( 'paygold', 'Payment error: Amounts do not match (order: ' . $order_total_compare . ' - received: ' . $total . ')' );
 				}
 				// Put this order on-hold for manual checking.
 				/* translators: order an received are the amount */
@@ -1035,108 +1235,92 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			$data               = array();
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', '      Saving Order Meta       ' );
-				$this->log->add( 'paygold', '/****************************/' );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/****************************/' );
+				WCRed()->log( 'paygold', '      Saving Order Meta       ' );
+				WCRed()->log( 'paygold', '/****************************/' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $order1 ) ) {
 				$data['_payment_order_number_redsys'] = $order1;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_payment_order_number_redsys saved: ' . $order1 );
+					WCRed()->log( 'paygold', '_payment_order_number_redsys saved: ' . $order1 );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_payment_order_number_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_payment_order_number_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $dsdate ) ) {
 				$data['_payment_date_redsys'] = $dsdate;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_payment_date_redsys saved: ' . $dsdate );
+					WCRed()->log( 'paygold', '_payment_date_redsys saved: ' . $dsdate );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_payment_date_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_payment_date_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $dsdate ) ) {
 				$data['_payment_terminal_redsys'] = $dstermnal;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_payment_terminal_redsys saved: ' . $dstermnal );
+					WCRed()->log( 'paygold', '_payment_terminal_redsys saved: ' . $dstermnal );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_payment_terminal_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_payment_terminal_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $dshour ) ) {
 				$data['_payment_hour_redsys'] = $dshour;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_payment_hour_redsys saved: ' . $dshour );
+					WCRed()->log( 'paygold', '_payment_hour_redsys saved: ' . $dshour );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_payment_hour_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_payment_hour_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $id_trans ) ) {
 				$data['_authorisation_code_redsys'] = $authorisation_code;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_authorisation_code_redsys saved: ' . $authorisation_code );
+					WCRed()->log( 'paygold', '_authorisation_code_redsys saved: ' . $authorisation_code );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_authorisation_code_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_authorisation_code_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $currency_code ) ) {
 				$data['_corruncy_code_redsys'] = $currency_code;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_corruncy_code_redsys saved: ' . $currency_code );
+					WCRed()->log( 'paygold', '_corruncy_code_redsys saved: ' . $currency_code );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_corruncy_code_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_corruncy_code_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( ! empty( $dscardcountry ) ) {
 				$data['_card_country_redsys'] = $dscardcountry;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_card_country_redsys saved: ' . $dscardcountry );
+					WCRed()->log( 'paygold', '_card_country_redsys saved: ' . $dscardcountry );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_card_country_redsys NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_card_country_redsys NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			// This meta is essential for later use.
 			if ( ! empty( $secretsha256 ) ) {
 				$data['_redsys_secretsha256'] = $secretsha256;
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', '_redsys_secretsha256 saved: ' . $secretsha256 );
+					WCRed()->log( 'paygold', '_redsys_secretsha256 saved: ' . $secretsha256 );
 				}
-			} else {
-				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '_redsys_secretsha256 NOT SAVED!!!' );
-					$this->log->add( 'paygold', ' ' );
-				}
+			} elseif ( 'yes' === $this->debug ) {
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '_redsys_secretsha256 NOT SAVED!!!' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			WCRed()->update_order_meta( $order->get_id(), $data );
 			// Payment completed.
@@ -1148,12 +1332,12 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			}
 
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', 'Payment complete.' );
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', '  The final has come, this story has ended  ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', 'Payment complete.' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			do_action( 'paygold_post_payment_complete', $order->get_id() );
 		} else {
@@ -1171,18 +1355,18 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			}
 			if ( 'yes' === $this->debug ) {
 				if ( $ds_response_value ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', $ds_response_value );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', $ds_response_value );
 				}
 				if ( $ds_error_value ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', $ds_error_value );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', $ds_error_value );
 				}
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', '  The final has come, this story has ended  ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			// Order cancelled.
 			$order->update_status( 'cancelled', __( 'Order cancelled by Redsys Bizum', 'woocommerce-redsys' ) );
@@ -1215,28 +1399,28 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$secretsha256   = $this->get_redsys_sha256( $user_id );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', '/**************************/' );
-			$this->log->add( 'paygold', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', '/**************************/' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '/**************************/' );
+			WCRed()->log( 'paygold', __( 'Starting asking for Refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', '/**************************/' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
 		}
 		$transaction_type  = '3';
 		$secretsha256_meta = WCRed()->get_order_meta( $order_id, '_redsys_secretsha256', true );
 		if ( $secretsha256_meta ) {
 			$secretsha256 = $secretsha256_meta;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'paygold', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'paygold', __( 'Using meta for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'paygold', __( 'The SHA256 Meta is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		} else {
 			$secretsha256 = $secretsha256;
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
-				$this->log->add( 'paygold', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
+				WCRed()->log( 'paygold', __( 'Using settings for SHA256', 'woocommerce-redsys' ) );
+				WCRed()->log( 'paygold', __( 'The SHA256 settings is: ', 'woocommerce-redsys' ) . $secretsha256 );
 			}
 		}
 		if ( 'yes' === $this->not_use_https ) {
@@ -1250,71 +1434,69 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$currencycode      = WCRed()->get_order_meta( $order_id, '_corruncy_code_redsys', true );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', '**********************' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'All data from meta', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'paygold', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'paygold', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
-			$this->log->add( 'paygold', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'paygold', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', '**********************' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'If something is empty, the data was not saved', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'All data from meta', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', __( 'Authorization Code : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'paygold', __( 'Authorization Date : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'paygold', __( 'Currency Codey : ', 'woocommerce-redsys' ) . $currencycode );
+			WCRed()->log( 'paygold', __( 'Terminal : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'paygold', __( 'SHA256 : ', 'woocommerce-redsys' ) . $secretsha256_meta );
 
 		}
 
 		if ( ! empty( $currencycode ) ) {
 			$currency = $currencycode;
-		} else {
-			if ( ! empty( $currency_codes ) ) {
-				$currency = $currency_codes[ get_woocommerce_currency() ];
-			}
+		} elseif ( ! empty( $currency_codes ) ) {
+			$currency = $currency_codes[ get_woocommerce_currency() ];
 		}
 
 		$mi_obj = new WooRedsysAPI();
-		$mi_obj->setParameter( 'DS_MERCHANT_AMOUNT', $amount );
-		$mi_obj->setParameter( 'DS_MERCHANT_ORDER', $transaction_id );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
-		$mi_obj->setParameter( 'DS_MERCHANT_CURRENCY', $currency );
-		$mi_obj->setParameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
-		$mi_obj->setParameter( 'DS_MERCHANT_TERMINAL', $terminal );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
-		$mi_obj->setParameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
-		$mi_obj->setParameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-		$mi_obj->setParameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
+		$mi_obj->set_parameter( 'DS_MERCHANT_AMOUNT', $amount );
+		$mi_obj->set_parameter( 'DS_MERCHANT_ORDER', $transaction_id );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTCODE', $this->customer );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CURRENCY', $currency );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TRANSACTIONTYPE', $transaction_type );
+		$mi_obj->set_parameter( 'DS_MERCHANT_TERMINAL', $terminal );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTURL', $final_notify_url );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLOK', add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_URLKO', $order->get_cancel_order_url() );
+		$mi_obj->set_parameter( 'DS_MERCHANT_CONSUMERLANGUAGE', '001' );
+		$mi_obj->set_parameter( 'DS_MERCHANT_PRODUCTDESCRIPTION', WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+		$mi_obj->set_parameter( 'DS_MERCHANT_MERCHANTNAME', $this->commercename );
 
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', '*********************************' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $this->customer );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
-			$this->log->add( 'paygold', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
-			$this->log->add( 'paygold', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
-			$this->log->add( 'paygold', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
-			$this->log->add( 'paygold', ' ' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'Data sent to Redsys for refund', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', '*********************************' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'URL to Redsys : ', 'woocommerce-redsys' ) . $redsys_adr );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_AMOUNT : ', 'woocommerce-redsys' ) . $amount );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_ORDER : ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_MERCHANTCODE : ', 'woocommerce-redsys' ) . $this->customer );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_CURRENCY : ', 'woocommerce-redsys' ) . $currency );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_TRANSACTIONTYPE : ', 'woocommerce-redsys' ) . $transaction_type );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_TERMINAL : ', 'woocommerce-redsys' ) . $terminal );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_MERCHANTURL : ', 'woocommerce-redsys' ) . $final_notify_url );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_URLOK : ', 'woocommerce-redsys' ) . add_query_arg( 'utm_nooverride', '1', $this->get_return_url( $order ) ) );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_URLKO : ', 'woocommerce-redsys' ) . $order->get_cancel_order_url() );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_CONSUMERLANGUAGE : 001', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_PRODUCTDESCRIPTION : ', 'woocommerce-redsys' ) . WCRed()->clean_data( WCRed()->product_description( $order, $this->id ) ) );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_MERCHANTNAME : ', 'woocommerce-redsys' ) . $this->commercename );
+			WCRed()->log( 'paygold', __( 'DS_MERCHANT_AUTHORISATIONCODE : ', 'woocommerce-redsys' ) . $autorization_code );
+			WCRed()->log( 'paygold', __( 'Ds_Merchant_TransactionDate : ', 'woocommerce-redsys' ) . $autorization_date );
+			WCRed()->log( 'paygold', __( 'ask_for_refund Asking por order #: ', 'woocommerce-redsys' ) . $order_id );
+			WCRed()->log( 'paygold', ' ' );
 		}
 
 		$version   = 'HMAC_SHA256_V1';
 		$request   = '';
-		$params    = $mi_obj->createMerchantParameters();
-		$signature = $mi_obj->createMerchantSignature( $secretsha256 );
+		$params    = $mi_obj->create_merchant_parameters();
+		$signature = $mi_obj->create_merchant_signature( $secretsha256 );
 
 		$post_arg = wp_remote_post(
 			$redsys_adr,
@@ -1332,11 +1514,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		);
 		if ( is_wp_error( $post_arg ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', __( 'There is an error', 'woocommerce-redsys' ) );
-				$this->log->add( 'paygold', '*********************************' );
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', __( 'There is an error', 'woocommerce-redsys' ) );
+				WCRed()->log( 'paygold', '*********************************' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', __( 'The error is : ', 'woocommerce-redsys' ) . $post_arg );
 			}
 			return $post_arg;
 		}
@@ -1352,12 +1534,12 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$order        = WCRed()->get_order( (int) $order_id );
 		$order_refund = get_transient( $order->get_id() . '_redsys_refund' );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
-			$this->log->add( 'paygold', '*****************************************' );
-			$this->log->add( 'paygold', ' ' );
-			$this->log->add( 'paygold', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
-			$this->log->add( 'paygold', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'Checking and waiting ping from Redsys', 'woocommerce-redsys' ) );
+			WCRed()->log( 'paygold', '*****************************************' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', __( 'Check order status #: ', 'woocommerce-redsys' ) . $order->get_id() );
+			WCRed()->log( 'paygold', __( 'Check order status with get_transient: ', 'woocommerce-redsys' ) . $order_refund );
 		}
 		if ( 'yes' === $order_refund ) {
 			return true;
@@ -1379,7 +1561,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 
 		$transaction_id = WCRed()->get_redsys_order_number( $order_id );
 		if ( 'yes' === $this->debug ) {
-			$this->log->add( 'paygold', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
+			WCRed()->log( 'paygold', __( '$order_id#: ', 'woocommerce-redsys' ) . $transaction_id );
 		}
 		if ( ! $amount ) {
 			$order_total_sign = WCRed()->redsys_amount_format( $order->get_total() );
@@ -1389,14 +1571,14 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 
 		if ( ! empty( $transaction_id ) ) {
 			if ( 'yes' === $this->debug ) {
-				$this->log->add( 'paygold', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
+				WCRed()->log( 'paygold', __( 'check_redsys_refund Asking for order #: ', 'woocommerce-redsys' ) . $order_id );
 			}
 
 			$refund_asked = $this->ask_for_refund( $order_id, $transaction_id, $order_total_sign );
 
 			if ( is_wp_error( $refund_asked ) ) {
 				if ( 'yes' === $this->debug ) {
-					$this->log->add( 'paygold', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
+					WCRed()->log( 'paygold', __( 'Refund Failed: ', 'woocommerce-redsys' ) . $refund_asked->get_error_message() );
 				}
 				return new WP_Error( 'error', $refund_asked->get_error_message() );
 			}
@@ -1404,50 +1586,50 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 			do {
 				sleep( 5 );
 				$result = $this->check_redsys_refund( $order_id );
-				$x++;
+				++$x;
 			} while ( $x <= 20 && false === $result );
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'paygold', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/********************************/' );
-				$this->log->add( 'paygold', '  Refund complete by Redsys   ' );
-				$this->log->add( 'paygold', '/********************************/' );
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', '  The final has come, this story has ended  ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', __( 'check_redsys_refund = true ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/********************************/' );
+				WCRed()->log( 'paygold', '  Refund complete by Redsys   ' );
+				WCRed()->log( 'paygold', '/********************************/' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			if ( 'yes' === $this->debug && ! $result ) {
-				$this->log->add( 'paygold', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
+				WCRed()->log( 'paygold', __( 'check_redsys_refund = false ', 'woocommerce-redsys' ) . $result );
 			}
 			if ( $result ) {
 				delete_transient( $order->get_id() . '_redsys_refund' );
 				return true;
 			} else {
 				if ( 'yes' === $this->debug && $result ) {
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'paygold', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
-					$this->log->add( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', ' ' );
-					$this->log->add( 'paygold', '/******************************************/' );
-					$this->log->add( 'paygold', '  The final has come, this story has ended  ' );
-					$this->log->add( 'paygold', '/******************************************/' );
-					$this->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'paygold', __( '!!!!Refund Failed, please try again!!!!', 'woocommerce-redsys' ) );
+					WCRed()->log( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/******************************************/' );
+					WCRed()->log( 'paygold', '  The final has come, this story has ended  ' );
+					WCRed()->log( 'paygold', '/******************************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
 				return false;
 			}
 		} else {
 			if ( 'yes' === $this->debug && $result ) {
-				$this->log->add( 'paygold', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
-				$this->log->add( 'paygold', ' ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', '  The final has come, this story has ended  ' );
-				$this->log->add( 'paygold', '/******************************************/' );
-				$this->log->add( 'paygold', ' ' );
+				WCRed()->log( 'paygold', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
+				WCRed()->log( 'paygold', ' ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', '  The final has come, this story has ended  ' );
+				WCRed()->log( 'paygold', '/******************************************/' );
+				WCRed()->log( 'paygold', ' ' );
 			}
 			return new WP_Error( 'error', __( 'Refund Failed: No transaction ID', 'woocommerce-redsys' ) );
 		}
@@ -1477,20 +1659,20 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		$class_redsys = new WC_Gateway_Paygold_Redsys();
 
 		if ( 'yes' === $class_redsys->debug ) {
-			$class_redsys->log->add( 'paygold', ' ' );
-			$class_redsys->log->add( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-			$class_redsys->log->add( 'paygold', '     paygold_bulk_actions_handler   ' );
-			$class_redsys->log->add( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
-			$class_redsys->log->add( 'paygold', '$redirect_to = ' . $redirect_to );
-			$class_redsys->log->add( 'paygold', '$doaction = ' . $doaction );
-			$class_redsys->log->add( 'paygold', '$user_ids = ' . print_r( $user_ids, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
-			$class_redsys->log->add( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+			WCRed()->log( 'paygold', ' ' );
+			WCRed()->log( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+			WCRed()->log( 'paygold', '     paygold_bulk_actions_handler   ' );
+			WCRed()->log( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
+			WCRed()->log( 'paygold', '$redirect_to = ' . $redirect_to );
+			WCRed()->log( 'paygold', '$doaction = ' . $doaction );
+			WCRed()->log( 'paygold', '$user_ids = ' . print_r( $user_ids, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+			WCRed()->log( 'paygold', '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!' );
 		}
 
 		if ( 'paygold_send_paygold_email_subscription_token' === $doaction ) {
 			// Enviar enlace Paygol para conseguir Token Suscripción.
 			if ( 'yes' === $class_redsys->debug ) {
-				$class_redsys->log->add( 'paygold', __( 'Doing Bulk Actions: paygold_send_paygold_email_subscription_token', 'woocommerce-redsys' ) );
+				WCRed()->log( 'paygold', __( 'Doing Bulk Actions: paygold_send_paygold_email_subscription_token', 'woocommerce-redsys' ) );
 			}
 			foreach ( $user_ids as $user_id ) {
 				$user_info   = get_userdata( $user_id );
@@ -1505,11 +1687,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				);
 				$result      = WCRed()->send_paygold_link( false, $data );
 				if ( 'yes' === $class_redsys->debug ) {
-					$class_redsys->log->add( 'paygold', ' ' );
-					$class_redsys->log->add( 'paygold', '/******************************************/' );
-					$class_redsys->log->add( 'paygold', '  Result for user ID ' . $user_id . ' > ' . $result );
-					$class_redsys->log->add( 'paygold', '/******************************************/' );
-					$class_redsys->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/******************************************/' );
+					WCRed()->log( 'paygold', '  Result for user ID ' . $user_id . ' > ' . $result );
+					WCRed()->log( 'paygold', '/******************************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
 			}
 			$redirect_to = add_query_arg( 'paygold_send_paygold_email_subscription_token', count( $user_ids ), $redirect_to );
@@ -1519,7 +1701,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 		if ( 'paygold_send_paygold_email_oneclic_token' === $doaction ) {
 			// Enviar enlace Paygol para conseguir Token 1clic.
 			if ( 'yes' === $class_redsys->debug ) {
-				$class_redsys->log->add( 'paygold', __( 'Doing Bulk Actions: paygold_send_paygold_email_oneclic_token', 'woocommerce-redsys' ) );
+				WCRed()->log( 'paygold', __( 'Doing Bulk Actions: paygold_send_paygold_email_oneclic_token', 'woocommerce-redsys' ) );
 			}
 			foreach ( $user_ids as $user_id ) {
 				$user_info   = get_userdata( $user_id );
@@ -1534,11 +1716,11 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
 				);
 				$result      = WCRed()->send_paygold_link( false, $data );
 				if ( 'yes' === $class_redsys->debug ) {
-					$class_redsys->log->add( 'paygold', ' ' );
-					$class_redsys->log->add( 'paygold', '/******************************************/' );
-					$class_redsys->log->add( 'paygold', '  Result for user ID ' . $user_id . ' > ' . $result );
-					$class_redsys->log->add( 'paygold', '/******************************************/' );
-					$class_redsys->log->add( 'paygold', ' ' );
+					WCRed()->log( 'paygold', ' ' );
+					WCRed()->log( 'paygold', '/******************************************/' );
+					WCRed()->log( 'paygold', '  Result for user ID ' . $user_id . ' > ' . $result );
+					WCRed()->log( 'paygold', '/******************************************/' );
+					WCRed()->log( 'paygold', ' ' );
 				}
 			}
 			$redirect_to = add_query_arg( 'paygold_send_paygold_email_oneclic_token', count( $user_ids ), $redirect_to );
@@ -1603,7 +1785,7 @@ class WC_Gateway_Paygold_Redsys extends WC_Payment_Gateway {
  *
  * @param array $methods Payment methods.
  */
-function woocommerce_add_gateway_paygold_redsys( $methods ) {
+function woocommerce_add_gateway_paygold_redsys( $methods ) { // phpcs:ignore Universal.Files.SeparateFunctionsFromOO.Mixed
 		$methods[] = 'WC_Gateway_Paygold_Redsys';
 		return $methods;
 }

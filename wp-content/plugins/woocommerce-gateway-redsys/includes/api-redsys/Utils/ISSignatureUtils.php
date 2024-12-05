@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable
 	/**
 	 * NOTA SOBRE LA LICENCIA DE USO DEL SOFTWARE
 	 *
@@ -30,36 +30,29 @@ if ( ! class_exists( 'ISSignatureUtils' ) ) {
 		//
 		//
 		/******  3DES static function  ******/
-		private static function encrypt_3DES( $message, $key ) {
+		private static function encrypt_3des( $message, $key ) {
 
 			// Se establece un IV por defecto
-			$bytes = array( 0, 0, 0, 0, 0, 0, 0, 0 ); // byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0}
-			$iv    = implode( array_map( 'chr', $bytes ) ); // PHP 4 >= 4.0.2
-
-			// Se cifra
-			if ( phpversion() < 7 ) {
-				$ciphertext = mcrypt_encrypt( MCRYPT_3DES, $key, $message, MCRYPT_MODE_CBC, $iv ); // PHP 4 >= 4.0.2
-				return $ciphertext;
-			} else {
-				$l       = ceil( strlen( $message ) / 8 ) * 8;
-				$message = $message . str_repeat( "\0", $l - strlen( $message ) );
-				return substr( openssl_encrypt( $message, 'des-ede3-cbc', $key, OPENSSL_RAW_DATA, "\0\0\0\0\0\0\0\0" ), 0, $l );
-			}
+			$bytes   = array( 0, 0, 0, 0, 0, 0, 0, 0 ); // byte [] IV = {0, 0, 0, 0, 0, 0, 0, 0}
+			$iv      = implode( array_map( 'chr', $bytes ) ); // PHP 4 >= 4.0.2
+			$l       = ceil( strlen( $message ) / 8 ) * 8;
+			$message = $message . str_repeat( "\0", $l - strlen( $message ) );
+			return substr( openssl_encrypt( $message, 'des-ede3-cbc', $key, OPENSSL_RAW_DATA, "\0\0\0\0\0\0\0\0" ), 0, $l );
 		}
 
 		/******  Base64 static functions  ******/
 		private static function base64_url_encode( $input ) {
-			return strtr( base64_encode( $input ), '+/', '-_' );
+			return strtr( base64_encode( $input ), '+/', '-_' ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 		}
-		private static function encodeBase64( $data ) {
-			$data = base64_encode( $data );
+		private static function encode_base64( $data ) {
+			$data = base64_encode( $data ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_encode
 			return $data;
 		}
 		private static function base64_url_decode( $input ) {
-			return base64_decode( strtr( $input, '-_', '+/' ) );
+			return base64_decode( strtr( $input, '-_', '+/' ) ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 		}
-		private static function decodeBase64( $data ) {
-			$data = base64_decode( $data );
+		private static function decode_base64( $data ) {
+			$data = base64_decode( $data ); // phpcs:ignore WordPress.PHP.DiscouragedPHPFunctions.obfuscation_base64_decode
 			return $data;
 		}
 
@@ -77,48 +70,48 @@ if ( ! class_exists( 'ISSignatureUtils' ) ) {
 		//
 
 		/******  Obtener Número de pedido ******/
-		private static function getOrder( $datos ) {
-			$vars = json_decode( self::decodeBase64( $datos ), true );
+		private static function get_order( $datos ) {
+			$vars = json_decode( self::decode_base64( $datos ), true );
 
-			$numPedido = '';
+			$num_pedido = '';
 			if ( empty( $vars['DS_MERCHANT_ORDER'] ) ) {
-				$numPedido = $vars['Ds_Merchant_Order'];
+				$num_pedido = $vars['Ds_Merchant_Order'];
 			} else {
-				$numPedido = $vars['DS_MERCHANT_ORDER'];
+				$num_pedido = $vars['DS_MERCHANT_ORDER'];
 			}
-			return $numPedido;
+			return $num_pedido;
 		}
 		/******  Obtener Número de pedido ******/
-		private static function getOrderNotif( $datos ) {
-			$vars = json_decode( self::decodeBase64( $datos ), true );
+		private static function get_order_notif( $datos ) {
+			$vars = json_decode( self::decode_base64( $datos ), true );
 
-			$numPedido = '';
+			$num_pedido = '';
 			if ( empty( $vars['Ds_Order'] ) ) {
-				$numPedido = $vars['DS_ORDER'];
+				$num_pedido = $vars['DS_ORDER'];
 			} else {
-				$numPedido = $vars['Ds_Order'];
+				$num_pedido = $vars['Ds_Order'];
 			}
-			return $numPedido;
+			return $num_pedido;
 		}
 
-		public static function createMerchantSignature( $key, $ent ) {
+		public static function create_merchant_signature( $key, $ent ) {
 			// Se decodifica la clave Base64
-			$key = self::decodeBase64( $key );
+			$key = self::decode_base64( $key );
 			// Se diversifica la clave con el Número de Pedido
-			$key = self::encrypt_3DES( self::getOrder( $ent ), $key );
+			$key = self::encrypt_3des( self::get_order( $ent ), $key );
 			// MAC256 del parámetro Ds_MerchantParameters
 			$res = self::mac256( $ent, $key );
 			// Se codifican los datos Base64
-			return self::encodeBase64( $res );
+			return self::encode_base64( $res );
 		}
 
-		public static function createMerchantSignatureNotif( $key, $datos ) {
+		public static function create_merchant_signature_notif( $key, $datos ) {
 			// Se decodifica la clave Base64
-			$key = self::decodeBase64( $key );
+			$key = self::decode_base64( $key );
 			// Se decodifican los datos Base64
 			$decodec = self::base64_url_decode( $datos );
 			// Se diversifica la clave con el Número de Pedido
-			$key = self::encrypt_3DES( self::getOrderNotif( $datos ), $key );
+			$key = self::encrypt_3des( self::get_order_notif( $datos ), $key );
 			// MAC256 del parámetro Ds_Parameters que envía Redsys
 			$res = self::mac256( $datos, $key );
 			// Se codifican los datos Base64

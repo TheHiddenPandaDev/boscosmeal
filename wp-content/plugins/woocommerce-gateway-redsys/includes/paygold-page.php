@@ -6,8 +6,8 @@
  * @since 16.0.0
  * @author José Conti.
  * @link https://joseconti.com
- * @link https://redsys.joseconti.com
- * @link https://woo.com/products/redsys-gateway/
+ * @link https://plugins.joseconti.com
+ * @link https://woocommerce.com/products/redsys-gateway/
  * @license GNU General Public License v3.0
  * @license URI: http://www.gnu.org/licenses/gpl-3.0.html
  * @copyright 2013-2024 José Conti.
@@ -53,8 +53,6 @@ function paygold_page() {
 				echo '<p>' . esc_html__( 'You must fill all the fields', 'woocommerce-redsys' ) . '</p>';
 				return;
 			}
-
-			$log        = new WC_Logger();
 			$data       = array();
 			$user_id    = sanitize_text_field( wp_unslash( $_POST['woo_search_users_paygold_label_field'] ) ); // User ID.
 			$token_type = sanitize_text_field( wp_unslash( $_POST['token_type'] ) ); // R or C.
@@ -68,7 +66,7 @@ function paygold_page() {
 				'description' => $description,
 			);
 			if ( 'yes' === WCRed()->get_redsys_option( 'debug', 'paygold' ) ) {
-				$log->add( 'paygold', '$data: ' . print_r( $data, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
+				WCRed()->log( 'paygold', '$data: ' . print_r( $data, true ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_print_r
 			}
 
 			$result = WCRed()->send_paygold_link( false, $data );
